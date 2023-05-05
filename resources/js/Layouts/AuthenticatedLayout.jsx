@@ -1,0 +1,267 @@
+import { useState } from "react";
+import ApplicationLogo from "@/Components/ApplicationLogo";
+import Dropdown from "@/Components/Dropdown";
+import NavLink from "@/Components/NavLink";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
+import { Link } from "@inertiajs/react";
+
+export default function Authenticated({ auth, header, children }) {
+    const [showingNavigationDropdown, setShowingNavigationDropdown] =
+        useState(false);
+
+    return (
+        <div className="min-h-screen bg-gray-100">
+            <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+                <a
+                    className="navbar-brand col-md-3 col-lg-2 me-0 px-3"
+                    href="#"
+                >
+                    <img
+                        src={`/storage/logo/Logo-Apha.png`}
+                        className="img-fluid img-dash"
+                    />
+                </a>
+                <button
+                    className="navbar-toggler position-absolute d-md-none collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#sidebarMenu"
+                    aria-controls="sidebarMenu"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <input
+                    className="form-control form-control-dark w-100"
+                    type="text"
+                    placeholder="Search"
+                    aria-label="Search"
+                />
+                <div className="navbar-nav">
+                    <div className="nav-item text-nowrap">
+                        <ResponsiveNavLink
+                            className="nav-link px-3"
+                            method="post"
+                            href={route("logout")}
+                            as="button"
+                        >
+                            Log Out
+                        </ResponsiveNavLink>
+                    </div>
+                </div>
+            </header>
+
+            <div className="container-fluid">
+                <div className="row">
+                    <nav
+                        id="sidebarMenu"
+                        className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+                    >
+                        <div className="position-sticky pt-3">
+                            <ul className="nav flex-column">
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route("dashboard")}
+                                        active={route().current("dashboard")}
+                                    >
+                                        <i className="fas ic fa-home"></i>
+                                        Dashboard
+                                    </NavLink>
+                                </li>
+                                {/*Berita*/}
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a data-bs-toggle="collapse" href="#berita">
+                                        <i className="fa-solid ic fa-newspaper"></i>
+                                        Berita
+                                    </a>
+                                    <div className="collapse" id="berita">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.news.index"
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-home"></i>
+                                                    List Berita
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/*end news*/}
+                                {/*Berita*/}
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a data-bs-toggle="collapse" href="#event">
+                                        <i className="fa-solid ic  fa-calendar-day"></i>
+                                        Event
+                                    </a>
+                                    <div className="collapse" id="event">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.news.index"
+                                                    )}
+                                                >
+                                                    <i className="fas ic  fa-calendar-plus"></i>
+                                                    List Event
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/*end news*/}
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route("dashboard")}
+                                        active={route().current("dashboard")}
+                                    >
+                                        <i className="fas ic fa-person-shelter"></i>
+                                        Pengurus
+                                    </NavLink>
+                                </li>
+                            </ul>
+
+                            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Publikasi</span>
+                                <a
+                                    className="link-secondary"
+                                    href="#"
+                                    aria-label="Add a new report"
+                                >
+                                    <span data-feather="plus-circle"></span>
+                                </a>
+                            </h6>
+                            <ul className="nav flex-column mb-2">
+                                {/*Book*/}
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a data-bs-toggle="collapse" href="#buku">
+                                        <i className="fa-solid ic fa-book"></i>
+                                        Buku
+                                    </a>
+                                    <div className="collapse" id="buku">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    href={route(
+                                                        "admin.dashboard.buku.index"
+                                                    )}
+                                                    className="nav-link px-3"
+                                                >
+                                                    <i className="fas ic fa-newspaper"></i>
+                                                    List Buku
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/*end news*/}
+
+                                {/*Berita*/}
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a
+                                        data-bs-toggle="collapse"
+                                        href="#prosiding"
+                                    >
+                                        <i className="fa-sharp ic fa-solid fa-paperclip"></i>
+                                        Prosiding
+                                    </a>
+                                    <div className="collapse" id="prosiding">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    href="/newsteller"
+                                                    className="nav-link px-3"
+                                                >
+                                                    <i className="fas ic fa-newspaper"></i>
+                                                    List Prosiding
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/*end news*/}
+                            </ul>
+
+                            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Photo</span>
+                                <a
+                                    className="link-secondary"
+                                    href="#"
+                                    aria-label="Add a new report"
+                                >
+                                    <span data-feather="plus-circle"></span>
+                                </a>
+                            </h6>
+                            <ul className="nav flex-column mb-2">
+                                {/*Galeri*/}
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a data-bs-toggle="collapse" href="#galeri">
+                                        <i className="fa-solid ic fa-camera-retro"></i>
+                                        Galeri
+                                    </a>
+                                    <div className="collapse" id="galeri">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    href={route(
+                                                        "admin.dashboard.galeri.index"
+                                                    )}
+                                                    className="nav-link px-3"
+                                                >
+                                                    <i className="fas ic fa-file-image"></i>
+                                                    List Galeri
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href={route(
+                                                        "admin.dashboard.banner.index"
+                                                    )}
+                                                    className="nav-link px-3"
+                                                >
+                                                    <i class="fa-sharp ic fa-solid fa-image"></i>
+                                                    List Banner
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/*end news*/}
+
+                                {/*<li className="nav-item">
+                                    <a className="nav-link" href="#">
+                                        <span data-feather="file-text"></span>
+                                        Last quarter
+                                    </a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">
+                                        <span data-feather="file-text"></span>
+                                        Social engagement
+                                    </a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">
+                                        <span data-feather="file-text"></span>
+                                        Year-end sale
+                                    </a>
+                                </li> */}
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                        {children}
+                    </main>
+                </div>
+            </div>
+        </div>
+    );
+}
