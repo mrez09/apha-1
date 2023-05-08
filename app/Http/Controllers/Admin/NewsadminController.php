@@ -67,6 +67,7 @@ class NewsadminController extends Controller
 
     public function update(Update $request, News $news){
         $data = $request->validated();
+        $data['slug'] = Str::slug($data ['judul']);
         if($request->file('img')){
             $data['img'] = Storage::disk("public")->put('news', $request->file('img'));
             Storage::disk("public")->delete($news->img);

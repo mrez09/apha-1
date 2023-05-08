@@ -78,7 +78,7 @@ Route::prefix('/accounts')->name('accounts.')->group(function () {
 
 Route::prefix('pengurus')->group(function () {
     route::get('/dewan-penasehat', function () {
-        return Inertia::render('Pengurus/Penasehat');
+        return Inertia::render('Pengurus/Dewan');
     });
     route::get('/dewan-pengurus', function () {
         return Inertia::render('Pengurus/Pengurus');
@@ -170,8 +170,6 @@ Route::prefix('buku')->name('buku')->group(function () {
     
 });
 
-Route::inertia('/beranda', 'Welcome');
-Route::inertia('/dewan-penasehat', 'Penasehat');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

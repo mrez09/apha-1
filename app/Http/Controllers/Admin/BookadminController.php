@@ -50,7 +50,7 @@ class BookadminController extends Controller
         //return $request->all();
     }
 
-    public function show(News $news){
+    public function show(Buku $buku){
         //return Inertia::render('Admin/News/Create');
         //return $request->all();
     }

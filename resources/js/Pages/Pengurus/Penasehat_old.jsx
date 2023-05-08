@@ -7,11 +7,11 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-export default function Pengurus(props) {
+export default function Welcome(props) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     return (
         <FrontendLayout>
-            <Head title="Lembaga Studi Hukum Indonesia" />
+            <Head title="Dewan Penasehat Lembaga Studi Hukum Indonesia" />
 
             <div className="container marketing">
                 <div className="row">

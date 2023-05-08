@@ -108,4 +108,9 @@ class GaleriadminController extends Controller
             );
         //return $news;
     }
+
+    public function show(Galeri $galeri){
+        //return Inertia::render('Admin/News/Create');
+        //return $request->all();
+    }
 }

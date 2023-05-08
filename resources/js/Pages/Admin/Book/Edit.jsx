@@ -273,7 +273,8 @@ export default function List(props) {
                                     //config={editorConfiguration}
                                     editor={ClassicEditor}
                                     name="konten"
-                                    data={props.buku.decription}
+                                    //data={props.buku.decription}
+
                                     onReady={(editor) => {
                                         // You can store the "editor" and use when it is needed.
                                         console.log(
