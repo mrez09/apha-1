@@ -18,7 +18,7 @@ class HomeController extends Controller
         $featuredNews   = News::whereIsFeatured(true)->get();
         $news           = News::all();
         $featuredBuku   = Buku::whereIsFeatured(true)->get();
-        $featuredBanner   = Galeri::whereIsFeatured(true)->whereCategory("Banner")->get();
+        $featuredBanner = Galeri::whereIsFeatured(true)->whereCategory("Banner")->get();
 
         return inertia ('Home',[
             'featuredBanner'  => $featuredBanner,

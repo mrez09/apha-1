@@ -28,7 +28,7 @@ export default function Welcome({
 
     return (
         <FrontendLayout>
-            <Head title="Asosiasi Pengajar Hukum Adat" />
+            <Head title="Home" />
 
             <main>
                 <div

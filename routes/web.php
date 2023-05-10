@@ -8,11 +8,13 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsadminController;
 use App\Http\Controllers\Admin\BookadminController;
 use App\Http\Controllers\Admin\GaleriadminController;
 use App\Http\Controllers\Admin\BanneradminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -76,28 +78,28 @@ Route::prefix('/accounts')->name('accounts.')->group(function () {
     })->name('register');
 });
 
-Route::prefix('pengurus')->group(function () {
+Route::prefix('pengurus')->name('pengurus.')->group(function () {
     route::get('/dewan-penasehat', function () {
-        return Inertia::render('Pengurus/Dewan');
-    });
+        return Inertia::render('Pengurus/Dewan_Penasehat');
+    })->name('dewan-penasehat');
     route::get('/dewan-pengurus', function () {
-        return Inertia::render('Pengurus/Pengurus');
-    });
+        return Inertia::render('Pengurus/Dewan_Pengurus');
+    })->name('dewan-pengurus');
 });
 
-Route::prefix('organisasi')->group(function () {
+Route::prefix('organisasi')->name('organisasi.')->group(function () {
     route::get('/badan-hukum', function () {
         return Inertia::render('Organisasi/Badan_hukum');
-    });
+    })->name('badan_hukum');
     route::get('/struktur', function () {
         return Inertia::render('Organisasi/Struktur');
-    });
+    })->name('struktur');
     route::get('/sejarah', function () {
         return Inertia::render('Organisasi/Sejarah');
-    });
+    })->name('sejarah');
     route::get('/program-kerja', function () {
         return Inertia::render('Organisasi/ProgramKerja');
-    });
+    })->name('programkerja');
 });
 
 /*
@@ -154,21 +156,31 @@ Route::prefix('/')->name('front')->group(function (){
     Route::get('news/{news:slug}', [NewsController::class, 'show'])->name('news.show');
     Route::get('news/{id}/edit', [NewsController::class, 'edit'])->name('news.edit');
 
+    //Buku
+    Route::resource('buku', BukuController::class);
+    Route::get('buku/{news:slug}', [BukuController::class, 'show'])->name('buku.show');
+    Route::get('buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
+
     //News
     Route::resource('galeri', GaleriController::class);
     //Route::get('galeri/{galeri:slug}', [GaleriController::class, 'show'])->name('news.show');
     Route::get('galeri/{id}/edit', [GaleriController::class, 'edit'])->name('news.edit');
 
+    //News
+    Route::resource('contact', ContactController::class);
+    //Route::get('galeri/{galeri:slug}', [GaleriController::class, 'show'])->name('news.show');
+    //Route::get('galeri/{id}/edit', [GaleriController::class, 'edit'])->name('news.edit');
+
     //buku
-    Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
+    //Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
     
 });
 
-Route::prefix('buku')->name('buku')->group(function () {
-    route::get('/', [BukuController::class, 'index']);
+//Route::prefix('buku')->name('buku')->group(function () {
+  //  route::get('/', [BukuController::class, 'index']);
     
     
-});
+//});
 
 
 Route::get('/dashboard', function () {

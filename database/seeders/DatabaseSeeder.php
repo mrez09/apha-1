@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BukuTableSeeder::class);
         $this->call(GaleriTableSeeder::class);
         $this->call(NewsTableSeeder::class);
+        $this->call(ContactTableSeeder::class);
     }
 }

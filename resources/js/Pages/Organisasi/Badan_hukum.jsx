@@ -24,7 +24,7 @@ function classNames(...classes) {
 export default function Badan_Hukum(props) {
     return (
         <FrontendLayout>
-            <Head title="Lembaga Studi Hukum Indonesia" />
+            <Head title="Badan Hukum" />
 
             <section class="py-5 text-center bg-sec">
                 <div class="row py-lg-5">
@@ -54,7 +54,8 @@ export default function Badan_Hukum(props) {
                 <h2>SK Badan Hukum</h2>
                 <embed
                     type="application/pdf"
-                    src="https://penerbit.lshi.or.id/assets/image/apha/File/Akte.pdf"
+                    //src="https://penerbit.lshi.or.id/assets/image/apha/File/Akte.pdf"
+                    src={`/storage/file/Akte-Apha.pdf`}
                     width="800"
                     height="800"
                 ></embed>

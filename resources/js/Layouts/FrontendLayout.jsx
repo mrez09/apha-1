@@ -6,13 +6,13 @@ export default function Guest({ children }, props) {
         <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="/">
+                    <Link className="navbar-brand" href={route("frontindex")}>
                         <img
-                            src={`/storage/logo/Logo-Apha.png`}
+                            src={`/storage/logo/Logo-Apha.gif`}
                             //src="https://penerbit.lshi.or.id/assets/image/logo/Logo-Apha.png"
                             className="img-fluid img-logo"
                         />
-                    </a>
+                    </Link>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -30,13 +30,13 @@ export default function Guest({ children }, props) {
                     >
                         <ul className="navbar-nav me-auto mb-2 mb-md-0">
                             <li className="nav-item">
-                                <a
+                                <Link
                                     className="nav-link"
                                     aria-current="page"
-                                    href="/"
+                                    href={route("frontindex")}
                                 >
                                     Home
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item dropdown">
                                 <a
@@ -50,20 +50,24 @@ export default function Guest({ children }, props) {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li>
-                                        <a
+                                        <Link
                                             className="dropdown-item"
-                                            href="/pengurus/dewan-penasehat"
+                                            href={route(
+                                                "pengurus.dewan-penasehat"
+                                            )}
                                         >
                                             Dewan Penasehat
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a
+                                        <Link
                                             className="dropdown-item"
-                                            href="/pengurus/dewan-pengurus"
+                                            href={route(
+                                                "pengurus.dewan-pengurus"
+                                            )}
                                         >
                                             Dewan Pengurus
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </li>
@@ -80,36 +84,35 @@ export default function Guest({ children }, props) {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li>
-                                        <a
+                                        <Link
                                             className="dropdown-item"
-                                            href="/organisasi/badan-hukum"
+                                            href={route(
+                                                "organisasi.badan_hukum"
+                                            )}
                                         >
                                             Badan Hukum
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
                                         <a
                                             className="dropdown-item"
-                                            href="/organisasi/sejarah"
+                                            href={route("organisasi.sejarah")}
                                         >
                                             Sejarah dan Perkembangan
                                         </a>
                                     </li>
                                     <li>
-                                        <a
+                                        <Link
                                             className="dropdown-item"
-                                            href="/organisasi/struktur"
+                                            href={route("organisasi.struktur")}
                                         >
                                             Struktur
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a
-                                            className="dropdown-item"
-                                            href="/organisasi/program-kerja"
-                                        >
+                                        <Link className="dropdown-item" href="">
                                             Program Kerja
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </li>
@@ -128,7 +131,7 @@ export default function Guest({ children }, props) {
                                     <li>
                                         <a
                                             className="dropdown-item"
-                                            href="/buku"
+                                            href={route("frontbuku.index")}
                                         >
                                             Buku
                                         </a>
@@ -143,25 +146,27 @@ export default function Guest({ children }, props) {
                                         </a>
                                     </li>
                                     <li>
-                                        <a
+                                        <Link
                                             className="dropdown-item"
-                                            href="/prosiding"
+                                            href={route("frontbuku.index")}
                                         >
                                             Prosiding
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a
+                                        <Link
                                             className="dropdown-item"
-                                            href="/news"
+                                            href={route("frontnews.index")}
                                         >
                                             Newsteller
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </li>
 
-                            <li className="nav-item dropdown">
+                            {/*Hideon*/}
+
+                            {/*<li className="nav-item dropdown">
                                 <a
                                     className="nav-link dropdown-toggle"
                                     href="#"
@@ -206,25 +211,25 @@ export default function Guest({ children }, props) {
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>*/}
 
                             <li className="nav-item">
-                                <a
+                                <Link
                                     className="nav-link "
                                     aria-current="page"
-                                    href="/galeri"
+                                    href={route("frontgaleri.index")}
                                 >
                                     Galeri
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a
+                                <Link
                                     className="nav-link "
                                     aria-current="page"
-                                    href="/contact"
+                                    href={route("frontcontact.index")}
                                 >
                                     Contact
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -308,23 +313,26 @@ export default function Guest({ children }, props) {
                                 </div>
                                 <ul>
                                     <li>
-                                        <a href="#">Buku</a>
+                                        <Link href={route("frontbuku.index")}>
+                                            Buku
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="#">Kajian</a>
+                                        <a href="https://jial-apha.or.id/">
+                                            Jurnal{" "}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="#">Jurnal </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Prosiding</a>
+                                        <a href={route("frontbuku.index")}>
+                                            Prosiding
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                             <div className="col-md-6    col-lg-4 open-hours">
                                 <div className="footer-title title-logo">
                                     <img
-                                        src={`/storage/logo/Logo-Apha.png`}
+                                        src={`/storage/logo/Logo-Apha.gif`}
                                         className="img-fluid img-footer"
                                     />
                                     <ul className="footer-social">
