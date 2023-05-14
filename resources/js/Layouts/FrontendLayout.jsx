@@ -150,7 +150,7 @@ export default function Guest({ children }, props) {
                                     <li>
                                         <Link
                                             className="dropdown-item"
-                                            href={route("frontbuku.index")}
+                                            href={route("frontprosiding.index")}
                                         >
                                             Prosiding
                                         </Link>
@@ -344,7 +344,11 @@ export default function Guest({ children }, props) {
                                         </a>
                                     </li>
                                     <li>
-                                        <Link href="#">Prosiding</Link>
+                                        <Link
+                                            href={route("frontprosiding.index")}
+                                        >
+                                            Prosiding
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
