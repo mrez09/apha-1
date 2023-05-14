@@ -344,9 +344,7 @@ export default function Guest({ children }, props) {
                                         </a>
                                     </li>
                                     <li>
-                                        <Link href={route("frontbuku.index")}>
-                                            Prosiding
-                                        </Link>
+                                        <Link href="#">Prosiding</Link>
                                     </li>
                                 </ul>
                             </div>
