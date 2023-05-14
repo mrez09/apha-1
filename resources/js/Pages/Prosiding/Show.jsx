@@ -1,38 +1,55 @@
+import GuestLayout from "@/Layouts/GuestLayout";
 import FrontendLayout from "@/Layouts/FrontendLayout";
+import NavbarGuest from "@/Pages/layouts/frontend/NavbarApha";
 import { Link, Head } from "@inertiajs/react";
+import ListNews from "@/Components/News/ListNews";
 import moment from "moment";
 import parse from "html-react-parser";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { useState, useCallback } from "react";
+import { Fragment, useState } from "react";
+import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+import { useCallback } from "react";
 
-export default function List({ featuredBuku, news, props }) {
-    //Copy Button
+export default function Show({ featuredBuku, prosiding, props }) {
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    //const parse = require("html-react-parser");
+    //Homes
     const [copied, setCopied] = useState(false);
+    const onChange = useCallback(({ target: { value } }) => {
+        setValue(value);
+        setCopied(true);
+    }, []);
+    const onClick = useCallback(({ target: { innerText } }) => {
+        console.log(`Clicked on "${innerText}"!`);
+    }, []);
     const onCopy = useCallback(() => {
         setCopied(true);
     }, []);
     const url_homes = window.location.href;
-    //const parse = require("html-react-parser");
     return (
         <FrontendLayout>
             <Head title="Asosiasi Pengajar Hukum Adat" />
             <div className="container">
-                <div className="row g-5 d-flex justify-content-center">
-                    <div className="col-md-11 ">
-                        <article className="blog-post mt-5">
-                            <h2 className="blog-post-title">{news.judul}</h2>
-                            <p className="blog-post-meta">
-                                {moment(news.publish_at).format(
-                                    "dddd D MMMM YYYY"
-                                )}
-                            </p>
-                            <img
-                                src={`/storage/${news.img}`}
-                                className="rounded img-fluid img-thumbnail"
-                                alt=""
-                            />
-                            <div className="kon-10">{parse(news.konten)}</div>
+                <div className="row g-5 d-flex justify-content-center mt-5">
+                    <h2 className="blog-post-title">{prosiding.name}</h2>
+                    <p className="blog-post-meta mt-0">
+                        {moment(prosiding.created_at).format(
+                            "dddd D MMMM YYYY"
+                        )}
+                    </p>
+                    <div className="col-md-6 img-center">
+                        <img
+                            src={`/storage/${prosiding.thumbnail}`}
+                            className="rounded img-fluid book-thumbnail"
+                            alt=""
+                        />
+                    </div>
+                    <div className="col-md-6 mt-2   ">
+                        <article className="blog-post ">
+                            <div className="kon-10">
+                                {parse(prosiding.decription)}
+                            </div>
                             <hr />
                             <div className="detail-article__share-wrapper">
                                 <b>SHARE</b>

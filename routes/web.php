@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\ProsidingController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Foundation\Application;
@@ -158,8 +159,13 @@ Route::prefix('/')->name('front')->group(function (){
 
     //Buku
     Route::resource('buku', BukuController::class);
-    Route::get('buku/{news:slug}', [BukuController::class, 'show'])->name('buku.show');
+    Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
     Route::get('buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
+
+    //Prosiding
+    Route::resource('prosiding', ProsidingController::class);
+    Route::get('prosiding/{prosiding:slug}', [ProsidingController::class, 'show'])->name('prosiding.show');
+    Route::get('prosiding/{id}/edit', [ProsidingController::class, 'edit'])->name('prosiding.edit');
 
     //News
     Route::resource('galeri', GaleriController::class);

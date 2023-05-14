@@ -1,14 +1,20 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DataTable from "datatables.net-dt";
 import { Head } from "@inertiajs/react";
+import React, { useState } from "react";
 import NavLink from "@/Components/NavLink";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 export default function List(props) {
+    const [startDate, setStartDate] = useState(new Date());
+    //const changeDate = (e) => setDate(e.target.value);
     let table = new DataTable("#myTable", {
         // options
         destroy: true,
@@ -25,6 +31,7 @@ export default function List(props) {
         konten: "",
         view: 0,
         is_featured: false,
+        publish_at: "",
     });
 
     const onHandleChange = (event) => {
@@ -49,13 +56,13 @@ export default function List(props) {
                 <h1 className="h2">Tambah Berita</h1>
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <Link
+                        <a
                             type="button"
-                            href={route("dashboard")}
+                            href="/dashboard/news"
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -142,6 +149,37 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
+                                <label className="form-label">
+                                    Tanggal Upload
+                                </label>
+                                <div className="form-control">
+                                    <DatePicker
+                                        showIcon
+                                        name="publish_at"
+                                        selected={startDate}
+                                        showTimeSelect={true}
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        className="form-control"
+                                        //onChange={(e) => setData("publish_at", date)}
+                                        onChange={(date) => {
+                                            setStartDate(date);
+                                            setData("publish_at", date);
+                                            console.log({ date });
+                                        }}
+
+                                        //onChange={(e) =>
+                                        //  setData(
+                                        //    "is_featured",
+                                        //  e.target.checked
+                                        //)
+                                        //}
+                                        //onChange={onHandleChange}
+                                        //onSelect={(date, e) => setStartDate(date)}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-12">
                                 <label className="form-label">Feature</label>
                                 <div className="form-check">
                                     <input
@@ -158,7 +196,7 @@ export default function List(props) {
                                         Berita Ditampilkan sebagai
                                         fitur/rekomendasi
                                     </label>
-                                    <div className="invalid-feedback">
+                                    <div>
                                         <InputError
                                             message={errors.is_featured}
                                             className="mt-2"

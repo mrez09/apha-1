@@ -33,6 +33,7 @@ class Store extends FormRequest
             'konten'  => 'nullable',
             'view'  => 'nullable',
             'img'       => 'required|image',
+            'publish_at'       => 'nullable',
             
         ];
     }

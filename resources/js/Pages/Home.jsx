@@ -13,7 +13,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-export default function Welcome({
+export default function Home({
     auth,
     errors,
     flashMessage,
@@ -22,8 +22,6 @@ export default function Welcome({
     featuredBuku,
     featuredBanner,
 }) {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
     const { delete: destroy } = useForm();
 
     return (
@@ -33,7 +31,7 @@ export default function Welcome({
             <main>
                 <div
                     id="myCarousel"
-                    className="carousel slide"
+                    className="carousel slide ca-res"
                     data-bs-ride="carousel"
                 >
                     <div className="carousel-indicators">
@@ -51,17 +49,11 @@ export default function Welcome({
                             data-bs-slide-to="1"
                             aria-label="Slide 2"
                         ></button>
-                        <button
-                            type="button"
-                            data-bs-target="#myCarousel"
-                            data-bs-slide-to="2"
-                            aria-label="Slide 3"
-                        ></button>
                     </div>
                     <div className="carousel-inner">
                         <div className="carousel-item active">
                             <img
-                                src="https://penerbit.lshi.or.id/assets/image/apha/Banner-Web-1.png"
+                                src={`/storage/banner/main/Background_Apha.png`}
                                 className="bd-placeholder-img"
                                 width="100%"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -73,20 +65,23 @@ export default function Welcome({
                             <div className="container">
                                 <div className="carousel-caption text-start">
                                     <h1 className="text-black">
-                                        Apha On Clinic
+                                        Selamat Datang di Website
                                     </h1>
                                     <p className="text-black">
+                                        Asosiasi Pengajar Hukum Adat
+                                    </p>
+                                    {/*<p className="text-black">
                                         Pembuatan Proposal Penelitian Masyarakat
                                         Hukum Adat Berstandar Hibah Dikti
-                                    </p>
-                                    <p>
+    </p>*/}
+                                    {/*<p>
                                         <a
                                             className="btn btn-lg btn-primary"
                                             href="https://docs.google.com/forms/d/10IndOTXK25dkLSg4n84x6thGbc3cTpQ5jhCRpYeRq4k/prefill"
                                         >
                                             Sign up today
                                         </a>
-                                    </p>
+    </p>*/}
                                 </div>
                             </div>
                         </div>
@@ -105,12 +100,12 @@ export default function Welcome({
                                 <div className="container">
                                     <div className="carousel-caption text-start">
                                         <h1 className="text-black">
-                                            {banner.name}
+                                            {/*banner.name*/}
                                         </h1>
                                         <p className="text-black">
-                                            {parse(banner.decription)}
+                                            {/*parse(banner.decription)*/}
                                         </p>
-                                        <p>
+                                        {/*<p>
                                             <a
                                                 className="btn btn-lg btn-primary"
                                                 target="_blank"
@@ -119,7 +114,7 @@ export default function Welcome({
                                             >
                                                 Go
                                             </a>
-                                        </p>
+                        </p>*/}
                                     </div>
                                 </div>
                             </div>
@@ -224,8 +219,11 @@ export default function Welcome({
                     <h1>News</h1>
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         {news.map((news) => (
-                            <Link href={route("frontnews.show", news.slug)}>
-                                <div key={news.id} className="col">
+                            <Link
+                                key={news.id}
+                                href={route("frontnews.show", news.slug)}
+                            >
+                                <div className="col">
                                     <div className="card shadow-sm">
                                         <img
                                             src={`/storage/${news.img}`}
@@ -244,10 +242,15 @@ export default function Welcome({
                                             </p>
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <p>
-                                                    {moment(
-                                                        news.publish_time
+                                                    {/*moment(
+                                                        news.publish_at
                                                     ).format(
                                                         "dddd D MMMM YYYY"
+                                                    )*/}
+                                                    {moment(
+                                                        news.publish_at
+                                                    ).format(
+                                                        "dddd D MMMM YYYY "
                                                     )}
                                                 </p>
                                             </div>
@@ -266,8 +269,11 @@ export default function Welcome({
                     <h1>Buku</h1>
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         {featuredBuku.map((news) => (
-                            <Link href={route("frontbuku.show", news.slug)}>
-                                <div key={news.id} className="col">
+                            <Link
+                                key={news.id}
+                                href={route("frontbuku.show", news.slug)}
+                            >
+                                <div className="col">
                                     <div className="card shadow-sm">
                                         <img
                                             src={`/storage/${news.thumbnail}`}

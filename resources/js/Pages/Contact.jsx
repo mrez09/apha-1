@@ -1,48 +1,70 @@
-import { Link, Head } from "@inertiajs/react";
+import { Link, Head, useForm } from "@inertiajs/react";
+import FlashMessage from "@/Components/FlashMessage";
 import FrontendLayout from "@/Layouts/FrontendLayout";
-import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
-import {
-    ArrowPathIcon,
-    BookOpenIcon,
-    PaperClipIcon,
-    Bars3Icon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    BuildingOfficeIcon,
-    BuildingOffice2Icon,
-    FingerPrintIcon,
-    NewspaperIcon,
-    VideoCameraIcon,
-    XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Fragment, useState, useRef } from "react";
+import InputError from "@/Components/InputError";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
 export default function Contact(props) {
+    const myRef = useRef(null);
+    const { setData, post, processing, errors } = useForm({
+        firstname: "",
+        lastname: "",
+        phone: "",
+        email: "",
+        message: "",
+        read: false,
+    });
+    const onHandleChange = (event) => {
+        setData(
+            event.target.name,
+            event.target.type === "file"
+                ? event.target.files[0]
+                : event.target.value
+        );
+    };
+    const submit = (e) => {
+        e.preventDefault();
+        console.log("Test Input");
+        e.target.reset();
+
+        post(route("frontcontact.store"));
+        myRef.current.scrollIntoView();
+    };
+
     return (
         <FrontendLayout>
-            <Head title="Lembaga Studi Hukum Indonesia" />
+            <Head title="Contact US" />
 
-            <section class="py-5 text-center bg-sec">
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                        <h1 class="fw-light">Kontak Kami</h1>
+            <section className="py-1 text-center bg-sec">
+                <div className="row  crumble">
+                    <div className="col-lg-12 col-md-12 mx-auto head-bread">
+                        <h1 className="f-bread">Kontak Kami</h1>
+
+                        <p className="lead-bread py-1">
+                            Asosiasi Pengajar Hukum Adat
+                        </p>
                     </div>
                 </div>
             </section>
             <nav className="" aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumber">
-                    <li class="breadcrumb-item ">
+                <ol className="breadcrumb breadcrumber">
+                    <li className="breadcrumb-item ">
                         <a href="#">Home</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">
+                    <li className="breadcrumb-item active" aria-current="page">
                         Kontak Kami
                     </li>
                 </ol>
             </nav>
+            <div className="container">
+                {props.flashMessage?.message && (
+                    <FlashMessage message={props.flashMessage.message} />
+                )}
+            </div>
 
             <div className="container">
                 <iframe
@@ -53,109 +75,107 @@ export default function Contact(props) {
                     loading="lazy"
                 ></iframe>
 
-                <div class="container">
-                    <div class="row align-items-stretch no-gutters contact-wrap">
-                        <div class="col-md-8">
-                            <div class="form h-100">
-                                <h3>Send us a message</h3>
-                                <form
-                                    class="mb-5"
-                                    method="post"
-                                    id="contactForm"
-                                    name="contactForm"
-                                >
-                                    <div class="row">
-                                        <div class="col-md-6 form-group mb-5">
-                                            <label
-                                                for=""
-                                                class="col-form-label"
-                                            >
-                                                Name *
+                <div ref={myRef} className="container">
+                    <div className="row align-items-stretch no-gutters contact-wrap">
+                        <div className="col-md-8">
+                            <div className="form h-100">
+                                <h3>GET IN TOUCH</h3>
+
+                                <form className="mb-5" onSubmit={submit}>
+                                    <div className="row">
+                                        <div className="col-md-6 form-group mb-5">
+                                            <label className="col-form-label">
+                                                First Name *
                                             </label>
                                             <input
                                                 type="text"
-                                                class="form-control"
-                                                name="name"
-                                                id="name"
-                                                placeholder="Your name"
+                                                className="form-contact form-control"
+                                                name="firstname"
+                                                id="firstname"
+                                                placeholder="Your First Name"
+                                                onChange={onHandleChange}
+                                            />
+                                            <InputError
+                                                message={errors.firstname}
+                                                className="mt-2"
                                             />
                                         </div>
-                                        <div class="col-md-6 form-group mb-5">
-                                            <label
-                                                for=""
-                                                class="col-form-label"
-                                            >
-                                                Email *
+                                        <div className="col-md-6 form-group mb-5">
+                                            <label className="col-form-label">
+                                                Last Name
                                             </label>
                                             <input
                                                 type="text"
-                                                class="form-control"
-                                                name="email"
-                                                id="email"
-                                                placeholder="Your email"
+                                                className="form-contact form-control"
+                                                name="lastname"
+                                                id="lastname"
+                                                placeholder="Your Last Name"
+                                                onChange={onHandleChange}
                                             />
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6 form-group mb-5">
-                                            <label
-                                                for=""
-                                                class="col-form-label"
-                                            >
+                                    <div className="row">
+                                        <div className="col-md-6 form-group mb-5">
+                                            <label className="col-form-label">
                                                 Phone
                                             </label>
                                             <input
                                                 type="text"
-                                                class="form-control"
+                                                className="form-contact form-control"
                                                 name="phone"
                                                 id="phone"
                                                 placeholder="Phone #"
+                                                onChange={onHandleChange}
                                             />
                                         </div>
-                                        <div class="col-md-6 form-group mb-5">
-                                            <label
-                                                for=""
-                                                class="col-form-label"
-                                            >
-                                                Company
+                                        <div className="col-md-6 form-group mb-5">
+                                            <label className="col-form-label">
+                                                Email *
                                             </label>
                                             <input
-                                                type="text"
-                                                class="form-control"
-                                                name="company"
-                                                id="company"
-                                                placeholder="Company  name"
+                                                type="email"
+                                                className="form-contact form-control"
+                                                name="email"
+                                                id="email"
+                                                placeholder="Your Email "
+                                                onChange={onHandleChange}
+                                            />
+                                            <InputError
+                                                message={errors.email}
+                                                className="mt-2"
                                             />
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-12 form-group mb-5">
-                                            <label
-                                                for="message"
-                                                class="col-form-label"
-                                            >
+                                    <div className="row">
+                                        <div className="col-md-12 form-group mb-5">
+                                            <label className="col-form-label">
                                                 Message *
                                             </label>
                                             <textarea
-                                                class="form-control"
+                                                className="form-contact  form-control"
                                                 name="message"
                                                 id="message"
                                                 cols="30"
                                                 rows="4"
                                                 placeholder="Write your message"
+                                                onChange={onHandleChange}
                                             ></textarea>
+                                            <InputError
+                                                message={errors.message}
+                                                className="mt-2"
+                                            />
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12 form-group">
+                                    <div className="row">
+                                        <div className="col-md-12 form-group">
                                             <input
                                                 type="submit"
                                                 value="Send Message"
-                                                class="btn btn-primary rounded-0 py-2 px-4"
+                                                className="btn btn-primary rounded-0 py-2 px-4"
                                             />
-                                            <span class="submitting"></span>
+                                            <span className="submitting"></span>
                                         </div>
                                     </div>
                                 </form>
@@ -166,31 +186,46 @@ export default function Contact(props) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="contact-info h-100">
+                        <div className="col-md-4 guts-c">
+                            <div className="contact-info h-100 ">
                                 <h3>Contact Information</h3>
-                                <p class="mb-5">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Molestias, magnam!
+                                <p className="mb-5 con-p">
+                                    What do you have to say to us?
                                 </p>
-                                <ul class="list-unstyled">
-                                    <li class="d-flex">
-                                        <span class="wrap-icon icon-room mr-3"></span>
-                                        <span class="text">
-                                            9757 Aspen Lane South Richmond Hill,
-                                            NY 11419
+                                <ul className="list-unstyled">
+                                    <li className="d-flex">
+                                        <i className="fas ic fa-location-dot"></i>
+                                        <span className="a-link">
+                                            <a
+                                                className="a-link"
+                                                target="_blank"
+                                                href="https://goo.gl/maps/gqQE1wstP2YHe9xM7?coh=178572&entry=tt"
+                                            >
+                                                Jl. Kyai Tapa No.1 Grogol
+                                                Jakarta Barat
+                                            </a>
                                         </span>
                                     </li>
-                                    <li class="d-flex">
-                                        <span class="wrap-icon icon-phone mr-3"></span>
-                                        <span class="text">
-                                            +1 (291) 939 9321
+                                    <li className="d-flex">
+                                        <i className="fas ic fa-phone"></i>
+                                        <span className="a-link">
+                                            <a
+                                                className="a-link"
+                                                href="tel:+6287883256166"
+                                            >
+                                                (+62) 878-8325-6166
+                                            </a>
                                         </span>
                                     </li>
-                                    <li class="d-flex">
-                                        <span class="wrap-icon icon-envelope mr-3"></span>
-                                        <span class="text">
-                                            info@mywebsite.com
+                                    <li className="d-flex">
+                                        <i className="fas ic fa-envelope"></i>
+                                        <span>
+                                            <a
+                                                className="a-link"
+                                                href="mailto:apha.sekretariat@gmail.com"
+                                            >
+                                                apha.sekretariat@gmail.com
+                                            </a>
                                         </span>
                                     </li>
                                 </ul>

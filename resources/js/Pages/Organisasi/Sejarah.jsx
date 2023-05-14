@@ -1,37 +1,36 @@
 import { Link, Head } from "@inertiajs/react";
 import FrontendLayout from "@/Layouts/FrontendLayout";
-
-import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
-import {
-    ArrowPathIcon,
-    BookOpenIcon,
-    PaperClipIcon,
-    Bars3Icon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    BuildingOfficeIcon,
-    BuildingOffice2Icon,
-    FingerPrintIcon,
-    NewspaperIcon,
-    VideoCameraIcon,
-    XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Fragment, useState, useCallback } from "react";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
 export default function Pengurus(props) {
+    const [copied, setCopied] = useState(false);
+    const onChange = useCallback(({ target: { value } }) => {
+        setValue(value);
+        setCopied(true);
+    }, []);
+    const onClick = useCallback(({ target: { innerText } }) => {
+        console.log(`Clicked on "${innerText}"!`);
+    }, []);
+    const onCopy = useCallback(() => {
+        setCopied(true);
+    }, []);
+    const url_homes = window.location.href;
+
     return (
         <FrontendLayout>
             <Head title="Lembaga Studi Hukum Indonesia" />
 
-            <section className="py-5 text-center bg-sec">
-                <div className="row py-lg-5">
-                    <div className="col-lg-6 col-md-8 mx-auto">
-                        <h1 className="fw-light">Sejarah</h1>
-                        <p className="lead text-muted">
+            <section className="py-1 text-center bg-sec">
+                <div className="row  crumble">
+                    <div className="col-lg-12 col-md-12 mx-auto head-bread">
+                        <h1 className="f-bread">Sejarah</h1>
+
+                        <p className="lead-bread py-1">
                             Asosiasi Pengajar Hukum Adat
                         </p>
                     </div>
@@ -54,8 +53,8 @@ export default function Pengurus(props) {
             <main className="container">
                 <div className="row mb-2"></div>
 
-                <div className="row g-5">
-                    <div className="col-md-8">
+                <div className="row col-md-12 g-5 mt-2">
+                    <div className="col-md-10 mx-auto">
                         <h2>Selayang Pandang </h2>
                         <h2 className="blog-post-title pb-4 mb-4 fst-italic border-bottom">
                             Asosiasi Pengajar Hukum Adat (APHA)
@@ -128,74 +127,54 @@ export default function Pengurus(props) {
                             </ol>
                         </article>
                     </div>
+                </div>
+                <hr />
+                <div className="detail-article__share-wrapper">
+                    <b>SHARE</b>
 
-                    <div className="col-md-4">
-                        <div className="position-sticky">
-                            <div className="p-4 mb-3 bg-light rounded">
-                                <h4 className="fst-italic">About</h4>
-                                <p className="mb-0">
-                                    Customize this section to tell your visitors
-                                    a little bit about your publication,
-                                    writers, content, or something else
-                                    entirely. Totally up to you.
-                                </p>
-                            </div>
+                    <div className="detail-article__share">
+                        <div className="col-md-10">
+                            <CopyToClipboard onCopy={onCopy} text={url_homes}>
+                                <span>
+                                    <img
+                                        src={`/storage/icon/Chain.gif`}
+                                        className="detail-article__share-icon"
+                                        alt="share Copy Link"
+                                    />
+                                </span>
+                            </CopyToClipboard>
 
-                            <div className="p-4">
-                                <h4 className="fst-italic">Archives</h4>
-                                <ol className="list-unstyled mb-0">
-                                    <li>
-                                        <a href="#">March 2021</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">February 2021</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">January 2021</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">December 2020</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">November 2020</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">October 2020</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">September 2020</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">August 2020</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">July 2020</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">June 2020</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">May 2020</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">April 2020</a>
-                                    </li>
-                                </ol>
-                            </div>
-
-                            <div className="p-4">
-                                <h4 className="fst-italic">Elsewhere</h4>
-                                <ol className="list-unstyled">
-                                    <li>
-                                        <a href="#">GitHub</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Twitter</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Facebook</a>
-                                    </li>
-                                </ol>
+                            <a
+                                href={`https://api.whatsapp.com/send?text=${url_homes}`}
+                                //"https://api.whatsapp.com/send?text={url_homes}"
+                                className="detail-article__share-link"
+                                target="_blank"
+                            >
+                                <img
+                                    src={`/storage/icon/Whatsapp.gif`}
+                                    className="detail-article__share-icon"
+                                    alt="share whatsapp icon"
+                                />
+                            </a>
+                            <a
+                                href={`https://facebook.com/sharer.php?u=${url_homes}`}
+                                //href="https://facebook.com/sharer.php?u=https://apindo.or.id/en/media/forum-pengusaha-umkm-malut-sepakati-pembentukan-holding-company"
+                                className="detail-article__share-link"
+                                target="_blank"
+                            >
+                                <img
+                                    //src="https://apindo.or.id/images/share-facebook.png"
+                                    src={`/storage/icon/Facebook.gif`}
+                                    className="detail-article__share-icon"
+                                    alt="share link facebook"
+                                />
+                            </a>
+                            <div>
+                                {copied ? (
+                                    <span style={{ color: "red" }}>
+                                        Text berhasil dicopy
+                                    </span>
+                                ) : null}
                             </div>
                         </div>
                     </div>

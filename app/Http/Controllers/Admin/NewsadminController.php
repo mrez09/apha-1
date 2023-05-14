@@ -75,6 +75,10 @@ class NewsadminController extends Controller
             $data['img'] = $news->img;
         }
 
+        //$path = Storage::url('public');
+
+        //$img = '<img src"' .$path.'" alt=""/>';
+
         $news->update($data);
         return redirect(route('admin.dashboard.news.index'))->with(
             [
@@ -84,7 +88,7 @@ class NewsadminController extends Controller
             );
         
         
-        //kreturn $update->all();
+        //return $request->all();
         //return $news;
         //return Inertia::render('Admin/News/Create');
         

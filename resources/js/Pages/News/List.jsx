@@ -5,11 +5,7 @@ import { Link, Head } from "@inertiajs/react";
 import ListNews from "@/Components/News/ListNews";
 import moment from "moment";
 
-import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
-
 export default function List({ featuredBuku, news, props }) {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     return (
         <FrontendLayout>
             <Head title="Asosiasi Pengajar Hukum Adat" />
@@ -31,8 +27,8 @@ export default function List({ featuredBuku, news, props }) {
                                 img={`/storage/${listNews.img}`}
                                 slug={listNews.slug}
                                 judul={listNews.judul}
-                                publish={moment(listNews.publish_time).format(
-                                    "dddd D MMMM YYYY"
+                                publish={moment(listNews.publish_at).format(
+                                    "dddd D MMMM YYYY "
                                 )}
                             />
                         ))}

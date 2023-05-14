@@ -39,7 +39,7 @@ export default function List(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("admin.dashboard.book.store"));
+        post(route("admin.dashboard.buku.store"));
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>

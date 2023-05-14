@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galeris', function (Blueprint $table) {
+        Schema::create('prosidings', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('slug', 100);
+            $table->string('name', 255);
+            $table->string('slug', 255);
             $table->string('category', 100);
             $table->string('url')->nullable();
-            $table->string('img');
-            $table->string('decription');
+            $table->string('thumbnail');
+            $table->text('decription');
+            $table->float('rating')->default(0);
             $table->boolean('is_featured')->default(false);
             $table->timestamps();
             $table->softDeletes();
-            
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('galeris');
+        Schema::dropIfExists('prosidings');
     }
 };

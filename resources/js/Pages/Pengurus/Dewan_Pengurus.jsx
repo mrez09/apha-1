@@ -26,26 +26,28 @@ export default function Dewan_Pengurus(props) {
         <FrontendLayout>
             <Head title="Dewan Pengurus" />
 
-            <section class="py-5 text-center bg-sec">
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                        <h1 class="fw-light">Struktur Dewan Pengurus</h1>
+            <section className="py-1 text-center bg-sec">
+                <div className="row ">
+                    <div className="row  crumble">
+                        <div className="col-lg-12 col-md-12 mx-auto head-bread">
+                            <h1 className="">Struktur Dewan Pengurus</h1>
 
-                        <p class="lead text-muted">
-                            Asosiasi Pengajar Hukum Adat
-                        </p>
+                            <p className="lead-bread ">
+                                Asosiasi Pengajar Hukum Adat
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
             <nav className="" aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumber">
-                    <li class="breadcrumb-item ">
+                <ol className="breadcrumb breadcrumber">
+                    <li className="breadcrumb-item ">
                         <a href="#">Home</a>
                     </li>
-                    <li class="breadcrumb-item">
+                    <li className="breadcrumb-item">
                         <a href="#">Pengurus</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">
+                    <li className="breadcrumb-item active" aria-current="page">
                         Dewan Pengurus
                     </li>
                 </ol>
@@ -58,7 +60,7 @@ export default function Dewan_Pengurus(props) {
                     <h2>2017-2020</h2>
                     {/*  Dewan Pengurus */}
                     <div className="mb-10 p-3 border border-gray-200 rounded-lg">
-                        <table class="table table-borderless">
+                        <table className="table table-borderless">
                             <tbody>
                                 <tr>
                                     <td className="position">Ketua Umum</td>
@@ -113,7 +115,7 @@ export default function Dewan_Pengurus(props) {
                     <br />
                     {/*  Bidang Pendidikan dan Pelatihan */}
                     <div className="mb-10 border border-gray-200 rounded-lg card">
-                        <div class="card-header ">
+                        <div className="card-header ">
                             <h3>Bidang Pendidikan dan Pelatihan</h3>
                         </div>
                         <table className="table m-3 table-borderless">
@@ -183,7 +185,7 @@ export default function Dewan_Pengurus(props) {
                         <div className="card-header">
                             <h3>Penelitian, dan Pengembangan Hukum Adat</h3>
                         </div>
-                        <table class="table m-3 table-borderless">
+                        <table className="table m-3 table-borderless">
                             <tbody>
                                 <tr>
                                     <td className="position">Ketua</td>
@@ -251,7 +253,7 @@ export default function Dewan_Pengurus(props) {
                         <div className="card-header">
                             <h3>Bidang Organisasi</h3>
                         </div>
-                        <table class="table m-3 table-borderless">
+                        <table className="table m-3 table-borderless">
                             <tbody>
                                 <tr>
                                     <td className="position">Ketua</td>
@@ -311,7 +313,7 @@ export default function Dewan_Pengurus(props) {
                         <div className="card-header">
                             <h3>Bidang Kerjasama Antar Lembaga</h3>
                         </div>
-                        <table class="table m-3 table-borderless">
+                        <table className="table m-3 table-borderless">
                             <tbody>
                                 <tr>
                                     <td className="position">Ketua</td>
@@ -380,7 +382,7 @@ export default function Dewan_Pengurus(props) {
                                 Bidang Publikasi dan Informasi Ilmiah Hukum Adat
                             </h3>
                         </div>
-                        <table class="table m-3 table-borderless">
+                        <table className="table m-3 table-borderless">
                             <tbody>
                                 <tr>
                                     <td className="position">Ketua</td>
@@ -437,7 +439,7 @@ export default function Dewan_Pengurus(props) {
                     <br />
                     {/*  Direktur Eksekutif APHA Indonesia */}
                     <div className="mb-10 p-5 border border-gray-200 rounded-lg">
-                        <table class="table table-borderless">
+                        <table className="table table-borderless">
                             <tbody>
                                 <tr>
                                     <td className="position">

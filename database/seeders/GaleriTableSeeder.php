@@ -16,22 +16,24 @@ class GaleriTableSeeder extends Seeder
         //
         $galeri = [
             [
-                'name'          =>  'Gambar 1',
-                'slug'          =>  'gambar-1', 
+                'name'          =>  'Apha 3 Maret',
+                'slug'          =>  '2y10iokocwioottnlxaletfeoxpwel4fgjoropmrul7cgste3fnidzm', 
                 'category'      =>  'galeri',
-                'url'           =>  'https://penerbit.lshi.or.id/assets/buku/Hukum-Adat.png',
-                'img'     =>  'https://penerbit.lshi.or.id/buku/hukum-adat',
-                'decription'    =>  'Masyarakat hukum adat disebut juga dengan istilah “masyarakat tradisional” atau the indigenous people.',
+                'url'           =>  '',
+                'img'     =>  'galeri/jxJ3wD56TBLguBYAFNOfTsBF0RQWM3giKcAZImQg.jpg',
+                'decription'    =>  'Apha 3 Maret',
                 'is_featured'   =>  1,
+                'created_at'    => '2023-04-01 16:48:12'
             ],
             [
-                'name'          =>  'Gambar 2',
-                'slug'          =>  'gambar-2', 
+                'name'          =>  'Apha 3 Maret',
+                'slug'          =>  '2y10nckkkjql3utn08k4tjgmopyw8vnfxe0tqpfyglvo8nkpfyezsek', 
                 'category'      =>  'galeri',
-                'url'           =>  'https://penerbit.lshi.or.id/assets/buku/Hukum-Adat.png',
-                'img'     =>  'https://penerbit.lshi.or.id/buku/hukum-adat',
-                'decription'    =>  'Masyarakat hukum adat disebut juga dengan istilah “masyarakat tradisional” atau the indigenous people.',
+                'url'           =>  '',
+                'img'     =>  'galeri/yMAU09EbreKmjtfpuEvDftQzcWBsAqPcckGbBjIB.jpg',
+                'decription'    =>  'Apha 3 Maret',
                 'is_featured'   =>  1,
+                'created_at'    => '2023-04-01 16:48:12'
             ]
                 
         ];

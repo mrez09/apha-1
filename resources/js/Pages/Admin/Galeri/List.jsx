@@ -90,7 +90,7 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                                     <td>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.banner.edit",
+                                                "admin.dashboard.galeri.edit",
                                                 galeri.id
                                             )}
                                         >
@@ -102,7 +102,7 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                                             onClick={() => {
                                                 destroy(
                                                     route(
-                                                        "admin.dashboard.banner.destroy",
+                                                        "admin.dashboard.galeri.destroy",
                                                         news.id
                                                     )
                                                 );

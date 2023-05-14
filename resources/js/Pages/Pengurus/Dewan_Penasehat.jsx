@@ -26,26 +26,26 @@ export default function Dewan_Penasehat(props) {
         <FrontendLayout>
             <Head title="Dewan Penasehat" />
 
-            <section class="py-5 text-center bg-sec">
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                        <h1 class="fw-light">Struktur Dewan Penasehat</h1>
+            <section className="py-1 text-center bg-sec">
+                <div className="row  crumble">
+                    <div className="col-lg-12 col-md-12 mx-auto head-bread">
+                        <h1 className="f-bread">Struktur Dewan Penasehat</h1>
 
-                        <p class="lead text-muted">
+                        <p className="lead-bread py-1">
                             Asosiasi Pengajar Hukum Adat
                         </p>
                     </div>
                 </div>
             </section>
             <nav className="" aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumber">
-                    <li class="breadcrumb-item ">
+                <ol className="breadcrumb breadcrumber">
+                    <li className="breadcrumb-item ">
                         <a href="#">Home</a>
                     </li>
-                    <li class="breadcrumb-item">
+                    <li className="breadcrumb-item">
                         <a href="#">Pengurus</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">
+                    <li className="breadcrumb-item active" aria-current="page">
                         Dewan Penasehat
                     </li>
                 </ol>
@@ -57,7 +57,7 @@ export default function Dewan_Penasehat(props) {
 
                     <h2>2017-2020</h2>
                     <div className="mb-10 p-5 border border-gray-200 rounded-lg">
-                        <table class="table table-borderless">
+                        <table className="table table-borderless">
                             <tbody>
                                 <tr>
                                     <td className="position">Ketua Umum</td>

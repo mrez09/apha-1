@@ -28,7 +28,7 @@ class Store extends FormRequest
             //
             'name'     => 'required',
             'category'  => 'required',
-            'url'     => 'required',
+            'url'     => 'nullable',
             'is_featured'  => 'nullable',
             'rating'  => 'nullable',
             'img'       => 'required|image',

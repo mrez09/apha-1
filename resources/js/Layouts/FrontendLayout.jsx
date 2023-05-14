@@ -109,11 +109,13 @@ export default function Guest({ children }, props) {
                                             Struktur
                                         </Link>
                                     </li>
+                                    {/*
                                     <li>
                                         <Link className="dropdown-item" href="">
                                             Program Kerja
                                         </Link>
                                     </li>
+                                    */}
                                 </ul>
                             </li>
 
@@ -129,12 +131,12 @@ export default function Guest({ children }, props) {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li>
-                                        <a
+                                        <Link
                                             className="dropdown-item"
                                             href={route("frontbuku.index")}
                                         >
                                             Buku
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
                                         <a
@@ -158,7 +160,7 @@ export default function Guest({ children }, props) {
                                             className="dropdown-item"
                                             href={route("frontnews.index")}
                                         >
-                                            Newsteller
+                                            Newsletter
                                         </Link>
                                     </li>
                                 </ul>
@@ -256,25 +258,33 @@ export default function Guest({ children }, props) {
 
                                 <ul>
                                     <li>
-                                        <a href="tel:(010) 1234 4321">
-                                            <i className="fas ic fa-phone"></i>
-                                            <span className="f1">
+                                        {/*<a href="tel:(010) 1234 4321"></a>*/}
+                                        <i className="fas ic fa-phone"></i>
+                                        <span className="f1">
+                                            <a href="tel:+6288210092657">
                                                 (+62) 878-8325-6166
-                                            </span>
-                                        </a>
+                                            </a>
+                                        </span>
                                     </li>
                                     <li>
                                         <i className="fas ic fa-map-marker-alt"></i>
                                         <span className="f1">
-                                            Jl. Kyai Tapa No. 1 Grogol Jakarta
-                                            Barat
+                                            <a
+                                                target="_blank"
+                                                href="https://goo.gl/maps/gqQE1wstP2YHe9xM7?coh=178572&entry=tt"
+                                            >
+                                                Jl. Kyai Tapa No. 1 Grogol
+                                                Jakarta Barat
+                                            </a>
                                         </span>
                                     </li>
                                     <li>
                                         <i className="fas ic fa-envelope"></i>
-                                        <span className="f1">
-                                            apha.sekretariat@gmail.com
-                                        </span>
+                                        <a href="mailto:apha.sekretariat@gmail.com">
+                                            <span className="f1">
+                                                apha.sekretariat@gmail.com
+                                            </span>
+                                        </a>
                                     </li>
                                     <li>
                                         <i className="fas ic fa-clock"></i>
@@ -290,19 +300,27 @@ export default function Guest({ children }, props) {
                                 </div>
                                 <ul>
                                     <li>
-                                        <a href="#">Organisasi</a>
+                                        <Link
+                                            href={route(
+                                                "organisasi.badan_hukum"
+                                            )}
+                                        >
+                                            Organisasi
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="#">Pengurus</a>
+                                        <Link
+                                            href={route(
+                                                "pengurus.dewan-penasehat"
+                                            )}
+                                        >
+                                            Pengurus
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="#">Publikasi</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Kegiatan</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Sekretariat</a>
+                                        <Link href={route("frontbuku.index")}>
+                                            Publikasi
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
@@ -318,14 +336,17 @@ export default function Guest({ children }, props) {
                                         </Link>
                                     </li>
                                     <li>
-                                        <a href="https://jial-apha.or.id/">
+                                        <a
+                                            href="https://jial-apha.or.id/"
+                                            target="_blank"
+                                        >
                                             Jurnal{" "}
                                         </a>
                                     </li>
                                     <li>
-                                        <a href={route("frontbuku.index")}>
+                                        <Link href={route("frontbuku.index")}>
                                             Prosiding
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
@@ -365,10 +386,13 @@ export default function Guest({ children }, props) {
                                 </p>
                                 <p>
                                     Asosiasi Pengajar Hukum Adat (APHA)
-                                    Indonesia dibentuk dalam rangka meningkatkan
-                                    dan mengembangkan kapasitas anggota melalui
-                                    penyelenggaraan pendidikan, pelatihan,
-                                    penelitian, dan pengembangan hukum adat.
+                                    Indonesia dibentuk dalam usaha Mengembangkan
+                                    serta meningkatkan kemampuan anggota agar
+                                    berperan menjadi agen pembangunan terdepan
+                                    dalam usaha meneliti, mengembangkan dan
+                                    menerapkan ilmu pengetahuan hukum dan budaya
+                                    bangsa untuk meningkatkan taraf kehidupan
+                                    masyarakat.
                                 </p>
                                 <hr />
                             </div>

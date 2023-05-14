@@ -242,7 +242,6 @@ export default function List(props) {
                                             )
                                         }
                                         className="form-check-input"
-                                        checked={props.buku.is_featured}
                                     />
                                     <label className="form-check-label">
                                         Berita Ditampilkan sebagai
@@ -272,7 +271,8 @@ export default function List(props) {
                                     className="konten"
                                     //config={editorConfiguration}
                                     editor={ClassicEditor}
-                                    name="konten"
+                                    name="decription"
+                                    data={props.buku.decription}
                                     //data={props.buku.decription}
 
                                     onReady={(editor) => {
@@ -284,7 +284,7 @@ export default function List(props) {
                                     }}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
-                                        setData("konten", data);
+                                        setData("decription", data);
 
                                         console.log({ event, editor, data });
                                     }}
@@ -297,7 +297,7 @@ export default function List(props) {
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.konten}
+                                        message={errors.decription}
                                         className="mt-2"
                                     />
                                 </div>

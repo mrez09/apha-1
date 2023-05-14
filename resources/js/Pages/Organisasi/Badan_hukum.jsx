@@ -26,25 +26,26 @@ export default function Badan_Hukum(props) {
         <FrontendLayout>
             <Head title="Badan Hukum" />
 
-            <section class="py-5 text-center bg-sec">
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                        <h1 class="fw-light">Badan Hukum</h1>
-                        <p class="lead text-muted">
+            <section className="py-1 text-center bg-sec">
+                <div className="row  crumble">
+                    <div className="col-lg-12 col-md-12 mx-auto head-bread">
+                        <h1 className="f-bread">Badan Hukum</h1>
+
+                        <p className="lead-bread py-1">
                             Asosiasi Pengajar Hukum Adat
                         </p>
                     </div>
                 </div>
             </section>
             <nav className="" aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumber">
-                    <li class="breadcrumb-item ">
+                <ol className="breadcrumb breadcrumber">
+                    <li className="breadcrumb-item ">
                         <a href="#">Home</a>
                     </li>
-                    <li class="breadcrumb-item">
+                    <li className="breadcrumb-item">
                         <a href="#">Organisasi</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">
+                    <li className="breadcrumb-item active" aria-current="page">
                         Badan Hukum
                     </li>
                 </ol>

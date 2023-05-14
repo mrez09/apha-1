@@ -17,7 +17,7 @@ export default function Authenticated({ auth, header, children }) {
                     href="#"
                 >
                     <img
-                        src={`/storage/logo/Logo-Apha.png`}
+                        src={`/storage/logo/Logo-Apha.gif`}
                         className="img-fluid img-dash"
                     />
                 </a>

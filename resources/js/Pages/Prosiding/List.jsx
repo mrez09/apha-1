@@ -3,30 +3,31 @@ import FrontendLayout from "@/Layouts/FrontendLayout";
 import NavbarGuest from "@/Pages/layouts/frontend/NavbarApha";
 import { Link, Head } from "@inertiajs/react";
 import FeaturedBuku from "@/Components/Buku/FeaturedBuku";
-import ListBuku from "@/Components/Buku/ListBuku";
+import ListProsiding from "@/Components/Prosiding/ListProsiding";
 
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 
-export default function List({ featuredBuku, buku, props }) {
+export default function List({ featuredBuku, prosiding, props }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     return (
         <FrontendLayout>
-            <Head title="Buku APPHA" />
+            <Head title="Prosiding APPHA" />
 
             <div className="Container text-center">
-                <h1 className="">Buku</h1>
+                <h1 className="">Prosiding</h1>
                 <h2>Asosiasi Pengajar Hukum Adat</h2>
             </div>
 
             {/*News */}
             <div className="album py-5 bg-light">
                 <div className="container">
-                    <h1>Featured</h1>
+                    {/*<h1>Featured</h1>
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        {/*loop*/}
+                        {/*loop}
 
-                        {featuredBuku.map((featuredBukus) => (
+                        {/*
+                        featuredProsiding.map((featuredBukus) => (
                             <FeaturedBuku
                                 key={featuredBukus.id}
                                 img={`/storage/${featuredBukus.thumbnail}`}
@@ -36,14 +37,15 @@ export default function List({ featuredBuku, buku, props }) {
                                 thumbnail={featuredBukus.id}
                                 rating={featuredBukus.rating}
                             />
-                        ))}
-                    </div>
-                    <h1>Browse Book</h1>
+                        ))
+                        }
+                    </div>*/}
+                    <h1>Browse Prosiding</h1>
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         {/*loop*/}
 
-                        {buku.map((listBukus) => (
-                            <ListBuku
+                        {prosiding.map((listBukus) => (
+                            <ListProsiding
                                 key={listBukus.id}
                                 slug={listBukus.slug}
                                 img={`/storage/${listBukus.thumbnail}`}

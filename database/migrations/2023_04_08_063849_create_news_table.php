@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
-            $table->string('judul', 100);
-            $table->string('slug', 100);
+            $table->string('judul', 255);
+            $table->string('slug', 255);
             $table->string('id_user');
             $table->string('category', 100);
             $table->string('tag');
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('konten');
             $table->bigInteger('view');
             $table->boolean('is_featured')->default(false);
+            $table->string('publish_at',255);
             $table->timestamps();
             $table->softDeletes();
         });

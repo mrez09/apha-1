@@ -32,6 +32,7 @@ class Update extends FormRequest
             'is_featured'  => 'nullable',
             'konten'  => 'nullable',
             'img'       => 'nullable|image',
+            'publish_at'       => 'nullable',
             
         ];
     }

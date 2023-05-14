@@ -37,11 +37,12 @@ class BookadminController extends Controller
         $data['thumbnail'] = Storage::disk("public")->put('news', $request->file('img'));
         //$data['path'] = "/storage/".$data['img'];
         $data['slug'] = Str::slug($data ['name']);
+        
         $data['decription'] = $data ['konten'];
         //$data['id_user'] = Auth::id();
         $buku = Buku::create($data);
 
-        return redirect(route('admin.dashboard.book.index'))->with(
+        return redirect(route('admin.dashboard.buku.index'))->with(
             [
                 'message'   => "Buku Berhasil diUpdate",
                 'type'      => "success"
@@ -68,7 +69,7 @@ class BookadminController extends Controller
 
     public function update(Update $request, Buku $buku){
         $data = $request->validated();
-        $data['decription'] = $data['konten'];
+        //$data['decription'] = $data['konten'];
         $data['slug'] = Str::slug($data ['name']);
         if($request->file('img')){
             $data['thumbnail'] = Storage::disk("public")->put('buku', $request->file('img'));
@@ -77,6 +78,7 @@ class BookadminController extends Controller
             $data['img'] = $buku->img;
         }
 
+        
         
         $buku->update($data);
         return redirect(route('admin.dashboard.buku.index'))->with(

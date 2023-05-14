@@ -37,6 +37,8 @@
         "@heroicons/react": "^2.0.16",
         "datatables.net-dt": "^1.13.4",
         "html-react-parser": "^3.0.16",
-        "moment": "^2.29.4"
+        "moment": "^2.29.4",
+        "react-copy-to-clipboard": "^5.1.0",
+        "react-datepicker": "^4.11.0"
     }
 }

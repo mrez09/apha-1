@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap");
+
+/*Custom Bro*/
+.kon-10 {
+    margin-top: 30px;
+    font-size: 1rem;
+}
+
 .img-logo {
     margin-top: -10px;
     width: 200px;
@@ -8,9 +16,23 @@
 }
 
 .img-dash {
-    width: 100px;
+    width: 170px;
+    margin-top: -5px;
 }
-
+.guts-c {
+    padding: 15px;
+}
+.a-link {
+    text-decoration: none;
+    color: white;
+}
+.a-link:hover {
+    text-decoration: none;
+    color: gray;
+}
+.con-p {
+    color: white;
+}
 .text-justify {
     text-align: justify;
 }
@@ -40,15 +62,44 @@
     padding-left: 0.7rem !important;
 }
 
+/*Bread bread*/
 .bg-sec {
     background: url("/storage/logo/banner-image-bg.gif") no-repeat 0px 0px;
     background-size: cover;
-    height: 100%;
+    height: 250px;
     width: 100%;
+    color: black;
+    -webkit-text-stroke-width: 0.4px;
+    -webkit-text-stroke-color: white;
+    font-family: "Roboto Slab", serif;
+}
+.fbread {
+    font-weight: 800;
+    font-size: 2rem;
 }
 .breadcrumber {
     padding: 5px;
     background-color: #e9ecef;
+}
+
+.detail-article__share-icon {
+    width: 50px;
+    margin: 5px;
+}
+
+.crumble {
+    text-align: right;
+    padding: 20px;
+}
+.lead-bread {
+    font-size: 30px;
+}
+/* Book Pages */
+.book-thumbnail {
+    width: 80%;
+}
+.img-center {
+    text-align: center;
 }
 
 /*Caraousel*/
@@ -57,6 +108,7 @@
 -------------------------------------------------- */
 
 /* Carousel base class */
+
 .carousel {
     margin-bottom: 4rem;
 }
@@ -68,8 +120,9 @@
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
-    height: 32rem;
+    min-height: 32rem;
 }
+
 .carousel-item > img {
     position: absolute;
     top: 0;
@@ -477,16 +530,12 @@ body {
     color: #000;
 }
 
-.content {
-    padding: 7rem 0;
-}
-
 .heading {
     font-size: 2.5rem;
     font-weight: 900;
 }
 
-.form-control {
+.form-contact {
     border: none;
     border-bottom: 1px solid #ccc;
     padding-left: 0;
@@ -494,8 +543,8 @@ body {
     border-radius: 0;
     background: none;
 }
-.form-control:active,
-.form-control:focus {
+.form-contact:active,
+.form-contact:focus {
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -508,7 +557,7 @@ body {
 }
 
 .btn,
-.form-control,
+.form-contact,
 .custom-select {
     height: 45px;
 }
@@ -521,18 +570,6 @@ body {
     border-color: #000;
 }
 
-.btn {
-    border: none;
-    border-radius: 0;
-    font-size: 12px;
-    letter-spacing: 0.2rem;
-    text-transform: uppercase;
-}
-.btn.btn-primary {
-    background: #35477d;
-    color: #fff;
-    padding: 15px 20px;
-}
 .btn:hover {
     color: #fff;
 }
@@ -579,7 +616,7 @@ body {
     margin-bottom: 30px;
 }
 .contact-wrap .contact-info {
-    background: #35477d;
+    background: #222023;
 }
 .contact-wrap .contact-info h3 {
     color: #fff;
