@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\NewsadminController;
 use App\Http\Controllers\Admin\BookadminController;
 use App\Http\Controllers\Admin\GaleriadminController;
 use App\Http\Controllers\Admin\BanneradminController;
+use App\Http\Controllers\Admin\ProsidingadminController;
+use App\Http\Controllers\Admin\MainbanneradminController;
 
 
 /*
@@ -60,9 +62,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::put('galeri/{galeri}/restore', [GaleriadminController::class, 'restore'])->name('galeri.restore');
     //Banner
     Route::resource('banner', BanneradminController::class);
-    Route::get('banner/{id}/edit', [BanneradminController::class, 'edit'])->name('banner.edit');
-    Route::put('banner/{galeri}/restore', [BanneradminController::class, 'restore'])->name('banner.restore');
-    
+    Route::get('banner/{galeri:id}/edit', [BanneradminController::class, 'edit'])->name('banner.edit');
+    Route::put('banner/{banner}/restore', [BanneradminController::class, 'restore'])->name('banner.restore');
+    //Prosiding
+    Route::resource('prosiding', ProsidingadminController::class);
+    Route::get('prosiding/{id}/edit', [ProsidingadminController::class, 'edit'])->name('prosiding.edit');
+    Route::put('prosiding/{buku}/restore', [ProsidingadminController::class, 'restore'])->name('prosiding.restore');
+    //Banner
+    Route::resource('main-banner', MainbanneradminController::class);
+    Route::get('main-banner/{galeri.id}/edit', [MainbanneradminController::class, 'edit'])->name('mainbanner.edit');
+    Route::put('main-banner/{galeri}/restore', [MainbanneradminController::class, 'restore'])->name('banner.restore');
 });
 
 Route::get('/penasehat', function () {

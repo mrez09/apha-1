@@ -27,19 +27,7 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
             <Head title="Dashboard" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">List Photo</h1>
-
-                <div className="btn-toolbar mb-2 mb-md-0">
-                    <div className="btn-group me-2">
-                        <Link
-                            type="button"
-                            href={route("admin.dashboard.banner.create")}
-                            className="btn btn-sm btn-outline-secondary"
-                        >
-                            Tambah
-                        </Link>
-                    </div>
-                </div>
+                <h1 className="h2">Main Banner</h1>
             </div>
             {flashMessage?.message && (
                 <FlashMessage message={flashMessage.message} />
@@ -90,7 +78,7 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                                     <td>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.banner.edit",
+                                                "admin.dashboard.main-banner.edit",
                                                 galeri.id
                                             )}
                                         >
@@ -98,20 +86,6 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                                                 Edit
                                             </button>
                                         </Link>
-                                        <div
-                                            onClick={() => {
-                                                destroy(
-                                                    route(
-                                                        "admin.dashboard.galeri.destroy",
-                                                        news.id
-                                                    )
-                                                );
-                                            }}
-                                        >
-                                            <button className="btn btn-danger my-2">
-                                                Delete
-                                            </button>
-                                        </div>
                                     </td>
                                 </tr>
                             ))}

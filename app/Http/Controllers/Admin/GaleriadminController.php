@@ -17,7 +17,8 @@ class GaleriadminController extends Controller
 {
     //
     public function index(){
-        $galeri          = Galeri::all();
+        //$galeri          = Galeri::all();
+        $galeri          = Galeri::whereCategory("Galeri")->get();
         return Inertia::render('Admin/Galeri/List',
     [
         'galeri'          => $galeri

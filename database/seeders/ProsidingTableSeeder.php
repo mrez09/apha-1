@@ -21,7 +21,7 @@ class ProsidingTableSeeder extends Seeder
                 'category'      =>  'Hukum Adat',
                 'url'           =>  '',
                 'thumbnail'     =>  'prosiding/DsqnGXBp2L0xbc0clOBCVuPMScAKl7MVixmbJ2Lp.png',
-                'decription'    =>  '<h3>Abstrak</h3><p>Hubungan antara masyarakat hukum adat dengan sumber daya air diwujudkan sebagai
+                'description'    =>  '<h3>Abstrak</h3><p>Hubungan antara masyarakat hukum adat dengan sumber daya air diwujudkan sebagai
                 hak ulayat. Objek hak ulayat tidak hanya tanah, namun meliputi juga air, tumbuhan-tumbuhan
                 dan binatang liar. Hak ulayat secara eksplisit telah diakui keberadaannya dalam Pasal 18B
                 ayat (2) UUD 1945 yang menyatakan negara mengakui dan menghormati kesatuan-kesatuan

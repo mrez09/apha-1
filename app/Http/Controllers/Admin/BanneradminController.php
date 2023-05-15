@@ -61,7 +61,7 @@ class BanneradminController extends Controller
         //return Inertia::render('Admin/News/Create');
         //return $request->all();
         //$news           = News::all();
-        return Inertia::render('Admin/Galeri/Edit',
+        return Inertia::render('Admin/Banner/Edit',
         [
             'galeri'          => $galeri
         ]);

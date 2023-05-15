@@ -5,7 +5,7 @@ import { Head, useForm } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 
-export default function List({ auth, errors, flashMessage, props, galeri }) {
+export default function List({ auth, errors, flashMessage, props, prosiding }) {
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
         // options
@@ -20,20 +20,20 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
             errors={errors}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    List Data Photo
+                    List Data Prosiding
                 </h2>
             }
         >
             <Head title="Dashboard" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">List Photo</h1>
+                <h1 className="h2">List Prosiding</h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <Link
                             type="button"
-                            href={route("admin.dashboard.banner.create")}
+                            href={route("admin.dashboard.prosiding.create")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Tambah
@@ -54,18 +54,19 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                             <tr>
                                 <th>No</th>
                                 <th>Image</th>
-                                <th>Judul</th>
+                                <th>Name</th>
                                 <th>Category</th>
+                                <th>Rating</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {galeri.map((galeri) => (
-                                <tr key={galeri.id}>
-                                    <td>{galeri.id}</td>
+                            {prosiding.map((prosiding) => (
+                                <tr key={prosiding.id}>
+                                    <td>{prosiding.id}</td>
                                     <td>
                                         <img
-                                            src={`/storage/${galeri.img}`}
+                                            src={`/storage/${prosiding.thumbnail}`}
                                             //src={'/storage/${newslist.img}'}
                                             //src="'/storage/'${newslist.img}"
                                             //src='" . asset($dirname . $curimg) . "'
@@ -84,14 +85,15 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                                             alt=""
                                         />
                                     </td>
-                                    <td>{galeri.name}</td>
-                                    <td>{galeri.category}</td>
+                                    <td>{prosiding.name}</td>
+                                    <td>{prosiding.category}</td>
+                                    <td>{prosiding.rating}</td>
 
                                     <td>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.banner.edit",
-                                                galeri.id
+                                                "admin.dashboard.prosiding.edit",
+                                                prosiding.id
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -102,8 +104,8 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                                             onClick={() => {
                                                 destroy(
                                                     route(
-                                                        "admin.dashboard.galeri.destroy",
-                                                        news.id
+                                                        "admin.dashboard.prosiding.destroy",
+                                                        prosiding.id
                                                     )
                                                 );
                                             }}

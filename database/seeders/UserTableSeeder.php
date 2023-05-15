@@ -20,6 +20,14 @@ class UserTableSeeder extends Seeder
             'email'     =>  'mrizkiekasaputra@gmail.com',
             'password'  =>  bcrypt('Nemera07'),
         ]);
+        
+        $admin2 = User::create(
+        [
+            'name'      =>  'Administrator',
+            'email'     =>  'administrator@apha.or.id',
+            'password'  =>  bcrypt('Themis23'),
+        ]);
         $admin->assignRole('admin');
+        $admin2->assignRole('admin');
     }
 }

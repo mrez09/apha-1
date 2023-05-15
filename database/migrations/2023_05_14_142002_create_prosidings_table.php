@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('category', 100);
             $table->string('url')->nullable();
             $table->string('thumbnail');
-            $table->text('decription');
+            $table->text('description');
             $table->float('rating')->default(0);
             $table->boolean('is_featured')->default(false);
             $table->timestamps();

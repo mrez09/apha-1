@@ -176,7 +176,9 @@ export default function Authenticated({ auth, header, children }) {
                                         <ul className="navbar-nav ps-3">
                                             <li>
                                                 <a
-                                                    href="/newsteller"
+                                                    href={route(
+                                                        "admin.dashboard.prosiding.index"
+                                                    )}
                                                     className="nav-link px-3"
                                                 >
                                                     <i className="fas ic fa-newspaper"></i>
@@ -216,7 +218,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     className="nav-link px-3"
                                                 >
                                                     <i className="fas ic fa-file-image"></i>
-                                                    List Galeri
+                                                    Galeri
                                                 </a>
                                             </li>
                                             <li>
@@ -227,7 +229,18 @@ export default function Authenticated({ auth, header, children }) {
                                                     className="nav-link px-3"
                                                 >
                                                     <i class="fa-sharp ic fa-solid fa-image"></i>
-                                                    List Banner
+                                                    Banner
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href={route(
+                                                        "admin.dashboard.main-banner.index"
+                                                    )}
+                                                    className="nav-link px-3"
+                                                >
+                                                    <i class="fa-sharp ic fa-solid fa-image"></i>
+                                                    Main Banner
                                                 </a>
                                             </li>
                                         </ul>
