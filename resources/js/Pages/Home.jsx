@@ -55,7 +55,6 @@ export default function Home({
                             <img
                                 src={`/storage/banner/main/Background_Apha.png`}
                                 className="bd-placeholder-img"
-                                width="100%"
                                 xmlns="http://www.w3.org/2000/svg"
                                 aria-hidden="true"
                                 preserveAspectRatio="xMidYMid slice"
@@ -64,10 +63,10 @@ export default function Home({
 
                             <div className="container">
                                 <div className="carousel-caption text-start">
-                                    <h1 className="text-black">
+                                    <h1 className="text-black ca-head">
                                         Selamat Datang di Website
                                     </h1>
-                                    <p className="text-black">
+                                    <p className="text-black cap">
                                         Asosiasi Pengajar Hukum Adat
                                     </p>
                                     {/*<p className="text-black">
@@ -90,7 +89,6 @@ export default function Home({
                                 <img
                                     src={`/storage/${banner.img}`}
                                     className="bd-placeholder-img"
-                                    width="100%"
                                     xmlns="http://www.w3.org/2000/svg"
                                     aria-hidden="true"
                                     preserveAspectRatio="xMidYMid slice"

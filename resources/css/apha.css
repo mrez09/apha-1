@@ -68,12 +68,11 @@
     background-size: cover;
     height: 250px;
     width: 100%;
-    color: black;
-    -webkit-text-stroke-width: 0.4px;
-    -webkit-text-stroke-color: white;
+    /*-webkit-text-stroke-width: 0.1px;
+    -webkit-text-stroke-color: white;*/
     font-family: "Roboto Slab", serif;
 }
-.fbread {
+.f-bread {
     font-weight: 800;
     font-size: 2rem;
 }
@@ -90,9 +89,24 @@
 .crumble {
     text-align: right;
     padding: 20px;
+    color: #ff6300;
 }
 .lead-bread {
     font-size: 30px;
+}
+
+@media (max-width: 40em) {
+    /* Bump up size of carousel content */
+    .f-bread {
+        font-weight: 800;
+        font-size: 1.2rem;
+        padding: 5px;
+    }
+    .lead-bread {
+        margin-top: -15px;
+        font-weight: 800;
+        font-size: 1rem;
+    }
 }
 /* Book Pages */
 .book-thumbnail {
@@ -110,16 +124,19 @@
 /* Carousel base class */
 
 .carousel {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem auto;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
-    bottom: 3rem;
+    bottom: 0.5rem;
     z-index: 10;
+}
+.carousel-item > img {
+    width: 100%;
 }
 
 /* Declare heights because of positioning of img element */
-.carousel-item {
+/*.carousel-item {
     min-height: 32rem;
 }
 
@@ -128,8 +145,22 @@
     top: 0;
     left: 0;
     min-width: 100%;
-    /*height: 32rem;*/
+    /*height: 32rem;
     height: auto;
+}*/
+
+@media (max-width: 40em) {
+    /* Bump up size of carousel content */
+    .ca-head {
+        font-weight: 600;
+        font-size: 1.1rem;
+        padding-top: 5px;
+    }
+    .cap {
+        margin-top: -10px;
+        font-weight: 500;
+        font-size: 0.7rem;
+    }
 }
 
 /* MARKETING CONTENT
@@ -174,6 +205,11 @@
         margin-bottom: 1.25rem;
         font-size: 1.25rem;
         line-height: 1.4;
+    }
+
+    .carousel-caption {
+        bottom: 1rem;
+        z-index: 10;
     }
 
     .featurette-heading {
