@@ -163,6 +163,15 @@ export default function Guest({ children }, props) {
                                             Newsletter
                                         </Link>
                                     </li>
+                                    <li>
+                                        <a
+                                            className="dropdown-item"
+                                            href="https://www.youtube.com/@asosiasipengajarhukumadati2383"
+                                            target="_blank"
+                                        >
+                                            Youtube
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 

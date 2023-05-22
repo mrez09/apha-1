@@ -166,6 +166,27 @@ export default function List(props) {
                             </div>
 
                             <div className="col-md-6">
+                                <label className="form-label">Category</label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="category"
+                                    name="category"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    <option value="galeri">Galeri</option>
+                                    <option value="Banner">Banner</option>
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.category}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
                                 <label className="form-label">
                                     URL Eksternal
                                 </label>

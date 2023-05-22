@@ -29,7 +29,45 @@ export default function List({ featuredBuku, buku, props }) {
     const url_homes = window.location.href;
     return (
         <FrontendLayout>
-            <Head title="Asosiasi Pengajar Hukum Adat" />
+            <Head>
+                <title>My app</title>
+                <meta
+                    head-key="description"
+                    name="description"
+                    content={buku.name}
+                />
+                <meta
+                    head-key="whatsapp"
+                    name="whatsapp"
+                    property="og:image"
+                    content={`/storage/${buku.thumbnail}`}
+                />
+                {/*Sosial Media*/}
+                {/*Open Graph Protocol*/}
+                {/*<meta property="fb:app_id" content="your_app_id" /> */}
+                <meta property="og:title" content={buku.name} />
+
+                <meta property="og:type" content="video.movie" />
+                <meta property="og:url" content="https://www.apha.or.id" />
+                <meta
+                    property="og:image"
+                    content={`/storage/${buku.thumbnail}`}
+                />
+                {/*Twitard*/}
+                <meta
+                    name="twitter:title"
+                    content="Asosiasi Pengajar Hukum Adat "
+                />
+                <meta
+                    name="twitter:description"
+                    content=" Selamat Datang di Asosiasi Pengajar Hukum Adat"
+                />
+                <meta
+                    name="twitter:image"
+                    content={`/storage/${buku.thumbnail}`}
+                />
+                <meta name="twitter:card" content="summary_large_image" />
+            </Head>
             <div className="container">
                 <div className="row g-5 d-flex justify-content-center mt-5">
                     <h2 className="blog-post-title">{buku.name}</h2>

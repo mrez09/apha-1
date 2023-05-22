@@ -101,6 +101,7 @@
         font-weight: 800;
         font-size: 1.2rem;
         padding: 5px;
+        margin-top: 50px;
     }
     .lead-bread {
         margin-top: -15px;
@@ -167,15 +168,15 @@
   -------------------------------------------------- */
 
 /* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
+.council .col-lg-4 {
     margin-bottom: 1.5rem;
     text-align: center;
 }
-.marketing h2 {
+.council h2 {
     font-weight: 400;
 }
 /* rtl:begin:ignore */
-.marketing .col-lg-4 p {
+.council .col-lg-4 p {
     margin-right: 0.75rem;
     margin-left: 0.75rem;
 }
@@ -188,7 +189,7 @@
     margin: 5rem 0; /* Space out the Bootstrap <hr> more */
 }
 
-/* Thin out the marketing headings */
+/* Thin out the council headings */
 .featurette-heading {
     font-weight: 300;
     line-height: 1;

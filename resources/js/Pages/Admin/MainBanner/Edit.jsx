@@ -85,7 +85,7 @@ const editorConfiguration = {
     },
 };
 
-export default function List(props) {
+export default function MainBanner({ featuredBuku, galeri, props }) {
     let table = new DataTable("#myTable", {
         // options
         destroy: true,
@@ -109,12 +109,12 @@ export default function List(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        if (data.img == props.mainbanner.img) {
+        if (data.img == props.galeri.img) {
             delete data.img;
         }
 
         router.post(
-            route("admin.dashboard.mainbanner.update", props.mainbanner.id),
+            route("admin.dashboard.mainbanner.update", props.galeri.id),
             {
                 _method: "PUT",
                 ...data,
@@ -127,7 +127,7 @@ export default function List(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Photo : <p>{props.mainbanner.name}</p>
+                    Update Photo : <p>{galeri.name}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">

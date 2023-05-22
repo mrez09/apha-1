@@ -113,5 +113,54 @@ class GaleriadminController extends Controller
     public function show(Galeri $galeri){
         //return Inertia::render('Admin/News/Create');
         //return $request->all();
+        return Inertia::render('Admin/Galeri/Edit',
+        [
+            'galeri'          => $galeri
+        ]);
+    }
+
+    //Banner Galeri
+
+    public function banner(Galeri $galeri){
+        //return $news;
+        //return Inertia::render('Admin/News/Create');
+        //return $request->all();
+        //$news           = News::all();
+        return Inertia::render('Admin/Banner/Edit',
+        [
+            'galeri'          => $galeri
+        ]);
+    }
+
+    public function updatebanner(Update $request, Galeri $galeri){
+        $data = $request->validated();
+        $data['enk'] = Hash::make($data ['name']);
+        $data['slug'] = Str::slug($data ['enk']);
+        if($request->file('img')){
+            $data['img'] = Storage::disk("public")->put('galeri', $request->file('img'));
+            Storage::disk("public")->delete($galeri->img);
+        } else {
+            $data['img'] = $galeri->img;
+        }
+
+        $galeri->update($data);
+        return redirect(route('admin.dashboard.galeri.index'))->with(
+            [
+                'message'   => "Photo Berhasil diUpdate",
+                'type'      => "success"
+            ]
+            );
+        
+        
+        
+        //return $request->all();
+        //return $news;
+        //return Inertia::render('Admin/News/Create');
+        
+        //$news           = News::all();
+        //return Inertia::render('Admin/News/Edit',
+        //[
+          //  'news'          => $news
+        //]);
     }
 }

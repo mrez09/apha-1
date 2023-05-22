@@ -10,13 +10,15 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsadminController;
 use App\Http\Controllers\Admin\BookadminController;
 use App\Http\Controllers\Admin\GaleriadminController;
 use App\Http\Controllers\Admin\BanneradminController;
 use App\Http\Controllers\Admin\ProsidingadminController;
-use App\Http\Controllers\Admin\MainbanneradminController;
+
+//use App\Http\Controllers\Admin\MainbanneradminController;
 
 
 /*
@@ -56,22 +58,22 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::get('buku/{id}/edit', [BookadminController::class, 'edit'])->name('buku.edit');
     Route::put('book/{buku}/restore', [BookadminController::class, 'restore'])->name('Book.restore');
     //Route::get('news', [NewsadminController::class, 'edit'])->name('news.edit');
-    //Galeri
+    //Galeri and banner
     Route::resource('galeri', GaleriadminController::class);
     Route::get('galeri/{id}/edit', [GaleriadminController::class, 'edit'])->name('galeri.edit');
-    Route::put('galeri/{galeri}/restore', [GaleriadminController::class, 'restore'])->name('galeri.restore');
     //Banner
     Route::resource('banner', BanneradminController::class);
-    Route::get('banner/{galeri:id}/edit', [BanneradminController::class, 'edit'])->name('banner.edit');
-    Route::put('banner/{banner}/restore', [BanneradminController::class, 'restore'])->name('banner.restore');
+    Route::get('mainbanner/', [BanneradminController::class, 'mainbanner'])->name('mainbanner.index');
+    Route::get('banner/{id}/edit', [BanneradminController::class, 'edit'])->name('banner.edit');
+    Route::get('banner/{id}/edit2', [BanneradminController::class, 'edit2'])->name('banner.edit2');
     //Prosiding
     Route::resource('prosiding', ProsidingadminController::class);
     Route::get('prosiding/{id}/edit', [ProsidingadminController::class, 'edit'])->name('prosiding.edit');
     Route::put('prosiding/{buku}/restore', [ProsidingadminController::class, 'restore'])->name('prosiding.restore');
     //Banner
-    Route::resource('main-banner', MainbanneradminController::class);
-    Route::get('main-banner/{galeri.id}/edit', [MainbanneradminController::class, 'edit'])->name('mainbanner.edit');
-    Route::put('main-banner/{galeri}/restore', [MainbanneradminController::class, 'restore'])->name('banner.restore');
+    //Route::resource('main-banner', MainbanneradminController::class);
+    //Route::get('main-banner/{id}/edit', [MainbanneradminController::class, 'edit'])->name('mainbanner.edit');
+    //Route::put('main-banner/{galeri}/restore', [MainbanneradminController::class, 'restore'])->name('banner.restore');
 });
 
 Route::get('/penasehat', function () {
@@ -178,8 +180,10 @@ Route::prefix('/')->name('front')->group(function (){
 
     //News
     Route::resource('galeri', GaleriController::class);
+    Route::resource('video', VideoController::class);
     //Route::get('galeri/{galeri:slug}', [GaleriController::class, 'show'])->name('news.show');
-    Route::get('galeri/{id}/edit', [GaleriController::class, 'edit'])->name('news.edit');
+    Route::get('galeri/{id}/edit', [GaleriController::class, 'edit'])->name('galeri.edit');
+    
 
     //News
     Route::resource('contact', ContactController::class);

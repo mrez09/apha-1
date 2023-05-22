@@ -3,7 +3,7 @@ import FrontendLayout from "@/Layouts/FrontendLayout";
 import NavbarGuest from "@/Pages/layouts/frontend/NavbarApha";
 import { Link, Head } from "@inertiajs/react";
 import FeaturedBuku from "@/Components/Buku/FeaturedBuku";
-import ListGaleri from "@/Components/Galeri/ListGaleri";
+import ListVideo from "@/Components/Video/ListVideo";
 
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
@@ -23,17 +23,17 @@ export default function List({ galeri, props }) {
                 <div className="row tabs-galeri">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page">
+                            <Link
+                                class="nav-link "
+                                href={route("frontgaleri.index")}
+                            >
                                 Photo
-                            </a>
+                            </Link>
                         </li>
                         <li class="nav-item">
-                            <Link
-                                class="nav-link"
-                                href={route("frontvideo.index")}
-                            >
+                            <a class="nav-link active" aria-current="page">
                                 Video
-                            </Link>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -46,9 +46,9 @@ export default function List({ galeri, props }) {
                         {/*loop*/}
 
                         {galeri.map((galeris) => (
-                            <ListGaleri
+                            <ListVideo
                                 key={galeris.id}
-                                thumbnail={`/storage/${galeris.img}`}
+                                url={galeris.url}
                                 //slug={featuredBukus.slug}
                                 name={galeris.name}
                                 //category={featuredBukus.category}

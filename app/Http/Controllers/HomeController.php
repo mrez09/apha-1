@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\News;
 use App\Models\Buku;
-use App\Models\Galeri;
+use App\Models\Banner;
 
 class HomeController extends Controller
 {
@@ -18,10 +18,14 @@ class HomeController extends Controller
         $featuredNews   = News::whereIsFeatured(true)->get();
         $news           = News::all();
         $featuredBuku   = Buku::whereIsFeatured(true)->get();
-        $featuredBanner = Galeri::whereIsFeatured(true)->whereCategory("Banner")->get();
+        $featuredBanner = Banner::whereIsFeatured(true)->whereCategory("Banner")->get();
+        $buttonBanner   = Banner::whereIsFeatured(true)->whereCategory("Banner")->get();
+        $mainBanner     = Banner::whereIsFeatured(true)->whereCategory("MainBanner")->get();
 
         return inertia ('Home',[
+            'mainBanner'  => $mainBanner,
             'featuredBanner'  => $featuredBanner,
+            'buttonBanner'  => $buttonBanner,
             'featuredNews'  => $featuredNews,
             'featuredBuku'  => $featuredBuku,
             'news'          => $news,

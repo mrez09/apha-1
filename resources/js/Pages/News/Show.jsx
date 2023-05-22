@@ -16,7 +16,39 @@ export default function List({ featuredBuku, news, props }) {
     //const parse = require("html-react-parser");
     return (
         <FrontendLayout>
-            <Head title="Asosiasi Pengajar Hukum Adat" />
+            <Head>
+                <title>My app</title>
+                <meta
+                    head-key="description"
+                    name="description"
+                    content={news.judul}
+                />
+                <meta
+                    head-key="whatsapp"
+                    name="whatsapp"
+                    property="og:image"
+                    content={`/storage/${news.img}`}
+                />
+                {/*Sosial Media*/}
+                {/*Open Graph Protocol*/}
+                {/*<meta property="fb:app_id" content="your_app_id" /> */}
+                <meta property="og:title" content={news.judul} />
+
+                <meta property="og:type" content="video.movie" />
+                <meta property="og:url" content="https://www.apha.or.id" />
+                <meta property="og:image" content={`/storage/${news.img}`} />
+                {/*Twitard*/}
+                <meta
+                    name="twitter:title"
+                    content="Asosiasi Pengajar Hukum Adat "
+                />
+                <meta
+                    name="twitter:description"
+                    content=" Selamat Datang di Asosiasi Pengajar Hukum Adat"
+                />
+                <meta name="twitter:image" content={`/storage/${news.img}`} />
+                <meta name="twitter:card" content="summary_large_image" />
+            </Head>
             <div className="container">
                 <div className="row g-5 d-flex justify-content-center">
                     <div className="col-md-11 ">

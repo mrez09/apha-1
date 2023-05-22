@@ -113,7 +113,7 @@ export default function List(props) {
             delete data.img;
         }
 
-        router.post(route("admin.dashboard.galeri.update", props.galeri.id), {
+        router.post(route("admin.dashboard.banner.update", props.galeri.id), {
             _method: "PUT",
             ...data,
         });
@@ -147,6 +147,15 @@ export default function List(props) {
                     <form onSubmit={submit}>
                         <div className="row g-3">
                             <div className="col-sm-12">
+                                <input
+                                    type="hidden"
+                                    name="category"
+                                    defaultValue={props.galeri.category}
+                                    placeholder="Masukan Nama Photo"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="nama photo"
+                                    onChange={onHandleChange}
+                                />
                                 <label className="form-label">Nama Photo</label>
                                 <input
                                     type="text"
@@ -157,6 +166,7 @@ export default function List(props) {
                                     autoComplete="nama photo"
                                     onChange={onHandleChange}
                                 />
+
                                 <div className="">
                                     <InputError
                                         message={errors.name}

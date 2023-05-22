@@ -224,23 +224,23 @@ export default function Authenticated({ auth, header, children }) {
                                             <li>
                                                 <a
                                                     href={route(
+                                                        "admin.dashboard.mainbanner.index"
+                                                    )}
+                                                    className="nav-link px-3"
+                                                >
+                                                    <i class="fa-sharp ic fa-solid fa-image"></i>
+                                                    Main Banner
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href={route(
                                                         "admin.dashboard.banner.index"
                                                     )}
                                                     className="nav-link px-3"
                                                 >
                                                     <i class="fa-sharp ic fa-solid fa-image"></i>
                                                     Banner
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href={route(
-                                                        "admin.dashboard.main-banner.index"
-                                                    )}
-                                                    className="nav-link px-3"
-                                                >
-                                                    <i class="fa-sharp ic fa-solid fa-image"></i>
-                                                    Main Banner
                                                 </a>
                                             </li>
                                         </ul>

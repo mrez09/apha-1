@@ -20,56 +20,13 @@ export default function Home({
     props,
     news,
     featuredBuku,
-    mainBanner,
     featuredBanner,
-    buttonBanner,
 }) {
     const { delete: destroy } = useForm();
 
     return (
         <FrontendLayout>
-            <Head>
-                <title>My app</title>
-                <meta
-                    head-key="description"
-                    name="description"
-                    content="Selamat Datang di Website Asosiasi Pengajar Hukum Adat"
-                />
-                <meta
-                    head-key="whatsapp"
-                    name="whatsapp"
-                    property="og:image"
-                    content={`/storage/logo/Logo-Apha.gif`}
-                />
-                {/*Sosial Media*/}
-                {/*Open Graph Protocol*/}
-                {/*<meta property="fb:app_id" content="your_app_id" /> */}
-                <meta
-                    property="og:title"
-                    content="Asosiasi Pengajar Hukum Adat"
-                />
-
-                <meta property="og:type" content="video.movie" />
-                <meta property="og:url" content="https://www.apha.or.id" />
-                <meta
-                    property="og:image"
-                    content={`/storage/logo/Logo-Apha.gif`}
-                />
-                {/*Twitard*/}
-                <meta
-                    name="twitter:title"
-                    content="Asosiasi Pengajar Hukum Adat "
-                />
-                <meta
-                    name="twitter:description"
-                    content=" Selamat Datang di Asosiasi Pengajar Hukum Adat"
-                />
-                <meta
-                    name="twitter:image"
-                    content={`/storage/logo/Logo-Apha.gif`}
-                />
-                <meta name="twitter:card" content="summary_large_image" />
-            </Head>
+            <Head title="Home" />
 
             <main>
                 <div
@@ -84,57 +41,51 @@ export default function Home({
                             data-bs-slide-to="0"
                             className="active"
                             aria-current="true"
-                            aria-label="Main Banner"
+                            aria-label="Slide 1"
                         ></button>
-                        {buttonBanner.map((banner, index) => (
-                            <button
-                                key={banner.id}
-                                type="button"
-                                data-bs-target="#myCarousel"
-                                data-bs-slide-to="1"
-                                aria-label={banner.slug}
-                            ></button>
-                        ))}
+                        <button
+                            type="button"
+                            data-bs-target="#myCarousel"
+                            data-bs-slide-to="1"
+                            aria-label="Slide 2"
+                        ></button>
                     </div>
                     <div className="carousel-inner">
-                        {mainBanner.map((banner) => (
-                            <div
-                                key={banner.id}
-                                className="carousel-item active"
-                            >
-                                <img
-                                    src={`/storage/${banner.img}`}
-                                    className="bd-placeholder-img"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    aria-hidden="true"
-                                    preserveAspectRatio="xMidYMid slice"
-                                    focusable="false"
-                                />
+                        <div className="carousel-item active">
+                            <img
+                                src={`/storage/banner/main/Background_Apha.png`}
+                                className="bd-placeholder-img"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                preserveAspectRatio="xMidYMid slice"
+                                focusable="false"
+                            />
 
-                                <div className="container">
-                                    <div className="carousel-caption text-start">
-                                        <h1 className="text-black">
-                                            {banner.name}
-                                        </h1>
-                                        <span className="text-black">
-                                            {parse(banner.decription)}
-                                        </span>
-                                        {/*<p>
-                                            <a
-                                                className="btn btn-lg btn-primary"
-                                                target="_blank"
-                                                //href="https://docs.google.com/forms/d/10IndOTXK25dkLSg4n84x6thGbc3cTpQ5jhCRpYeRq4k/prefill"
-                                                href={banner.url}
-                                            >
-                                                Go
-                                            </a>
-                        </p>*/}
-                                    </div>
+                            <div className="container">
+                                <div className="carousel-caption text-start">
+                                    <h1 className="text-black ca-head">
+                                        Selamat Datang di Website
+                                    </h1>
+                                    <p className="text-black cap">
+                                        Asosiasi Pengajar Hukum Adat
+                                    </p>
+                                    {/*<p className="text-black">
+                                        Pembuatan Proposal Penelitian Masyarakat
+                                        Hukum Adat Berstandar Hibah Dikti
+    </p>*/}
+                                    {/*<p>
+                                        <a
+                                            className="btn btn-lg btn-primary"
+                                            href="https://docs.google.com/forms/d/10IndOTXK25dkLSg4n84x6thGbc3cTpQ5jhCRpYeRq4k/prefill"
+                                        >
+                                            Sign up today
+                                        </a>
+    </p>*/}
                                 </div>
                             </div>
-                        ))}
+                        </div>
                         {featuredBanner.map((banner) => (
-                            <div key={banner.id} className="carousel-item">
+                            <div key={banner.id} className="carousel-item ">
                                 <img
                                     src={`/storage/${banner.img}`}
                                     className="bd-placeholder-img"
@@ -194,7 +145,7 @@ export default function Home({
                 </div>
             </main>
 
-            <div className="container council py-5">
+            <div className="container marketing">
                 <div className="row">
                     <div className="col-lg-4">
                         <img
