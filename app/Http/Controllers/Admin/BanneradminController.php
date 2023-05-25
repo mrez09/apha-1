@@ -32,7 +32,7 @@ class BanneradminController extends Controller
     public function mainbanner(){
         //$galeri          = Galeri::all();
         $galeri          = Banner::whereCategory("MainBanner")->get();
-        return Inertia::render('Admin/Banner/List',
+        return Inertia::render('Admin/MainBanner/List',
     [
         'galeri'          => $galeri
     ]);
@@ -134,11 +134,11 @@ class BanneradminController extends Controller
         //]);
     }
 
-    public function destroy(Galeri $galeri){
-        $galeri->delete();
-        return redirect(route('admin.dashboard.galeri.index'))->with(
+    public function destroy(Banner $banner){
+        $banner->delete();
+        return redirect(route('admin.dashboard.banner.index'))->with(
             [
-                'message'   => "Photo Berhasil diHapus",
+                'message'   => "Banner Berhasil diHapus",
                 'type'      => "success"
             ]
             );

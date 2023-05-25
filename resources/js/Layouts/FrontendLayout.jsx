@@ -56,7 +56,7 @@ export default function Guest({ children }, props) {
                                                 "pengurus.dewan-penasehat"
                                             )}
                                         >
-                                            Dewan Penasehat
+                                            Dewan Pembina
                                         </Link>
                                     </li>
                                     <li>

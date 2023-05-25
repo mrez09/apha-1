@@ -24,7 +24,106 @@ function classNames(...classes) {
 export default function Dewan_Pengurus(props) {
     return (
         <FrontendLayout>
-            <Head title="Dewan Pengurus" />
+            <Head>
+                <title>
+                    Dewan Pengurus Asosiasi Pengajar Hukum Adat (APHA) Indonesia
+                </title>
+                <meta
+                    head-key="Description"
+                    name="description"
+                    content="Dewan Pengurus Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Mobile Capable"
+                    name="mobile-web-app-capable"
+                    content="yes"
+                />
+                <meta
+                    head-key="App Name"
+                    name="application-name"
+                    content="Asosiasi Pengajar Hukum Adat (APHA)"
+                />
+                <meta
+                    head-key="Apple Mobile App Name"
+                    name="apple-mobile-web-app-title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA)"
+                />
+                <meta
+                    head-key="Theme Color"
+                    name="theme-color"
+                    content="#ff6300"
+                ></meta>
+                {/*Sosial Media*/}
+                {/*Open Graph Protocol*/}
+                <meta
+                    head-key="App id Facebook"
+                    property="fb:app_id"
+                    content="961443805039846"
+                ></meta>
+
+                <meta
+                    head-key="Title Open Graph"
+                    property="og:title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Description Open Graph"
+                    property="og:description"
+                    content="Dewan Pengurus Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Type Open Graph"
+                    property="og:type"
+                    content="website"
+                />
+                <meta
+                    head-key="URL Open Graph"
+                    property="og:url"
+                    content="https://www.apha.or.id"
+                />
+                <meta
+                    head-key="Image Open Graph"
+                    property="og:image"
+                    content="https://i.imgur.com/R4DyCBa.png"
+                />
+                <meta
+                    head-key="Image Type Open Graph"
+                    property="og:image:type"
+                    content="image/jpeg"
+                />
+                <meta
+                    head-key="Image Width Open Graph"
+                    property="og:image:width"
+                    content="1800"
+                />
+                <meta
+                    head-key="Image Height Open Graph"
+                    property="og:image:height"
+                    content="550"
+                />
+                {/*Twitard*/}
+
+                <meta
+                    head-key="Twitter Title"
+                    name="twitter:title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Twitter Description"
+                    name="twitter:description"
+                    content="Dewan Pengurus Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Twitter Image"
+                    name="twitter:image"
+                    content="https://i.imgur.com/R4DyCBa.png"
+                />
+                <meta
+                    head-key="Twitter Card"
+                    name="twitter:card"
+                    content="summary_large_image"
+                />
+            </Head>
 
             <section className="py-1 text-center bg-sec">
                 <div className="row ">
@@ -55,9 +154,9 @@ export default function Dewan_Pengurus(props) {
 
             <div className="container">
                 <div className="py-5 text-center Container">
-                    <h2>SUSUNAN PENGURUS DEWAN PENGURUS </h2>
+                    <h2>SUSUNAN DEWAN PENGURUS </h2>
 
-                    <h2>2017-2020</h2>
+                    <h2>2020-2023</h2>
                     {/*  Dewan Pengurus */}
                     <div className="mb-10 p-3 border border-gray-200 rounded-lg">
                         <table className="table table-borderless">
@@ -73,11 +172,20 @@ export default function Dewan_Pengurus(props) {
                                     <td className="position">Wakil Ketua</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Dr. Sulastriyono, SH, MSi
+                                        Prof. Dr. Ir. Abrar Saleng, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="position">Sekretaris</td>
+                                    <td className="position">&nbsp;</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Dr. Kunthi Tridewiyanti, SH, MA
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">
+                                        Sekretaris Jendral
+                                    </td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
                                         Dr. Ning Adiasih, SH, MH
@@ -85,16 +193,23 @@ export default function Dewan_Pengurus(props) {
                                 </tr>
                                 <tr>
                                     <td className="position">
-                                        Wakil Sekretaris
+                                        Wakil Sekretaris Jendral
                                     </td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        I Gusti Agung Mas Rwa Jayantiari, SH,
-                                        MKnH
+                                        Dr. Sri Walny Rahayu, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="position">Bendahara</td>
+                                    <td className="position">&nbsp;</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Dr. I Gusti Agung Mas Rwa Jayantiari,
+                                        SH, M. Kn
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">Bendahara Umum</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
                                         Dr. Roberth K.R Hammar, SH, MH, MM
@@ -102,12 +217,46 @@ export default function Dewan_Pengurus(props) {
                                 </tr>
                                 <tr>
                                     <td className="position">
-                                        Wakil Bendahara
+                                        Wakil Bendahara Umum
                                     </td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Triyono, SH, MKn
+                                        Dr. Hj. Lenny Nadriana, SH, MH
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">
+                                        Korwil Indonesia Barat
+                                    </td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Dr. Sulastriyono, SH, M.Si
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">
+                                        Korwil Indonesia Tengah
+                                    </td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Dr. Hj. Gusti Muzainah, SH, MH
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">
+                                        Korwil Indonesia Timur
+                                    </td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Dr. Hendrik H.J.Krisifu, SH, MA
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">
+                                        Direktur Eksekutif
+                                    </td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">Hermansyah</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -131,39 +280,11 @@ export default function Dewan_Pengurus(props) {
                                     <td className="position">Sekretaris</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        J.M. Henny Wiludjeng, SH, MH
+                                        Nur Aida, SH, M. Si
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">Anggota</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Dr. Sri Wahyu Ananingsih, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Mutiarany, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Nunuk Sulisrudatin, SH, SIP, MSi
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Yosephus Mainake, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
                                         Dra. Hj. Erleni, SH, MH
@@ -173,7 +294,14 @@ export default function Dewan_Pengurus(props) {
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Rizka Amelia Azis, SH, MH
+                                        Dr. Simona Bustami, SH, MH
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">&nbsp;</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        B. Rini Heryanti, SH, MH
                                     </td>
                                 </tr>
                             </tbody>
@@ -191,57 +319,35 @@ export default function Dewan_Pengurus(props) {
                                     <td className="position">Ketua</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Dr. Kunthi Tridewiyanti, SH, MA
+                                        Dr. Nam Rumkel, S.Ag, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">Sekretaris</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Dr. Simona Bustani, SH, MH
+                                        Dr. Rina Yulianti, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">Anggota</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Dr. Nam Rumkel, SAg, MH
+                                        Dr. Ni Nyoman Sukerti, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Dr. Vincensia Esti Purnama Sari, SH,
-                                        MHum
+                                        Dr. Marthin, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Dr. Made Wiryadharma
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Dr. Sri Walny Rahayu, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Amri P. Sihotang, SS, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Nur Aida, SH, MH
+                                        Dr. Rimawati, SH, MH
                                     </td>
                                 </tr>
                             </tbody>
@@ -259,49 +365,35 @@ export default function Dewan_Pengurus(props) {
                                     <td className="position">Ketua</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        B. Rini Heryanti, SH, MH
+                                        Ummu Salamah, SAg, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">Sekretaris</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Ahdiana Yuni Lestari, SH, MHum
+                                        Windi Arista, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">Anggota</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Rohadi. S. Th. I, SH, MHum
+                                        Nurul Miqat, SH, MKn
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Nurlely Darwis, SH, MSi
+                                        Dr. Julianto Jotam Jover Kalalo,SH,.MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Rina Marlina, SH, MKn
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        I Gede Pasek Pramana, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Safrin Salam, SH, MH
+                                        Henny Wilujeng, SH, MH
                                     </td>
                                 </tr>
                             </tbody>
@@ -319,56 +411,35 @@ export default function Dewan_Pengurus(props) {
                                     <td className="position">Ketua</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Dr. Ismail Rumadan, SH, MH
+                                        Dr. A. A. Istri Ari Atu Dewi, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">Sekretaris</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Ade Rupawan, SH, MM, MKn
+                                        Dr. Abdurrahman Nur, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">Anggota</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Dr. Putu Dyatmikawati, S.H., M.Hum.
+                                        Dr. Amri P. Sihotang, SS, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        I Ketut Sukadana, SH, MH
+                                        Dr. Jean K. Matuankotta, SH,M.Hum
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Erni Herawati, SH, MKn
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Ummu Salamah, SAg, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Gress Selly, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position">&nbsp;</td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Windi Arista, SH, MH
+                                        Dr. Mohammad Jamin, SH.,M.Hum
                                     </td>
                                 </tr>
                             </tbody>
@@ -395,126 +466,124 @@ export default function Dewan_Pengurus(props) {
                                     <td className="position">Sekretaris</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Iron Sarira, SE, MH
+                                        Dr. I Ketut Sudantra, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">Anggota</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Dr. Ni Nyoman Sukerti, SH, MH
+                                        Dr. Maskawati Umar, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Siti Khotijah, SH, MH
+                                        Dr. Hayatul Ismi, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Nurul Miqat, SH, MKn
+                                        Dr. Sri Warjiyati, MH
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    {/*  Bidang Advokasi dan Pengembangan Masyarakat Hukum Adat */}
+                    <div className="mb-10 border border-gray-200 rounded-lg card">
+                        <div className="card-header">
+                            <h3>
+                                Bidang Advokasi dan Pengembangan Masyarakat
+                                Hukum Adat
+                            </h3>
+                        </div>
+
+                        <table className="table m-3 table-borderless">
+                            <p>Sub Bidang Advokasi</p>
+                            <tbody>
+                                <tr>
+                                    <td className="position">Ketua</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Yamin, SS, SH, MHum, MH.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">Sekretaris</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Rohadi, S. Th. I, SH, M. Hum
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">Anggota</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Safrin Salam, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        Marsidah, SH, MH
+                                        Dr. Marthen B. Salinding, SH, MH
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="position">&nbsp;</td>
                                     <td className="doted">:</td>
                                     <td className="name-manage">
-                                        M. Hazmi Wicaksono, SH
+                                        Nanin Koeswidi Astuti, SH, MH
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table className="table m-3 table-borderless">
+                            <p>Sub Bidang Pengembangan Masyarakat Hukum Adat</p>
+                            <tbody>
+                                <tr>
+                                    <td className="position">Ketua</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Yenny Y, SH, MH
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">Sekretaris</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Sisca Ferawati Burhanuddin, S.H. M.Kn
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">&nbsp;</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Ade Rupawan, SH, MM, M. Kn
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">&nbsp;</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Emi Handayani, SH, MH
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="position">&nbsp;</td>
+                                    <td className="doted">:</td>
+                                    <td className="name-manage">
+                                        Salfius Seko, SH, MH
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <br />
-                    {/*  Direktur Eksekutif APHA Indonesia */}
-                    <div className="mb-10 p-5 border border-gray-200 rounded-lg">
-                        <table className="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td className="position">
-                                        <strong>
-                                            Direktur Eksekutif APHA Indonesia
-                                        </strong>
-                                    </td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Hermansyah, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={3} className="position">
-                                        Kordinator
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position-kordinator">
-                                        <strong> Wilayah Barat </strong>
-                                    </td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Dr. Sulastriyono, SH, MSi
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position-kordinator">
-                                        &nbsp;
-                                    </td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Prof. Dr. Catharina Dewi Wulansari, SH,
-                                        MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position-kordinator">
-                                        <strong> Wilayah Tengah </strong>
-                                    </td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Prof. Dr. Wayan. P. Windia, SH, MSi
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position-kordinator">
-                                        &nbsp;
-                                    </td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Dr. Kunthi Tridewiyanti, SH, MA
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position-kordinator">
-                                        <strong>Wilayah Timur</strong>
-                                    </td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Prof. Dr. Aminuddin Salle, SH, MH
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="position-kordinator">
-                                        &nbsp;
-                                    </td>
-                                    <td className="doted">:</td>
-                                    <td className="name-manage">
-                                        Dr. Roberth K.R. Hammar,S.H.,M.H., M.M.
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         </FrontendLayout>

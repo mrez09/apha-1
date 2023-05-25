@@ -20,14 +20,14 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
             errors={errors}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    List Data Photo
+                    List Data Banner
                 </h2>
             }
         >
             <Head title="Dashboard" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">List Photo</h1>
+                <h1 className="h2">List Banner</h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
@@ -102,8 +102,8 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                                             onClick={() => {
                                                 destroy(
                                                     route(
-                                                        "admin.dashboard.galeri.destroy",
-                                                        news.id
+                                                        "admin.dashboard.banner.destroy",
+                                                        galeri.id
                                                     )
                                                 );
                                             }}

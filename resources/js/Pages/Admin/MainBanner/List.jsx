@@ -78,7 +78,7 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                                     <td>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.main-banner.edit",
+                                                "admin.dashboard.banner.edit",
                                                 galeri.id
                                             )}
                                         >

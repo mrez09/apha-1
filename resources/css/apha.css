@@ -1,5 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap");
 
+/*HOMES*/
+
+.de1 {
+    padding: 5px;
+    text-align: center;
+    margin: 0 auto;
+    border-style: none;
+}
+.de1-pic {
+    padding: 5px;
+    text-align: center;
+    margin: 0 auto;
+}
+
 /*Custom Bro*/
 .kon-10 {
     margin-top: 30px;
@@ -74,7 +88,7 @@
 }
 .f-bread {
     font-weight: 800;
-    font-size: 2rem;
+    font-size: calc(1.375rem + 1.5vw);
 }
 .breadcrumber {
     padding: 5px;
@@ -99,14 +113,14 @@
     /* Bump up size of carousel content */
     .f-bread {
         font-weight: 800;
-        font-size: 1.2rem;
+        font-size: calc(1.375rem + 1.5vw);
         padding: 5px;
         margin-top: 50px;
     }
     .lead-bread {
         margin-top: -15px;
-        font-weight: 800;
-        font-size: 1rem;
+        font-weight: 600;
+        font-size: calc(1rem + 1.5vw);
     }
 }
 /* Book Pages */

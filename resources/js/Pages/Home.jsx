@@ -29,58 +29,116 @@ export default function Home({
     return (
         <FrontendLayout>
             <Head>
-                <title>My app</title>
+                <title>
+                    Selamat Datang di Website Asosiasi Pengajar Hukum Adat
+                </title>
                 <meta
-                    head-key="description"
+                    head-key="Description"
                     name="description"
                     content="Selamat Datang di Website Asosiasi Pengajar Hukum Adat"
                 />
                 <meta
-                    head-key="whatsapp"
-                    name="whatsapp"
-                    property="og:image"
-                    content={`/storage/logo/Logo-Apha.gif`}
+                    head-key="Mobile Capable"
+                    name="mobile-web-app-capable"
+                    content="yes"
                 />
+                <meta
+                    head-key="App Name"
+                    name="application-name"
+                    content="Asosiasi Pengajar Hukum Adat (APHA)"
+                />
+                <meta
+                    head-key="Apple Mobile App Name"
+                    name="apple-mobile-web-app-title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA)"
+                />
+                <meta
+                    head-key="Theme Color"
+                    name="theme-color"
+                    content="#ff6300"
+                ></meta>
                 {/*Sosial Media*/}
                 {/*Open Graph Protocol*/}
-                {/*<meta property="fb:app_id" content="your_app_id" /> */}
                 <meta
-                    property="og:title"
-                    content="Asosiasi Pengajar Hukum Adat"
-                />
+                    head-key="App id Facebook"
+                    property="fb:app_id"
+                    content="961443805039846"
+                ></meta>
 
-                <meta property="og:type" content="video.movie" />
-                <meta property="og:url" content="https://www.apha.or.id" />
                 <meta
+                    head-key="Title Open Graph"
+                    property="og:title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Description Open Graph"
+                    property="og:description"
+                    content="Selamat Datang di Website Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Type Open Graph"
+                    property="og:type"
+                    content="website"
+                />
+                <meta
+                    head-key="URL Open Graph"
+                    property="og:url"
+                    content="https://www.apha.or.id"
+                />
+                <meta
+                    head-key="Image Open Graph"
                     property="og:image"
-                    content={`/storage/logo/Logo-Apha.gif`}
+                    content="https://i.imgur.com/R4DyCBa.png"
+                />
+                <meta
+                    head-key="Image Type Open Graph"
+                    property="og:image:type"
+                    content="image/jpeg"
+                />
+                <meta
+                    head-key="Image Width Open Graph"
+                    property="og:image:width"
+                    content="1800"
+                />
+                <meta
+                    head-key="Image Height Open Graph"
+                    property="og:image:height"
+                    content="550"
                 />
                 {/*Twitard*/}
+
                 <meta
+                    head-key="Twitter Title"
                     name="twitter:title"
-                    content="Asosiasi Pengajar Hukum Adat "
+                    content="Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
                 />
                 <meta
+                    head-key="Twitter Description"
                     name="twitter:description"
-                    content=" Selamat Datang di Asosiasi Pengajar Hukum Adat"
+                    content="Selamat Datang di Website Asosiasi Pengajar Hukum Adat"
                 />
                 <meta
+                    head-key="Twitter Image"
                     name="twitter:image"
-                    content={`/storage/logo/Logo-Apha.gif`}
+                    content="https://i.imgur.com/R4DyCBa.png"
                 />
-                <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                    head-key="Twitter Card"
+                    name="twitter:card"
+                    content="summary_large_image"
+                />
             </Head>
 
             <main>
                 <div
-                    id="myCarousel"
+                    id="bannerCarousel"
                     className="carousel slide ca-res"
                     data-bs-ride="carousel"
                 >
                     <div className="carousel-indicators">
                         <button
                             type="button"
-                            data-bs-target="#myCarousel"
+                            data-bs-target="#bannerCarousel"
                             data-bs-slide-to="0"
                             className="active"
                             aria-current="true"
@@ -90,7 +148,7 @@ export default function Home({
                             <button
                                 key={banner.id}
                                 type="button"
-                                data-bs-target="#myCarousel"
+                                data-bs-target="#bannerCarousel"
                                 data-bs-slide-to="1"
                                 aria-label={banner.slug}
                             ></button>
@@ -114,10 +172,10 @@ export default function Home({
                                 <div className="container">
                                     <div className="carousel-caption text-start">
                                         <h1 className="text-black">
-                                            {banner.name}
+                                            {/*banner.name*/}
                                         </h1>
                                         <span className="text-black">
-                                            {parse(banner.decription)}
+                                            {/*parse(banner.decription)*/}
                                         </span>
                                         {/*<p>
                                             <a
@@ -170,7 +228,7 @@ export default function Home({
                     <button
                         className="carousel-control-prev"
                         type="button"
-                        data-bs-target="#myCarousel"
+                        data-bs-target="#bannerCarousel"
                         data-bs-slide="prev"
                     >
                         <span
@@ -182,7 +240,7 @@ export default function Home({
                     <button
                         className="carousel-control-next"
                         type="button"
-                        data-bs-target="#myCarousel"
+                        data-bs-target="#bannerCarousel"
                         data-bs-slide="next"
                     >
                         <span
@@ -194,68 +252,174 @@ export default function Home({
                 </div>
             </main>
 
+            {/*Dewan Pembina*/}
+
             <div className="container council py-5">
-                <div className="row">
-                    <div className="col-lg-4">
-                        <img
-                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Aminuddin-Salle.png"
-                            className="bd-placeholder-img rounded-circle"
-                            width="140"
-                            height="140"
-                            aria-label="Placeholder: 140x140"
-                            preserveAspectRatio="xMidYMid slice"
-                            focusable="false"
-                        />
-
-                        <title>Prof. Dr. H. Aminuddin Salle, SH, MH</title>
-
-                        <h2>Prof. Dr. H. Aminuddin Salle, SH, MH</h2>
-                        <p>Ketua</p>
-                        <p>
-                            <a className="btn btn-secondary" href="#">
-                                View details &raquo;
-                            </a>
-                        </p>
-                    </div>
-                    <div className="col-lg-4">
-                        <img
-                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Sulistyowati-Irianto.png"
-                            className="bd-placeholder-img rounded-circle"
-                            width="140"
-                            height="140"
-                            aria-label="Placeholder: 140x140"
-                            preserveAspectRatio="xMidYMid slice"
-                            focusable="false"
-                        />
-                        <title>Prof. Dr. Sulistyowati Irianto, MA</title>
-
-                        <h2>Prof. Dr. Sulistyowati Irianto, MA</h2>
-                        <p>Wakil Ketua</p>
-                        <p>
-                            <a className="btn btn-secondary" href="#">
-                                View details &raquo;x
-                            </a>
-                        </p>
-                    </div>
-                    <div className="col-lg-4">
-                        <img
-                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Wayan.png"
-                            className="bd-placeholder-img rounded-circle"
-                            width="140"
-                            height="140"
-                            aria-label="Placeholder: 140x140"
-                            preserveAspectRatio="xMidYMid slice"
-                            focusable="false"
-                        />
-                        <title>Prof. Dr. Wayan P. Windia, SH, Msi</title>
-
-                        <h2>Prof. Dr. Wayan P. Windia, SH, Msi</h2>
-                        <p>Wakil Ketua</p>
-                        <p>
-                            <a className="btn btn-secondary" href="#">
-                                View details &raquo;
-                            </a>
-                        </p>
+                <h1 className="mx-auto de1 ">SUSUNAN DEWAN PEMBINA</h1>
+                <div className="row py-3">
+                    <div
+                        id="de1Carousel"
+                        class="carousel carousel-dark slide"
+                        data-bs-ride="false"
+                    >
+                        <div class="carousel-indicators">
+                            <button
+                                type="button"
+                                data-bs-target="#de1Carousel"
+                                data-bs-slide-to="0"
+                                class="active"
+                                aria-current="true"
+                                aria-label="Slide 1"
+                            ></button>
+                            <button
+                                type="button"
+                                data-bs-target="#de1Carousel"
+                                data-bs-slide-to="1"
+                                aria-label="Slide 2"
+                            ></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="card-group ">
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Aminuddin-Salle.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. H. Aminuddin Salle,
+                                                SH, MH
+                                            </h5>
+                                            <p class="card-text">Ketua</p>
+                                        </div>
+                                    </div>
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Sulistyowati-Irianto.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Sulistyowati Irianto,
+                                                MA
+                                            </h5>
+                                            <p class="card-text">Wakil Ketua</p>
+                                        </div>
+                                    </div>
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Wayan.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Wayan P. Windia, SH,
+                                                Msi
+                                            </h5>
+                                            <p class="card-text">Wakil Ketua</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="card-group">
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Catharina-Dewi-Wulansari.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Dr. Ch. Dewi
+                                                Wulansari, Ph. D, SH, MH, SE, MM
+                                            </h5>
+                                            <p class="card-text">Sekretaris</p>
+                                        </div>
+                                    </div>
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Endang-Sumiarni.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Dra. MG Endang
+                                                Sumiarni, SH, Mhum
+                                            </h5>
+                                            <p class="card-text">&nbsp;</p>
+                                        </div>
+                                    </div>
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Rato.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Dominikus Rato, SH,
+                                                M.Si
+                                            </h5>
+                                            <p class="card-text">&nbsp;</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            class="carousel-control-prev"
+                            type="button"
+                            data-bs-target="#de1Carousel"
+                            data-bs-slide="prev"
+                        >
+                            <span
+                                class="carousel-control-prev-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button
+                            class="carousel-control-next"
+                            type="button"
+                            data-bs-target="#de1Carousel"
+                            data-bs-slide="next"
+                        >
+                            <span
+                                class="carousel-control-next-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </div>
             </div>

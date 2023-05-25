@@ -17,6 +17,11 @@ use App\Http\Controllers\Admin\BookadminController;
 use App\Http\Controllers\Admin\GaleriadminController;
 use App\Http\Controllers\Admin\BanneradminController;
 use App\Http\Controllers\Admin\ProsidingadminController;
+use App\Http\Controllers\Admin\VideoadminController;
+use App\Http\Controllers\Admin\DivisiadminController;
+use App\Http\Controllers\Admin\SubdivisiadminController;
+use App\Http\Controllers\Admin\JabatanadminController;
+use App\Http\Controllers\Admin\PengurusadminController;
 
 //use App\Http\Controllers\Admin\MainbanneradminController;
 
@@ -70,10 +75,29 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::resource('prosiding', ProsidingadminController::class);
     Route::get('prosiding/{id}/edit', [ProsidingadminController::class, 'edit'])->name('prosiding.edit');
     Route::put('prosiding/{buku}/restore', [ProsidingadminController::class, 'restore'])->name('prosiding.restore');
+    //Video
+    Route::resource('video', VideoadminController::class);
+    Route::get('video/{id}/edit', [VideoadminController::class, 'edit'])->name('galeri.edit');
     //Banner
     //Route::resource('main-banner', MainbanneradminController::class);
     //Route::get('main-banner/{id}/edit', [MainbanneradminController::class, 'edit'])->name('mainbanner.edit');
     //Route::put('main-banner/{galeri}/restore', [MainbanneradminController::class, 'restore'])->name('banner.restore');
+    //Divisi
+    Route::resource('divisi', DivisiadminController::class);
+    Route::get('divisi/{id}/edit', [DivisiadminController::class, 'edit'])->name('divisi.edit');
+    Route::put('divisi/{divisi}/restore', [DivisiadminController::class, 'restore'])->name('divisi.restore');
+    //Divisi
+    Route::resource('subdivisi', SubdivisiadminController::class);
+    Route::get('subdivisi/{id}/edit', [SubdivisiadminController::class, 'edit'])->name('subdivisi.edit');
+    Route::put('subdivisi/{subdivisi}/restore', [SubdivisiadminController::class, 'restore'])->name('divisi.restore');
+    //Divisi
+    Route::resource('jabatan', JabatanadminController::class);
+    Route::get('jabatan/{id}/edit', [JabatanadminController::class, 'edit'])->name('jabatan.edit');
+    Route::put('jabatan/{jabatan}/restore', [JabatanadminController::class, 'restore'])->name('jabatan.restore');
+    //Divisi
+    Route::resource('pengurus', PengurusadminController::class);
+    Route::get('pengurus/{id}/edit', [PengurusadminController::class, 'edit'])->name('pengurus.edit');
+    Route::put('pengurus/{jabatan}/restore', [PengurusadminController::class, 'restore'])->name('pengurus.restore');
 });
 
 Route::get('/penasehat', function () {
@@ -91,8 +115,8 @@ Route::prefix('/accounts')->name('accounts.')->group(function () {
 });
 
 Route::prefix('pengurus')->name('pengurus.')->group(function () {
-    route::get('/dewan-penasehat', function () {
-        return Inertia::render('Pengurus/Dewan_Penasehat');
+    route::get('/dewan-pembina', function () {
+        return Inertia::render('Pengurus/Dewan_Pembina');
     })->name('dewan-penasehat');
     route::get('/dewan-pengurus', function () {
         return Inertia::render('Pengurus/Dewan_Pengurus');

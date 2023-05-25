@@ -116,16 +116,66 @@ export default function Authenticated({ auth, header, children }) {
                                     </div>
                                 </li>
                                 {/*end news*/}
-                                <li className="nav-item">
-                                    <NavLink
-                                        className="nav-link px-3 sidebar-link"
-                                        href={route("dashboard")}
-                                        active={route().current("dashboard")}
+
+                                {/*Pengurus*/}
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a
+                                        data-bs-toggle="collapse"
+                                        href="#pengurus"
                                     >
                                         <i className="fas ic fa-person-shelter"></i>
                                         Pengurus
-                                    </NavLink>
+                                    </a>
+                                    <div className="collapse" id="pengurus">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.divisi.index"
+                                                    )}
+                                                >
+                                                    <i className="fas ic  fa-calendar-plus"></i>
+                                                    Divisi
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.subdivisi.index"
+                                                    )}
+                                                >
+                                                    <i className="fas ic  fa-calendar-plus"></i>
+                                                    Sub Divisi
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.jabatan.index"
+                                                    )}
+                                                >
+                                                    <i className="fas ic  fa-calendar-plus"></i>
+                                                    Jabatan
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.jabatan.index"
+                                                    )}
+                                                >
+                                                    <i className="fas ic  fa-calendar-plus"></i>
+                                                    Data Pengurus
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
+                                {/*end Pengurus*/}
                             </ul>
 
                             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -192,7 +242,7 @@ export default function Authenticated({ auth, header, children }) {
                             </ul>
 
                             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                <span>Photo</span>
+                                <span>Media</span>
                                 <a
                                     className="link-secondary"
                                     href="#"
@@ -202,7 +252,7 @@ export default function Authenticated({ auth, header, children }) {
                                 </a>
                             </h6>
                             <ul className="nav flex-column mb-2">
-                                {/*Galeri*/}
+                                {/*Photo*/}
                                 <li className="nav-link px-3 sidebar-link">
                                     <a data-bs-toggle="collapse" href="#galeri">
                                         <i className="fa-solid ic fa-camera-retro"></i>
@@ -218,9 +268,32 @@ export default function Authenticated({ auth, header, children }) {
                                                     className="nav-link px-3"
                                                 >
                                                     <i className="fas ic fa-file-image"></i>
-                                                    Galeri
+                                                    Photo
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a
+                                                    href={route(
+                                                        "admin.dashboard.video.index"
+                                                    )}
+                                                    className="nav-link px-3"
+                                                >
+                                                    <i className="fas ic fa-video"></i>
+                                                    Video
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/*end Photo*/}
+
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a data-bs-toggle="collapse" href="#banner">
+                                        <i class="fa-sharp ic fa-solid fa-image"></i>
+                                        Banner Website
+                                    </a>
+                                    <div className="collapse" id="banner">
+                                        <ul className="navbar-nav ps-3">
                                             <li>
                                                 <a
                                                     href={route(
@@ -246,7 +319,6 @@ export default function Authenticated({ auth, header, children }) {
                                         </ul>
                                     </div>
                                 </li>
-                                {/*end news*/}
 
                                 {/*<li className="nav-item">
                                     <a className="nav-link" href="#">
