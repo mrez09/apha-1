@@ -12,7 +12,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import React from "react";
-import Select from "react-select";
 
 const options = [
     { value: "chocolate", label: "Chocolate" },
