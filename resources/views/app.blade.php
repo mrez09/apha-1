@@ -25,6 +25,7 @@
     <body class="font-sans antialiased">
         @inertia
     </body>
+    
     <?php /*<script src="https://penerbit.lshi.or.id/js/ckeditor.js"></script>
 		<script>ClassicEditor
 				.create( document.querySelector( '.editor' ), {

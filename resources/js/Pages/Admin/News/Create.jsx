@@ -101,8 +101,11 @@ export default function List(props) {
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    <option value="Berita">Berita</option>
-                                    <option value="Event">Event</option>
+                                    {props.newscategory.map((newscategory) => (
+                                        <option value={newscategory.id}>
+                                            {newscategory.namakategori}
+                                        </option>
+                                    ))}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError

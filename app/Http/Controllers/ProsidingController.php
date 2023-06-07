@@ -13,7 +13,7 @@ class ProsidingController extends Controller
     {
         //return Inertia::render('Buku/List');
         $featuredProsiding   = Prosiding::whereIsFeatured(true)->get();
-        $prosiding           = Prosiding::all();
+        $prosiding           = Prosiding::orderBy('id', 'desc')->get();
 
         return inertia ('Prosiding/List',[
             'featuredProsiding'  => $featuredProsiding,

@@ -915,9 +915,9 @@ pre code {
     cursor: pointer;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
-    font-size: 15px;
-    padding: 10px 20px;
-    border-radius: 50px;
+    /*font-size: 15px;*/
+    /*padding: 10px 20px;*/
+    /*border-radius: 50px;*/
 }
 .btn:hover,
 .btn:active,

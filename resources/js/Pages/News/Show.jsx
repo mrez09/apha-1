@@ -6,7 +6,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { useState, useCallback } from "react";
 
-export default function List({ featuredBuku, news, props }) {
+export default function List({ featuredBuku, news, newsjoin, props }) {
     //Copy Button
     const [copied, setCopied] = useState(false);
     const onCopy = useCallback(() => {
@@ -120,17 +120,38 @@ export default function List({ featuredBuku, news, props }) {
                 <div className="row g-5 d-flex justify-content-center">
                     <div className="col-md-11 ">
                         <article className="blog-post mt-5">
+                            <nav className="" aria-label="breadcrumb">
+                                <ol className="breadcrumb newscrumber">
+                                    <li className="breadcrumb-item ">
+                                        <Link href={route("frontnews.index")}>
+                                            News
+                                        </Link>
+                                    </li>
+                                    <li className="breadcrumb-item">
+                                        <a href="#">{newsjoin.namakategori}</a>
+                                    </li>
+                                </ol>
+                            </nav>
+                            <div class="lane-gdark"></div>
                             <h2 className="blog-post-title">{news.judul}</h2>
+
                             <p className="blog-post-meta">
                                 {moment(news.publish_at).format(
                                     "dddd D MMMM YYYY"
                                 )}
+                                &nbsp;
+                                <span className="blog-post-meta">
+                                    - {news.view} &nbsp;
+                                    <i class="fa-solid fa-eye"></i>
+                                </span>
                             </p>
+
                             <img
                                 src={`/storage/${news.img}`}
                                 className="rounded img-fluid img-thumbnail"
                                 alt=""
                             />
+                            <div class="lanep-gdark"></div>
                             <div className="kon-10">{parse(news.konten)}</div>
                             <hr />
                             <div className="detail-article__share-wrapper">

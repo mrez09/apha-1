@@ -55,15 +55,16 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                 <th>No</th>
                                 <th>Image</th>
                                 <th>Judul</th>
+                                <th>Name</th>
                                 <th>Category</th>
                                 <th>View</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {news.map((news) => (
+                            {news.map((news, index) => (
                                 <tr key={news.id}>
-                                    <td>{news.id}</td>
+                                    <td>{++index}</td>
                                     <td>
                                         <img
                                             src={`/storage/${news.img}`}
@@ -86,14 +87,15 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                         />
                                     </td>
                                     <td>{news.judul}</td>
-                                    <td>{news.category}</td>
+                                    <td>{news.name}</td>
+                                    <td>{news.namakategori}</td>
                                     <td>{news.view}</td>
 
                                     <td>
                                         <Link
                                             href={route(
                                                 "admin.dashboard.news.edit",
-                                                news.id
+                                                news.link_id
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -105,7 +107,7 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                                 destroy(
                                                     route(
                                                         "admin.dashboard.news.destroy",
-                                                        news.id
+                                                        news.link_id
                                                     )
                                                 );
                                             }}

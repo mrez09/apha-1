@@ -21,12 +21,7 @@ class DivisiTableSeeder extends Seeder
             [
                 'namadivisi'    =>  'Dewan Pengurus',
             ],
-            [
-                'namadivisi'    =>  'Umum',
-            ],
-            [
-                'namadivisi'    =>  'Pengurus Daerah',
-            ],
+            
         ];
         Divisi::insert($divisi);
     }

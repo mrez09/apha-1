@@ -15,7 +15,7 @@ class NewsController extends Controller
         
         //return Inertia::render('Buku/List');
         $featuredNews   = News::whereIsFeatured(true)->get();
-        $news           = News::all();
+        $news           = News::orderBy('publish_at', 'desc')->get();
 
         return inertia ('News/List',[
             'featuredNews'  => $featuredNews,
@@ -28,7 +28,11 @@ class NewsController extends Controller
     }
 
     public function show(News $news){
-        return Inertia::render('News/Show', ['news' => $news]);
+        $news->increment('view');
+        //$newsjoin           = News::findOrFail($news);
+        //$newsjoin           = News::select('news.id as link_id','judul', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->where('news.slug', $news->slug)->get();
+        $newsjoin           = News::select('news.id as link_id','judul', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->where('news.slug', $news->slug)->find($news->id);
+        return Inertia::render('News/Show', ['news' => $news, 'newsjoin' => $newsjoin]);
         //return Inertia::render('Admin/News/Create');
         //return $request->all();
     }

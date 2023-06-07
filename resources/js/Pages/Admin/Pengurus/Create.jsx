@@ -11,8 +11,29 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import Select from "react-select";
 
-export default function List({ props, subdivisi }) {
+export default function List({
+    props,
+    periode,
+    divisiall,
+    subdivisiall,
+    jabatanall,
+}) {
+    //select
+    const [selectedDd1, setSelectedDd1] = useState(""); //storing state of drop down 1
+    const [selectedDd2, setSelectedDd2] = useState([]); //storing state of corresponding drop down 2
+    function updateSelect(e) {
+        setSelectedDd1(e.target.value); //saving state of current selected drop down 1
+        if (selectedDd1 !== undefined) {
+            setSelectedDd2(
+                dropDownData1.find(
+                    (data) => data.constituency === e.target.value
+                ).polling_booth
+            ); //finding and saving the data for drop dop 2 related to the data of drop down 1
+        }
+    }
+    //
     const [startDate, setStartDate] = useState(new Date());
     //const changeDate = (e) => setDate(e.target.value);
     let table = new DataTable("#myTable", {
@@ -40,14 +61,14 @@ export default function List({ props, subdivisi }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("admin.dashboard.subdivisi.store"));
+        post(route("admin.dashboard.commitee.store"));
     };
     return (
         <AuthenticatedLayout>
-            <Head title="Tambah Berita" />
+            <Head title="Tambah Pengurus" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">Tambah Berita</h1>
+                <h1 className="h2">Tambah Pengurus</h1>
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <a
@@ -67,48 +88,305 @@ export default function List({ props, subdivisi }) {
                     <h4 className="mb-3"></h4>
                     <form onSubmit={submit}>
                         <div className="row g-3">
-                            <div className="col-md-6">
+                            <div className="col-sm-12">
                                 <label className="form-label">
-                                    Nama Divisi
+                                    Nama Pengurus
                                 </label>
+
+                                <input
+                                    type="text"
+                                    name="nama"
+                                    placeholder="Masukan Nama Pengurus"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="nama"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.nama}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    NIP Pengurus
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="nip"
+                                    placeholder="Masukan Nama Pengurus"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="nip"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.nip}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    NIK Pengurus
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="nik"
+                                    placeholder="Masukan NIK Pengurus"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="nik"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.nik}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">Email</label>
+
+                                <input
+                                    type="text"
+                                    name="email"
+                                    placeholder="Masukan Email Pengurus"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="email"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.email}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    Nomor Telpon Pengurus
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    placeholder="Masukan Nomor Telpon Pengurus"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="phone"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.phone}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    Photo Pengurus
+                                </label>
+                                <input
+                                    type="file"
+                                    name="img"
+                                    placeholder="Masukan Judul"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.img}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">Periode</label>
                                 <select
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="id_divisi"
-                                    name="id_divisi"
+                                    id="periode"
+                                    name="periode"
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {subdivisi.map((subdivisi) => (
-                                        <option value={subdivisi.id}>
-                                            {subdivisi.namadivisi}
+                                    {periode.map((periode) => (
+                                        <option value={periode.id}>
+                                            {periode.namaperiode}
                                         </option>
                                     ))}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
-                                        message={errors.id_divisi}
+                                        message={errors.periode}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">Divisi</label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="divisi"
+                                    name="divisi"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    {divisiall.map((periode) => (
+                                        <option value={periode.id}>
+                                            {periode.namadivisi}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.periode}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">Sub Divisi</label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="subdivisi"
+                                    name="subdivisi"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    {subdivisiall.map((periode) => (
+                                        <option value={periode.id}>
+                                            {periode.namasubdivisi}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.periode}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">Jabatan</label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="jabatan"
+                                    name="jabatan"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    {jabatanall.map((periode) => (
+                                        <option value={periode.id}>
+                                            {periode.namajabatan}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.periode}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <hr className="my-4"></hr>
+
+                            <div className="col-sm-12">
+                                <label className="form-label">Deskripsi</label>
+                                {/*<input
+                                    type="text"
+                                    name="konten"
+                                    placeholder="Masukan Judul"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="judul"
+                                    onChange={onHandleChange}
+                                    />*/}
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    name="description"
+                                    data=""
+                                    onReady={(editor) => {
+                                        // You can store the "editor" and use when it is needed.
+                                        console.log(
+                                            "Editor is ready to use!",
+                                            editor
+                                        );
+                                    }}
+                                    onChange={(event, editor, e) => {
+                                        const data = editor.getData();
+                                        setData("description", data);
+
+                                        console.log({ event, editor, data });
+                                    }}
+                                    onBlur={(event, editor) => {
+                                        console.log("Blur.", editor);
+                                    }}
+                                    onFocus={(event, editor) => {
+                                        console.log("Focus.", editor);
+                                    }}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.description}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
 
                             <div className="col-sm-12">
-                                <label className="form-label">
-                                    Nama Sub Divisi
-                                </label>
-
-                                <input
+                                <label className="form-label">Pendidikan</label>
+                                {/*<input
                                     type="text"
-                                    name="namasubdivisi"
-                                    placeholder="Masukan Nama Sub Divisi"
+                                    name="konten"
+                                    placeholder="Masukan Judul"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="namadivisi"
+                                    autoComplete="judul"
                                     onChange={onHandleChange}
+                                    />*/}
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    name="pendidikan"
+                                    data=""
+                                    onReady={(editor) => {
+                                        // You can store the "editor" and use when it is needed.
+                                        console.log(
+                                            "Pendidikan is ready to use!",
+                                            editor
+                                        );
+                                    }}
+                                    onChange={(event, editor, e) => {
+                                        const data = editor.getData();
+                                        setData("pendidikan", data);
+
+                                        console.log({ event, editor, data });
+                                    }}
+                                    onBlur={(event, editor) => {
+                                        console.log("Blur.", editor);
+                                    }}
+                                    onFocus={(event, editor) => {
+                                        console.log("Focus.", editor);
+                                    }}
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.namasubdivisi}
+                                        message={errors.pendidikan}
                                         className="mt-2"
                                     />
                                 </div>

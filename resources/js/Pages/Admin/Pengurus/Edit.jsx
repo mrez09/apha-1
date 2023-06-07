@@ -22,73 +22,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //import Alignment from "@ckeditor/ckeditor5-build-classic";
 //import Markdown from "@ckeditor/ckeditor5-markdown-gfm/src/markdown";
 
-const editorConfiguration = {
-    codeBlock: {
-        languages: [
-            { language: "css", label: "CSS" },
-            { language: "html", label: "HTML" },
-        ],
-    },
-    //plugins: [Alignment],
-    //alignment: {
-    //  options: ["left", "right"],
-    //},
-    toolbar: [
-        "sourceEditing",
-        "undo",
-        "redo",
-        "heading",
-        "style",
-        "|",
-        "fontFamily",
-        "fontSize",
-        "fontColor",
-        "fontBackgroundColor",
-        "bold",
-        "italic",
-        "underline",
-        "link",
-        "alignment",
-        "|",
-        "bulletedList",
-        "numberedList",
-        "outdent",
-        "indent",
-        "todoList",
-        "pageBreak",
-        "|",
-        "imageUpload",
-        "imageInsert",
-        "mediaEmbed",
-        "-",
-        "code",
-        "htmlEmbed",
-        "codeBlock",
-        "|",
-        "insertTable",
-        "blockQuote",
-        "specialCharacters",
-        "superscript",
-        "subscript",
-        "strikethrough",
-        "horizontalLine",
-        "|",
-        "removeFormat",
-        "findAndReplace",
-        "selectAll",
-    ],
-    image: {
-        toolbar: [
-            "imageTextAlternative",
-            "toggleImageCaption",
-            "imageStyle:inline",
-            "imageStyle:block",
-            "imageStyle:side",
-            "linkImage",
-        ],
-    },
-};
-
 export default function List(props) {
     const [startDate, setStartDate] = useState(new Date());
     //const changeDate = (e) => setDate(e.target.value);
@@ -101,7 +34,7 @@ export default function List(props) {
     });
 
     const { data, setData, processing, errors } = useForm({
-        ...props.subdivisi,
+        ...props.commitee,
     });
 
     const onHandleChange = (event) => {
@@ -116,8 +49,12 @@ export default function List(props) {
     const submit = (e) => {
         e.preventDefault();
 
+        if (data.img == props.commitee.img) {
+            delete data.img;
+        }
+
         router.post(
-            route("admin.dashboard.subdivisi.update", props.subdivisi.id),
+            route("admin.dashboard.commitee.update", props.commitee.id),
             {
                 _method: "PUT",
                 ...data,
@@ -130,7 +67,7 @@ export default function List(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Divisi : <p>{props.subdivisi.namadivisi}</p>
+                    Update Pengurus : <p>{props.commitee.nama} </p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
@@ -152,47 +89,348 @@ export default function List(props) {
                     <h4 className="mb-3"></h4>
                     <form onSubmit={submit}>
                         <div className="row g-3">
+                            <div className="col-sm-12">
+                                <label className="form-label">
+                                    Nama Pengurus
+                                </label>
+                                <input
+                                    type="text"
+                                    name="nama"
+                                    defaultValue={props.commitee.nama}
+                                    placeholder="Masukan Judul"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="nama"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.judul}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
                             <div className="col-md-6">
                                 <label className="form-label">
-                                    Nama Divisi
+                                    NIP Pengurus
                                 </label>
+                                <input
+                                    type="text"
+                                    id="nip"
+                                    name="nip"
+                                    placeholder="Masukan NIP"
+                                    defaultValue={props.commitee.nip}
+                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="nip"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.nip}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label">NIK</label>
+                                <input
+                                    type="text"
+                                    id="nik"
+                                    name="nik"
+                                    placeholder="Masukan Nomor Induk Kewarganegaraan"
+                                    defaultValue={props.commitee.nik}
+                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="nik"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.nik}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    Email Pengurus
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Masukan Email"
+                                    defaultValue={props.commitee.email}
+                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="email"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.email}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    Nomor Telepon Pengurus
+                                </label>
+                                <input
+                                    type="text"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Masukan Nomor Telepon"
+                                    defaultValue={props.commitee.phone}
+                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="nip"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.phone}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">File</label>
+                                <img
+                                    src={`/storage/${props.commitee.img}`}
+                                    alt=""
+                                />
+                                <input
+                                    type="file"
+                                    name="img"
+                                    placeholder="Masukan File"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.img}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">Periode</label>
                                 <select
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="id_divisi"
-                                    name="id_divisi"
+                                    id="periode"
+                                    name="periode"
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {props.listdivisi.map((subdivisi) => (
-                                        <option value={subdivisi.id}>
-                                            {subdivisi.namadivisi}
+                                    {props.periode.map((periode) => (
+                                        <option value={periode.id} selected>
+                                            {periode.namaperiode}
                                         </option>
                                     ))}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
-                                        message={errors.id_divisi}
+                                        message={errors.periode}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
-                            <div className="col-sm-12">
-                                <label className="form-label">
-                                    Nama Divisi
-                                </label>
-                                <input
-                                    type="text"
-                                    name="namasubdivisi"
-                                    defaultValue={props.subdivisi.namasubdivisi}
-                                    placeholder="Masukan Nama Sub Divisi"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="namasubdivisi"
+
+                            <div className="col-md-4">
+                                <label className="form-label">Divisi</label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="divisi"
+                                    name="divisi"
                                     onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    {props.divisiall.map((periode) => (
+                                        <option value={periode.id}>
+                                            {periode.namadivisi}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.periode}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">Sub Divisi</label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="subdivisi"
+                                    name="subdivisi"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    {props.subdivisiall.map((periode) => (
+                                        <option value={periode.id}>
+                                            {periode.namasubdivisi}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.periode}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">Jabatan</label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="jabatan"
+                                    name="jabatan"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    {props.jabatanall.map((periode) => (
+                                        <option value={periode.id}>
+                                            {periode.namajabatan}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.periode}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+                            {/* 
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    Tanggal Gabung
+                                </label>
+                                <div className="form-control">
+                                    <DatePicker
+                                        showIcon
+                                        name="publish_at"
+                                        selected={startDate}
+                                        showTimeSelect={true}
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        className="form-control"
+                                        //onChange={(e) => setData("publish_at", date)}
+                                        onChange={(date) => {
+                                            setStartDate(date);
+                                            setData("publish_at", date);
+                                            console.log({ date });
+                                        }}
+
+                                        //onChange={(e) =>
+                                        //  setData(
+                                        //    "is_featured",
+                                        //  e.target.checked
+                                        //)
+                                        //}
+                                        //onChange={onHandleChange}
+                                        //onSelect={(date, e) => setStartDate(date)}
+                                    />
+                                </div>
+                            </div>
+*/}
+
+                            <div className="col-sm-12">
+                                <label className="form-label">Deskripsi</label>
+                                {/*<input
+                                    type="text"
+                                    name="konten"
+                                    placeholder="Masukan Judul"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="judul"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback"></div>*/}
+                                <CKEditor
+                                    className="konten"
+                                    //config={editorConfiguration}
+                                    editor={ClassicEditor}
+                                    name="description"
+                                    data={props.commitee.description}
+                                    onReady={(editor) => {
+                                        // You can store the "editor" and use when it is needed.
+                                        console.log(
+                                            "Editor is ready to use!",
+                                            editor
+                                        );
+                                    }}
+                                    onChange={(event, editor, e) => {
+                                        const data = editor.getData();
+                                        setData("konten", data);
+
+                                        console.log({ event, editor, data });
+                                    }}
+                                    onBlur={(event, editor) => {
+                                        console.log("Blur.", editor);
+                                    }}
+                                    onFocus={(event, editor) => {
+                                        console.log("Focus.", editor);
+                                    }}
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.namasubdivisi}
+                                        message={errors.konten}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-12">
+                                <label className="form-label">Pendidikan</label>
+                                {/*<input
+                                    type="text"
+                                    name="konten"
+                                    placeholder="Masukan Judul"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="judul"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback"></div>*/}
+                                <CKEditor
+                                    className="konten"
+                                    //config={editorConfiguration}
+                                    editor={ClassicEditor}
+                                    name="pendidikan"
+                                    data={props.commitee.pendidikan}
+                                    onReady={(editor) => {
+                                        // You can store the "editor" and use when it is needed.
+                                        console.log(
+                                            "Editor is ready to use!",
+                                            editor
+                                        );
+                                    }}
+                                    onChange={(event, editor, e) => {
+                                        const data = editor.getData();
+                                        setData("pendidikan", data);
+
+                                        console.log({ event, editor, data });
+                                    }}
+                                    onBlur={(event, editor) => {
+                                        console.log("Blur.", editor);
+                                    }}
+                                    onFocus={(event, editor) => {
+                                        console.log("Focus.", editor);
+                                    }}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.konten}
                                         className="mt-2"
                                     />
                                 </div>

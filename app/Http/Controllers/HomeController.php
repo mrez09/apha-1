@@ -16,8 +16,9 @@ class HomeController extends Controller
         
         //return Inertia::render('Buku/List');
         $featuredNews   = News::whereIsFeatured(true)->get();
-        $news           = News::limit(3)->get();
-        $featuredBuku   = Buku::limit(3)->whereIsFeatured(true)->get();
+        $news           = News::orderBy('publish_at', 'desc')->limit(3)->get();
+        //$featuredBuku   = Buku::limit(3)->whereIsFeatured(true)->get();
+        $featuredBuku   = Buku::orderBy('id', 'desc')->limit(3)->get();
         $featuredBanner = Banner::whereIsFeatured(true)->whereCategory("Banner")->get();
         $buttonBanner   = Banner::whereIsFeatured(true)->whereCategory("Banner")->get();
         $mainBanner     = Banner::whereIsFeatured(true)->whereCategory("MainBanner")->get();

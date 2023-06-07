@@ -32,5 +32,11 @@ class DatabaseSeeder extends Seeder
         $this->call(DivisiTableSeeder::class);
         $this->call(SubdivisiTableSeeder::class);
         $this->call(JabatanTableSeeder::class);
+        $this->call(PeriodeTableSeeder::class);
+        $this->call(NewscategoryTableSeeder::class);
+        $this->call(CommiteeSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(CourseSeeder::class);
+        
     }
 }

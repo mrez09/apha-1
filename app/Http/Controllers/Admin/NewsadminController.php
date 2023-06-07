@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\News;
+use App\Models\Newscategory;
 use Inertia\Inertia;
 use App\Http\Requests\Admin\News\Store;
 use App\Http\Requests\Admin\News\Update;
@@ -17,10 +18,11 @@ class NewsadminController extends Controller
     //
     public function index(){
         $news           = News::all();
+        $newsjoin           = News::select('news.id as link_id','judul', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->get();
         return Inertia::render('Admin/News/List',
-    [
-        'news'          => $news
-    ]);
+        [
+            'news'          => $newsjoin
+        ]);
       //return  [
         //    'news'          => $news,
         //];  
@@ -28,7 +30,11 @@ class NewsadminController extends Controller
     }
 
     public function create(){
-        return Inertia::render('Admin/News/Create');
+        $newscategory           = Newscategory::all();
+        return Inertia::render('Admin/News/Create',
+    [
+        'newscategory'          => $newscategory
+    ]);
     }
 
     public function store(Store $request){
@@ -59,9 +65,11 @@ class NewsadminController extends Controller
         //return Inertia::render('Admin/News/Create');
         //return $request->all();
         //$news           = News::all();
+        $newscategory           = Newscategory::all();
         return Inertia::render('Admin/News/Edit',
         [
-            'news'          => $news
+            'news'          => $news,
+            'newscategory'          => $newscategory
         ]);
     }
 

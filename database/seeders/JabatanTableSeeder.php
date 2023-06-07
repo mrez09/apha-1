@@ -20,6 +20,10 @@ class JabatanTableSeeder extends Seeder
                 'id_subdivisi'      =>  1,
             ],
             [
+                'namajabatan'     =>  'Ketua',
+                'id_subdivisi'      =>  2,
+            ],
+            [
                 'namajabatan'     =>  'Wakil Ketua ',
                 'id_subdivisi'         =>  1,
             ],
@@ -40,11 +44,19 @@ class JabatanTableSeeder extends Seeder
                 'id_subdivisi'         =>  1,
             ],
             [
-                'namajabatan'     =>  'Ketua',
+                'namajabatan'     =>  'Korwil Indonesia Barat',
                 'id_subdivisi'         =>  2,
             ],
             [
-                'namajabatan'     =>  'Sekretaris',
+                'namajabatan'     =>  'Korwil Indonesia Tengah',
+                'id_subdivisi'         =>  2,
+            ],
+            [
+                'namajabatan'     =>  'Korwil Indonesia Timur',
+                'id_subdivisi'         =>  2,
+            ],
+            [
+                'namajabatan'     =>  'Direktur Eksekutif',
                 'id_subdivisi'         =>  2,
             ],
             [

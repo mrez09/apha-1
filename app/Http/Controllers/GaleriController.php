@@ -14,7 +14,7 @@ class GaleriController extends Controller
         //return Inertia::render('Buku/List');
         //$featuredBuku   = Buku::whereIsFeatured(true)->get();
         //$galeri           = Galeri::all();
-        $galeri   = Galeri::whereCategory("Galeri")->get();
+        $galeri   = Galeri::orderBy('id', 'desc')->whereCategory("Galeri")->get();
 
         return inertia ('Galeri/List',[
             //'featuredBuku'  => $featuredBuku,

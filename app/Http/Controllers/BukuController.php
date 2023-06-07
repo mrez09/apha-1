@@ -13,7 +13,7 @@ class BukuController extends Controller
     {
         //return Inertia::render('Buku/List');
         $featuredBuku   = Buku::whereIsFeatured(true)->get();
-        $buku           = Buku::all();
+        $buku           = Buku::orderBy('id', 'desc')->get();
 
         return inertia ('Buku/List',[
             'featuredBuku'  => $featuredBuku,

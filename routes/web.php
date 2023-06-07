@@ -11,6 +11,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\NewscategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsadminController;
 use App\Http\Controllers\Admin\BookadminController;
@@ -22,6 +23,10 @@ use App\Http\Controllers\Admin\DivisiadminController;
 use App\Http\Controllers\Admin\SubdivisiadminController;
 use App\Http\Controllers\Admin\JabatanadminController;
 use App\Http\Controllers\Admin\PengurusadminController;
+use App\Http\Controllers\Admin\CommiteeadminController;
+use App\Http\Controllers\Admin\ContactadminController;
+use App\Http\Controllers\Admin\NewscategoryadminController;
+
 
 //use App\Http\Controllers\Admin\MainbanneradminController;
 
@@ -95,9 +100,25 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::get('jabatan/{id}/edit', [JabatanadminController::class, 'edit'])->name('jabatan.edit');
     Route::put('jabatan/{jabatan}/restore', [JabatanadminController::class, 'restore'])->name('jabatan.restore');
     //Divisi
-    Route::resource('pengurus', PengurusadminController::class);
-    Route::get('pengurus/{id}/edit', [PengurusadminController::class, 'edit'])->name('pengurus.edit');
+    Route::resource('penguru', PengurusadminController::class);
+    Route::get('penguru/{penguru}/edit', [PengurusadminController::class, 'edit'])->name('pengurus.edit');
     Route::put('pengurus/{jabatan}/restore', [PengurusadminController::class, 'restore'])->name('pengurus.restore');
+    //Contact
+    Route::resource('contact', ContactadminController::class);
+    Route::get('contact/{id}/edit', [ContactadminController::class, 'edit'])->name('contact.edit');
+    Route::get('contact/{id}/detail', [ContactadminController::class, 'edit'])->name('contact.detail');
+    Route::put('contact/{contact}/restore', [ContactadminController::class, 'restore'])->name('contact.restore');
+    Route::get('detail/{contact:id}', [ContactadminController::class, 'show'])->name('contact.detail');
+    //Divisi
+    Route::resource('newscategory', NewscategoryadminController::class);
+    Route::get('newscategory/{id}/edit', [NewscategoryadminController::class, 'edit'])->name('newscat.edit');
+    Route::put('newscategory/{newscategory}/restore', [NewscategoryadminController::class, 'restore'])->name('pengurus.restore');
+
+    //Pengurus Bahasa Inggris
+    Route::resource('commitee', CommiteeadminController::class);
+    Route::get('commitee/{id}/edit', [CommiteeadminController::class, 'edit'])->name('pengurus.edit');
+    Route::put('commitee/{jabatan}/restore', [CommiteeadminController::class, 'restore'])->name('pengurus.restore');
+   
 });
 
 Route::get('/penasehat', function () {
@@ -214,9 +235,36 @@ Route::prefix('/')->name('front')->group(function (){
     //Route::get('galeri/{galeri:slug}', [GaleriController::class, 'show'])->name('news.show');
     //Route::get('galeri/{id}/edit', [GaleriController::class, 'edit'])->name('news.edit');
 
+    //NewsCategory
+    //Route::resource('category', NewscategoryController::class);
+    Route::get('newscategory/{newscategory:slug}', [NewscategoryController::class, 'show'])->name('newscategory.show');
+    //Route::get('news/{id}/edit', [NewsControlleNewscategoryController::class, 'edit'])->name('news.edit');
+
     //buku
     //Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
     
+
+    //response json
+
+    Route::get('getCourse/{id}', function ($id) {
+        $course = App\Models\Course::where('category_id',$id)->get();
+        return response()->json($course);
+    });
+    
+    Route::get('getDivisi/{id}', function ($id) {
+        $course = App\Models\Divisi::where('id',$id)->get();
+        return response()->json($course);
+    });
+    Route::get('getSubdivisi/{id}', function ($id) {
+        $course = App\Models\Subdivisi::where('id_divisi',$id)->get();
+        return response()->json($course);
+    });
+    Route::get('getJabatan/{id}', function ($id) {
+        $course = App\Models\Jabatan::where('id_subdivisi',$id)->get();
+        return response()->json($course);
+    });
+
+    //Route::get('/regions', 'ContactController@regions');
 });
 
 //Route::prefix('buku')->name('buku')->group(function () {

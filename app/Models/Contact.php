@@ -10,5 +10,5 @@ class Contact extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['firstname', 'lastname', 'email', 'phone', 'read', 'message'];
+    protected $fillable = ['firstname', 'lastname', 'email', 'phone', 'read', 'balas', 'message'];
 }

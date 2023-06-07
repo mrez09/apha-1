@@ -33,7 +33,7 @@ export default function List({ auth, errors, flashMessage, props, pengurus }) {
                     <div className="btn-group me-2">
                         <Link
                             type="button"
-                            href={route("admin.dashboard.jabatan.create")}
+                            href={route("admin.dashboard.commitee.create")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Tambah
@@ -54,16 +54,22 @@ export default function List({ auth, errors, flashMessage, props, pengurus }) {
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
+                                <th>Nama Divisi</th>
                                 <th>Photo</th>
                                 <th>Periode</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {pengurus.map((pengurus) => (
+                            {pengurus.map((pengurus, index) => (
                                 <tr key={pengurus.id}>
-                                    <td>{pengurus.id}</td>
+                                    <td>{++index}</td>
                                     <td>{pengurus.nama}</td>
+                                    <th>
+                                        {pengurus.namadivisi}-
+                                        {pengurus.namasubdivisi}-
+                                        {pengurus.namajabatan}
+                                    </th>
                                     <td>
                                         <img
                                             src={`/storage/${pengurus.img}`}
@@ -71,13 +77,13 @@ export default function List({ auth, errors, flashMessage, props, pengurus }) {
                                             alt=""
                                         />
                                     </td>
-                                    <td>{pengurus.periode}</td>
+                                    <td>{pengurus.namaperiode}</td>
 
                                     <td>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.pengurus.edit",
-                                                pengurus.id
+                                                "admin.dashboard.commitee.edit",
+                                                pengurus.commitees_id
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -89,7 +95,7 @@ export default function List({ auth, errors, flashMessage, props, pengurus }) {
                                                 destroy(
                                                     route(
                                                         "admin.dashboard.pengurus.destroy",
-                                                        pengurus.id
+                                                        pengurus.commitees_id
                                                     )
                                                 );
                                             }}

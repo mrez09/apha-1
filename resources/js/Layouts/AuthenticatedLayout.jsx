@@ -82,6 +82,17 @@ export default function Authenticated({ auth, header, children }) {
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
                                                     href={route(
+                                                        "admin.dashboard.newscategory.index"
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-home"></i>
+                                                    Kategori Berita
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
                                                         "admin.dashboard.news.index"
                                                     )}
                                                 >
@@ -165,7 +176,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
                                                     href={route(
-                                                        "admin.dashboard.jabatan.index"
+                                                        "admin.dashboard.commitee.index"
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
@@ -176,6 +187,17 @@ export default function Authenticated({ auth, header, children }) {
                                     </div>
                                 </li>
                                 {/*end Pengurus*/}
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route(
+                                            "admin.dashboard.contact.index"
+                                        )}
+                                    >
+                                        <i className="fas ic fa-address-book"></i>
+                                        Contact
+                                    </NavLink>
+                                </li>
                             </ul>
 
                             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
