@@ -11,7 +11,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
-import React from "react";
 
 const options = [
     { value: "chocolate", label: "Chocolate" },
