@@ -12,9 +12,12 @@ export default function List({
     featuredCommitee,
     commitee,
     pengurus,
+    subdivisi,
+    wordCount,
     props,
     periode,
     periodeget,
+    pengurusget,
 }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     return (
@@ -124,7 +127,7 @@ export default function List({
                 <div className="row">
                     <div className="row  crumble">
                         <div className="col-lg-12 col-md-12 mx-auto head-bread">
-                            <h1 className="f-bread">Struktur Dewan Pembina</h1>
+                            <h1 className="f-bread">Struktur Dewan Pengurus</h1>
 
                             <p className="lead-bread py-1">
                                 Asosiasi Pengajar Hukum Adat
@@ -142,7 +145,7 @@ export default function List({
                         <a href="#">Pengurus</a>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                        Dewan Pembina
+                        Dewan Pengurus
                     </li>
                 </ol>
             </nav>
@@ -150,49 +153,65 @@ export default function List({
             {/*Pengurus */}
             <div className="container">
                 <div className="py-5 text-center Container">
-                    <h2>SUSUNAN DEWAN PEMBINA </h2>
-                    {(() => {
-                        if (periodeget.pengurus) {
-                            return (
-                                <div>
-                                    <h4 className="blog-post-title mt-2 text-paragh">
-                                        {periodeget.namaperiode}
-                                    </h4>
-                                </div>
-                            );
-                        }
-                    })()}
-                    <div className="mb-10 p-5 border border-gray-200 rounded-lg">
-                        <table className="table ">
-                            <tbody>
-                                {pengurus.map((listPengurus) => {
-                                    if (
-                                        listPengurus.periode ==
-                                        periodeget.periode_id
-                                    ) {
+                    <h2>SUSUNAN DEWAN PENGURUS </h2>
+
+                    {/*  Bidang Pendidikan dan Pelatihan */}
+
+                    {subdivisi.map((listSub) => {
+                        return (
+                            <div className="mb-10 border border-gray-200 rounded-lg card">
+                                {(() => {
+                                    if (listSub.id == 1) {
+                                        return <h3></h3>;
+                                    } else {
                                         return (
-                                            <tr>
-                                                <th className="position">
-                                                    {listPengurus.namajabatan}
-                                                </th>
-                                                <td className="doted">:</td>
-                                                <td className="name-manage">
-                                                    <Link
-                                                        href={route(
-                                                            "frontpengurus.commitee.show",
-                                                            listPengurus.slug
-                                                        )}
-                                                    >
-                                                        {listPengurus.nama}
-                                                    </Link>
-                                                </td>
-                                            </tr>
+                                            <div className="card-header ">
+                                                <h3>{listSub.namasubdivisi}</h3>
+                                            </div>
                                         );
                                     }
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
+                                })()}
+
+                                <table className="table m-3 table-borderless">
+                                    <tbody>
+                                        {pengurus.map((listPengurus) => {
+                                            if (
+                                                listSub.namasubdivisi ==
+                                                    listPengurus.namasubdivisi &&
+                                                periodeget.periode_id ==
+                                                    listPengurus.periode
+                                            ) {
+                                                return (
+                                                    <tr>
+                                                        <td className="position">
+                                                            {
+                                                                listPengurus.namajabatan
+                                                            }
+                                                        </td>
+                                                        <td className="doted">
+                                                            :
+                                                        </td>
+                                                        <td className="name-manage">
+                                                            <Link
+                                                                href={route(
+                                                                    "frontpengurus.commitee.show",
+                                                                    listPengurus.slug
+                                                                )}
+                                                            >
+                                                                {
+                                                                    listPengurus.nama
+                                                                }
+                                                            </Link>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            }
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </FrontendLayout>
