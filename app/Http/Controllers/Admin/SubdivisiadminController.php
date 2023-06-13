@@ -30,14 +30,15 @@ class SubdivisiadminController extends Controller
         
         
         return Inertia::render('Admin/Subdivisi/List',
-    [
-        'subdivisi'          => $subdivisi
-    ]);
+        [
+            'subdivisi'          => $subdivisi
+        ]);
       //return  [
         //    'news'          => $news,
         //];  
 
     }
+    
     public function create(){
         $subdivisi           = Divisi::all();
         return Inertia::render('Admin/Subdivisi/Create',
