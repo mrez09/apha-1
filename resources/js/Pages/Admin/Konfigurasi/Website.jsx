@@ -198,10 +198,7 @@ export default function List(props) {
                                     <option value="">Choose...</option>
 
                                     {props.periode.map((periode) => {
-                                        if (
-                                            props.periodeget.pengurus ==
-                                            periode.id
-                                        ) {
+                                        if (periode.id) {
                                             return (
                                                 <option
                                                     value={periode.id}
