@@ -130,7 +130,7 @@ export default function List(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Divisi : <p>{props.subdivisi.namadivisi}</p>
+                    Update Sub Divisi : <p>{props.subdivisi.namadivisi}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
@@ -164,11 +164,27 @@ export default function List(props) {
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {props.listdivisi.map((subdivisi) => (
-                                        <option value={subdivisi.id}>
-                                            {subdivisi.namadivisi}
-                                        </option>
-                                    ))}
+                                    {props.listdivisi.map((periode) => {
+                                        if (
+                                            props.divisiget.namadivisi ==
+                                            periode.namadivisi
+                                        ) {
+                                            return (
+                                                <option
+                                                    value={periode.id}
+                                                    selected
+                                                >
+                                                    {periode.namadivisi}
+                                                </option>
+                                            );
+                                        }
+
+                                        return (
+                                            <option value={periode.id}>
+                                                {periode.namadivisi}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -177,6 +193,7 @@ export default function List(props) {
                                     />
                                 </div>
                             </div>
+
                             <div className="col-sm-12">
                                 <label className="form-label">
                                     Nama Divisi
@@ -193,6 +210,57 @@ export default function List(props) {
                                 <div className="">
                                     <InputError
                                         message={errors.namasubdivisi}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    Ditampilkan Sebagai Rekomendasi (Feature)
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="status"
+                                    name="status"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {(() => {
+                                        if (props.subdivisi.status == 0) {
+                                            return (
+                                                <option value="0" selected>
+                                                    Tidak Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="0">
+                                                    Tidak Aktif
+                                                </option>
+                                            );
+                                        }
+                                    })()}
+
+                                    {(() => {
+                                        if (props.subdivisi.status == 1) {
+                                            return (
+                                                <option value="1" selected>
+                                                    Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="1">Aktif</option>
+                                            );
+                                        }
+                                    })()}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.status}
                                         className="mt-2"
                                     />
                                 </div>

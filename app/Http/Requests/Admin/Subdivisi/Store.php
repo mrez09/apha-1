@@ -27,6 +27,7 @@ class Store extends FormRequest
         return [
             //
             'namasubdivisi'     => 'required',
+            'status'     => 'required',
         ];
     }
 }

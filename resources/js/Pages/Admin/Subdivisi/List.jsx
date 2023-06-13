@@ -55,16 +55,26 @@ export default function List({ auth, errors, flashMessage, props, subdivisi }) {
                                 <th>No</th>
                                 <th>Nama Divisi</th>
                                 <th>Sub Divisi</th>
+                                <th>Status</th>
 
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {subdivisi.map((subdivisi) => (
+                            {subdivisi.map((subdivisi, index) => (
                                 <tr key={subdivisi.id}>
-                                    <td>{subdivisi.id}</td>
+                                    <td>{++index}</td>
                                     <td>{subdivisi.namadivisi}</td>
                                     <td>{subdivisi.namasubdivisi}</td>
+                                    <td>
+                                        {(() => {
+                                            if (subdivisi.status == 0) {
+                                                return <p>Tidak Aktif</p>;
+                                            } else if (subdivisi.status == 1) {
+                                                return <p>Aktif</p>;
+                                            }
+                                        })()}
+                                    </td>
 
                                     <td>
                                         <Link

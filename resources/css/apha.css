@@ -1,6 +1,105 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap");
+
+/*Maintenance and Error Page*/
+.maintenance {
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+}
+.container-maintenance {
+    .what-is-up {
+        display: block;
+        vertical-align: middle;
+        text-align: center;
+        box-sizing: border-box;
+        .spinny-cogs {
+            display: block;
+            margin-bottom: 2rem;
+            .fa {
+                &:nth-of-type(1) {
+                    @extend .fa-spin-one;
+                }
+
+                &:nth-of-type(3) {
+                    @extend .fa-spin-two;
+                }
+            }
+        }
+    }
+}
+
+@-webkit-keyframes fa-spin-one {
+    0% {
+        -webkit-transform: translateY(-2rem) rotate(0deg);
+        transform: translateY(-2rem) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-2rem) rotate(-359deg);
+        transform: translateY(-2rem) rotate(-359deg);
+    }
+}
+@keyframes fa-spin-one {
+    0% {
+        -webkit-transform: translateY(-2rem) rotate(0deg);
+        transform: translateY(-2rem) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-2rem) rotate(-359deg);
+        transform: translateY(-2rem) rotate(-359deg);
+    }
+}
+.fa-spin-one {
+    -webkit-animation: fa-spin-one 1s infinite linear;
+    animation: fa-spin-one 1s infinite linear;
+}
+
+@-webkit-keyframes fa-spin-two {
+    0% {
+        -webkit-transform: translateY(-0.5rem) translateY(1rem) rotate(0deg);
+        transform: translateY(-0.5rem) translateY(1rem) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-0.5rem) translateY(1rem) rotate(-359deg);
+        transform: translateY(-0.5rem) translateY(1rem) rotate(-359deg);
+    }
+}
+@keyframes fa-spin-two {
+    0% {
+        -webkit-transform: translateY(-0.5rem) translateY(1rem) rotate(0deg);
+        transform: translateY(-0.5rem) translateY(1rem) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-0.5rem) translateY(1rem) rotate(-359deg);
+        transform: translateY(-0.5rem) translateY(1rem) rotate(-359deg);
+    }
+}
+.fa-spin-two {
+    -webkit-animation: fa-spin-two 2s infinite linear;
+    animation: fa-spin-two 2s infinite linear;
+}
+.made-by-me {
+    position: fixed;
+    text-decoration: none;
+    box-sizing: border-box;
+    right: 16px;
+    bottom: 16px;
+    width: 44px;
+    height: 44px;
+    display: block;
+    border-radius: 100%;
+    border: 2px solid white;
+    box-shadow: 0 0 30px 0 rgba(black, 0.3);
+    font-size: 0px;
+    /*background: url("https://i.imgur.com/jDixmBM.jpg") no-repeat center;*/
+    background-size: cover;
+}
 
 /*HOMES*/
+
+.item-config {
+    margin-top: -20px;
+}
 
 .de1 {
     padding: 5px;
@@ -15,9 +114,23 @@
 }
 
 /*Custom Bro*/
+.round-card {
+    border-radius: 15px;
+    border: 1px double;
+}
+.text-accent {
+    color: orange;
+    font-family: "Inter", sans-serif;
+}
+.text-paragh {
+    color: black;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+}
 .kon-10 {
     margin-top: 10px;
     font-size: 1rem;
+    font-family: "Inter", sans-serif;
 }
 
 .img-logo {

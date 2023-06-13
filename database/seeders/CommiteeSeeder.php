@@ -17,6 +17,7 @@ class CommiteeSeeder extends Seeder
         $commitee = [
             [
                 'nama'          =>  'Prof. Dr. H. Aminuddin Salle, SH, MH',
+                'slug'           =>  'slug-1',
                 'nip'           =>  '', 
                 'nik'           =>  '',
                 'img'           =>  '',

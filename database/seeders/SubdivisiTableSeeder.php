@@ -18,34 +18,42 @@ class SubdivisiTableSeeder extends Seeder
             [
                 'namasubdivisi'     =>  'Utama',
                 'id_divisi'         =>  1,
+                'status'            =>  1,
             ],
             [
                 'namasubdivisi'     =>  'Bidang Pendidikan dan Pelatihan',
                 'id_divisi'         =>  2,
+                'status'            =>  1,
             ],
             [
                 'namasubdivisi'     =>  'Penelitian, dan Pengembangan Hukum Adat',
                 'id_divisi'         =>  2,
+                'status'            =>  1,
             ],
             [
                 'namasubdivisi'     =>  'Bidang Organisasi',
                 'id_divisi'         =>  2,
+                'status'            =>  1,
             ],
             [
                 'namasubdivisi'     =>  'Bidang Kerjasama Antar Lembaga',
                 'id_divisi'         =>  2,
+                'status'            =>  1,
             ],
             [
                 'namasubdivisi'     =>  'Bidang Publikasi dan Informasi Ilmiah Hukum Adat',
                 'id_divisi'         =>  2,
+                'status'            =>  1,
             ],
             [
                 'namasubdivisi'     =>  'Umum',
                 'id_divisi'         =>  3,
+                'status'            =>  1,
             ],
             [
                 'namasubdivisi'     =>  'Kordinator',
                 'id_divisi'         =>  4,
+                'status'            =>  1,
             ],
             
         ];

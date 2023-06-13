@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Models\Pengurus;
+use App\Models\Commitee;
 
 class PengurusController extends Controller
 {
@@ -27,4 +30,9 @@ class PengurusController extends Controller
         ];*/
     }
     //
+    public function show(Commitee $pengurus){
+        return Inertia::render('Pengurus/Show_Pengurus', ['pengurus' => $pengurus]);
+        //return Inertia::render('Admin/News/Create');
+        //return $request->all();
+    }
 }

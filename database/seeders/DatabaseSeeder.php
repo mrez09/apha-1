@@ -35,8 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PeriodeTableSeeder::class);
         $this->call(NewscategoryTableSeeder::class);
         $this->call(CommiteeSeeder::class);
-        $this->call(CategorySeeder::class);
-        $this->call(CourseSeeder::class);
+        $this->call(KonfigurasiSeeder::class);
         
     }
 }

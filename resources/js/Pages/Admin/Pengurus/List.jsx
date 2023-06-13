@@ -5,7 +5,14 @@ import { Head, useForm } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 
-export default function List({ auth, errors, flashMessage, props, pengurus }) {
+export default function List({
+    auth,
+    errors,
+    flashMessage,
+    props,
+    pengurus,
+    konfigurasi,
+}) {
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
         // options
@@ -30,6 +37,18 @@ export default function List({ auth, errors, flashMessage, props, pengurus }) {
                 <h1 className="h2">List Data Pengurus</h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
+                    <div className="btn-group me-2">
+                        <Link
+                            type="button"
+                            href={route(
+                                "admin.dashboard.konfigurasi.pengurus.edit",
+                                konfigurasi.slug
+                            )}
+                            className="btn btn-sm btn-outline-secondary"
+                        >
+                            Setting
+                        </Link>
+                    </div>
                     <div className="btn-group me-2">
                         <Link
                             type="button"
@@ -94,7 +113,7 @@ export default function List({ auth, errors, flashMessage, props, pengurus }) {
                                             onClick={() => {
                                                 destroy(
                                                     route(
-                                                        "admin.dashboard.pengurus.destroy",
+                                                        "admin.dashboard.commitee.destroy",
                                                         pengurus.commitees_id
                                                     )
                                                 );

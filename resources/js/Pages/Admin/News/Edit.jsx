@@ -182,11 +182,28 @@ export default function List(props) {
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {props.newscategory.map((newscategory) => (
-                                        <option value={newscategory.id}>
-                                            {newscategory.namakategori}
-                                        </option>
-                                    ))}
+
+                                    {props.newscategory.map((newscategory) => {
+                                        if (
+                                            props.categoryget.namakategori ==
+                                            newscategory.namakategori
+                                        ) {
+                                            return (
+                                                <option
+                                                    value={newscategory.id}
+                                                    selected
+                                                >
+                                                    {newscategory.namakategori}
+                                                </option>
+                                            );
+                                        }
+
+                                        return (
+                                            <option value={newscategory.id}>
+                                                {newscategory.namakategori}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -268,7 +285,63 @@ export default function List(props) {
                                 </div>
                             </div>
 
-                            <div className="col-sm-12">
+                            {
+                                //featured baru
+                            }
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    Ditampilkan Sebagai Rekomendasi (Feature)
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="is_featured"
+                                    name="is_featured"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {(() => {
+                                        if (props.news.is_featured == 0) {
+                                            return (
+                                                <option value="0" selected>
+                                                    Tidak Aktif +{" "}
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="0">
+                                                    Tidak Aktif
+                                                </option>
+                                            );
+                                        }
+                                    })()}
+
+                                    {(() => {
+                                        if (props.news.is_featured == 1) {
+                                            return (
+                                                <option value="1" selected>
+                                                    Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="1">Aktif</option>
+                                            );
+                                        }
+                                    })()}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.category}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            {
+                                //featured
+                                /*<div className="col-sm-12">
                                 <label className="form-label">Feature</label>
                                 <div className="form-check">
                                     <input
@@ -295,6 +368,8 @@ export default function List(props) {
                                     </div>
                                 </div>
                             </div>
+                            */
+                            }
 
                             <div className="col-sm-12">
                                 <label className="form-label">Isi</label>

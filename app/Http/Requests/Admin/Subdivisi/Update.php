@@ -28,6 +28,7 @@ class Update extends FormRequest
             //
             'namasubdivisi'     => 'required',
             'id_divisi'     => 'required',
+            'status'     => 'required',
         ];
     }
 }

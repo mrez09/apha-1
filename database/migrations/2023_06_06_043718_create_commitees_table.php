@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama', 255);
             $table->string('nip')->nullable();
             $table->string('nik')->nullable();
+            $table->string('slug')->nullable();
             $table->string('img');
             $table->bigInteger('divisi');
             $table->bigInteger('subdivisi');

@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Commitee extends Model
 {
-    use HasFactory;
-    protected $fillable = ['nama', 'nip', 'nik', 'img', 'divisi', 'subdivisi', 'jabatan', 'email', 'phone', 'description', 'pendidikan', 'periode', 'is_featured', 'join_at'];
+    use HasFactory, SoftDeletes;
+    protected $fillable = ['nama', 'slug', 'nip', 'nik', 'img', 'divisi', 'subdivisi', 'jabatan', 'email', 'phone', 'description', 'pendidikan', 'periode', 'is_featured', 'join_at'];
 }

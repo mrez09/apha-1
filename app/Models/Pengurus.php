@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pengurus extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $fillable = ['nama', 'nip', 'nik', 'img', 'divisi', 'subdivisi', 'jabatan', 'email', 'phone', 'description', 'pendidikan', 'periode', 'is_featured', 'join_at'];
 }

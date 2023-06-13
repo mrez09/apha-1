@@ -12,7 +12,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
-export default function List({ props, subdivisi }) {
+export default function List({ props, jabatan }) {
     const [startDate, setStartDate] = useState(new Date());
     //const changeDate = (e) => setDate(e.target.value);
     let table = new DataTable("#myTable", {
@@ -40,7 +40,7 @@ export default function List({ props, subdivisi }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("admin.dashboard.subdivisi.store"));
+        post(route("admin.dashboard.jabatan.store"));
     };
     return (
         <AuthenticatedLayout>
@@ -67,48 +67,22 @@ export default function List({ props, subdivisi }) {
                     <h4 className="mb-3"></h4>
                     <form onSubmit={submit}>
                         <div className="row g-3">
-                            <div className="col-md-6">
-                                <label className="form-label">
-                                    Nama Divisi
-                                </label>
-                                <select
-                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="id_divisi"
-                                    name="id_divisi"
-                                    onChange={onHandleChange}
-                                    required
-                                >
-                                    <option value="">Choose...</option>
-                                    {subdivisi.map((subdivisi) => (
-                                        <option value={subdivisi.id}>
-                                            {subdivisi.namadivisi}
-                                        </option>
-                                    ))}
-                                </select>
-                                <div className="invalid-feedback">
-                                    <InputError
-                                        message={errors.id_divisi}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
                             <div className="col-sm-12">
                                 <label className="form-label">
-                                    Nama Sub Divisi
+                                    Nama Jabatan
                                 </label>
 
                                 <input
                                     type="text"
-                                    name="namasubdivisi"
-                                    placeholder="Masukan Nama Sub Divisi"
+                                    name="namajabatan"
+                                    placeholder="Masukan Nama Jabatan"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="namadivisi"
+                                    autoComplete="namajabatan"
                                     onChange={onHandleChange}
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.namasubdivisi}
+                                        message={errors.namajabatan}
                                         className="mt-2"
                                     />
                                 </div>

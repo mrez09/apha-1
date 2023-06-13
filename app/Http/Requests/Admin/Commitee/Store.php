@@ -27,6 +27,7 @@ class Store extends FormRequest
         return [
             //
             'nama'          => 'required',
+            'slug'           => 'nullable',
             'nip'           => 'nullable',
             'nik'           => 'nullable',
             'divisi'        => 'nullable',

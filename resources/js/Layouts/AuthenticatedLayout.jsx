@@ -116,7 +116,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
                                                     href={route(
-                                                        "admin.dashboard.news.index"
+                                                        "admin.dashboard.errorpage.maintenance"
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
@@ -176,28 +176,28 @@ export default function Authenticated({ auth, header, children }) {
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
                                                     href={route(
+                                                        "admin.dashboard.periode.index"
+                                                    )}
+                                                >
+                                                    <i className="fas ic  fa-calendar-plus"></i>
+                                                    Periode
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
                                                         "admin.dashboard.commitee.index"
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
-                                                    Data Pengurus
+                                                    Pengurus
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
                                 {/*end Pengurus*/}
-                                <li className="nav-item">
-                                    <NavLink
-                                        className="nav-link px-3 sidebar-link"
-                                        href={route(
-                                            "admin.dashboard.contact.index"
-                                        )}
-                                    >
-                                        <i className="fas ic fa-address-book"></i>
-                                        Contact
-                                    </NavLink>
-                                </li>
                             </ul>
 
                             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -360,6 +360,57 @@ export default function Authenticated({ auth, header, children }) {
                                         Year-end sale
                                     </a>
                                 </li> */}
+                            </ul>
+
+                            {/*Konfigurasi*/}
+                            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Tools</span>
+                                <a
+                                    className="link-secondary"
+                                    href="#"
+                                    aria-label="Add a new report"
+                                >
+                                    <span data-feather="plus-circle"></span>
+                                </a>
+                            </h6>
+                            <ul className="nav flex-column mb-2">
+                                {/*Photo*/}
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route(
+                                            "admin.dashboard.contact.index"
+                                        )}
+                                    >
+                                        <i className="fas ic fa-address-book"></i>
+                                        Contact
+                                    </NavLink>
+                                </li>
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a
+                                        data-bs-toggle="collapse"
+                                        href="#konfigurasi"
+                                    >
+                                        <i className="fa-solid ic fa-camera-retro"></i>
+                                        Konfigurasi
+                                    </a>
+                                    <div className="collapse" id="konfigurasi">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    href={route(
+                                                        "admin.dashboard.konfigurasi.index"
+                                                    )}
+                                                    className="nav-link px-3"
+                                                >
+                                                    <i className="fas ic fa-file-image"></i>
+                                                    Konfigurasi Website
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/*end Photo*/}
                             </ul>
                         </div>
                     </nav>

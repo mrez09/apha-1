@@ -53,19 +53,15 @@ export default function List({ auth, errors, flashMessage, props, jabatan }) {
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Divisi</th>
-                                <th>Sub Divisi</th>
                                 <th>Jabatan</th>
 
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {jabatan.map((jabatan) => (
+                            {jabatan.map((jabatan, index) => (
                                 <tr key={jabatan.id}>
-                                    <td>{jabatan.id}</td>
-                                    <td>{jabatan.namadivisi}</td>
-                                    <td>{jabatan.namasubdivisi}</td>
+                                    <td>{++index}</td>
                                     <td>{jabatan.namajabatan}</td>
 
                                     <td>

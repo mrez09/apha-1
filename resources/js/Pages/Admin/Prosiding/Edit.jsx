@@ -234,33 +234,56 @@ export default function List(props) {
                                 </div>
                             </div>
 
-                            <div className="col-sm-6">
-                                <label className="form-label">Feature</label>
-                                <div className="form-check">
-                                    <input
-                                        name="is_featured"
-                                        type="checkbox"
-                                        onChange={(e) =>
-                                            setData(
-                                                "is_featured",
-                                                e.target.checked
-                                            )
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    Ditampilkan Sebagai Rekomendasi (Feature)
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="is_featured"
+                                    name="is_featured"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {(() => {
+                                        if (props.prosiding.is_featured == 0) {
+                                            return (
+                                                <option value="0" selected>
+                                                    Tidak Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="0">
+                                                    Tidak Aktif
+                                                </option>
+                                            );
                                         }
-                                        className="form-check-input"
+                                    })()}
+
+                                    {(() => {
+                                        if (props.prosiding.is_featured == 1) {
+                                            return (
+                                                <option value="1" selected>
+                                                    Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="1">Aktif</option>
+                                            );
+                                        }
+                                    })()}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.is_featured}
+                                        className="mt-2"
                                     />
-                                    <label className="form-check-label">
-                                        Berita Ditampilkan sebagai
-                                        fitur/rekomendasi
-                                    </label>
-                                    <div className="invalid-feedback">
-                                        <InputError
-                                            message={errors.is_featured}
-                                            className="mt-2"
-                                        />
-                                    </div>
                                 </div>
                             </div>
-
                             <div className="col-sm-12">
                                 <label className="form-label">Isi</label>
                                 {/*<input

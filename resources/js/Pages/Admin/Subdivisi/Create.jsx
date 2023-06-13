@@ -25,6 +25,7 @@ export default function List({ props, subdivisi }) {
     const { setData, post, processing, errors } = useForm({
         namasubdivisi: "",
         id_divisi: "",
+        status: "",
         publish_at: "",
     });
 
@@ -47,7 +48,7 @@ export default function List({ props, subdivisi }) {
             <Head title="Tambah Berita" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">Tambah Berita</h1>
+                <h1 className="h2">Tambah Sub Divisi</h1>
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <a
@@ -109,6 +110,29 @@ export default function List({ props, subdivisi }) {
                                 <div className="">
                                     <InputError
                                         message={errors.namasubdivisi}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    Ditampilkan Sebagai Rekomendasi (Feature)
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="status"
+                                    name="status"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    <option value="0">Tidak Aktif</option>
+                                    <option value="1">Aktif</option>
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.status}
                                         className="mt-2"
                                     />
                                 </div>

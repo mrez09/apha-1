@@ -53,7 +53,7 @@ export default function Guest({ children }, props) {
                                         <Link
                                             className="dropdown-item"
                                             href={route(
-                                                "pengurus.dewan-penasehat"
+                                                "frontcommitee.pembina"
                                             )}
                                         >
                                             Dewan Pembina
@@ -63,7 +63,7 @@ export default function Guest({ children }, props) {
                                         <Link
                                             className="dropdown-item"
                                             href={route(
-                                                "pengurus.dewan-pengurus"
+                                                "frontcommitee.pengurus"
                                             )}
                                         >
                                             Dewan Pengurus
@@ -319,9 +319,7 @@ export default function Guest({ children }, props) {
                                     </li>
                                     <li>
                                         <Link
-                                            href={route(
-                                                "pengurus.dewan-penasehat"
-                                            )}
+                                        //href={route("pengurus.dewan-penasehat")}
                                         >
                                             Pengurus
                                         </Link>

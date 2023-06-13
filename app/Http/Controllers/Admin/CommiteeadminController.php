@@ -12,6 +12,7 @@ use App\Models\Subdivisi;
 use App\Models\Divisi;
 use App\Models\Periode;
 use App\Models\Category;
+use App\Models\Konfigurasi;
 use Inertia\Inertia;
 use App\Http\Requests\Admin\Commitee\Store;
 use App\Http\Requests\Admin\Commitee\Update;
@@ -24,8 +25,11 @@ class CommiteeadminController extends Controller
         //$pengurus           = Pengurus::all();
         //dipake
         //$pengurus           = Divisi::join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->join('jabatans', 'jabatans.id_subdivisi',"=",'subdivisis.id')->join('commitees', 'commitees.jabatan',"=",'jabatans.id')->join('periodes', 'periodes.id',"=",'commitees.periode')->get();
-        $pengurus           = Divisi::select('commitees.id as commitees_id','nama', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan')->join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->join('jabatans', 'jabatans.id_subdivisi',"=",'subdivisis.id')->join('commitees', 'commitees.jabatan',"=",'jabatans.id')->join('periodes', 'periodes.id',"=",'commitees.periode')->get();
+        //dipake $pengurus           = Divisi::select('commitees.id as commitees_id','nama', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan')->join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->join('jabatans', 'jabatans.id_subdivisi',"=",'subdivisis.id')->join('commitees', 'commitees.jabatan',"=",'jabatans.id')->join('periodes', 'periodes.id',"=",'commitees.periode')->get();
+        //rubah 1$pengurus           = Divisi::select('commitees.id as commitees_id','nama', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan')->join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->join('commitees', 'commitees.subdivisi',"=",'subdivisis.id')->join('jabatans', 'jabatans.id_subdivisi',"=",'subdivisis.id')->join('periodes', 'periodes.id',"=",'commitees.periode')->get();
+        $pengurus           = Commitee::select('commitees.id as commitees_id','nama', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->get();
         //$newsjoin           = News::select('news.id as link_id','judul', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->get();
+        $konfigurasi           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
 
         //ga dipake id subdivisi    //
     //$jabatan           = Subdivisi::join('jabatans','jabatans.id_subdivisi',"=",'subdivisis.id')->join('divisis','divisis.id',"=",'subdivisis.id_divisi')->get();
@@ -35,7 +39,8 @@ class CommiteeadminController extends Controller
         
         return Inertia::render('Admin/Pengurus/List',
         [
-            'pengurus'          => $pengurus
+            'pengurus'          => $pengurus,
+            'konfigurasi'          => $konfigurasi,
         ]);
     }
 
@@ -62,7 +67,7 @@ class CommiteeadminController extends Controller
         $data = $request->validated();
         $data['img'] = Storage::disk("public")->put('committe', $request->file('img'));
         //$data['path'] = "/storage/".$data['img'];
-        //$data['slug'] = Str::slug($data ['judul']);
+        $data['slug'] = Str::slug($data['nama']);
         //$data['id_user'] = Auth::id();
         $commitee = Commitee::create($data);
 
@@ -81,9 +86,12 @@ class CommiteeadminController extends Controller
         //return $request->all();
         //$news           = News::all();
         $divisiall           = Divisi::all();
+        $divisicom           = Divisi::where('id', '=', 1)->get();
+        
         $subdivisiall           = Subdivisi::all();
         $jabatanall           = Jabatan::all();
         $periode           = Periode::all();
+        $pengurusget           = Commitee::select('commitees.id as commitees_id','nama', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->where('commitees.id', '=', $commitee->id)->first();
 
         $listdivisi           = Divisi::all();
         $subdivisiall           = Subdivisi::all();
@@ -91,6 +99,7 @@ class CommiteeadminController extends Controller
         [
             'commitee'          => $commitee,
             'listdivisi'        => $listdivisi,
+            'pengurusget'        => $pengurusget,
             'divisiall'        => $divisiall,
             'subdivisiall'      => $subdivisiall,
             'jabatanall'      => $jabatanall,
@@ -100,14 +109,14 @@ class CommiteeadminController extends Controller
 
     public function update(Update $request, Commitee $commitee){
         $data = $request->validated();
-        //$data['slug'] = Str::slug($data ['judul']);
+        
         if($request->file('img')){
             $data['img'] = Storage::disk("public")->put('commitee', $request->file('img'));
             Storage::disk("public")->delete($commitee->img);
         } else {
             $data['img'] = $commitee->img;
         }
-
+        $data['slug'] = Str::slug($data['nama']);
         //$path = Storage::url('public');
 
         //$img = '<img src"' .$path.'" alt=""/>';
@@ -130,6 +139,17 @@ class CommiteeadminController extends Controller
         //[
           //  'news'          => $news
         //]);
+    }
+
+    public function destroy(Commitee $commitee){
+        $commitee->delete();
+        return redirect(route('admin.dashboard.commitee.index'))->with(
+            [
+                'message'   => "Pengurus Berhasil diDelete",
+                'type'      => "success"
+            ]
+            );
+        //return $news;
     }
 
     

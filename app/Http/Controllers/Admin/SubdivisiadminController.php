@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Subdivisi;
 use App\Models\Divisi;
+use App\Models\Commitee;
 use Inertia\Inertia;
 use App\Http\Requests\Admin\Subdivisi\Store;
 use App\Http\Requests\Admin\Subdivisi\Update;
@@ -19,10 +20,14 @@ class SubdivisiadminController extends Controller
     //
     //
     public function index(){
+        //$subdivisi           = Divisi::join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->get();
+        $subdivisi           = Divisi::join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->where('subdivisis.deleted_at', '=', Null)->get();
+
+        //tidak digunakan
         //whereIsFeatured(true)->whereCategory("Banner")->get()
         //$subdivisi           = Subdivisi::all();
         //$subdivisi           = Subdivisi::join('divisis','divisis.id',"=",'subdivisis.id_divisi')->get();
-        $subdivisi           = Divisi::join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->get();
+        
         
         return Inertia::render('Admin/Subdivisi/List',
     [
@@ -64,11 +69,15 @@ class SubdivisiadminController extends Controller
         //$news           = News::all();
         $listdivisi           = Divisi::all();
         $subdivisiall           = Subdivisi::all();
+
+        $pengurusget           = Commitee::select('commitees.id as commitees_id','nama', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->where('subdivisis.id', '=', $subdivisi->id)->first();
+        $divisiget           = Divisi::join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->where('subdivisis.id', '=', $subdivisi->id)->first();
         return Inertia::render('Admin/Subdivisi/Edit',
         [
             'listdivisi'          => $listdivisi,
             'subdivisi'          => $subdivisi,
-            'subdivisiall'          => $subdivisiall
+            'subdivisiall'          => $subdivisiall,
+            'divisiget'          => $divisiget,
         ]);
     }
 

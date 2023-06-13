@@ -251,11 +251,27 @@ export default function List(props) {
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {props.divisiall.map((periode) => (
-                                        <option value={periode.id}>
-                                            {periode.namadivisi}
-                                        </option>
-                                    ))}
+                                    {props.divisiall.map((periode) => {
+                                        if (
+                                            props.pengurusget.namadivisi ==
+                                            periode.namadivisi
+                                        ) {
+                                            return (
+                                                <option
+                                                    value={periode.id}
+                                                    selected
+                                                >
+                                                    {periode.namadivisi}
+                                                </option>
+                                            );
+                                        }
+
+                                        return (
+                                            <option value={periode.id}>
+                                                {periode.namadivisi}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -275,11 +291,28 @@ export default function List(props) {
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {props.subdivisiall.map((periode) => (
-                                        <option value={periode.id}>
-                                            {periode.namasubdivisi}
-                                        </option>
-                                    ))}
+
+                                    {props.subdivisiall.map((periode) => {
+                                        if (
+                                            props.pengurusget.namasubdivisi ==
+                                            periode.namasubdivisi
+                                        ) {
+                                            return (
+                                                <option
+                                                    value={periode.id}
+                                                    selected
+                                                >
+                                                    {periode.namasubdivisi}
+                                                </option>
+                                            );
+                                        }
+
+                                        return (
+                                            <option value={periode.id}>
+                                                {periode.namasubdivisi}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -299,11 +332,28 @@ export default function List(props) {
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {props.jabatanall.map((periode) => (
-                                        <option value={periode.id}>
-                                            {periode.namajabatan}
-                                        </option>
-                                    ))}
+
+                                    {props.jabatanall.map((periode) => {
+                                        if (
+                                            props.pengurusget.namajabatan ==
+                                            periode.namajabatan
+                                        ) {
+                                            return (
+                                                <option
+                                                    value={periode.id}
+                                                    selected
+                                                >
+                                                    {periode.namajabatan}
+                                                </option>
+                                            );
+                                        }
+
+                                        return (
+                                            <option value={periode.id}>
+                                                {periode.namajabatan}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -372,7 +422,7 @@ export default function List(props) {
                                     }}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
-                                        setData("konten", data);
+                                        setData("description", data);
 
                                         console.log({ event, editor, data });
                                     }}

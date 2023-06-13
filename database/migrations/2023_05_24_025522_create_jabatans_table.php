@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('jabatans', function (Blueprint $table) {
             $table->id();
             $table->string('namajabatan', 255);   
-            $table->bigInteger('id_subdivisi');        
+            $table->bigInteger('id_subdivisi')->nullable();        
             $table->timestamps();
             $table->softDeletes();
         });

@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subdivisi extends Model
 {
-    use HasFactory;
-    protected $fillable = ['namasubdivisi', 'id_divisi'];
+    use HasFactory, SoftDeletes;
+    protected $fillable = ['namasubdivisi', 'id_divisi', 'status'];
 }

@@ -64,16 +64,16 @@ export default function List({
                             </tr>
                         </thead>
                         <tbody>
-                            {newscategory.map((news) => (
-                                <tr key={news.id}>
-                                    <td>{news.id}</td>
-                                    <td>{news.namakategori}</td>
+                            {newscategory.map((newscategory) => (
+                                <tr key={newscategory.id}>
+                                    <td>{newscategory.id}</td>
+                                    <td>{newscategory.namakategori}</td>
 
                                     <td>
                                         <Link
                                             href={route(
                                                 "admin.dashboard.newscategory.edit",
-                                                news.id
+                                                newscategory.id
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -85,7 +85,7 @@ export default function List({
                                                 destroy(
                                                     route(
                                                         "admin.dashboard.newscategory.destroy",
-                                                        news.id
+                                                        newscategory.id
                                                     )
                                                 );
                                             }}

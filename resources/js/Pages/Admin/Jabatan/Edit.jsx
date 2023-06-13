@@ -101,7 +101,7 @@ export default function List(props) {
     });
 
     const { data, setData, processing, errors } = useForm({
-        ...props.subdivisi,
+        ...props.jabatan,
     });
 
     const onHandleChange = (event) => {
@@ -116,13 +116,10 @@ export default function List(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        router.post(
-            route("admin.dashboard.subdivisi.update", props.subdivisi.id),
-            {
-                _method: "PUT",
-                ...data,
-            }
-        );
+        router.post(route("admin.dashboard.jabatan.update", props.jabatan.id), {
+            _method: "PUT",
+            ...data,
+        });
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
@@ -130,7 +127,7 @@ export default function List(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Divisi : <p>{props.subdivisi.namadivisi}</p>
+                    Update Jabatan : <p>{props.jabatan.namajabatan}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
@@ -152,47 +149,22 @@ export default function List(props) {
                     <h4 className="mb-3"></h4>
                     <form onSubmit={submit}>
                         <div className="row g-3">
-                            <div className="col-md-6">
-                                <label className="form-label">
-                                    Nama Divisi
-                                </label>
-                                <select
-                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="id_divisi"
-                                    name="id_divisi"
-                                    onChange={onHandleChange}
-                                    required
-                                >
-                                    <option value="">Choose...</option>
-                                    {props.listdivisi.map((subdivisi) => (
-                                        <option value={subdivisi.id}>
-                                            {subdivisi.namadivisi}
-                                        </option>
-                                    ))}
-                                </select>
-                                <div className="invalid-feedback">
-                                    <InputError
-                                        message={errors.id_divisi}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
                             <div className="col-sm-12">
                                 <label className="form-label">
-                                    Nama Divisi
+                                    Nama Jabatan
                                 </label>
                                 <input
                                     type="text"
-                                    name="namasubdivisi"
-                                    defaultValue={props.subdivisi.namasubdivisi}
-                                    placeholder="Masukan Nama Sub Divisi"
+                                    name="namajabatan"
+                                    defaultValue={props.jabatan.namajabatan}
+                                    placeholder="Masukan Nama Jabatan"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="namasubdivisi"
+                                    autoComplete="namajabatan"
                                     onChange={onHandleChange}
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.namasubdivisi}
+                                        message={errors.namajabatan}
                                         className="mt-2"
                                     />
                                 </div>

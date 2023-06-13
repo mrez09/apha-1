@@ -49,7 +49,7 @@ class NewscategoryadminController extends Controller
         //return $request->all();
     }
 
-    public function show(News $news){
+    public function show(Newscategory $newscategory){
         //return Inertia::render('Admin/News/Create');
         //return $request->all();
     }
@@ -93,11 +93,11 @@ class NewscategoryadminController extends Controller
         //]);
     }
 
-    public function destroy(News $news){
-        $news->delete();
-        return redirect(route('admin.dashboard.news.index'))->with(
+    public function destroy(Newscategory $newscategory){
+        $newscategory->delete();
+        return redirect(route('admin.dashboard.newscategory.index'))->with(
             [
-                'message'   => "Berita Berhasil diDelete",
+                'message'   => "Kategori Berita Berhasil diDelete",
                 'type'      => "success"
             ]
             );

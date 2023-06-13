@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('subdivisis', function (Blueprint $table) {
             $table->id();
             $table->string('namasubdivisi', 255);   
-            $table->bigInteger('id_divisi');        
+            $table->bigInteger('id_divisi');
+            $table->string('status', 255);        
             $table->timestamps();
             $table->softDeletes();
         });

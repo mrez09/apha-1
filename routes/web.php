@@ -12,6 +12,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\NewscategoryController;
+use App\Http\Controllers\PengurusController;
+use App\Http\Controllers\CommiteeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsadminController;
 use App\Http\Controllers\Admin\BookadminController;
@@ -26,6 +28,10 @@ use App\Http\Controllers\Admin\PengurusadminController;
 use App\Http\Controllers\Admin\CommiteeadminController;
 use App\Http\Controllers\Admin\ContactadminController;
 use App\Http\Controllers\Admin\NewscategoryadminController;
+use App\Http\Controllers\Admin\PeriodeadminController;
+use App\Http\Controllers\Admin\KonfigurasiadminController;
+use App\Http\Controllers\ErrorpageController;
+
 
 
 //use App\Http\Controllers\Admin\MainbanneradminController;
@@ -112,13 +118,29 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     //Divisi
     Route::resource('newscategory', NewscategoryadminController::class);
     Route::get('newscategory/{id}/edit', [NewscategoryadminController::class, 'edit'])->name('newscat.edit');
-    Route::put('newscategory/{newscategory}/restore', [NewscategoryadminController::class, 'restore'])->name('pengurus.restore');
+    Route::put('newscategory/{newscategory}/restore', [NewscategoryadminController::class, 'restore'])->name('newscategory.restore');
 
     //Pengurus Bahasa Inggris
     Route::resource('commitee', CommiteeadminController::class);
     Route::get('commitee/{id}/edit', [CommiteeadminController::class, 'edit'])->name('pengurus.edit');
-    Route::put('commitee/{jabatan}/restore', [CommiteeadminController::class, 'restore'])->name('pengurus.restore');
+    Route::put('commitee/{jabatan}/restore', [CommiteeadminController::class, 'restore'])->name('newscategory.restore');
+
+    //Periode
+    Route::resource('periode', PeriodeadminController::class);
+    Route::get('periode/{periode}/edit', [PeriodeadminController::class, 'edit'])->name('periode.edit');
+    Route::put('periode/{jabatan}/restore', [PeriodeadminController::class, 'restore'])->name('periode.restore');
+
+    //Error page
+    Route::get('errorpage', [ErrorpageController::class, 'maintenance'])->name('errorpage.maintenance');
    
+    //Konfigurasi
+    Route::resource('konfigurasi', KonfigurasiadminController::class);
+    
+    Route::get('konfigurasi/{konfigurasi:slug}/edit', [KonfigurasiadminController::class, 'edit'])->name('konfigurasi.edit');
+    //Konfig Pengurus
+    Route::get('pengurus/konfigurasi/{konfigurasi:slug}', [KonfigurasiadminController::class, 'editpengurus'])->name('konfigurasi.pengurus.edit');
+    Route::put('konfigurasi/updatepengurus/{konfigurasi:id}', [KonfigurasiadminController::class, 'updatepengurus'])->name('konfigurasi.updatepengurus');
+    Route::put('periode/{jabatan}/restore', [PeriodeadminController::class, 'restore'])->name('periode.restore');
 });
 
 Route::get('/penasehat', function () {
@@ -135,14 +157,15 @@ Route::prefix('/accounts')->name('accounts.')->group(function () {
     })->name('register');
 });
 
-Route::prefix('pengurus')->name('pengurus.')->group(function () {
-    route::get('/dewan-pembina', function () {
-        return Inertia::render('Pengurus/Dewan_Pembina');
-    })->name('dewan-penasehat');
-    route::get('/dewan-pengurus', function () {
-        return Inertia::render('Pengurus/Dewan_Pengurus');
-    })->name('dewan-pengurus');
-});
+//pengurus_old
+//Route::prefix('pengurus')->name('pengurus.')->group(function () {
+  //  route::get('/dewan-pembina', function () {
+//        return Inertia::render('Pengurus/Dewan_Pembina');
+//    })->name('dewan-penasehat');
+//    route::get('/dewan-pengurus', function () {
+//        return Inertia::render('Pengurus/Dewan_Pengurus');
+  //  })->name('dewan-pengurus');
+//});
 
 Route::prefix('organisasi')->name('organisasi.')->group(function () {
     route::get('/badan-hukum', function () {
@@ -218,10 +241,33 @@ Route::prefix('/')->name('front')->group(function (){
     Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
     Route::get('buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
 
+    //Pengurus
+    //Route::resource('pengurus', CommiteeController::class);
+    //Route::get('pengurus/{commitee:slug}', [CommiteeController::class, 'show'])->name('commitee.show');
+    //Route::get('pengurus/dewan-pembin', [CommiteeController::class, 'dewanpembina'])->name('commitee.dewanpembina');
+
+    Route::prefix('penguruses')->name('pengurus.')->group(function () {
+//        route::get('/dewan-pembina', function () {
+  //          return Inertia::render('Pengurus/Dewan_Pembina');
+//        })->name('dewan-penasehat');
+        route::get('/dewan-pengurus', function () {
+            return Inertia::render('Pengurus/Dewan_Pengurus');
+        })->name('dewan-pengurus');
+        Route::get('/{commitee:slug}', [CommiteeController::class, 'show'])->name('commitee.show');
+        
+        
+        
+        
+    });
+
     //Prosiding
     Route::resource('prosiding', ProsidingController::class);
     Route::get('prosiding/{prosiding:slug}', [ProsidingController::class, 'show'])->name('prosiding.show');
     Route::get('prosiding/{id}/edit', [ProsidingController::class, 'edit'])->name('prosiding.edit');
+
+    //pengurus new
+    Route::get('pengurus/dewan-pembina', [CommiteeController::class, 'dewanpembina'])->name('commitee.pembina');
+    Route::get('pengurus/dewan-pengurus', [CommiteeController::class, 'dewanpengurus'])->name('commitee.pengurus');
 
     //News
     Route::resource('galeri', GaleriController::class);
@@ -234,6 +280,10 @@ Route::prefix('/')->name('front')->group(function (){
     Route::resource('contact', ContactController::class);
     //Route::get('galeri/{galeri:slug}', [GaleriController::class, 'show'])->name('news.show');
     //Route::get('galeri/{id}/edit', [GaleriController::class, 'edit'])->name('news.edit');
+
+    //Pengurus new
+    //Route::resource('news', PengurusController::class);
+    //Route::get('pengurus/{commitee:slug}', [PengurusController::class, 'show'])->name('pengurus.show');
 
     //NewsCategory
     //Route::resource('category', NewscategoryController::class);

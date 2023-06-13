@@ -27,7 +27,7 @@ class Store extends FormRequest
         return [
             //
             'namadivisi'    => 'required',
-            'id_divisi'     => 'required',
+            
         ];
     }
 }

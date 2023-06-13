@@ -66,10 +66,12 @@ class NewsadminController extends Controller
         //return $request->all();
         //$news           = News::all();
         $newscategory           = Newscategory::all();
+        $categoryget           = News::select('newscategories.id as newscategories_id','namakategori', 'newscategories.slug')->join('newscategories','newscategories.id',"=",'news.category')->where('newscategories.id', '=', $news->category)->first();
         return Inertia::render('Admin/News/Edit',
         [
             'news'          => $news,
-            'newscategory'          => $newscategory
+            'newscategory'          => $newscategory,
+            'categoryget'          => $categoryget
         ]);
     }
 
