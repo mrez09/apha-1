@@ -151,7 +151,6 @@ export default function List({
             <div className="container">
                 <div className="py-5 text-center Container">
                     <h2>SUSUNAN DEWAN PEMBINA </h2>
-
                     {(() => {
                         if (periodeget.pengurus) {
                             return (
@@ -180,10 +179,10 @@ export default function List({
                                                 <td className="doted">:</td>
                                                 <td className="name-manage">
                                                     <Link
-                                                        href={route(
-                                                            "frontpengurus.commitee.show",
-                                                            listPengurus.slug
-                                                        )}
+                                                    //</td> href={route(
+                                                    //     "frontpengurus.commitee.show",
+                                                    //     listPengurus.slug
+                                                    // )}
                                                     >
                                                         {listPengurus.nama}
                                                     </Link>
