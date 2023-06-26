@@ -52,7 +52,7 @@ export default function List({ props, periode, auth }) {
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href="/dashboard/periode"
+                            href={route("admin.dashboard.periode.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali

@@ -72,13 +72,13 @@ export default function List(props) {
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <Link
+                        <a
                             type="button"
-                            href={route("dashboard")}
+                            href={route("admin.dashboard.commitee.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -105,92 +105,6 @@ export default function List(props) {
                                 <div className="">
                                     <InputError
                                         message={errors.judul}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <label className="form-label">
-                                    NIP Pengurus
-                                </label>
-                                <input
-                                    type="text"
-                                    id="nip"
-                                    name="nip"
-                                    placeholder="Masukan NIP"
-                                    defaultValue={props.commitee.nip}
-                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="nip"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback">
-                                    <InputError
-                                        message={errors.nip}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <label className="form-label">NIK</label>
-                                <input
-                                    type="text"
-                                    id="nik"
-                                    name="nik"
-                                    placeholder="Masukan Nomor Induk Kewarganegaraan"
-                                    defaultValue={props.commitee.nik}
-                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="nik"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback">
-                                    <InputError
-                                        message={errors.nik}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <label className="form-label">
-                                    Email Pengurus
-                                </label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    placeholder="Masukan Email"
-                                    defaultValue={props.commitee.email}
-                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="email"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback">
-                                    <InputError
-                                        message={errors.email}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <label className="form-label">
-                                    Nomor Telepon Pengurus
-                                </label>
-                                <input
-                                    type="text"
-                                    id="phone"
-                                    name="phone"
-                                    placeholder="Masukan Nomor Telepon"
-                                    defaultValue={props.commitee.phone}
-                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="nip"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback">
-                                    <InputError
-                                        message={errors.phone}
                                         className="mt-2"
                                     />
                                 </div>
@@ -423,51 +337,6 @@ export default function List(props) {
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("description", data);
-
-                                        console.log({ event, editor, data });
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.konten}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-sm-12">
-                                <label className="form-label">Pendidikan</label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback"></div>*/}
-                                <CKEditor
-                                    className="konten"
-                                    //config={editorConfiguration}
-                                    editor={ClassicEditor}
-                                    name="pendidikan"
-                                    data={props.commitee.pendidikan}
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("pendidikan", data);
 
                                         console.log({ event, editor, data });
                                     }}

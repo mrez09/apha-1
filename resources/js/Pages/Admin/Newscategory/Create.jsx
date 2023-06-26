@@ -58,7 +58,7 @@ export default function List(props) {
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href="/dashboard/news"
+                            href={route("admin.dashboard.newscategory.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali

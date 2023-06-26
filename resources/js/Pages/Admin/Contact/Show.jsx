@@ -59,7 +59,7 @@ export default function List({ featuredBuku, contact, props }) {
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href="/dashboard/news"
+                            href={route("admin.dashboard.contact.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali

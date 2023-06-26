@@ -32,6 +32,8 @@ class Update extends FormRequest
             'is_featured'  => 'nullable',
             'konten'  => 'nullable',
             'img'       => 'nullable|image',
+            'ticker'       => 'nullable',
+            'status'        => 'required',
             'publish_at'       => 'nullable',
             
         ];

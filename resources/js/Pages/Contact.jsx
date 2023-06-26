@@ -42,75 +42,71 @@ export default function Contact(props) {
                     Contact US Asosiasi Pengajar Hukum Adat (APHA) Indonesia
                 </title>
                 <meta
-                    head-key="Description"
+                    head-key="description"
                     name="description"
                     content="Contact US Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
                 />
                 <meta
-                    head-key="Mobile Capable"
+                    head-key="mobile-web-app-capable"
                     name="mobile-web-app-capable"
                     content="yes"
                 />
                 <meta
-                    head-key="App Name"
+                    head-key="application-name"
                     name="application-name"
                     content="Asosiasi Pengajar Hukum Adat (APHA)"
                 />
                 <meta
-                    head-key="Apple Mobile App Name"
+                    head-key="apple-mobile-web-app-title"
                     name="apple-mobile-web-app-title"
                     content="Asosiasi Pengajar Hukum Adat (APHA)"
                 />
                 <meta
-                    head-key="Theme Color"
+                    head-key="theme-color"
                     name="theme-color"
                     content="#ff6300"
                 ></meta>
                 {/*Sosial Media*/}
                 {/*Open Graph Protocol*/}
                 <meta
-                    head-key="App id Facebook"
+                    head-key="fb:app_id"
                     property="fb:app_id"
                     content="961443805039846"
                 ></meta>
 
                 <meta
-                    head-key="Title Open Graph"
+                    head-key="og:title"
                     property="og:title"
                     content="Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
                 />
                 <meta
-                    head-key="Description Open Graph"
+                    head-key="og:description"
                     property="og:description"
                     content="Silahkan Hubungi Kami Jika ada pertanyaan Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
                 />
+                <meta head-key="og:type" property="og:type" content="website" />
                 <meta
-                    head-key="Type Open Graph"
-                    property="og:type"
-                    content="website"
-                />
-                <meta
-                    head-key="URL Open Graph"
+                    head-key="og:url"
                     property="og:url"
                     content="https://www.apha.or.id"
                 />
                 <meta
-                    head-key="Image Open Graph"
+                    head-key="og:image"
                     property="og:image"
                     content="https://i.imgur.com/R4DyCBa.png"
                 />
                 <meta
-                    head-key="Image Type Open Graph"
+                    head-key="og:image:type"
                     property="og:image:type"
                     content="image/jpeg"
                 />
                 <meta
-                    head-key="Image Width Open Graph"
+                    head-key="og:image:width"
                     property="og:image:width"
                     content="1800"
                 />
                 <meta
-                    head-key="Image Height Open Graph"
+                    head-key="og:image:height"
                     property="og:image:height"
                     content="550"
                 />

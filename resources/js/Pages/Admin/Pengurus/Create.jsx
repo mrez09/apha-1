@@ -73,7 +73,7 @@ export default function List({
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href="/dashboard/news"
+                            href={route("admin.dashboard.commitee.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
@@ -104,88 +104,6 @@ export default function List({
                                 <div className="">
                                     <InputError
                                         message={errors.nama}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6">
-                                <label className="form-label">
-                                    NIP Pengurus
-                                </label>
-
-                                <input
-                                    type="text"
-                                    name="nip"
-                                    placeholder="Masukan Nama Pengurus"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="nip"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.nip}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6">
-                                <label className="form-label">
-                                    NIK Pengurus
-                                </label>
-
-                                <input
-                                    type="text"
-                                    name="nik"
-                                    placeholder="Masukan NIK Pengurus"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="nik"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.nik}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6">
-                                <label className="form-label">Email</label>
-
-                                <input
-                                    type="text"
-                                    name="email"
-                                    placeholder="Masukan Email Pengurus"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="email"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.email}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6">
-                                <label className="form-label">
-                                    Nomor Telpon Pengurus
-                                </label>
-
-                                <input
-                                    type="text"
-                                    name="phone"
-                                    placeholder="Masukan Nomor Telpon Pengurus"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="phone"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.phone}
                                         className="mt-2"
                                     />
                                 </div>
@@ -345,48 +263,6 @@ export default function List({
                                 <div className="">
                                     <InputError
                                         message={errors.description}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-sm-12">
-                                <label className="form-label">Pendidikan</label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                    />*/}
-                                <CKEditor
-                                    editor={ClassicEditor}
-                                    name="pendidikan"
-                                    data=""
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Pendidikan is ready to use!",
-                                            editor
-                                        );
-                                    }}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("pendidikan", data);
-
-                                        console.log({ event, editor, data });
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.pendidikan}
                                         className="mt-2"
                                     />
                                 </div>

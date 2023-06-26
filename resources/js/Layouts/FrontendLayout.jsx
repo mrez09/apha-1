@@ -166,7 +166,7 @@ export default function Guest({ children }, props) {
                                     <li>
                                         <a
                                             className="dropdown-item"
-                                            href="https://www.youtube.com/@asosiasipengajarhukumadati2383"
+                                            href="https://www.youtube.com/@aphaindonesia"
                                             target="_blank"
                                         >
                                             Youtube
@@ -368,7 +368,7 @@ export default function Guest({ children }, props) {
                                     <ul className="footer-social">
                                         <li>
                                             <a
-                                                href="https://www.youtube.com/@asosiasipengajarhukumadati2383"
+                                                href="https://www.youtube.com/@aphaindonesia"
                                                 target="_blank"
                                             >
                                                 <i className="fab fa-youtube"></i>

@@ -101,7 +101,7 @@ export default function List(props) {
     });
 
     const { data, setData, processing, errors } = useForm({
-        ...props.divisi,
+        ...props.konfigurasi,
     });
 
     const onHandleChange = (event) => {
@@ -116,10 +116,17 @@ export default function List(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        router.post(route("admin.dashboard.divisi.update", props.divisi.id), {
-            _method: "PUT",
-            ...data,
-        });
+        if (data.img == props.konfigurasi.img) {
+            delete data.img;
+        }
+
+        router.post(
+            route("admin.dashboard.konfigurasi.update", props.konfigurasi.id),
+            {
+                _method: "PUT",
+                ...data,
+            }
+        );
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
@@ -127,18 +134,18 @@ export default function List(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Divisi : <p>{props.divisi.namadivisi}</p>
+                    Data Pengurus yang tampil saat ini Periode
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <a
+                        <Link
                             type="button"
-                            href={route("admin.dashboard.divisi.index")}
+                            href={route("dashboard")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -149,22 +156,44 @@ export default function List(props) {
                     <h4 className="mb-3"></h4>
                     <form onSubmit={submit}>
                         <div className="row g-3">
-                            <div className="col-sm-12">
+                            <div className="col-md-6">
                                 <label className="form-label">
-                                    Nama Divisi
+                                    Pengurus Tampil {props.periodeget.pengurus}
                                 </label>
-                                <input
-                                    type="text"
-                                    name="namadivisi"
-                                    defaultValue={props.divisi.namadivisi}
-                                    placeholder="Masukan Nama Divisi"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="namadivisi"
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="category"
+                                    name="category"
                                     onChange={onHandleChange}
-                                />
-                                <div className="">
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {props.periode.map((periode) => {
+                                        if (
+                                            props.periodeget.pengurus ==
+                                            periode.id
+                                        ) {
+                                            return (
+                                                <option
+                                                    value={periode.id}
+                                                    selected
+                                                >
+                                                    {periode.namaperiode}{" "}
+                                                </option>
+                                            );
+                                        }
+
+                                        return (
+                                            <option value={periode.id}>
+                                                {periode.namaperiode}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <div className="invalid-feedback">
                                     <InputError
-                                        message={errors.namadivisi}
+                                        message={errors.category}
                                         className="mt-2"
                                     />
                                 </div>

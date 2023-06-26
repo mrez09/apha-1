@@ -49,13 +49,13 @@ export default function List(props) {
                 <h1 className="h2">Tambah Buku</h1>
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <Link
+                        <a
                             type="button"
-                            href={route("dashboard")}
+                            href={route("admin.dashboard.buku.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>

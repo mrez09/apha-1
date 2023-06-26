@@ -16,12 +16,13 @@ return new class extends Migration
             $table->string('judul', 255);
             $table->string('slug', 255);
             $table->string('id_user');
-            $table->string('category', 100);
+            $table->string('category', 10);
             $table->string('tag');
             $table->string('img');
             $table->text('konten');
             $table->bigInteger('view');
             $table->boolean('is_featured')->default(false);
+            
             $table->string('publish_at',255);
             $table->timestamps();
             $table->softDeletes();

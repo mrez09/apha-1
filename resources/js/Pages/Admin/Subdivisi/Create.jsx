@@ -53,7 +53,7 @@ export default function List({ props, subdivisi }) {
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href="/dashboard/news"
+                            href={route("admin.dashboard.subdivisi.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali

@@ -136,13 +136,13 @@ export default function List(props) {
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <Link
+                        <a
                             type="button"
-                            href={route("dashboard")}
+                            href={route("admin.dashboard.news.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -288,7 +288,7 @@ export default function List(props) {
                             {
                                 //featured baru
                             }
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <label className="form-label">
                                     Ditampilkan Sebagai Rekomendasi (Feature)
                                 </label>
@@ -305,7 +305,7 @@ export default function List(props) {
                                         if (props.news.is_featured == 0) {
                                             return (
                                                 <option value="0" selected>
-                                                    Tidak Aktif +{" "}
+                                                    Tidak Aktif
                                                 </option>
                                             );
                                         } else {
@@ -334,6 +334,113 @@ export default function List(props) {
                                 <div className="invalid-feedback">
                                     <InputError
                                         message={errors.category}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">
+                                    Ditampilkan Sebagai Ticker
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="ticker"
+                                    name="ticker"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {(() => {
+                                        if (props.news.ticker == 0) {
+                                            return (
+                                                <option value="0" selected>
+                                                    Tidak Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="0">
+                                                    Tidak Aktif
+                                                </option>
+                                            );
+                                        }
+                                    })()}
+
+                                    {(() => {
+                                        if (props.news.ticker == 1) {
+                                            return (
+                                                <option value="1" selected>
+                                                    Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="1">Aktif</option>
+                                            );
+                                        }
+                                    })()}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.ticker}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">
+                                    Status Berita
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="status"
+                                    name="status"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {(() => {
+                                        if (props.news.status == "Draft") {
+                                            return (
+                                                <option value="Draft" selected>
+                                                    Draft
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="Draft">
+                                                    Draft
+                                                </option>
+                                            );
+                                        }
+                                    })()}
+
+                                    {(() => {
+                                        if (props.news.status == "Publish") {
+                                            return (
+                                                <option
+                                                    value="Publish"
+                                                    selected
+                                                >
+                                                    Publish
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="Publish">
+                                                    Publish
+                                                </option>
+                                            );
+                                        }
+                                    })()}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.status}
                                         className="mt-2"
                                     />
                                 </div>

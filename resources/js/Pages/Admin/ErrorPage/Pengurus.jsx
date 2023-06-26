@@ -10,6 +10,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import FlashMessage from "@/Components/FlashMessage";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -101,7 +102,7 @@ export default function List(props) {
     });
 
     const { data, setData, processing, errors } = useForm({
-        ...props.divisi,
+        ...props.konfigurasi,
     });
 
     const onHandleChange = (event) => {
@@ -116,10 +117,24 @@ export default function List(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        router.post(route("admin.dashboard.divisi.update", props.divisi.id), {
-            _method: "PUT",
-            ...data,
-        });
+        if (data.img == props.konfigurasi.img) {
+            delete data.img;
+        }
+
+        if (data.fav == props.konfigurasi.fav) {
+            delete data.fav;
+        }
+
+        router.post(
+            route(
+                "admin.dashboard.konfigurasi.updatepengurus",
+                props.konfigurasi.id
+            ),
+            {
+                _method: "PUT",
+                ...data,
+            }
+        );
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
@@ -127,49 +142,73 @@ export default function List(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Divisi : <p>{props.divisi.namadivisi}</p>
+                    Pengaturan Pengurus yang tampil diHalaman Dewan Pembina dan
+                    Dewan Pengurus {props.konfigurasi.namawebsite}
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <a
+                        <Link
                             type="button"
-                            href={route("admin.dashboard.divisi.index")}
+                            href={route("dashboard")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
             {/*End Dashboard Title*/}
+
+            {props.flashMessage?.message && (
+                <FlashMessage message={props.flashMessage.message} />
+            )}
 
             <div className="container">
                 <div className="row">
                     <h4 className="mb-3"></h4>
                     <form onSubmit={submit}>
                         <div className="row g-3">
-                            <div className="col-sm-12">
-                                <label className="form-label">
-                                    Nama Divisi
-                                </label>
-                                <input
-                                    type="text"
-                                    name="namadivisi"
-                                    defaultValue={props.divisi.namadivisi}
-                                    placeholder="Masukan Nama Divisi"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="namadivisi"
+                            <div className="col-md-12">
+                                <label className="form-label">Pengurus</label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="pengurus"
+                                    name="pengurus"
                                     onChange={onHandleChange}
-                                />
-                                <div className="">
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {props.periode.map((periode) => {
+                                        if (
+                                            props.periodeget.pengurus ==
+                                            periode.id
+                                        ) {
+                                            return (
+                                                <option
+                                                    value={periode.id}
+                                                    selected
+                                                >
+                                                    {periode.namaperiode}
+                                                </option>
+                                            );
+                                        }
+
+                                        return (
+                                            <option value={periode.id}>
+                                                {periode.namaperiode}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <div className="invalid-feedback">
                                     <InputError
-                                        message={errors.namadivisi}
+                                        message={errors.pengurus}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
-
                             <hr className="my-4"></hr>
 
                             <button

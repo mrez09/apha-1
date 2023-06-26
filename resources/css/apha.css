@@ -8,6 +8,7 @@
     font-size: 3rem;
 }
 .container-maintenance {
+    margin-top: 100px;
     .what-is-up {
         display: block;
         vertical-align: middle;
@@ -16,6 +17,7 @@
         .spinny-cogs {
             display: block;
             margin-bottom: 2rem;
+
             .fa {
                 &:nth-of-type(1) {
                     @extend .fa-spin-one;
@@ -187,6 +189,58 @@
 
 .n-px-3 {
     padding-left: 0.7rem !important;
+}
+
+/*Running Text 1*/
+
+.ticker-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    background: WHITE;
+    padding: 10px;
+    color: BLACK;
+}
+
+.ticker-wrapper {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+}
+
+.ticker-wrapper:hover {
+    animation-play-state: paused;
+}
+
+.ticker {
+    display: inline-block;
+}
+
+.ticker-text {
+    font-weight: bold;
+    color: #f2b922;
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+.ticker :hover {
+    color: #000;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes ticker {
+    0% {
+        transform: translateX(120%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 /*Bread bread*/

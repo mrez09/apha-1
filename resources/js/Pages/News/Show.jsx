@@ -5,8 +5,16 @@ import parse from "html-react-parser";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { useState, useCallback } from "react";
+import ListTerkait from "@/Components/News/ListTerkait";
 
-export default function List({ featuredBuku, news, newsjoin, props }) {
+export default function List({
+    featuredBuku,
+    news,
+    newsjoin,
+    newsterkait,
+    newsterkaitget,
+    props,
+}) {
     //Copy Button
     const [copied, setCopied] = useState(false);
     const onCopy = useCallback(() => {
@@ -20,101 +28,6 @@ export default function List({ featuredBuku, news, newsjoin, props }) {
                 <title>
                     Berita - Asosiasi Pengajar Hukum Adat (APHA) Indonesia
                 </title>
-                <meta
-                    head-key="Description"
-                    name="description"
-                    content={news.judul}
-                />
-                <meta
-                    head-key="Mobile Capable"
-                    name="mobile-web-app-capable"
-                    content="yes"
-                />
-                <meta
-                    head-key="App Name"
-                    name="application-name"
-                    content="Asosiasi Pengajar Hukum Adat (APHA)"
-                />
-                <meta
-                    head-key="Apple Mobile App Name"
-                    name="apple-mobile-web-app-title"
-                    content="Asosiasi Pengajar Hukum Adat (APHA)"
-                />
-                <meta
-                    head-key="Theme Color"
-                    name="theme-color"
-                    content="#ff6300"
-                ></meta>
-                {/*Sosial Media*/}
-                {/*Open Graph Protocol*/}
-                <meta
-                    head-key="App id Facebook"
-                    property="fb:app_id"
-                    content="961443805039846"
-                ></meta>
-
-                <meta
-                    head-key="Title Open Graph"
-                    property="og:title"
-                    content={news.judul}
-                />
-                <meta
-                    head-key="Description Open Graph"
-                    property="og:description"
-                    content={news.judul}
-                />
-                <meta
-                    head-key="Type Open Graph"
-                    property="og:type"
-                    content="website"
-                />
-                <meta
-                    head-key="URL Open Graph"
-                    property="og:url"
-                    content="https://www.apha.or.id"
-                />
-                <meta
-                    head-key="Image Open Graph"
-                    property="og:image"
-                    content={`https://apha.or.id/storage/${news.img}`}
-                />
-                <meta
-                    head-key="Image Type Open Graph"
-                    property="og:image:type"
-                    content="image/jpeg"
-                />
-                <meta
-                    head-key="Image Width Open Graph"
-                    property="og:image:width"
-                    content="1800"
-                />
-                <meta
-                    head-key="Image Height Open Graph"
-                    property="og:image:height"
-                    content="550"
-                />
-                {/*Twitard*/}
-
-                <meta
-                    head-key="Twitter Title"
-                    name="twitter:title"
-                    content={news.judul}
-                />
-                <meta
-                    head-key="Twitter Description"
-                    name="twitter:description"
-                    content={news.judul}
-                />
-                <meta
-                    head-key="Twitter Image"
-                    name="twitter:image"
-                    content={`https://apha.or.id/storage/${news.img}`}
-                />
-                <meta
-                    head-key="Twitter Card"
-                    name="twitter:card"
-                    content="summary_large_image"
-                />
             </Head>
             <div className="container">
                 <div className="row g-5 d-flex justify-content-center">
@@ -128,7 +41,14 @@ export default function List({ featuredBuku, news, newsjoin, props }) {
                                         </Link>
                                     </li>
                                     <li className="breadcrumb-item">
-                                        <a href="#">{newsjoin.namakategori}</a>
+                                        <Link
+                                            href={route(
+                                                "frontnewscategory.show",
+                                                newsjoin.slug_category
+                                            )}
+                                        >
+                                            {newsjoin.namakategori}
+                                        </Link>
                                     </li>
                                 </ol>
                             </nav>
@@ -206,6 +126,35 @@ export default function List({ featuredBuku, news, newsjoin, props }) {
                                 </div>
                             </div>
                         </article>
+
+                        {/**Berita Terkait */}
+                        <hr />
+                        {(() => {
+                            if (newsterkaitget != 0) {
+                                return <h4>Berita Terkait </h4>;
+                            }
+                        })()}
+
+                        {/*News */}
+                        <div className="album py-5 bg-light">
+                            <div className="container">
+                                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                                    {/*loop*/}
+
+                                    {newsterkait.map((listNews) => (
+                                        <ListTerkait
+                                            key={listNews.link_id}
+                                            img={`/storage/${listNews.img}`}
+                                            slug={listNews.slug_news}
+                                            judul={listNews.judul}
+                                            publish={moment(
+                                                listNews.publish_at
+                                            ).format("dddd D MMMM YYYY ")}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {/*end News*/}

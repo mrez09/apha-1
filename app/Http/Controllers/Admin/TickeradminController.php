@@ -13,12 +13,12 @@ use App\Http\Requests\Admin\News\Store;
 use App\Http\Requests\Admin\News\Update;
 use Storage;
 
-class NewsadminController extends Controller
+class TickeradminController extends Controller
 {
     //
     public function index(){
         $news           = News::all();
-        $newsjoin       = News::select('news.id as link_id','judul', 'status', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->get();
+        $newsjoin           = News::select('news.id as link_id','judul', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->get();
         return Inertia::render('Admin/News/List',
         [
             'news'          => $newsjoin
@@ -30,7 +30,7 @@ class NewsadminController extends Controller
     }
 
     public function create(){
-        $newscategory           = Newscategory::all();
+        $ticker           = News::all();
         return Inertia::render('Admin/News/Create',
     [
         'newscategory'          => $newscategory
@@ -119,7 +119,4 @@ class NewsadminController extends Controller
             );
         //return $news;
     }
-
-        
-
 }

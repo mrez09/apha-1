@@ -27,17 +27,18 @@ class NewscategoryController extends Controller
         ];*/
     }
 
-    public function show(Newscategory $newsca){
+    public function show(Newscategory $newscategory){
         //$news->increment('view');
         //$newsjoin           = News::find($news->id);
-        $newscat           = Newscategory::all();
+        $newscat           = News::where('status', '=', 'Publish')->where('news.category', '=', $newscategory->id)->orderBy('publish_at', 'desc')->get();
         $newsj           = News::select('news.id as link_id','judul', 'view', 'img', 'name')->join('users','users.id',"=",'news.id_user')->get();
         //$newsjoin           = News::select('news.id as link_id','judul', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->where('news.slug', $news->slug)->find($news->id);
         //$newsjoin           = News::select('news.id as link_id','judul', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->where('news.slug', $news->slug)->get();
-        
+        $catget           = Newscategory::where('newscategories.slug', '=', $newscategory->slug)->first();
         return Inertia::render('Newscategory/List', 
         [
             'news' => $newscat, 
+            'newscategory'  => $newscategory,
             //'newsjoin' => $newsjoin
         ]);
         //return Inertia::render('Admin/News/Create');

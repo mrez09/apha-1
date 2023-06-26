@@ -121,7 +121,7 @@ export default function List({ featuredBuku, buku, props }) {
                 <meta
                     head-key="Twitter Image"
                     name="twitter:image"
-                    content={`https://apha.or.id/storage/${buku.thumbnail}`}
+                    content={`/storage/${buku.thumbnail}`}
                 />
                 <meta
                     head-key="Twitter Card"

@@ -2,10 +2,15 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DataTable from "datatables.net-dt";
 import { Head } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
+import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
+import FlashMessage from "@/Components/FlashMessage";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -86,6 +91,9 @@ const editorConfiguration = {
 };
 
 export default function List(props) {
+    const [startDate, setStartDate] = useState(new Date());
+    //const changeDate = (e) => setDate(e.target.value);
+
     let table = new DataTable("#myTable", {
         // options
         destroy: true,
@@ -94,7 +102,7 @@ export default function List(props) {
     });
 
     const { data, setData, processing, errors } = useForm({
-        ...props.galeri,
+        ...props.konfigurasi,
     });
 
     const onHandleChange = (event) => {
@@ -109,37 +117,48 @@ export default function List(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        if (data.img == props.galeri.img) {
+        if (data.img == props.konfigurasi.img) {
             delete data.img;
         }
 
-        router.post(route("admin.dashboard.galeri.update", props.galeri.id), {
-            _method: "PUT",
-            ...data,
-        });
+        if (data.fav == props.konfigurasi.fav) {
+            delete data.fav;
+        }
+
+        router.post(
+            route("admin.dashboard.konfigurasi.update", props.konfigurasi.id),
+            {
+                _method: "PUT",
+                ...data,
+            }
+        );
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
-            <Head title="Update Galeri" />
+            <Head title="Update Berita" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Photo : <p>{props.galeri.name}</p>
+                    Update Berita : <p>{props.konfigurasi.namawebsite}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <a
+                        <Link
                             type="button"
-                            href={route("admin.dashboard.galeri.index")}
+                            href={route("dashboard")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
             {/*End Dashboard Title*/}
+
+            {props.flashMessage?.message && (
+                <FlashMessage message={props.flashMessage.message} />
+            )}
 
             <div className="container">
                 <div className="row">
@@ -147,40 +166,59 @@ export default function List(props) {
                     <form onSubmit={submit}>
                         <div className="row g-3">
                             <div className="col-sm-12">
-                                <label className="form-label">Nama Photo</label>
+                                <label className="form-label">
+                                    Nama Website
+                                </label>
                                 <input
                                     type="text"
-                                    name="name"
-                                    defaultValue={props.galeri.name}
-                                    placeholder="Masukan Nama Photo"
+                                    name="namawebsite"
+                                    defaultValue={props.konfigurasi.namawebsite}
+                                    placeholder="Masukan Nama Website"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="nama photo"
+                                    autoComplete="namawebsite"
                                     onChange={onHandleChange}
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.name}
+                                        message={errors.namawebsite}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
 
-                            <div className="col-md-6">
-                                <label className="form-label">Category</label>
+                            <div className="col-md-12">
+                                <label className="form-label">Pengurus</label>
                                 <select
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="category"
-                                    name="category"
+                                    id="pengurus"
+                                    name="pengurus"
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    <option value="galeri">Galeri</option>
-                                    <option value="Banner">Banner</option>
+
+                                    {props.periode.map((periode) => {
+                                        if (periode.id) {
+                                            return (
+                                                <option
+                                                    value={periode.id}
+                                                    selected
+                                                >
+                                                    {periode.namaperiode}
+                                                </option>
+                                            );
+                                        }
+
+                                        return (
+                                            <option value={periode.id}>
+                                                {periode.namaperiode}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
-                                        message={errors.category}
+                                        message={errors.pengurus}
                                         className="mt-2"
                                     />
                                 </div>
@@ -188,30 +226,118 @@ export default function List(props) {
 
                             <div className="col-md-6">
                                 <label className="form-label">
-                                    URL Eksternal
+                                    Title Website
                                 </label>
                                 <input
                                     type="text"
-                                    id="url"
-                                    name="url"
-                                    placeholder="Masukan URL Eksternal"
-                                    defaultValue={props.galeri.url}
+                                    id="title"
+                                    name="title"
+                                    placeholder="Masukan Judul Website"
+                                    defaultValue={props.konfigurasi.title}
                                     className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     autoComplete="tag"
                                     onChange={onHandleChange}
                                 />
                                 <div className="invalid-feedback">
                                     <InputError
-                                        message={errors.url}
+                                        message={errors.title}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    Title Website Apple Mobile
+                                </label>
+                                <input
+                                    type="text"
+                                    id="apple_mobile"
+                                    name="apple_mobile"
+                                    placeholder="Masukan Judul Website"
+                                    defaultValue={
+                                        props.konfigurasi.apple_mobile
+                                    }
+                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="apple_mobile"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.apple_mobile}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label">Tagline</label>
+                                <input
+                                    type="text"
+                                    id="tagline"
+                                    name="tagline"
+                                    placeholder="Masukan Tagline Website"
+                                    defaultValue={props.konfigurasi.tagline}
+                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="tagline"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.tagline}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    URL Website
+                                </label>
+                                <input
+                                    type="text"
+                                    id="address"
+                                    name="address"
+                                    placeholder="Masukan Alamat Website"
+                                    defaultValue={props.konfigurasi.address}
+                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="address"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.address}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-12">
+                                <label className="form-label">
+                                    Facebook Developper ID
+                                </label>
+                                <input
+                                    type="text"
+                                    id="fbid"
+                                    name="fbid"
+                                    placeholder="Masukan Facebook Developper ID"
+                                    defaultValue={props.konfigurasi.fbid}
+                                    className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="fbid"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.fbid}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
 
                             <div className="col-sm-6">
-                                <label className="form-label">File</label>
+                                <label className="form-label">Logo |x</label>
                                 <img
-                                    src={`/storage/${props.galeri.img}`}
+                                    src={`/storage/${props.konfigurasi.img}`}
                                     alt=""
                                 />
                                 <input
@@ -230,35 +356,25 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
-                                <label className="form-label">Feature</label>
-                                <div className="form-check">
-                                    <input
-                                        name="is_featured"
-                                        type="checkbox"
-                                        onChange={(e) =>
-                                            setData(
-                                                "is_featured",
-                                                e.target.checked
-                                            )
-                                        }
-                                        className="form-check-input"
-                                        checked={props.galeri.is_featured}
+                                <label className="form-label">Favicon |x</label>
+
+                                <input
+                                    type="file"
+                                    name="fav"
+                                    placeholder="Masukan File"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.fav}
+                                        className="mt-2"
                                     />
-                                    <label className="form-check-label">
-                                        Galeri Ditampilkan sebagai
-                                        fitur/rekomendasi
-                                    </label>
-                                    <div className="invalid-feedback">
-                                        <InputError
-                                            message={errors.is_featured}
-                                            className="mt-2"
-                                        />
-                                    </div>
                                 </div>
                             </div>
 
                             <div className="col-sm-12">
-                                <label className="form-label">Isi</label>
+                                <label className="form-label">Meta Tag</label>
                                 {/*<input
                                     type="text"
                                     name="konten"
@@ -269,11 +385,11 @@ export default function List(props) {
                                 />
                                 <div className="invalid-feedback"></div>*/}
                                 <CKEditor
-                                    className="konten"
+                                    className="metatag"
                                     //config={editorConfiguration}
                                     editor={ClassicEditor}
-                                    name="konten"
-                                    data={props.galeri.decription}
+                                    name="metatag"
+                                    data={props.konfigurasi.metatag}
                                     onReady={(editor) => {
                                         // You can store the "editor" and use when it is needed.
                                         console.log(
@@ -283,7 +399,7 @@ export default function List(props) {
                                     }}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
-                                        setData("konten", data);
+                                        setData("metatag", data);
 
                                         console.log({ event, editor, data });
                                     }}

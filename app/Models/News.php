@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class News extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['judul', 'slug', 'id_user', 'category', 'tag', 'path', 'img', 'konten', 'view', 'is_featured', 'publish_at'];
+    protected $fillable = ['judul', 'slug', 'status', 'id_user', 'category', 'tag', 'path', 'img', 'konten', 'view', 'ticker', 'is_featured', 'publish_at'];
 }

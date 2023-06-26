@@ -31,6 +31,8 @@ export default function List(props) {
         konten: "",
         view: 0,
         is_featured: false,
+        ticker: "",
+        status: "",
         publish_at: "",
     });
 
@@ -58,7 +60,7 @@ export default function List(props) {
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href="/dashboard/news"
+                            href={route("admin.dashboard.news.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
@@ -143,7 +145,7 @@ export default function List(props) {
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     onChange={onHandleChange}
                                 />
-                                <div className="invalid-feedback">
+                                <div className="">
                                     <InputError
                                         message={errors.img}
                                         className="mt-2"
@@ -180,12 +182,18 @@ export default function List(props) {
                                         //onSelect={(date, e) => setStartDate(date)}
                                     />
                                 </div>
+                                <div className="">
+                                    <InputError
+                                        message={errors.publish_at}
+                                        className="mt-2"
+                                    />
+                                </div>
                             </div>
 
                             {
                                 //is featured new
                             }
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <label className="form-label">
                                     Ditampilkan Sebagai Rekomendasi (Feature)
                                 </label>
@@ -203,6 +211,52 @@ export default function List(props) {
                                 <div className="invalid-feedback">
                                     <InputError
                                         message={errors.is_featured}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">
+                                    Ditampilkan Sebagai News Ticker
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="ticker"
+                                    name="ticker"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    <option value="0">Tidak Aktif</option>
+                                    <option value="1">Aktif</option>
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.ticker}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">
+                                    Status Berita
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="status"
+                                    name="status"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    <option value="Publish">Publish</option>
+                                    <option value="Draft">Draft</option>
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.status}
                                         className="mt-2"
                                     />
                                 </div>

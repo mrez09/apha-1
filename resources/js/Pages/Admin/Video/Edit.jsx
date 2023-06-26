@@ -131,7 +131,7 @@ export default function List(props) {
                     <div className="btn-group me-2">
                         <Link
                             type="button"
-                            href={route("dashboard")}
+                            href={route("admin.dashboard.video.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali

@@ -27,15 +27,10 @@ class Update extends FormRequest
         return [
             //
             'nama'          => 'nullable',
-            'nip'           => 'nullable',
-            'nik'           => 'nullable',
             'divisi'        => 'nullable',
             'subdivisi'     => 'nullable',
             'jabatan'       => 'nullable',
-            'email'         => 'nullable',
-            'phone'         => 'nullable',
             'description'   => 'nullable',
-            'pendidikan'    => 'nullable',
             'periode'       => 'nullable',
             'is_featured'   => 'nullable',
             'img'           => 'nullable',

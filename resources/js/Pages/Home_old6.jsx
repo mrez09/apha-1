@@ -33,6 +33,56 @@ export default function Home({
                 <title>
                     Selamat Datang di Website Asosiasi Pengajar Hukum Adat
                 </title>
+                <meta
+                    name="description"
+                    content="Selamat Datang di Website Asosiasi Pengajar Hukum Adat"
+                />
+                <meta name="mobile-web-app-capable" content="yes" />
+                <meta
+                    name="application-name"
+                    content="Asosiasi Pengajar Hukum Adat (APHA)"
+                />
+                <meta
+                    name="apple-mobile-web-app-title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA)"
+                />
+                <meta name="theme-color" content="#ff6300"></meta>
+                {/*Sosial Media*/}
+                {/*Open Graph Protocol*/}
+                <meta property="fb:app_id" content="961443805039846"></meta>
+
+                <meta
+                    property="og:title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    property="og:description"
+                    content="Selamat Datang di Website Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta head-key="og:type" property="og:type" content="website" />
+                <meta property="og:url" content="https://www.apha.or.id" />
+                <meta
+                    property="og:image"
+                    content="https://i.imgur.com/R4DyCBa.png"
+                />
+                <meta property="og:image:type" content="image/jpeg" />
+                <meta property="og:image:width" content="1800" />
+                <meta property="og:image:height" content="550" />
+                {/*Twitard*/}
+
+                <meta
+                    name="twitter:title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    name="twitter:description"
+                    content="Selamat Datang di Website Asosiasi Pengajar Hukum Adat"
+                />
+                <meta
+                    name="twitter:image"
+                    content="https://i.imgur.com/R4DyCBa.png"
+                />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
 
             <div class="ticker-container">

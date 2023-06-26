@@ -57,6 +57,7 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                 <th>Judul</th>
                                 <th>Name</th>
                                 <th>Category</th>
+                                <th>Status</th>
                                 <th>View</th>
                                 <th>Action</th>
                             </tr>
@@ -89,6 +90,7 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                     <td>{news.judul}</td>
                                     <td>{news.name}</td>
                                     <td>{news.namakategori}</td>
+                                    <td>{news.status}</td>
                                     <td>{news.view}</td>
 
                                     <td>

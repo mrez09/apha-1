@@ -30,7 +30,7 @@ use App\Http\Controllers\Admin\ContactadminController;
 use App\Http\Controllers\Admin\NewscategoryadminController;
 use App\Http\Controllers\Admin\PeriodeadminController;
 use App\Http\Controllers\Admin\KonfigurasiadminController;
-use App\Http\Controllers\ErrorpageController;
+use App\Http\Controllers\Admin\ErrorpageadminController;
 
 
 
@@ -88,7 +88,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::put('prosiding/{buku}/restore', [ProsidingadminController::class, 'restore'])->name('prosiding.restore');
     //Video
     Route::resource('video', VideoadminController::class);
-    Route::get('video/{id}/edit', [VideoadminController::class, 'edit'])->name('galeri.edit');
+    Route::get('video/{id}/edit', [VideoadminController::class, 'edit'])->name('video.edit');
     //Banner
     //Route::resource('main-banner', MainbanneradminController::class);
     //Route::get('main-banner/{id}/edit', [MainbanneradminController::class, 'edit'])->name('mainbanner.edit');
@@ -131,7 +131,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::put('periode/{jabatan}/restore', [PeriodeadminController::class, 'restore'])->name('periode.restore');
 
     //Error page
-    Route::get('errorpage', [ErrorpageController::class, 'maintenance'])->name('errorpage.maintenance');
+    Route::get('errorpage', [ErrorpageadminController::class, 'maintenance'])->name('errorpage.maintenance');
    
     //Konfigurasi
     Route::resource('konfigurasi', KonfigurasiadminController::class);
@@ -141,6 +141,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::get('pengurus/konfigurasi/{konfigurasi:slug}', [KonfigurasiadminController::class, 'editpengurus'])->name('konfigurasi.pengurus.edit');
     Route::put('konfigurasi/updatepengurus/{konfigurasi:id}', [KonfigurasiadminController::class, 'updatepengurus'])->name('konfigurasi.updatepengurus');
     Route::put('periode/{jabatan}/restore', [PeriodeadminController::class, 'restore'])->name('periode.restore');
+
+    
 });
 
 Route::get('/penasehat', function () {

@@ -132,13 +132,13 @@ export default function List(props) {
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <Link
+                        <a
                             type="button"
-                            href={route("dashboard")}
+                            href={route("admin.dashboard.prosiding.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
