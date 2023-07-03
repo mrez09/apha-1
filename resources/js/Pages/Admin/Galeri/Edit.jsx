@@ -166,27 +166,6 @@ export default function List(props) {
                             </div>
 
                             <div className="col-md-6">
-                                <label className="form-label">Category</label>
-                                <select
-                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="category"
-                                    name="category"
-                                    onChange={onHandleChange}
-                                    required
-                                >
-                                    <option value="">Choose...</option>
-                                    <option value="galeri">Galeri</option>
-                                    <option value="Banner">Banner</option>
-                                </select>
-                                <div className="invalid-feedback">
-                                    <InputError
-                                        message={errors.category}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
                                 <label className="form-label">
                                     URL Eksternal
                                 </label>
@@ -229,31 +208,54 @@ export default function List(props) {
                                 </div>
                             </div>
 
-                            <div className="col-sm-6">
-                                <label className="form-label">Feature</label>
-                                <div className="form-check">
-                                    <input
-                                        name="is_featured"
-                                        type="checkbox"
-                                        onChange={(e) =>
-                                            setData(
-                                                "is_featured",
-                                                e.target.checked
-                                            )
+                            <div className="col-md-4">
+                                <label className="form-label">
+                                    Status Banner
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="is_featured"
+                                    name="is_featured"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {(() => {
+                                        if (props.galeri.is_featured == 0) {
+                                            return (
+                                                <option value="0" selected>
+                                                    Draft
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="0">Draft</option>
+                                            );
                                         }
-                                        className="form-check-input"
-                                        checked={props.galeri.is_featured}
+                                    })()}
+
+                                    {(() => {
+                                        if (props.galeri.is_featured == 1) {
+                                            return (
+                                                <option value="1" selected>
+                                                    Publish
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="1">
+                                                    Publish
+                                                </option>
+                                            );
+                                        }
+                                    })()}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.category}
+                                        className="mt-2"
                                     />
-                                    <label className="form-check-label">
-                                        Galeri Ditampilkan sebagai
-                                        fitur/rekomendasi
-                                    </label>
-                                    <div className="invalid-feedback">
-                                        <InputError
-                                            message={errors.is_featured}
-                                            className="mt-2"
-                                        />
-                                    </div>
                                 </div>
                             </div>
 

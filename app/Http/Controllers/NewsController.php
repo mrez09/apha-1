@@ -24,6 +24,10 @@ class NewsController extends Controller
         $featuredNews   = News::whereIsFeatured(true)->get();
         $news           = News::where('news.status', '=', 'Publish')->orderBy('publish_at', 'desc')->get();
         $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
+
+        //meta
+        $reptag1    = Str::replace('<p>', '', $konfigurasis->metatag);
+        $metatag    = Str::replace('</p>', '', $reptag1);
         //url saat ini
         $cururl     = URL::current();
         return inertia ('News/List',[
@@ -32,8 +36,8 @@ class NewsController extends Controller
             'event' => [
                 'application-name'          => $konfigurasis->namawebsite,
                 'title'                     => 'Berita Terkini Asosiasi Pengajar Hukum Adat (APHA) Indonesia',
-                'description'               => $konfigurasis->description,
-                'keywords'                  => $konfigurasis->metatag,
+                'description'               => 'Berita Terkini Asosiasi Pengajar Hukum Adat (APHA) Indonesia',
+                'keywords'                  => $metatag,
                 'image'                     => 'https://i.imgur.com/R4DyCBa.png',
                 'image_alt'                 => 'Berita Terkini Asosiasi Pengajar Hukum Adat (APHA) Indonesia',
                 'image_type'                => 'image/jpeg',

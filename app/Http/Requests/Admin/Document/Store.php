@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Book;
+namespace App\Http\Requests\Admin\Document;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
@@ -26,16 +26,11 @@ class Store extends FormRequest
     {
         return [
             //
-            'name'     => 'required',
-            'harga'     => 'required',
-            'category'  => 'required',
-            'url'     => 'nullable',
-            'is_featured'  => 'nullable',
-            'rating'  => 'nullable',
-            'status'  => 'nullable',
-            'img'       => 'required|image',
-            'konten'  => 'required',
-            'sinopsis'  => 'required',
+            'title'     => 'required',
+            'deskripsi'     => 'required',
+            'status'  => 'required',
+            'file'  => 'required',
+            'publish_at'       => 'required',
         ];
     }
 }

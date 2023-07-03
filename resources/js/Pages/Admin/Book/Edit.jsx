@@ -146,7 +146,7 @@ export default function List(props) {
                     <h4 className="mb-3"></h4>
                     <form onSubmit={submit}>
                         <div className="row g-3">
-                            <div className="col-sm-12">
+                            <div className="col-sm-8">
                                 <label className="form-label">Nama Buku</label>
                                 <input
                                     type="text"
@@ -160,6 +160,25 @@ export default function List(props) {
                                 <div className="">
                                     <InputError
                                         message={errors.name}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-4">
+                                <label className="form-label">Harga Buku</label>
+                                <input
+                                    type="text"
+                                    name="harga"
+                                    defaultValue={props.buku.harga}
+                                    placeholder="Masukan Harga Buku"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="harga"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.harga}
                                         className="mt-2"
                                     />
                                 </div>
@@ -205,22 +224,53 @@ export default function List(props) {
                                     />
                                 </div>
                             </div>
-                            <div className="col-sm-6">
-                                <label className="form-label">File</label>
-                                <img
-                                    src={`/storage/${props.buku.thumbnail}`}
-                                    alt=""
-                                />
-                                <input
-                                    type="file"
-                                    name="img"
-                                    placeholder="Masukan File"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    Status Buku
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="status"
+                                    name="status"
                                     onChange={onHandleChange}
-                                />
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {(() => {
+                                        if (props.buku.status == 0) {
+                                            return (
+                                                <option value="0" selected>
+                                                    Draft
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="0">Draft</option>
+                                            );
+                                        }
+                                    })()}
+
+                                    {(() => {
+                                        if (props.buku.status == 1) {
+                                            return (
+                                                <option value="1" selected>
+                                                    Publish
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="1">
+                                                    Publish
+                                                </option>
+                                            );
+                                        }
+                                    })()}
+                                </select>
                                 <div className="invalid-feedback">
                                     <InputError
-                                        message={errors.img}
+                                        message={errors.is_featured}
                                         className="mt-2"
                                     />
                                 </div>
@@ -272,6 +322,27 @@ export default function List(props) {
                                 <div className="invalid-feedback">
                                     <InputError
                                         message={errors.is_featured}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">File</label>
+                                <img
+                                    src={`/storage/${props.buku.thumbnail}`}
+                                    alt=""
+                                />
+                                <input
+                                    type="file"
+                                    name="img"
+                                    placeholder="Masukan File"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.img}
                                         className="mt-2"
                                     />
                                 </div>
@@ -334,6 +405,53 @@ export default function List(props) {
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("decription", data);
+
+                                        console.log({ event, editor, data });
+                                    }}
+                                    onBlur={(event, editor) => {
+                                        console.log("Blur.", editor);
+                                    }}
+                                    onFocus={(event, editor) => {
+                                        console.log("Focus.", editor);
+                                    }}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.decription}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-12">
+                                <label className="form-label">Sinopsis</label>
+                                {/*<input
+                                    type="text"
+                                    name="konten"
+                                    placeholder="Masukan Judul"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="judul"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="invalid-feedback"></div>*/}
+                                <CKEditor
+                                    className="konten"
+                                    //config={editorConfiguration}
+                                    editor={ClassicEditor}
+                                    name="sinopsis"
+                                    data={props.buku.sinopsis}
+                                    //data={props.buku.decription}
+
+                                    onReady={(editor) => {
+                                        // You can store the "editor" and use when it is needed.
+                                        console.log(
+                                            "Editor is ready to use!",
+                                            editor
+                                        );
+                                    }}
+                                    onChange={(event, editor, e) => {
+                                        const data = editor.getData();
+                                        setData("sinopsis", data);
 
                                         console.log({ event, editor, data });
                                     }}

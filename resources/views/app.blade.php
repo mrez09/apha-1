@@ -83,15 +83,14 @@
             content="{{  (isset($page['props']['event']['image'])) ? $page['props']['event']['image'] : asset('/img/logo.png') }}"
         />
         <meta
-            head-key="og:image:alt"
-            property="og:image:alt"
-            content="{{  (isset($page['props']['event']['image_alt'])) ? $page['props']['event']['image_alt'] : asset('/img/logo.png') }}"
-        />
-        
-        <meta
             head-key="og:image:type"
             property="og:image:type"
             content="{{ (isset($page['props']['event']['image_type'])) ? $page['props']['event']['image_type'] : '' }}"
+        />
+        <meta
+            head-key="og:image:alt"
+            property="og:image:alt"
+            content="{{  (isset($page['props']['event']['image_alt'])) ? $page['props']['event']['image_alt'] : asset('/img/logo.png') }}"
         />
         <meta
             head-key="og:image:width"

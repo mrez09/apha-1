@@ -27,13 +27,15 @@ class Update extends FormRequest
         return [
             //            
             'name'     => 'nullable',
+            'harga'  => 'nullable',
             'category'  => 'nullable',
             'url'     => 'nullable',
+            'status'  => 'nullable',
             'is_featured'  => 'nullable',
             'rating'  => 'nullable',
             'img'       => 'nullable|image',
             'decription'  => 'nullable',
-            
+            'sinopsis'  => 'nullable',
         ];
     }
 }

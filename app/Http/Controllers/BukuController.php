@@ -54,19 +54,30 @@ class BukuController extends Controller
          //url saat ini
          $cururl     = URL::current();
          $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
+        //Parse Data
+        $repkonten1    = Str::replace('<p>', '', $buku->sinopsis);
+        $repkonten2    = Str::replace('</p>', '', $repkonten1);
+        $des    = Str::words( $repkonten2, 25);
+
+        $reptag1    = Str::replace('<p>', '', $konfigurasis->metatag);
+        $metatag    = Str::replace('</p>', '', $reptag1);
+
+        $cururl     = URL::current();
         return Inertia::render('Buku/Show', [
             'buku' => $buku,
             'event' => [
                 'application-name'          => $konfigurasis->namawebsite,
                 'title'                     => $buku->name,
-                'description'               => $konfigurasis->description,
-                'keywords'                  => $konfigurasis->metatag,
-                'image'                     => 'https://i.imgur.com/R4DyCBa.png',
-                'image_alt'                 => 'Buku Terbitan Asosiasi Pengajar Hukum Adat (APHA) Indonesia',
+                'description'               => $des,
+                'keywords'                  => $metatag,
+                'image'                     => 'https://apha.or.id/storage/'.$buku->thumbnail,
                 'image_type'                => 'image/jpeg',
-                'image_width'               => '1800',
+                'image_width'               => '250',
                 'image_height'              => '550',
-                'og:type'                   => 'website',
+                'image_alt'                 => $buku->name,
+                'og:type'                   => 'book',
+                'publish_time'              => $buku->publish_at,
+                'article_tag'               => 'Hukum Adat, APHA, Asosisasi Pengajar Hukum Adat',
                 'url'                       => $cururl,
                 'fb:app_id'                 => $konfigurasis->fbid,
                 'theme-color'               => '#ff6300',

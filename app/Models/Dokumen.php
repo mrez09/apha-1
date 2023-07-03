@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Buku extends Model
+class Dokumen extends Model
 {
     use HasFactory, SoftDeletes;
-
-    protected $fillable = ['name', 'harga', 'slug', 'category', 'url', 'thumbnail', 'status', 'decription', 'sinopsis', 'rating', 'is_featured'];
+    protected $fillable = ['title', 'slug', 'deskripsi', 'status', 'file', 'view', 'publish_at'];
 }

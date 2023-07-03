@@ -15,7 +15,7 @@ class VideoController extends Controller
         //return Inertia::render('Buku/List');
         //$featuredBuku   = Buku::whereIsFeatured(true)->get();
         //$galeri           = Galeri::all();
-        $video   = Video::whereCategory("Video")->get();
+        $video   = Video::whereCategory("Video")->where('is_featured', '=', 1)->get();
         $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
 
         return inertia ('Video/List',[

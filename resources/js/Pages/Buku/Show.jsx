@@ -33,101 +33,6 @@ export default function List({ featuredBuku, buku, props }) {
                 <title>
                     Buku - Asosiasi Pengajar Hukum Adat (APHA) Indonesia
                 </title>
-                <meta
-                    head-key="Description"
-                    name="description"
-                    content={buku.name}
-                />
-                <meta
-                    head-key="Mobile Capable"
-                    name="mobile-web-app-capable"
-                    content="yes"
-                />
-                <meta
-                    head-key="App Name"
-                    name="application-name"
-                    content="Asosiasi Pengajar Hukum Adat (APHA)"
-                />
-                <meta
-                    head-key="Apple Mobile App Name"
-                    name="apple-mobile-web-app-title"
-                    content="Asosiasi Pengajar Hukum Adat (APHA)"
-                />
-                <meta
-                    head-key="Theme Color"
-                    name="theme-color"
-                    content="#ff6300"
-                ></meta>
-                {/*Sosial Media*/}
-                {/*Open Graph Protocol*/}
-                <meta
-                    head-key="App id Facebook"
-                    property="fb:app_id"
-                    content="961443805039846"
-                ></meta>
-
-                <meta
-                    head-key="Title Open Graph"
-                    property="og:title"
-                    content={buku.name}
-                />
-                <meta
-                    head-key="Description Open Graph"
-                    property="og:description"
-                    content={buku.name}
-                />
-                <meta
-                    head-key="Type Open Graph"
-                    property="og:type"
-                    content="website"
-                />
-                <meta
-                    head-key="URL Open Graph"
-                    property="og:url"
-                    content="https://www.apha.or.id"
-                />
-                <meta
-                    head-key="Image Open Graph"
-                    property="og:image"
-                    content={`https://apha.or.id/storage/${buku.thumbnail}`}
-                />
-                <meta
-                    head-key="Image Type Open Graph"
-                    property="og:image:type"
-                    content="image/jpeg"
-                />
-                <meta
-                    head-key="Image Width Open Graph"
-                    property="og:image:width"
-                    content="1800"
-                />
-                <meta
-                    head-key="Image Height Open Graph"
-                    property="og:image:height"
-                    content="550"
-                />
-                {/*Twitard*/}
-
-                <meta
-                    head-key="Twitter Title"
-                    name="twitter:title"
-                    content={buku.name}
-                />
-                <meta
-                    head-key="Twitter Description"
-                    name="twitter:description"
-                    content={buku.name}
-                />
-                <meta
-                    head-key="Twitter Image"
-                    name="twitter:image"
-                    content={`/storage/${buku.thumbnail}`}
-                />
-                <meta
-                    head-key="Twitter Card"
-                    name="twitter:card"
-                    content="summary_large_image"
-                />
             </Head>
             <div className="container">
                 <div className="row g-5 d-flex justify-content-center mt-5">
@@ -147,6 +52,7 @@ export default function List({ featuredBuku, buku, props }) {
                             <div className="kon-10">
                                 {parse(buku.decription)}
                             </div>
+                            <div className="kon-10">{parse(buku.sinopsis)}</div>
                             <hr />
                             <div className="detail-article__share-wrapper">
                                 <b>SHARE</b>

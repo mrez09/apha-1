@@ -164,6 +164,14 @@ export default function Guest({ children }, props) {
                                         </Link>
                                     </li>
                                     <li>
+                                        <Link
+                                            className="dropdown-item"
+                                            href={route("frontnews.index")}
+                                        >
+                                            Dokumen
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <a
                                             className="dropdown-item"
                                             href="https://www.youtube.com/@aphaindonesia"

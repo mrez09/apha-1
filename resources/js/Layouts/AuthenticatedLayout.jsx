@@ -100,18 +100,6 @@ export default function Authenticated({ auth, header, children }) {
                                                     List Berita
                                                 </a>
                                             </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                {/*end news*/}
-                                {/*Berita*/}
-                                <li className="nav-link px-3 sidebar-link">
-                                    <a data-bs-toggle="collapse" href="#event">
-                                        <i className="fa-solid ic  fa-calendar-day"></i>
-                                        Event
-                                    </a>
-                                    <div className="collapse" id="event">
-                                        <ul className="navbar-nav ps-3">
                                             <li>
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
@@ -126,7 +114,83 @@ export default function Authenticated({ auth, header, children }) {
                                         </ul>
                                     </div>
                                 </li>
+
                                 {/*end news*/}
+
+                                {/*Halaman Statis */}
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a
+                                        data-bs-toggle="collapse"
+                                        href="#content"
+                                    >
+                                        <i class="fa-sharp fa-solid ic fa-inbox"></i>
+                                        Content
+                                    </a>
+                                    <div className="collapse" id="content">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.errorpage.maintenance"
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-home"></i>
+                                                    Badan Hukum
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.errorpage.maintenance"
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-home"></i>
+                                                    Sejarah
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.errorpage.maintenance"
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-home"></i>
+                                                    Struktur
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "admin.dashboard.errorpage.maintenance"
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-home"></i>
+                                                    Halaman Statis
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                {/*end Content*/}
+
+                                {/*Dokumen */}
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route(
+                                            "admin.dashboard.document.index"
+                                        )}
+                                        active={route().current("dashboard")}
+                                    >
+                                        <i class="fas ic fa-folder-open"></i>
+                                        Dokumen
+                                    </NavLink>
+                                </li>
 
                                 {/*Pengurus*/}
                                 <li className="nav-link px-3 sidebar-link">

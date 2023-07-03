@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin\Book;
+namespace App\Http\Requests\Admin\Document;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
 
-class Store extends FormRequest
+class Update extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,16 +26,12 @@ class Store extends FormRequest
     {
         return [
             //
-            'name'     => 'required',
-            'harga'     => 'required',
-            'category'  => 'required',
-            'url'     => 'nullable',
-            'is_featured'  => 'nullable',
-            'rating'  => 'nullable',
+            'title'     => 'nullable',
+            'deskripsi'     => 'nullable',
             'status'  => 'nullable',
-            'img'       => 'required|image',
-            'konten'  => 'required',
-            'sinopsis'  => 'required',
+            'file'  => 'nullable',
+            'view'  => 'nullable',
+            'publish_at'       => 'nullable',
         ];
     }
 }

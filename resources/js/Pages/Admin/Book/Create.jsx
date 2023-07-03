@@ -18,11 +18,14 @@ export default function List(props) {
 
     const { setData, post, processing, errors } = useForm({
         name: "",
+        harga: "",
         slug: "",
         category: "",
         url: "",
         img: "",
+        status: "",
         konten: "",
+        sinopsis: "",
         rating: 0,
         is_featured: false,
     });
@@ -66,7 +69,7 @@ export default function List(props) {
                     <h4 className="mb-3"></h4>
                     <form onSubmit={submit}>
                         <div className="row g-3">
-                            <div className="col-sm-12">
+                            <div className="col-sm-8">
                                 <label className="form-label">Nama Buku</label>
                                 <input
                                     type="text"
@@ -79,6 +82,24 @@ export default function List(props) {
                                 <div className="">
                                     <InputError
                                         message={errors.name}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-4">
+                                <label className="form-label">Harga Buku</label>
+                                <input
+                                    type="text"
+                                    name="harga"
+                                    placeholder="Masukan Harga Buku"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="harga"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.harga}
                                         className="mt-2"
                                     />
                                 </div>
@@ -147,6 +168,50 @@ export default function List(props) {
 
                             <div className="col-md-6">
                                 <label className="form-label">
+                                    Rating Buku
+                                </label>
+                                <input
+                                    type="text"
+                                    id="rating"
+                                    name="rating"
+                                    placeholder="Masukan Rating Buku"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="tag"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.rating}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">
+                                    Status Buku
+                                </label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="status"
+                                    name="status"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    <option value="0">Draft</option>
+                                    <option value="1">Publish</option>
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.status}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label">
                                     Ditampilkan Sebagai Rekomendasi (Feature)
                                 </label>
                                 <select
@@ -163,27 +228,6 @@ export default function List(props) {
                                 <div className="invalid-feedback">
                                     <InputError
                                         message={errors.is_featured}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <label className="form-label">
-                                    Rating Buku
-                                </label>
-                                <input
-                                    type="text"
-                                    id="rating"
-                                    name="rating"
-                                    placeholder="Masukan URL Buku"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="tag"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.rating}
                                         className="mt-2"
                                     />
                                 </div>
@@ -228,6 +272,50 @@ export default function List(props) {
                                 <div className="">
                                     <InputError
                                         message={errors.decription}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-12">
+                                <label className="form-label">
+                                    Sinopsis Buku
+                                </label>
+                                {/*<input
+                                    type="text"
+                                    name="konten"
+                                    placeholder="Masukan Judul"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="judul"
+                                    onChange={onHandleChange}
+                                    />*/}
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    name="sinopsis"
+                                    data=""
+                                    onReady={(editor) => {
+                                        // You can store the "editor" and use when it is needed.
+                                        console.log(
+                                            "Editor is ready to use!",
+                                            editor
+                                        );
+                                    }}
+                                    onChange={(event, editor, e) => {
+                                        const data = editor.getData();
+                                        setData("sinopsis", data);
+
+                                        console.log({ event, editor, data });
+                                    }}
+                                    onBlur={(event, editor) => {
+                                        console.log("Blur.", editor);
+                                    }}
+                                    onFocus={(event, editor) => {
+                                        console.log("Focus.", editor);
+                                    }}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.sinopsis}
                                         className="mt-2"
                                     />
                                 </div>

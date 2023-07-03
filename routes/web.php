@@ -14,6 +14,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\NewscategoryController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\CommiteeController;
+use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsadminController;
 use App\Http\Controllers\Admin\BookadminController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Admin\NewscategoryadminController;
 use App\Http\Controllers\Admin\PeriodeadminController;
 use App\Http\Controllers\Admin\KonfigurasiadminController;
 use App\Http\Controllers\Admin\ErrorpageadminController;
+use App\Http\Controllers\Admin\DocumentadminController;
 
 
 
@@ -142,6 +144,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::put('konfigurasi/updatepengurus/{konfigurasi:id}', [KonfigurasiadminController::class, 'updatepengurus'])->name('konfigurasi.updatepengurus');
     Route::put('periode/{jabatan}/restore', [PeriodeadminController::class, 'restore'])->name('periode.restore');
 
+    //Periode
+    Route::resource('document', DocumentadminController::class);
+    Route::get('document/{document}/edit', [DocumentadminController::class, 'edit'])->name('document.edit');
+    Route::put('document/{document}/restore', [DocumentadminController::class, 'restore'])->name('document.restore');
+
     
 });
 
@@ -248,7 +255,7 @@ Route::prefix('/')->name('front')->group(function (){
     //Route::get('pengurus/{commitee:slug}', [CommiteeController::class, 'show'])->name('commitee.show');
     //Route::get('pengurus/dewan-pembin', [CommiteeController::class, 'dewanpembina'])->name('commitee.dewanpembina');
 
-    Route::prefix('penguruses')->name('pengurus.')->group(function () {
+    Route::prefix('biodata')->name('pengurus.')->group(function () {
 //        route::get('/dewan-pembina', function () {
   //          return Inertia::render('Pengurus/Dewan_Pembina');
 //        })->name('dewan-penasehat');
@@ -291,6 +298,11 @@ Route::prefix('/')->name('front')->group(function (){
     //Route::resource('category', NewscategoryController::class);
     Route::get('newscategory/{newscategory:slug}', [NewscategoryController::class, 'show'])->name('newscategory.show');
     //Route::get('news/{id}/edit', [NewsControlleNewscategoryController::class, 'edit'])->name('news.edit');
+
+    //Document
+    Route::resource('dokumen', DokumenController::class);
+    Route::get('dokumen/{dokumen:slug}', [DokumenController::class, 'show'])->name('dokumen.show');
+    Route::get('buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
 
     //buku
     //Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');

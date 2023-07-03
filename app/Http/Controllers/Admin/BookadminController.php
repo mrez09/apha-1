@@ -34,7 +34,7 @@ class BookadminController extends Controller
     public function store(Store $request){
         //return Inertia::render('Admin/News/Create');
         $data = $request->validated();
-        $data['thumbnail'] = Storage::disk("public")->put('news', $request->file('img'));
+        $data['thumbnail'] = Storage::disk("public")->put('buku', $request->file('img'));
         //$data['path'] = "/storage/".$data['img'];
         $data['slug'] = Str::slug($data ['name']);
         
