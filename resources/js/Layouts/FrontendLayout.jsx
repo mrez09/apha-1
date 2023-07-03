@@ -163,14 +163,7 @@ export default function Guest({ children }, props) {
                                             Newsletter
                                         </Link>
                                     </li>
-                                    <li>
-                                        <Link
-                                            className="dropdown-item"
-                                            href={route("frontnews.index")}
-                                        >
-                                            Dokumen
-                                        </Link>
-                                    </li>
+
                                     <li>
                                         <a
                                             className="dropdown-item"
@@ -241,6 +234,17 @@ export default function Guest({ children }, props) {
                                     Galeri
                                 </Link>
                             </li>
+
+                            <li className="nav-item">
+                                <Link
+                                    className="nav-link "
+                                    aria-current="page"
+                                    href={route("frontdokumen.index")}
+                                >
+                                    Dokumen
+                                </Link>
+                            </li>
+
                             <li className="nav-item">
                                 <Link
                                     className="nav-link "
