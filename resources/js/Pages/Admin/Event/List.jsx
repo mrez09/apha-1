@@ -5,7 +5,7 @@ import { Head, useForm } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 
-export default function List({ auth, errors, flashMessage, props, document }) {
+export default function List({ auth, errors, flashMessage, props, event }) {
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
         // options
@@ -20,20 +20,20 @@ export default function List({ auth, errors, flashMessage, props, document }) {
             errors={errors}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    List Data Document
+                    List Data Berita
                 </h2>
             }
         >
             <Head title="Dashboard" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">List Document</h1>
+                <h1 className="h2">List Berita</h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <Link
                             type="button"
-                            href={route("admin.dashboard.document.create")}
+                            href={route("admin.dashboard.event.create")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Tambah
@@ -53,43 +53,51 @@ export default function List({ auth, errors, flashMessage, props, document }) {
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Image</th>
                                 <th>Judul</th>
-                                <th>Deskripsi</th>
+                                <th>Name</th>
+                                <th>Category</th>
                                 <th>Status</th>
                                 <th>View</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {document.map((document, index) => (
-                                <tr key={document.id}>
+                            {event.map((event, index) => (
+                                <tr key={event.link_id}>
                                     <td>{++index}</td>
+                                    <td>
+                                        <img
+                                            src={`/storage/${event.img}`}
+                                            //src={'/storage/${newslist.img}'}
+                                            //src="'/storage/'${newslist.img}"
+                                            //src='" . asset($dirname . $curimg) . "'
+                                            //src={
+                                            //  "http://127.0.0.1:8000/storage/news/YKsAaWIYa2xsQQmbOS0Ejc5CIJcT7Q6aixQn2JWj.png"
+                                            //}
+                                            //src={
+                                            //  "http://127.0.0.1:8000/storage/${newslit.img}"
+                                            //}
+                                            //src="{{ asset('storage/'.$newslist->img) }}"
 
-                                    <td>{document.title}</td>
-                                    <td>{document.deskripsi}</td>
-                                    {(() => {
-                                        if (document.status == 0) {
-                                            return <td>Draft</td>;
-                                        } else {
-                                            return <td>Publish</td>;
-                                        }
-                                    })()}
-                                    <td>{document.view}</td>
+                                            className="rounded img-thumb img-fluid img-thumbnail"
+                                            //src="{{ asset('storage/'.$newslist->img) }}"
+                                            //src="{{ asset('/storage/'.$newslist->img) }}"
+                                            //src="{{ url('storage/'.$news->img) }}"
+                                            alt=""
+                                        />
+                                    </td>
+                                    <td>{event.judul}</td>
+                                    <td>{event.name}</td>
+                                    <td>{event.namakategori}</td>
+                                    <td>{event.status}</td>
+                                    <td>{event.view}</td>
 
                                     <td>
-                                        <a href={`/storage/${document.file}`}>
-                                            <button
-                                                alt={document.title}
-                                                download={document.title}
-                                                className="btn btn-info mx-2"
-                                            >
-                                                Download
-                                            </button>
-                                        </a>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.document.edit",
-                                                document.id
+                                                "admin.dashboard.news.edit",
+                                                event.id
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -100,13 +108,13 @@ export default function List({ auth, errors, flashMessage, props, document }) {
                                             onClick={() => {
                                                 destroy(
                                                     route(
-                                                        "admin.dashboard.document.destroy",
-                                                        document.id
+                                                        "admin.dashboard.event.destroy",
+                                                        news.id
                                                     )
                                                 );
                                             }}
                                         >
-                                            <button className="btn btn-danger my-2 mx-2">
+                                            <button className="btn btn-danger my-2">
                                                 Delete
                                             </button>
                                         </div>

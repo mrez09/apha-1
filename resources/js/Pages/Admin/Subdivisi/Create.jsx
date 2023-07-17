@@ -6,8 +6,6 @@ import NavLink from "@/Components/NavLink";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
@@ -117,7 +115,7 @@ export default function List({ props, subdivisi }) {
 
                             <div className="col-md-6">
                                 <label className="form-label">
-                                    Ditampilkan Sebagai Rekomendasi (Feature)
+                                    Tampilkan di Halaman Pengurus
                                 </label>
                                 <select
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"

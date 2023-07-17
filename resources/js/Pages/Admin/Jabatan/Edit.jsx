@@ -6,14 +6,12 @@ import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //import sourceEditing from "@ckeditor/ckeditor5-build-classic";
 //import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";

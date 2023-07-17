@@ -14,7 +14,8 @@ return new class extends Migration
         //
         Schema::table('commitees', function (Blueprint $table) {
             
-            $table->dropColumn(['nip', 'nik', 'email', 'phone', 'pendidikan']);
+            //$table->dropColumn(['nip', 'nik', 'email', 'phone', 'pendidikan']);
+            $table->string('gender', 10)->default('1')->after('nama');
         });
     }
 
@@ -25,12 +26,7 @@ return new class extends Migration
     {
         //
         Schema::table('commitees', function (Blueprint $table) {
-            $table->string('nip', 10)->nullable();
-            $table->string('nik', 10)->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('pendidikan')->nullable();
+            $table->dropColumn('gender');
         });
-        
     }
 };

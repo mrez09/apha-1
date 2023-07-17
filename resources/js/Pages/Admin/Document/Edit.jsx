@@ -6,14 +6,15 @@ import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+//import { CKEditor } from "@ckeditor/ckeditor5-react";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 //import sourceEditing from "@ckeditor/ckeditor5-build-classic";
 //import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -130,11 +131,12 @@ export default function List(props) {
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
-            <Head title="Update Berita" />
+            <Head title="Update Dokumen Asosiasi Pengajar Hukum Adat Indonesia" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Berita : <p>{props.document.title}</p>
+                    Update Dokumen Asosiasi Pengajar Hukum Adat Indonesia :{" "}
+                    <p>{props.document.title}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
@@ -312,45 +314,21 @@ export default function List(props) {
                             }
 
                             <div className="col-sm-12">
-                                <label className="form-label">Isi</label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback"></div>*/}
-                                <CKEditor
-                                    className="konten"
-                                    //config={editorConfiguration}
-                                    editor={ClassicEditor}
-                                    name="deskripsi"
-                                    data={props.document.deskripsi}
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("deskripsi", data);
+                                <label className="form-label">Deskripsi</label>
 
-                                        console.log({ event, editor, data });
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
-                                />
+                                <textarea
+                                    className="form-control deksripsi"
+                                    name="deskripsi"
+                                    defaultValue={props.document.deskripsi}
+                                    id="exampleFormControlTextarea1"
+                                    rows="3"
+                                    autoComplete="deskripsi"
+                                    onChange={onHandleChange}
+                                ></textarea>
+
                                 <div className="">
                                     <InputError
-                                        message={errors.konten}
+                                        message={errors.deskripsi}
                                         className="mt-2"
                                     />
                                 </div>

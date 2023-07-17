@@ -277,7 +277,7 @@ export default function Guest({ children }, props) {
                                     loading="lazy"
                                 ></iframe>
 
-                                <ul>
+                                <ul className="footul">
                                     <li>
                                         {/*<a href="tel:(010) 1234 4321"></a>*/}
                                         <i className="fas ic fa-phone"></i>

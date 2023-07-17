@@ -3,7 +3,7 @@ import "../frontend/css/bootstrap.css";
 //import "../css/app.css";
 import "../css/apha.css";
 import "../css/style.css";
-//import "../texteditor/src/ckeditor";
+//import "../texteditor/src/ckeditor";\
 
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";

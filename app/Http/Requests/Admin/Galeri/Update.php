@@ -30,7 +30,7 @@ class Update extends FormRequest
             'url'     => 'nullable',
             'is_featured'  => 'nullable',
             'img'       => 'nullable|image',
-            'konten'  => 'nullable',
+            'decription'  => 'nullable',
         ];
     }
 }

@@ -6,8 +6,8 @@ import NavLink from "@/Components/NavLink";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import { CKEditor } from "@ckeditor/ckeditor5-react";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
@@ -170,68 +170,17 @@ export default function List(props) {
                                 //is featured new
                             }
 
-                            {/* 
-                                <div className="col-sm-12">
-                                <label className="form-label">Feature</label>
-                                <div className="form-check">
-                                    <input
-                                        type="checkbox"
-                                        onChange={(e) =>
-                                            setData(
-                                                "is_featured",
-                                                e.target.checked
-                                            )
-                                        }
-                                        className="form-check-input"
-                                    />
-                                    <label className="form-check-label">
-                                        Berita Ditampilkan sebagai
-                                        fitur/rekomendasi
-                                    </label>
-                                    <div>
-                                        <InputError
-                                            message={errors.is_featured}
-                                            className="mt-2"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                                */}
-
                             <div className="col-sm-12">
                                 <label className="form-label">Deskripsi</label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                    />*/}
-                                <CKEditor
-                                    editor={ClassicEditor}
-                                    name="deskripsi"
-                                    data=""
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Deskripsi is ready to use!",
-                                            editor
-                                        );
-                                    }}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("deskripsi", data);
 
-                                        console.log({ event, editor, data });
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
-                                />
+                                <textarea
+                                    class="form-control deksripsi"
+                                    name="deskripsi"
+                                    id="exampleFormControlTextarea1"
+                                    rows="3"
+                                    onChange={onHandleChange}
+                                ></textarea>
+
                                 <div className="">
                                     <InputError
                                         message={errors.deskripsi}

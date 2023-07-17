@@ -9,7 +9,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //import sourceEditing from "@ckeditor/ckeditor5-build-classic";
 //import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -274,7 +274,7 @@ export default function List(props) {
                                     className="konten"
                                     //config={editorConfiguration}
                                     editor={ClassicEditor}
-                                    name="konten"
+                                    name="decription"
                                     data={props.galeri.decription}
                                     onReady={(editor) => {
                                         // You can store the "editor" and use when it is needed.
@@ -285,7 +285,7 @@ export default function List(props) {
                                     }}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
-                                        setData("konten", data);
+                                        setData("decription", data);
 
                                         console.log({ event, editor, data });
                                     }}
@@ -298,7 +298,7 @@ export default function List(props) {
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.konten}
+                                        message={errors.decription}
                                         className="mt-2"
                                     />
                                 </div>

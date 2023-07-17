@@ -108,4 +108,15 @@ class DocumentadminController extends Controller
           //  'news'          => $news
         //]);
     }
+
+    public function destroy(Dokumen $dokumen){
+        $dokumen->delete();
+        return redirect(route('admin.dashboard.document.index'))->with(
+            [
+                'message'   => "Document Berhasil diDelete",
+                'type'      => "success"
+            ]
+            );
+        //return $news;
+    }
 }

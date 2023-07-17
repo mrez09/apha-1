@@ -104,7 +104,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
                                                     href={route(
-                                                        "admin.dashboard.errorpage.maintenance"
+                                                        "admin.dashboard.event.index"
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
@@ -123,7 +123,7 @@ export default function Authenticated({ auth, header, children }) {
                                         data-bs-toggle="collapse"
                                         href="#content"
                                     >
-                                        <i class="fa-sharp fa-solid ic fa-inbox"></i>
+                                        <i className="fa-sharp fa-solid ic fa-inbox"></i>
                                         Content
                                     </a>
                                     <div className="collapse" id="content">
@@ -187,7 +187,7 @@ export default function Authenticated({ auth, header, children }) {
                                         )}
                                         active={route().current("dashboard")}
                                     >
-                                        <i class="fas ic fa-folder-open"></i>
+                                        <i className="fas ic fa-folder-open"></i>
                                         Dokumen
                                     </NavLink>
                                 </li>
@@ -375,7 +375,7 @@ export default function Authenticated({ auth, header, children }) {
 
                                 <li className="nav-link px-3 sidebar-link">
                                     <a data-bs-toggle="collapse" href="#banner">
-                                        <i class="fa-sharp ic fa-solid fa-image"></i>
+                                        <i className="fa-sharp ic fa-solid fa-image"></i>
                                         Banner Website
                                     </a>
                                     <div className="collapse" id="banner">
@@ -387,7 +387,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     )}
                                                     className="nav-link px-3"
                                                 >
-                                                    <i class="fa-sharp ic fa-solid fa-image"></i>
+                                                    <i className="fa-sharp ic fa-solid fa-image"></i>
                                                     Main Banner
                                                 </a>
                                             </li>
@@ -398,7 +398,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     )}
                                                     className="nav-link px-3"
                                                 >
-                                                    <i class="fa-sharp ic fa-solid fa-image"></i>
+                                                    <i className="fa-sharp ic fa-solid fa-image"></i>
                                                     Banner
                                                 </a>
                                             </li>

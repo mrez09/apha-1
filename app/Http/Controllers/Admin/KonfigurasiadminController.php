@@ -107,28 +107,28 @@ class KonfigurasiadminController extends Controller
     public function update(Update $request, Konfigurasi $konfigurasi){
         $data = $request->validated();
         
-//        if($request->file('img')){
-  //          $data['img'] = Storage::disk("public")->put('logo', $request->file('img'));
-//            Storage::disk("public")->delete($konfigurasi->img);
-  //      } else {
-//            $data['img'] = $konfigurasi->img;
-  //      }
-//        $data['slug'] = Str::slug($data['namawebsite']);
+        if($request->file('img')){
+            $data['img'] = Storage::disk("public")->put('logo', $request->file('img'));
+            Storage::disk("public")->delete($konfigurasi->img);
+        } else {
+            $data['img'] = $konfigurasi->img;
+        }
+        $data['slug'] = Str::slug($data['namawebsite']);
         //$path = Storage::url('public');
 
         //$img = '<img src"' .$path.'" alt=""/>';
 
- //       $konfigurasi->update($data);
-   //     return redirect(route("admin.dashboard.konfigurasi.edit",
-//        $konfigurasi->slug))->with(
-//            [
-  //              'message'   => "Berita Berhasil diUpdate",
-    //            'type'      => "success"
-//            ]
-  //          );
+        $konfigurasi->update($data);
+        return redirect(route("admin.dashboard.konfigurasi.edit",
+        $konfigurasi->slug))->with(
+            [
+                'message'   => "Berita Berhasil diUpdate",
+                'type'      => "success"
+            ]
+            );
         
         
-        return $request->all();
+  //      return $request->all();
         //return $news;
         //return Inertia::render('Admin/News/Create');
         

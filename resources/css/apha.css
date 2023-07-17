@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap");
+/*@import url("https://cdn.jsdelivr.net/gh/mrez09/aphets/base.css");*/
+/*@import url("https://raw.githack.com/mrez09/aphets/main/base.css");*/
+/*@import url("https://rawcdn.githack.com/mrez09/aphets/546fa32b768ef5663d9b2117fe15e78493b96ad8/base.css");*/
+@import url("https://cdn.apha.or.id/base.css");
 
 /*Maintenance and Error Page*/
 .maintenance {
@@ -133,6 +137,11 @@
     margin-top: 10px;
     font-size: 1rem;
     font-family: "Inter", sans-serif;
+}
+
+.kon-10 ul {
+    list-style: initial;
+    padding-left: 50px;
 }
 
 .img-logo {

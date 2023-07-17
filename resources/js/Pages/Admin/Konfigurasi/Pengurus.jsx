@@ -14,7 +14,7 @@ import FlashMessage from "@/Components/FlashMessage";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //import sourceEditing from "@ckeditor/ckeditor5-build-classic";
 //import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";

@@ -13,7 +13,7 @@ import moment from "moment";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //import sourceEditing from "@ckeditor/ckeditor5-build-classic";
 //import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -141,11 +141,36 @@ export default function List(props) {
                                     required
                                 >
                                     <option value="">Choose...</option>
+
+                                    {props.periode.map((periode) => {
+                                        if (
+                                            props.pengurusget.namaperiode ==
+                                            periode.namaperiode
+                                        ) {
+                                            return (
+                                                <option
+                                                    value={periode.id}
+                                                    selected
+                                                >
+                                                    {periode.namaperiode}
+                                                </option>
+                                            );
+                                        }
+
+                                        return (
+                                            <option value={periode.id}>
+                                                {periode.namaperiode}
+                                            </option>
+                                        );
+                                    })}
+
+                                    {/*
                                     {props.periode.map((periode) => (
                                         <option value={periode.id} selected>
                                             {periode.namaperiode}
                                         </option>
                                     ))}
+                                        * */}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError

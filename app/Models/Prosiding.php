@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Prosiding extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['name', 'slug', 'category', 'url', 'thumbnail', 'description', 'rating', 'is_featured'];
+    protected $fillable = ['name', 'slug', 'category', 'url', 'thumbnail', 'decription', 'rating', 'is_featured'];
 }

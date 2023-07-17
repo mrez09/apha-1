@@ -14,9 +14,6 @@
         <link rel="stylesheet" href={{ asset('fontawesome/css/all.min.css')}} />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
- 
-        <!-- JS Scripts -->
-            <script src="https://cdn.apha.or.id/ckeditor/build/ckeditor.js"></script>
         
 
         <!--Generate OG -->
@@ -210,30 +207,53 @@
         @inertia
     </body>
 
-    @if(isset($page['props']['ckeditor']))
-        <!-- Scripts -->
-        
-        <script>
-        
-            
-        ClassicEditor
-        .create( document.querySelector( '.editor' ), {
-            licenseKey: '',
-        
-        } )
-        .then( editor => {
-            window.editor = editor;
-        
-        } )
-        .catch( error => {
-            //console.error( 'Oops, something went wrong!' );
-			//console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
-			//console.warn( 'Build id: 3gq7ippbkys6-828crnxk2ph5' );
-			//console.error( error );
-		} );
-	</script>
-    @endif
-    
-    
+    <script src="https://cdn.apha.or.id/ckeditor/build/ckeditor.js"></script>
+    <script>ClassicEditor
+				.create( document.querySelector( '.editor' ), {
+					
+					licenseKey: '',
+					
+					
+					
+					
+				} )
+				.then( editor => {
+					window.editor = editor;
+			
+					
+					
+					
+				} )
+				.catch( error => {
+					console.error( 'Oops, something went wrong!' );
+					console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+					console.warn( 'Build id: 3gq7ippbkys6-828crnxk2ph5' );
+					console.error( error );
+				} );
+		</script>
+    <?php /*<script src="https://penerbit.lshi.or.id/js/ckeditor.js"></script>
+		<script>ClassicEditor
+				.create( document.querySelector( '.editor' ), {
+					
+					licenseKey: '',
+					
+					
+					
+					
+				} )
+				.then( editor => {
+					window.editor = editor;
+			
+					
+					
+					
+				} )
+				.catch( error => {
+					console.error( 'Oops, something went wrong!' );
+					console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+					console.warn( 'Build id: jmpcmxseambi-fv9dvfh0os5b' );
+					console.error( error );
+				} );
+		</script>*/?>
         
 </html>

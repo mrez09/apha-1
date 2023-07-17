@@ -7,7 +7,7 @@ export default function FlashMessage({ className, message = "" }) {
             {message}
             <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="alert"
                 aria-label="Close"
             ></button>

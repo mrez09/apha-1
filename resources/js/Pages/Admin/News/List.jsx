@@ -64,7 +64,7 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                         </thead>
                         <tbody>
                             {news.map((news, index) => (
-                                <tr key={news.id}>
+                                <tr key={news.link_id}>
                                     <td>{++index}</td>
                                     <td>
                                         <img

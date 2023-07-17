@@ -81,7 +81,7 @@ export default function List({
                         </thead>
                         <tbody>
                             {pengurus.map((pengurus, index) => (
-                                <tr key={pengurus.id}>
+                                <tr key={pengurus.commitees_id}>
                                     <td>{++index}</td>
                                     <td>{pengurus.nama}</td>
                                     <th>

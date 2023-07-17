@@ -65,7 +65,10 @@ class CommiteeadminController extends Controller
     public function store(Store $request){
         //return Inertia::render('Admin/News/Create');
         $data = $request->validated();
-        $data['img'] = Storage::disk("public")->put('committe', $request->file('img'));
+        if($data['img'] != ''){
+            $data['img'] = Storage::disk("public")->put('committe', $request->file('img'));
+        }
+       
         //$data['path'] = "/storage/".$data['img'];
         $data['slug'] = Str::slug($data['nama']);
         //$data['id_user'] = Auth::id();
@@ -91,7 +94,7 @@ class CommiteeadminController extends Controller
         $subdivisiall           = Subdivisi::all();
         $jabatanall           = Jabatan::all();
         $periode           = Periode::all();
-        $pengurusget           = Commitee::select('commitees.id as commitees_id','nama', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->where('commitees.id', '=', $commitee->id)->first();
+        $pengurusget           = Commitee::select('commitees.id as commitees_id','nama', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan', 'namaperiode')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->where('commitees.id', '=', $commitee->id)->first();
 
         $listdivisi           = Divisi::all();
         $subdivisiall           = Subdivisi::all();

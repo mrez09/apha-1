@@ -55,7 +55,7 @@ class BanneradminController extends Controller
         $data['enk'] = Hash::make($data ['name']);
         $data['slug'] = Str::slug($data ['enk']);
         $data['category'] = "Banner";
-        $data['decription'] = $data ['konten'];
+        //$data['decription'] = $data ['konten'];
 
         //$data['id_user'] = Auth::id();
         $galeri = Banner::create($data);

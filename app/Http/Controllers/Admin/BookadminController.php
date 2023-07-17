@@ -28,7 +28,11 @@ class BookadminController extends Controller
     }
 
     public function create(){
-        return Inertia::render('Admin/Book/Create');
+        return Inertia::render('Admin/Book/Create',
+        [
+            
+            'ckeditor'              => 'yes',
+        ]);
     }
 
     public function store(Store $request){
@@ -63,7 +67,8 @@ class BookadminController extends Controller
         //$news           = News::all();
         return Inertia::render('Admin/Book/Edit',
         [
-            'buku'          => $buku
+            'buku'          => $buku,
+            'ckeditor'              => 'yes',
         ]);
     }
 

@@ -42,7 +42,7 @@ class GaleriadminController extends Controller
         $data['enk'] = Hash::make($data ['name']);
         $data['slug'] = Str::slug($data ['enk']);
         $data['category'] = "Galeri";
-        $data['decription'] = $data ['konten'];
+        //$data['decription'] = $data ['konten'];
 
         //$data['id_user'] = Auth::id();
         $galeri = Galeri::create($data);

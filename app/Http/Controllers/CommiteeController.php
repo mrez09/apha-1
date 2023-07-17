@@ -90,7 +90,7 @@ class CommiteeController extends Controller
     public function show(Commitee $commitee){
         $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
         //$pengurus           = Commitee::select('commitees.id as commitees_id', 'periodes.id as periode_id','nama', 'slug', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan', 'namaperiode', 'commitees.periode as periode')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->where('commites.slug', '=', $commitee->)->get();
-        $pengurusget           = Commitee::select('commitees.id as commitees_id', 'subdivisis.id as subdivisi_id', 'nama', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan', 'description')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->where('commitees.id', '=', $commitee->id)->first();
+        $pengurusget           = Commitee::select('commitees.id as commitees_id', 'subdivisis.id as subdivisi_id', 'nama', 'gender', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan', 'description')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->where('commitees.id', '=', $commitee->id)->first();
         
         // meta
         //Deskripsi

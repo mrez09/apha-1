@@ -32,7 +32,7 @@ class Store extends FormRequest
             'is_featured'  => 'nullable',
             'rating'  => 'nullable',
             'img'       => 'required|image',
-            'description'  => 'nullable',
+            'decription'  => 'required',
         ];
     }
 }

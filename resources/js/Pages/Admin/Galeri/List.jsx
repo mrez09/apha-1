@@ -103,7 +103,7 @@ export default function List({ auth, errors, flashMessage, props, galeri }) {
                                                 destroy(
                                                     route(
                                                         "admin.dashboard.galeri.destroy",
-                                                        news.id
+                                                        galeri.id
                                                     )
                                                 );
                                             }}

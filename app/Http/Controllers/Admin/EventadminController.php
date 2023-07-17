@@ -6,22 +6,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use App\Models\News;
+use App\Models\Event;
 use App\Models\Newscategory;
 use Inertia\Inertia;
-use App\Http\Requests\Admin\News\Store;
-use App\Http\Requests\Admin\News\Update;
+use App\Http\Requests\Admin\Event\Store;
+use App\Http\Requests\Admin\Event\Update;
 use Storage;
 
-class NewsadminController extends Controller
+class EventadminController extends Controller
 {
     //
     public function index(){
-        $news           = News::all();
-        $newsjoin       = News::select('news.id as link_id','judul', 'status', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->get();
-        return Inertia::render('Admin/News/List',
+        $event           = Event::all();
+        //$newsjoin       = News::select('news.id as link_id','judul', 'status', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->get();
+        return Inertia::render('Admin/Event/List',
         [
-            'news'          => $newsjoin
+            'event'          => $event
         ]);
       //return  [
         //    'news'          => $news,
@@ -121,7 +121,5 @@ class NewsadminController extends Controller
             );
         //return $news;
     }
-
-        
 
 }

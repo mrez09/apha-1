@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class News extends Model
+class Event extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['judul', 'slug', 'status', 'id_user', 'category', 'tag', 'img', 'konten', 'view', 'ticker', 'is_featured', 'publish_at'];
+    protected $fillable = ['judul', 'subjudul', 'slug', 'id_user', 'tag', 'status', 'img', 'konten', 'view', 'menu_order', 'post_type', 'publish_at'];
 }

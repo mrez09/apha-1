@@ -8,7 +8,7 @@ import { Link } from "@inertiajs/react";
 export default function List({ auth, errors, flashMessage, props, buku }) {
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
-        // options
+        //options
         destroy: true,
         processing: true,
         serverSide: false,

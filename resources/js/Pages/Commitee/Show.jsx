@@ -36,13 +36,46 @@ export default function List({ featuredBuku, commitee, cururl, props }) {
             </Head>
             <div className="container ">
                 <div className="row g-5 mx-4 my-4 d-flex justify-content-center mt-5 round-card">
-                    <div className="col-md-6 img-center mb-4">
-                        <img
-                            src={`/storage/${commitee.img}`}
-                            className="rounded img-fluid book-thumbnail"
-                            alt=""
-                        />
-                    </div>
+                    {(() => {
+                        if (commitee.img != null) {
+                            return (
+                                <div className="col-md-6 img-center mb-4">
+                                    <img
+                                        src={`/storage/${commitee.img}`}
+                                        className="rounded img-fluid book-thumbnail"
+                                        alt=""
+                                    />
+                                </div>
+                            );
+                        } else if (
+                            commitee.img == null &&
+                            commitee.gender == 1
+                        ) {
+                            return (
+                                <div className="col-md-6 img-center mb-4">
+                                    <img
+                                        src="https://i.imgur.com/T0CKh3Z.png"
+                                        className="rounded img-fluid book-thumbnail"
+                                        alt=""
+                                    />
+                                </div>
+                            );
+                        } else if (
+                            commitee.img == null &&
+                            commitee.gender == 2
+                        ) {
+                            return (
+                                <div className="col-md-6 img-center mb-4">
+                                    <img
+                                        src="https://i.imgur.com/Ap5NojU.png"
+                                        className="rounded img-fluid book-thumbnail"
+                                        alt=""
+                                    />
+                                </div>
+                            );
+                        }
+                    })()}
+
                     <div className="col-md-6 mt-2   ">
                         <article className="blog-post ">
                             <h2 className="blog-post-title mt-5 text-accent">
@@ -79,6 +112,20 @@ export default function List({ featuredBuku, commitee, cururl, props }) {
                                     return <p></p>;
                                 }
                             })()}
+
+                            {/*(() => {
+                                if (commitee.pendidikan != null) {
+                                    return (
+                                        <div>
+                                            <div className="kon-10">
+                                                {parse(commitee.pendidikan)}
+                                            </div>
+                                        </div>
+                                    );
+                                } else {
+                                    return <p></p>;
+                                }
+                            })()*/}
 
                             <hr />
                             <div className="detail-article__share-wrapper">

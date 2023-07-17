@@ -6,7 +6,7 @@ import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function List(props) {
     let table = new DataTable("#myTable", {
@@ -22,7 +22,7 @@ export default function List(props) {
         category: "",
         url: "",
         img: "",
-        description: "",
+        decription: "",
         rating: 0,
         is_featured: false,
     });
@@ -206,7 +206,7 @@ export default function List(props) {
                                     />*/}
                                 <CKEditor
                                     editor={ClassicEditor}
-                                    name="description"
+                                    name="decription"
                                     data=""
                                     onReady={(editor) => {
                                         // You can store the "editor" and use when it is needed.
@@ -217,7 +217,7 @@ export default function List(props) {
                                     }}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
-                                        setData("description", data);
+                                        setData("decription", data);
 
                                         console.log({ event, editor, data });
                                     }}
@@ -230,7 +230,7 @@ export default function List(props) {
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.description}
+                                        message={errors.decription}
                                         className="mt-2"
                                     />
                                 </div>

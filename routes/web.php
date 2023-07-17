@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\PeriodeadminController;
 use App\Http\Controllers\Admin\KonfigurasiadminController;
 use App\Http\Controllers\Admin\ErrorpageadminController;
 use App\Http\Controllers\Admin\DocumentadminController;
+use App\Http\Controllers\Admin\EventadminController;
 
 
 
@@ -148,6 +149,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::resource('document', DocumentadminController::class);
     Route::get('document/{document}/edit', [DocumentadminController::class, 'edit'])->name('document.edit');
     Route::put('document/{document}/restore', [DocumentadminController::class, 'restore'])->name('document.restore');
+
+    //Event
+    Route::resource('event', EventadminController::class);
+    Route::get('event/{event}/edit', [EventadminController::class, 'edit'])->name('event.edit');
+    Route::put('event/{event}/restore', [EventadminController::class, 'restore'])->name('event.restore');
 
     
 });
