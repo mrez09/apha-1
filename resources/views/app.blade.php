@@ -234,9 +234,6 @@
 	</script>
     @endif
 
-    <script>
- 
-    </script>
     
     
         

@@ -78,107 +78,114 @@ export default function List({
 
                                     {/** image Galery */}
 
-                                    <a
-                                        href="#"
-                                        class="btn btn-info btn-lg btn-block"
-                                        data-toggle="modal"
-                                        data-target="#popup-image-gallery"
-                                        tabIndex="0"
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal"
                                     >
-                                        Click to view Thumbnail images gallery
-                                        in lightbox
-                                    </a>
-                                </div>
-                                <div
-                                    class="modal popup-image-gallery"
-                                    id="popup-image-gallery"
-                                    tabIndex="-1"
-                                    role="dialog"
-                                    aria-labelledby="myModalLabel"
-                                >
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <button
-                                                    type="button"
-                                                    class="btn close-btn"
-                                                    title="Close"
-                                                    data-dismiss="modal"
-                                                    aria-label="Close"
-                                                >
-                                                    &#10006;
-                                                </button>
-                                                <div class="popup-slider-for">
-                                                    <div class="main-image">
-                                                        <img
-                                                            src="https://unsplash.it/340/?random"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div class="main-image">
-                                                        <img
-                                                            src="https://unsplash.it/360/?random"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div class="main-image">
-                                                        <img
-                                                            src="https://unsplash.it/380/?random"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div class="main-image">
-                                                        <img
-                                                            src="https://unsplash.it/400/?random"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div class="main-image">
-                                                        <img
-                                                            src="https://unsplash.it/420/?random"
-                                                            alt=""
-                                                        />
+                                        Launch demo modal
+                                    </button>
+
+                                    <div
+                                        class="modal fade"
+                                        id="exampleModal"
+                                        tabindex="-1"
+                                        aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true"
+                                    >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1
+                                                        class="modal-title fs-5"
+                                                        id="exampleModalLabel"
+                                                    >
+                                                        Modal title
+                                                    </h1>
+                                                    <button
+                                                        type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"
+                                                    ></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div
+                                                        id="carouselExampleInterval"
+                                                        class="carousel carousel-dark slide"
+                                                        data-bs-ride="carousel"
+                                                    >
+                                                        <div class="carousel-inner">
+                                                            <div
+                                                                class="carousel-item active"
+                                                                data-bs-interval="10000"
+                                                            >
+                                                                <img
+                                                                    src="https://i.imgur.com/y4g72j2.jpg"
+                                                                    class="d-block w-100"
+                                                                    alt="..."
+                                                                />
+                                                            </div>
+                                                            <div
+                                                                class="carousel-item"
+                                                                data-bs-interval="2000"
+                                                            >
+                                                                <img
+                                                                    src="https://i.imgur.com/SM5Equu.jpg"
+                                                                    class="d-block w-100"
+                                                                    alt="..."
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <button
+                                                            class="carousel-control-prev"
+                                                            type="button"
+                                                            data-bs-target="#carouselExampleInterval"
+                                                            data-bs-slide="prev"
+                                                        >
+                                                            <span
+                                                                class="carousel-control-prev-icon"
+                                                                aria-hidden="true"
+                                                            ></span>
+                                                            <span class="visually-hidden">
+                                                                Previous
+                                                            </span>
+                                                        </button>
+                                                        <button
+                                                            class="carousel-control-next"
+                                                            type="button"
+                                                            data-bs-target="#carouselExampleInterval"
+                                                            data-bs-slide="next"
+                                                        >
+                                                            <span
+                                                                class="carousel-control-next-icon"
+                                                                aria-hidden="true"
+                                                            ></span>
+                                                            <span class="visually-hidden">
+                                                                Next
+                                                            </span>
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                <h5 class="pagingInfo"></h5>
-                                                <div class="popup-slider-nav hidden-xs">
-                                                    <div class="thumbnail-image">
-                                                        <img
-                                                            src="https://unsplash.it/340/?random"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    unsplash.it
-                                                    <div class="thumbnail-image">
-                                                        <img
-                                                            src="https://unsplash.it/360/?random"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div class="thumbnail-image">
-                                                        <img
-                                                            src="https://unsplash.it/380/?random"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div class="thumbnail-image">
-                                                        <img
-                                                            src="https://unsplash.it/400/?random"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div class="thumbnail-image">
-                                                        <img
-                                                            src="https://unsplash.it/420/?random"
-                                                            alt=""
-                                                        />
-                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                    >
+                                                        Close
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-primary"
+                                                    >
+                                                        Save changes
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <hr />
                                 </div>
 
                                 <div className="detail-article__share-wrapper">
