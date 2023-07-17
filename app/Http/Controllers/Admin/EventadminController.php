@@ -21,7 +21,7 @@ class EventadminController extends Controller
         //$newsjoin       = News::select('news.id as link_id','judul', 'status', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->get();
         return Inertia::render('Admin/Event/List',
         [
-            'event'          => $event
+            'acara'          => $event
         ]);
       //return  [
         //    'news'          => $news,
@@ -30,77 +30,75 @@ class EventadminController extends Controller
     }
 
     public function create(){
-        $newscategory           = Newscategory::all();
-        return Inertia::render('Admin/News/Create',
+        //$newscategory           = Event::all();
+        return Inertia::render('Admin/Event/Create',
         [
-            'newscategory'          => $newscategory,
+          //  'newscategory'          => $newscategory,
             'ckeditor'              => 'yes',
         ]);
     }
 
     public function store(Store $request){
-        //return Inertia::render('Admin/News/Create');
+        //return Inertia::render('Admin/Event/Create');
         $data = $request->validated();
-        $data['img'] = Storage::disk("public")->put('news', $request->file('img'));
+        $data['img'] = Storage::disk("public")->put('event', $request->file('img'));
         //$data['path'] = "/storage/".$data['img'];
         $data['slug'] = Str::slug($data ['judul']);
         $data['id_user'] = Auth::id();
-        $news = News::create($data);
+        $event = Event::create($data);
 
-        return redirect(route('admin.dashboard.news.index'))->with(
+        return redirect(route('admin.dashboard.event.index'))->with(
             [
-                'message'   => "Berita Berhasil diUpdate",
+                'message'   => "Event Berhasil diUpdate",
                 'type'      => "success"
             ]
             );
-        //return $request->all();
+//          return $request->all();
     }
 
-    public function show(News $news){
+    public function show(Event $acara){
         //return Inertia::render('Admin/News/Create');
         //return $request->all();
     }
 
-    public function edit(News $news){
+    public function edit(Event $event){
         //return $news;
         //return Inertia::render('Admin/News/Create');
         //return $request->all();
         //$news           = News::all();
-        $newscategory           = Newscategory::all();
-        $categoryget           = News::select('newscategories.id as newscategories_id','namakategori', 'newscategories.slug')->join('newscategories','newscategories.id',"=",'news.category')->where('newscategories.id', '=', $news->category)->first();
-        return Inertia::render('Admin/News/Edit',
+        // $newscategory           = Newscategory::all();
+        // $categoryget           = News::select('newscategories.id as newscategories_id','namakategori', 'newscategories.slug')->join('newscategories','newscategories.id',"=",'news.category')->where('newscategories.id', '=', $news->category)->first();
+        return Inertia::render('Admin/Event/Edit',
         [
-            'news'          => $news,
-            'newscategory'          => $newscategory,
-            'categoryget'          => $categoryget,
+            'acara'          => $event,
             'ckeditor'              => 'yes',
         ]);
     }
 
-    public function update(Update $request, News $news){
+    public function update(Update $request, Event $event){
         $data = $request->validated();
-        $data['slug'] = Str::slug($data ['judul']);
+        $data['slug'] = Str::slug($data['judul']);
         if($request->file('img')){
-            $data['img'] = Storage::disk("public")->put('news', $request->file('img'));
-            Storage::disk("public")->delete($news->img);
+            $data['img'] = Storage::disk("public")->put('event', $request->file('img'));
+            Storage::disk("public")->delete($event->img);
         } else {
-            $data['img'] = $news->img;
+            $data['img'] = $event->img;
         }
 
         //$path = Storage::url('public');
 
         //$img = '<img src"' .$path.'" alt=""/>';
 
-        $news->update($data);
-        return redirect(route('admin.dashboard.news.index'))->with(
+        $event->update($data);
+        return redirect(route('admin.dashboard.event.index'))->with(
             [
-                'message'   => "Berita Berhasil diUpdate",
+                'message'   => "Event Berhasil diUpdate",
                 'type'      => "success"
             ]
             );
         
         
-        //return $request->all();
+// /        return $request->all();
         //return $news;
         //return Inertia::render('Admin/News/Create');
         
@@ -111,11 +109,11 @@ class EventadminController extends Controller
         //]);
     }
 
-    public function destroy(News $news){
-        $news->delete();
-        return redirect(route('admin.dashboard.news.index'))->with(
+    public function destroy(Event $event){
+        $event->delete();
+        return redirect(route('admin.dashboard.event.index'))->with(
             [
-                'message'   => "Berita Berhasil diDelete",
+                'message'   => "Event Berhasil diDelete",
                 'type'      => "success"
             ]
             );

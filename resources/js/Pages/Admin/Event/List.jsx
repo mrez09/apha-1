@@ -4,8 +4,9 @@ import DataTable from "datatables.net-dt";
 import { Head, useForm } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
+import moment from "moment";
 
-export default function List({ auth, errors, flashMessage, props, event }) {
+export default function List({ auth, errors, flashMessage, props, acara }) {
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
         // options
@@ -20,14 +21,14 @@ export default function List({ auth, errors, flashMessage, props, event }) {
             errors={errors}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    List Data Berita
+                    List Data Event
                 </h2>
             }
         >
             <Head title="Dashboard" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">List Berita</h1>
+                <h1 className="h2">List Event</h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
@@ -55,20 +56,19 @@ export default function List({ auth, errors, flashMessage, props, event }) {
                                 <th>No</th>
                                 <th>Image</th>
                                 <th>Judul</th>
-                                <th>Name</th>
-                                <th>Category</th>
+                                <th>Tanggal Acara</th>
                                 <th>Status</th>
                                 <th>View</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {event.map((event, index) => (
-                                <tr key={event.link_id}>
+                            {acara.map((acara, index) => (
+                                <tr key={acara.link_id}>
                                     <td>{++index}</td>
                                     <td>
                                         <img
-                                            src={`/storage/${event.img}`}
+                                            src={`/storage/${acara.img}`}
                                             //src={'/storage/${newslist.img}'}
                                             //src="'/storage/'${newslist.img}"
                                             //src='" . asset($dirname . $curimg) . "'
@@ -87,17 +87,24 @@ export default function List({ auth, errors, flashMessage, props, event }) {
                                             alt=""
                                         />
                                     </td>
-                                    <td>{event.judul}</td>
-                                    <td>{event.name}</td>
-                                    <td>{event.namakategori}</td>
-                                    <td>{event.status}</td>
-                                    <td>{event.view}</td>
+                                    <td>{acara.judul}</td>
+                                    <td>
+                                        {moment(acara.eventdate_at).format(
+                                            "dddd D MMMM YYYY "
+                                        )}{" "}
+                                        -{" "}
+                                        {moment(acara.enddate_at).format(
+                                            "dddd D MMMM YYYY "
+                                        )}
+                                    </td>
+                                    <td>{acara.status}</td>
+                                    <td>{acara.view}</td>
 
                                     <td>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.news.edit",
-                                                event.id
+                                                "admin.dashboard.event.edit",
+                                                acara.id
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -109,7 +116,7 @@ export default function List({ auth, errors, flashMessage, props, event }) {
                                                 destroy(
                                                     route(
                                                         "admin.dashboard.event.destroy",
-                                                        news.id
+                                                        acara.id
                                                     )
                                                 );
                                             }}

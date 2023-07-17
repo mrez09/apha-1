@@ -23,8 +23,8 @@ return new class extends Migration
             $table->bigInteger('view');
             $table->string('status', 10)->default('Publish');
             $table->boolean('is_featured')->default(false);
-            $table->string('publish_at',255);
             $table->string('eventdate_at',255);
+            $table->string('enddate_at',255);
             $table->timestamps();
             $table->softDeletes();
         });

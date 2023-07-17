@@ -93,6 +93,7 @@ const editorConfiguration = {
 
 export default function Edit(props) {
     const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     //const changeDate = (e) => setDate(e.target.value);
 
     let table = new DataTable("#myTable", {
@@ -103,7 +104,7 @@ export default function Edit(props) {
     });
 
     const { data, setData, processing, errors } = useForm({
-        ...props.news,
+        ...props.acara,
     });
 
     const onHandleChange = (event) => {
@@ -118,11 +119,11 @@ export default function Edit(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        if (data.img == props.news.img) {
+        if (data.img == props.acara.img) {
             delete data.img;
         }
 
-        router.post(route("admin.dashboard.news.update", props.news.id), {
+        router.post(route("admin.dashboard.event.update", props.acara.id), {
             _method: "PUT",
             ...data,
         });
@@ -133,14 +134,14 @@ export default function Edit(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Berita : <p>{props.news.judul}</p>
+                    Update Event : <p>{props.acara.judul}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href={route("admin.dashboard.news.index")}
+                            href={route("admin.dashboard.event.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
@@ -160,7 +161,7 @@ export default function Edit(props) {
                                 <input
                                     type="text"
                                     name="judul"
-                                    defaultValue={props.news.judul}
+                                    defaultValue={props.acara.judul}
                                     placeholder="Masukan Judul"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     autoComplete="judul"
@@ -174,42 +175,20 @@ export default function Edit(props) {
                                 </div>
                             </div>
 
-                            <div className="col-md-6">
-                                <label className="form-label">Category</label>
-                                <select
-                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="category"
-                                    name="category"
+                            <div className="col-sm-12">
+                                <label className="form-label">Sub Judul</label>
+                                <input
+                                    type="text"
+                                    name="subjudul"
+                                    defaultValue={props.acara.subjudul}
+                                    placeholder="Masukan Sub Judul"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="subjudul"
                                     onChange={onHandleChange}
-                                    required
-                                >
-                                    <option value="">Choose...</option>
-
-                                    {props.newscategory.map((newscategory) => {
-                                        if (
-                                            props.categoryget.namakategori ==
-                                            newscategory.namakategori
-                                        ) {
-                                            return (
-                                                <option
-                                                    value={newscategory.id}
-                                                    selected
-                                                >
-                                                    {newscategory.namakategori}
-                                                </option>
-                                            );
-                                        }
-
-                                        return (
-                                            <option value={newscategory.id}>
-                                                {newscategory.namakategori}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
-                                <div className="invalid-feedback">
+                                />
+                                <div className="">
                                     <InputError
-                                        message={errors.category}
+                                        message={errors.subjudul}
                                         className="mt-2"
                                     />
                                 </div>
@@ -222,12 +201,12 @@ export default function Edit(props) {
                                     id="tag"
                                     name="tag"
                                     placeholder="Masukan Tag"
-                                    defaultValue={props.news.tag}
+                                    defaultValue={props.acara.tag}
                                     className="editor form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     autoComplete="tag"
                                     onChange={onHandleChange}
                                 />
-                                <div className="invalid-feedback">
+                                <div className="">
                                     <InputError
                                         message={errors.tag}
                                         className="mt-2"
@@ -238,7 +217,8 @@ export default function Edit(props) {
                             <div className="col-sm-6">
                                 <label className="form-label">File</label>
                                 <img
-                                    src={`/storage/${props.news.img}`}
+                                    src={`/storage/${props.acara.img}`}
+                                    className="thumb-adm"
                                     alt=""
                                 />
                                 <input
@@ -248,7 +228,7 @@ export default function Edit(props) {
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     onChange={onHandleChange}
                                 />
-                                <div className="invalid-feedback">
+                                <div className="">
                                     <InputError
                                         message={errors.img}
                                         className="mt-2"
@@ -258,12 +238,12 @@ export default function Edit(props) {
 
                             <div className="col-sm-6">
                                 <label className="form-label">
-                                    Tanggal Upload
+                                    Tanggal Mulai Event (Acara)
                                 </label>
                                 <div className="form-control">
                                     <DatePicker
                                         showIcon
-                                        name="publish_at"
+                                        name="eventdate_at"
                                         selected={startDate}
                                         showTimeSelect={true}
                                         dateFormat="MMMM d, yyyy h:mm aa"
@@ -271,7 +251,7 @@ export default function Edit(props) {
                                         //onChange={(e) => setData("publish_at", date)}
                                         onChange={(date) => {
                                             setStartDate(date);
-                                            setData("publish_at", date);
+                                            setData("eventdate_at", date);
                                             console.log({ date });
                                         }}
 
@@ -283,6 +263,49 @@ export default function Edit(props) {
                                         //}
                                         //onChange={onHandleChange}
                                         //onSelect={(date, e) => setStartDate(date)}
+                                    />
+                                </div>
+                                <div className="">
+                                    <InputError
+                                        message={errors.eventdate_at}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    Tanggal Selesai Event (Acara)
+                                </label>
+                                <div className="form-control">
+                                    <DatePicker
+                                        showIcon
+                                        name="eventdate_at"
+                                        selected={endDate}
+                                        showTimeSelect={true}
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        className="form-control"
+                                        //onChange={(e) => setData("publish_at", date)}
+                                        onChange={(date) => {
+                                            setEndDate(date);
+                                            setData("enddate_at", date);
+                                            console.log({ date });
+                                        }}
+
+                                        //onChange={(e) =>
+                                        //  setData(
+                                        //    "is_featured",
+                                        //  e.target.checked
+                                        //)
+                                        //}
+                                        //onChange={onHandleChange}
+                                        //onSelect={(date, e) => setStartDate(date)}
+                                    />
+                                </div>
+                                <div className="">
+                                    <InputError
+                                        message={errors.enddate_at}
+                                        className="mt-2"
                                     />
                                 </div>
                             </div>
@@ -304,7 +327,7 @@ export default function Edit(props) {
                                     <option value="">Choose...</option>
 
                                     {(() => {
-                                        if (props.news.is_featured == 0) {
+                                        if (props.acara.is_featured == 0) {
                                             return (
                                                 <option value="0" selected>
                                                     Tidak Aktif
@@ -320,7 +343,7 @@ export default function Edit(props) {
                                     })()}
 
                                     {(() => {
-                                        if (props.news.is_featured == 1) {
+                                        if (props.acara.is_featured == 1) {
                                             return (
                                                 <option value="1" selected>
                                                     Aktif
@@ -343,57 +366,6 @@ export default function Edit(props) {
 
                             <div className="col-md-4">
                                 <label className="form-label">
-                                    Ditampilkan Sebagai Ticker
-                                </label>
-                                <select
-                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="ticker"
-                                    name="ticker"
-                                    onChange={onHandleChange}
-                                    required
-                                >
-                                    <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.news.ticker == 0) {
-                                            return (
-                                                <option value="0" selected>
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="0">
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.news.ticker == 1) {
-                                            return (
-                                                <option value="1" selected>
-                                                    Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="1">Aktif</option>
-                                            );
-                                        }
-                                    })()}
-                                </select>
-                                <div className="invalid-feedback">
-                                    <InputError
-                                        message={errors.ticker}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-4">
-                                <label className="form-label">
                                     Status Berita
                                 </label>
                                 <select
@@ -406,7 +378,7 @@ export default function Edit(props) {
                                     <option value="">Choose...</option>
 
                                     {(() => {
-                                        if (props.news.status == "Draft") {
+                                        if (props.acara.status == "Draft") {
                                             return (
                                                 <option value="Draft" selected>
                                                     Draft
@@ -422,7 +394,7 @@ export default function Edit(props) {
                                     })()}
 
                                     {(() => {
-                                        if (props.news.status == "Publish") {
+                                        if (props.acara.status == "Publish") {
                                             return (
                                                 <option
                                                     value="Publish"
@@ -495,8 +467,8 @@ export default function Edit(props) {
                                     className="konten"
                                     //config={editorConfiguration}
                                     editor={ClassicEditor}
-                                    name="konten"
-                                    data={props.news.konten}
+                                    name="description"
+                                    data={props.acara.description}
                                     onReady={(editor) => {
                                         // You can store the "editor" and use when it is needed.
                                         console.log(
@@ -506,7 +478,7 @@ export default function Edit(props) {
                                     }}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
-                                        setData("konten", data);
+                                        setData("description", data);
 
                                         console.log({ event, editor, data });
                                     }}
@@ -519,7 +491,7 @@ export default function Edit(props) {
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.konten}
+                                        message={errors.description}
                                         className="mt-2"
                                     />
                                 </div>

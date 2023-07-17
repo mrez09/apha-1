@@ -15,6 +15,7 @@ use App\Http\Controllers\NewscategoryController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\CommiteeController;
 use App\Http\Controllers\DokumenController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsadminController;
 use App\Http\Controllers\Admin\BookadminController;
@@ -312,6 +313,10 @@ Route::prefix('/')->name('front')->group(function (){
 
     //buku
     //Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
+    //Event
+    Route::resource('event', EventController::class);
+    Route::get('event/{event:slug}', [EventController::class, 'show'])->name('event.show');
+    //Route::get('event/{id}/edit', [NewsController::class, 'edit'])->name('news.edit');
     
 
     //response json
