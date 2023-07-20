@@ -15,7 +15,7 @@ export default function ListNews({
                 <Link href={route("frontnews.show", slug)}>
                     <img
                         src={img}
-                        className="bd-placeholder-img card-img-top"
+                        className="bd-placeholder-img card-img-top news-img"
                         width="100%"
                         xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true"

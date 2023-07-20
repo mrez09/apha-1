@@ -10,7 +10,7 @@ export default function ListGaleri({
             <div className="card shadow-sm">
                 <img
                     src={thumbnail}
-                    className="bd-placeholder-img card-img-top"
+                    className="bd-placeholder-img card-img-top gallery-img"
                     width="100%"
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"

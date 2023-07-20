@@ -8,6 +8,8 @@ use App\Models\News;
 use App\Models\Buku;
 use App\Models\Banner;
 use App\Models\Konfigurasi;
+use App\Models\Event;
+
 
 class HomeController extends Controller
 {
@@ -26,6 +28,9 @@ class HomeController extends Controller
         $mainBanner     = Banner::whereIsFeatured(true)->whereCategory("MainBanner")->get();
         $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
 
+        //Event
+        $acara           = Event::where('events.status', '=', 'Publish')->get();
+
         return inertia ('Home',[
             'mainBanner'  => $mainBanner,
             'featuredBanner'  => $featuredBanner,
@@ -34,6 +39,7 @@ class HomeController extends Controller
             'featuredBuku'  => $featuredBuku,
             'news'          => $news,
             'ticker'          => $ticker,
+            'acara'          => $acara,
             'event' => [
                 'application-name'          => $konfigurasis->namawebsite,
                 'title'                     => $konfigurasis->title,

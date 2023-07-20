@@ -9,11 +9,11 @@ export default function FeaturedBuku({
 }) {
     return (
         <div className="col">
-            <div className="card shadow-sm">
-                <Link href={route("frontbuku.show", slug)}>
+            <Link href={route("frontbuku.show", slug)}>
+                <div className="card shadow-sm">
                     <img
                         src={img}
-                        className="bd-placeholder-img card-img-top"
+                        className="bd-placeholder-img card-img-top news-img"
                         width="100%"
                         xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true"
@@ -26,8 +26,8 @@ export default function FeaturedBuku({
                         <p className="card-text">{name}.</p>
                         <div className="d-flex justify-content-between align-items-center"></div>
                     </div>
-                </Link>
-            </div>
+                </div>
+            </Link>
         </div>
     );
 }

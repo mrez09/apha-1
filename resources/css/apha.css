@@ -120,6 +120,31 @@
 }
 
 /*Custom Bro*/
+.news-img {
+    width: auto;
+    height: 360px;
+    object-fit: cover;
+    object-position: 100% 0;
+}
+
+.book-img {
+    width: auto;
+    height: 400px;
+    object-fit: cover;
+    object-position: 100% 0;
+}
+
+.gallery-img {
+    width: auto;
+    height: 300px;
+    object-fit: cover;
+    object-position: 100% 0;
+}
+.card-book {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .round-card {
     border-radius: 15px;
     border: 1px double;
@@ -919,8 +944,34 @@ label.error {
 
 /* Event Style */
 
+.featurette {
+    margin-top: 25px;
+}
+
 .wrapper-sidebar {
     background-color: #f5f6f7;
+}
+
+.lead h1 {
+    height: 0;
+}
+
+p h1 {
+    height: 0;
+}
+.img-event {
+    width: 300px;
+    height: 150px;
+    object-fit: cover;
+    object-position: 100% 0;
+}
+
+.event-home {
+    background-color: #222023;
+    background-image: linear-gradient(to bottom, #222023, #1e2c47);
+    color: #fff;
+    padding: 50px 0;
+    font-size: 17px;
 }
 
 /* Modal Event */
@@ -929,3 +980,4 @@ label.error {
 .carousel-control-next {
     color: black;
 }
+/* Modal Event Course Card */

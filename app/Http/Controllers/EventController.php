@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\URL;
 use App\Models\News;
 use App\Models\Event;
+use App\Models\Imgevent;
 use App\Models\Konfigurasi;
 use Illuminate\Support\Str;
 use Storage;
@@ -21,6 +22,7 @@ class EventController extends Controller
         //$featuredNews   = News::whereIsFeatured(true)->get();
         //$news           = News::where('news.status', '=', 'Publish')->orderBy('publish_at', 'desc')->get();
         $event              = Event::get();
+        $imgevent           = Imgevent::where('imgevents.id_event', '=', $event->id_event)->first();
         $konfigurasis       = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
 
         //meta
@@ -31,6 +33,7 @@ class EventController extends Controller
         return inertia ('News/List',[
             //'featuredNews'  => $featuredNews,
             'news'          => $event,
+            'imgevent'       => $imgevent,
             'event' => [
                 'application-name'          => $konfigurasis->namawebsite,
                 'title'                     => 'Berita Terkini Asosiasi Pengajar Hukum Adat (APHA) Indonesia',
@@ -58,6 +61,8 @@ class EventController extends Controller
 
     public function show(Event $event){
         $event->increment('view');
+        $imgevent           = Imgevent::where('imgevents.id_event', '=', $event->id)->first();
+        $imgacara           = Imgevent::where('imgevents.id_event', '=', $event->id)->get();
         $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
         //$newsjoin           = News::findOrFail($news);
         //$newsjoin           = News::select('news.id as link_id','judul', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->where('news.slug', $news->slug)->get();
@@ -75,7 +80,9 @@ class EventController extends Controller
         //url saat ini
         $cururl     = URL::current();
         return Inertia::render('Event/Show', [
-            'acara' => $event,
+            'acara'     => $event,
+            'imgevent'  => $imgevent,
+            'imgacara'  => $imgacara,
             //'newsterkait' => $newsterkait, 
             //'newsjoin' => $newsjoin,
             //'newsterkaitget' => $newsterkaitget,

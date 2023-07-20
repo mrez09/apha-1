@@ -24,6 +24,7 @@ export default function Home({
     featuredBanner,
     buttonBanner,
     ticker,
+    acara,
 }) {
     const { delete: destroy } = useForm();
 
@@ -170,6 +171,38 @@ export default function Home({
                     </button>
                 </div>
             </main>
+
+            {/*START THE FEATURETTES*/}
+            <div className="event-home">
+                {acara.map((acara) => (
+                    <div class="container " key={acara.id}>
+                        <div class="row ">
+                            <div class="col-md-7 featurette">
+                                <h2>{acara.judul}</h2>
+                                <p class="lead">{parse(acara.subjudul)}</p>
+                                <Link
+                                    href={route("frontevent.show", acara.slug)}
+                                >
+                                    <button className="btn btn-success">
+                                        Lihat Event
+                                    </button>
+                                </Link>
+                            </div>
+                            <div class="col-md-5">
+                                <Link
+                                    href={route("frontevent.show", acara.slug)}
+                                >
+                                    <img
+                                        class="featurette-image img-fluid mx-auto"
+                                        src={`/storage/${acara.img}`}
+                                        alt={acara.judul}
+                                    />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
 
             {/*Dewan Pembina*/}
 
@@ -357,7 +390,7 @@ export default function Home({
                                     <div className="card shadow-sm">
                                         <img
                                             src={`/storage/${news.img}`}
-                                            className="bd-placeholder-img card-img-top"
+                                            className="bd-placeholder-img card-img-top news-img"
                                             width="100%"
                                             xmlns="http://www.w3.org/2000/svg"
                                             aria-hidden="true"
@@ -394,20 +427,20 @@ export default function Home({
             </div>
 
             {/*Book */}
-            <div className="album py-5 bg-light">
-                <div className="container">
+            <div className="album py-5 bg-light ">
+                <div className="container ">
                     <h1>Buku</h1>
-                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
                         {featuredBuku.map((news) => (
                             <Link
                                 key={news.id}
                                 href={route("frontbuku.show", news.slug)}
                             >
-                                <div className="col">
-                                    <div className="card shadow-sm">
+                                <div className="col ">
+                                    <div className="card shadow-sm ">
                                         <img
                                             src={`/storage/${news.thumbnail}`}
-                                            className="bd-placeholder-img card-img-top"
+                                            className="bd-placeholder-img card-img-top book-img"
                                             width="100%"
                                             xmlns="http://www.w3.org/2000/svg"
                                             aria-hidden="true"
@@ -417,7 +450,7 @@ export default function Home({
                                         />
 
                                         <div className="card-body ">
-                                            <p className="card-text title-card">
+                                            <p className="card-text title-card ">
                                                 <strong>{news.name}</strong>
                                             </p>
                                             <div className="d-flex justify-content-between align-items-center"></div>

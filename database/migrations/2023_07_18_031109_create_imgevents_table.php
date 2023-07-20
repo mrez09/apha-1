@@ -11,23 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('imgevents', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_event');
             $table->string('judul', 255);
-            $table->longText('subjudul', 255);
             $table->string('slug', 255);
             $table->string('id_user');
             $table->string('img');
             $table->string('link');
-            $table->string('tag');
-            $table->text('description');
             $table->bigInteger('view');
             $table->string('status', 10)->default('Publish');
-            $table->boolean('is_featured')->default(false);
-            $table->string('eventdate_at',255);
-            $table->string('enddate_at',255);
             $table->timestamps();
             $table->softDeletes();
+            
         });
     }
 
@@ -36,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('imgevents');
     }
 };

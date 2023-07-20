@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Event extends Model
+class Imgevent extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['judul', 'subjudul', 'slug', 'id_user', 'tag', 'img', 'link', 'description', 'view', 'status', 'is_featured', 'eventdate_at', 'enddate_at'];
+    protected $fillable = ['id_event', 'judul', 'slug', 'id_user', 'img', 'link', 'view', 'status', 'is_featured', 'eventdate_at', 'enddate_at'];
 }

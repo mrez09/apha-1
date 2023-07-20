@@ -13,6 +13,8 @@ export default function List({
     //newsjoin,
     //newsterkait,
     //newsterkaitget,
+    imgevent,
+    imgacara,
     props,
 }) {
     //Copy Button
@@ -57,11 +59,13 @@ export default function List({
                             <hr />
                         </article>
                     </div>
-                    <div className="col-lg-4 text-center sm-margin-top xs-margin-top">
-                        <div class="my-5 mx-0 wrapper-sidebar wrapper-btn">
+
+                    {/**sidebar */}
+                    <div className="col-lg-4 text-center sm-margin-top xs-margin-top ">
+                        <div class=" mx-0 wrapper-sidebar wrapper-btn">
                             <div class="row">
-                                <div class="col-md-12 padding-top my-5">
-                                    <h2 className="blog-post-title ">
+                                <div class="col-md-12 padding-top">
+                                    <h2 className="blog-post-title">
                                         {acara.judul}
                                     </h2>
                                     <p className="blog-post-meta">
@@ -74,118 +78,126 @@ export default function List({
                                             <i class="fa-solid fa-eye"></i>
                                         </span>
                                     </p>
-                                    <p>{acara.subjudul}</p>
+                                    <p>{parse(acara.subjudul)}</p>
 
                                     {/** image Galery */}
-
-                                    <button
-                                        type="button"
-                                        class="btn btn-primary"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal"
-                                    >
-                                        Launch demo modal
-                                    </button>
-
-                                    <div
-                                        class="modal fade"
-                                        id="exampleModal"
-                                        tabindex="-1"
-                                        aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true"
-                                    >
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1
-                                                        class="modal-title fs-5"
-                                                        id="exampleModalLabel"
-                                                    >
-                                                        Modal title
-                                                    </h1>
-                                                    <button
-                                                        type="button"
-                                                        class="btn-close"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                    ></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div
-                                                        id="carouselExampleInterval"
-                                                        class="carousel carousel-dark slide"
-                                                        data-bs-ride="carousel"
-                                                    >
-                                                        <div class="carousel-inner">
-                                                            <div
-                                                                class="carousel-item active"
-                                                                data-bs-interval="10000"
-                                                            >
-                                                                <img
-                                                                    src="https://i.imgur.com/y4g72j2.jpg"
-                                                                    class="d-block w-100"
-                                                                    alt="..."
-                                                                />
-                                                            </div>
-                                                            <div
-                                                                class="carousel-item"
-                                                                data-bs-interval="2000"
-                                                            >
-                                                                <img
-                                                                    src="https://i.imgur.com/SM5Equu.jpg"
-                                                                    class="d-block w-100"
-                                                                    alt="..."
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <button
-                                                            class="carousel-control-prev"
-                                                            type="button"
-                                                            data-bs-target="#carouselExampleInterval"
-                                                            data-bs-slide="prev"
-                                                        >
-                                                            <span
-                                                                class="carousel-control-prev-icon"
-                                                                aria-hidden="true"
-                                                            ></span>
-                                                            <span class="visually-hidden">
-                                                                Previous
-                                                            </span>
-                                                        </button>
-                                                        <button
-                                                            class="carousel-control-next"
-                                                            type="button"
-                                                            data-bs-target="#carouselExampleInterval"
-                                                            data-bs-slide="next"
-                                                        >
-                                                            <span
-                                                                class="carousel-control-next-icon"
-                                                                aria-hidden="true"
-                                                            ></span>
-                                                            <span class="visually-hidden">
-                                                                Next
-                                                            </span>
-                                                        </button>
+                                    <div className="container">
+                                        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
+                                            {imgacara.map((imgevent) => (
+                                                <div className="col">
+                                                    <div className="card shadow-sm">
+                                                        <img
+                                                            src={imgevent.img}
+                                                            className="img-event bd-placeholder-img card-img-top"
+                                                            width="100%"
+                                                            aria-hidden="true"
+                                                            preserveAspectRatio="xMidYMid slice"
+                                                            focusable="false"
+                                                            role="img"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target={`#${imgevent.slug}`}
+                                                        />
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button
-                                                        type="button"
-                                                        class="btn btn-secondary"
-                                                        data-bs-dismiss="modal"
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/** Img DB {`/storage/${listNews.img}`} */}
+
+                                    {imgacara.map((imgevent) => (
+                                        <div
+                                            class="modal fade"
+                                            id={imgevent.slug}
+                                            tabindex="-1"
+                                            aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true"
+                                        >
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div
+                                                        class="modal-header"
+                                                        id={imgevent.slug}
                                                     >
-                                                        Close
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        class="btn btn-primary"
-                                                    >
-                                                        Save changes
-                                                    </button>
+                                                        <h1
+                                                            class="modal-title fs-5"
+                                                            id="exampleModalLabel"
+                                                        >
+                                                            {imgevent.judul}
+                                                        </h1>
+                                                        <button
+                                                            type="button"
+                                                            class="btn-close"
+                                                            data-bs-dismiss="modal"
+                                                            aria-label="Close"
+                                                        ></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div
+                                                            id="carouselExampleInterval"
+                                                            class="carousel carousel-dark slide"
+                                                            data-bs-ride="carousel"
+                                                        >
+                                                            <div class="carousel-inner">
+                                                                <div
+                                                                    class="carousel-item active"
+                                                                    data-bs-interval="10000"
+                                                                >
+                                                                    <img
+                                                                        src={
+                                                                            imgevent.img
+                                                                        }
+                                                                        class="d-block w-100"
+                                                                        alt="..."
+                                                                    />
+
+                                                                    {/** Img DB {`/storage/${listNews.img}`} */}
+                                                                </div>
+                                                                <div
+                                                                    class="carousel-item"
+                                                                    data-bs-interval="2000"
+                                                                >
+                                                                    <img
+                                                                        src="https://i.imgur.com/SM5Equu.jpg"
+                                                                        class="d-block w-100"
+                                                                        alt="..."
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <button
+                                                                class="carousel-control-prev"
+                                                                type="button"
+                                                                data-bs-target="#carouselExampleInterval"
+                                                                data-bs-slide="prev"
+                                                            >
+                                                                <span
+                                                                    class="carousel-control-prev-icon"
+                                                                    aria-hidden="true"
+                                                                ></span>
+                                                                <span class="visually-hidden">
+                                                                    Previous
+                                                                </span>
+                                                            </button>
+                                                            <button
+                                                                class="carousel-control-next"
+                                                                type="button"
+                                                                data-bs-target="#carouselExampleInterval"
+                                                                data-bs-slide="next"
+                                                            >
+                                                                <span
+                                                                    class="carousel-control-next-icon"
+                                                                    aria-hidden="true"
+                                                                ></span>
+                                                                <span class="visually-hidden">
+                                                                    Next
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    ))}
                                 </div>
 
                                 <div className="detail-article__share-wrapper">
