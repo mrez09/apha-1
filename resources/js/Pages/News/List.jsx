@@ -1,11 +1,14 @@
 import GuestLayout from "@/Layouts/GuestLayout";
 import FrontendLayout from "@/Layouts/FrontendLayout";
 import NavbarGuest from "@/Pages/layouts/frontend/NavbarApha";
-import { Link, Head } from "@inertiajs/react";
+import { Link, usePage, Head } from "@inertiajs/react";
 import ListNews from "@/Components/News/ListNews";
 import moment from "moment";
+import Pagination from "@/Components/Page/Pagination";
 
 export default function List({ featuredBuku, news, props }) {
+    const { newsp } = usePage().props;
+
     return (
         <FrontendLayout>
             <Head>
