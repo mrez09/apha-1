@@ -16,10 +16,12 @@ class ProsidingController extends Controller
         $featuredProsiding   = Prosiding::whereIsFeatured(true)->get();
         $prosiding           = Prosiding::orderBy('id', 'desc')->get();
         $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
+        $prosidingp           = Prosiding::where('prosidings.is_featured', '=', 1)->orderBy('id', 'desc')->paginate(6);
 
         return inertia ('Prosiding/List',[
             'featuredProsiding'  => $featuredProsiding,
             'prosiding'          => $prosiding,
+            'prosidingp'         => $prosidingp,
             'event' => [
                 'application-name'          => $konfigurasis->namawebsite,
                 'title'                     => 'Prosiding Asosiasi Pengajar Hukum Adat (APHA) Indonesia',

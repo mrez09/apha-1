@@ -34,7 +34,24 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if(Auth::user()->hasRole('user')){
+            return redirect(route('anggota.dashboard.index'));
+        }
+
+        if(Auth::user()->hasRole('admin')){
+            //return redirect(route('admin.dashboard.index'));
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
+        
+
+        /*
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
         return redirect()->intended(RouteServiceProvider::HOME);
+        */
     }
 
     /**

@@ -244,6 +244,15 @@ export default function Guest({ children }, props) {
                                     Dokumen
                                 </Link>
                             </li>
+                            <li className="nav-item">
+                                <Link
+                                    className="nav-link "
+                                    aria-current="page"
+                                    href={route("frontkeanggotaan.index")}
+                                >
+                                    Keanggotaan
+                                </Link>
+                            </li>
 
                             <li className="nav-item">
                                 <Link

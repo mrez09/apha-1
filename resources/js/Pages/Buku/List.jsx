@@ -1,14 +1,17 @@
 import GuestLayout from "@/Layouts/GuestLayout";
 import FrontendLayout from "@/Layouts/FrontendLayout";
 import NavbarGuest from "@/Pages/layouts/frontend/NavbarApha";
-import { Link, Head } from "@inertiajs/react";
+import { Link, usePage, Head } from "@inertiajs/react";
 import FeaturedBuku from "@/Components/Buku/FeaturedBuku";
 import ListBuku from "@/Components/Buku/ListBuku";
+import Pagination from "@/Components/Page/Pagination";
 
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 
-export default function List({ featuredBuku, buku, props }) {
+export default function List({ featuredBuku, buku, props, url }) {
+    const { bukup } = usePage().props;
+
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     return (
         <FrontendLayout>
@@ -97,18 +100,31 @@ export default function List({ featuredBuku, buku, props }) {
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         {/*loop*/}
 
-                        {buku.map((listBukus) => (
-                            <ListBuku
-                                key={listBukus.id}
-                                slug={listBukus.slug}
-                                img={`/storage/${listBukus.thumbnail}`}
-                                name={listBukus.name}
-                                category={listBukus.category}
-                                thumbnail={listBukus.id}
-                                rating={listBukus.rating}
-                            />
-                        ))}
+                        {bukup.data.map(
+                            ({
+                                id,
+                                slug,
+                                thumbnail,
+                                name,
+                                category,
+                                rating,
+                            }) => (
+                                <ListBuku
+                                    key={id}
+                                    slug={slug}
+                                    img={`/storage/${thumbnail}`}
+                                    name={name}
+                                    category={category}
+                                    thumbnail={id}
+                                    rating={rating}
+                                />
+                            )
+                        )}
                     </div>
+
+                    <hr />
+
+                    <Pagination class="mt-6" links={bukup.links} />
                 </div>
             </div>
         </FrontendLayout>

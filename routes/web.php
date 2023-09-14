@@ -16,6 +16,8 @@ use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\CommiteeController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\SertifikatController;
+use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsadminController;
 use App\Http\Controllers\Admin\BookadminController;
@@ -35,6 +37,15 @@ use App\Http\Controllers\Admin\KonfigurasiadminController;
 use App\Http\Controllers\Admin\ErrorpageadminController;
 use App\Http\Controllers\Admin\DocumentadminController;
 use App\Http\Controllers\Admin\EventadminController;
+use App\Http\Controllers\Admin\MemberadminController;
+use App\Http\Controllers\Admin\SertifikatadminController;
+use App\Http\Controllers\Anggota\DashboardController as AnggotaDashboardContoller;
+use App\Http\Controllers\Anggota\ProfileController as AnggotaProfileController;
+use App\Http\Controllers\Anggota\MemberController;
+use App\Http\Controllers\Anggota\InstitusiController;
+use App\Http\Controllers\Anggota\AccountController;
+use App\Http\Controllers\Anggota\SertifikatanggotaController;
+
 
 
 
@@ -156,7 +167,56 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::get('event/{event}/edit', [EventadminController::class, 'edit'])->name('event.edit');
     Route::put('event/{event}/restore', [EventadminController::class, 'restore'])->name('event.restore');
 
+    //Event
+    Route::resource('member', MemberController::class);
+    Route::get('member/{member}/edit', [MemberController::class, 'edit'])->name('member.edit');
+    Route::put('member/{member}/restore', [MemberController::class, 'restore'])->name('event.restore');
+
+    //Sertifikat
+    //Periode
+    Route::resource('sertifikat', SertifikatadminController::class);
+    Route::get('sertifikat/{document}/edit', [SertifikatadminController::class, 'edit'])->name('sertifikat.edit');
+    Route::put('sertifikat/{document}/restore', [SertifikatadminController::class, 'restore'])->name('sertifikat.restore');
+});
+
+//User Control
+    Route::middleware(['auth', 'role:user'])->prefix('anggota')->name('anggota.dashboard.')->group(function (){
+    //Anggota
+    Route::get('/', [AnggotaDashboardContoller::class, 'index'])->name('index');
     
+    Route::resource('profile', AnggotaProfileController::class);
+    Route::get('profile/{id}/edit', [AnggotaProfileController::class, 'edit'])->name('anggotaprofile.edit');
+    Route::put('profile/{anggota}/restore', [AnggotaProfileController::class, 'restore'])->name('news.restore');
+
+    //Update Profile.
+    Route::resource('member', MemberController::class);
+    Route::get('member/{member}/edit', [MemberController::class, 'edit'])->name('member.edit');
+    //Route::put('member/{member}/updateinstansi', [EventadminController::class, 'restore'])->name('updateinstansi');
+    
+    
+    Route::put('member/{member}/restore', [EventadminController::class, 'restore'])->name('event.restore');
+
+    Route::match(['put', 'patch'], 'member/{member}/updateinstansi', [MemberController::class, 'updateinstansi'])->name('updateinstansi');
+    //Update Institusi.
+    Route::resource('institusi', InstitusiController::class);
+    Route::get('Institusi/{member}/edit', [InstitusiController::class, 'edit'])->name('institusi.edit');
+    Route::put('member/{member}/restore', [EventadminController::class, 'restore'])->name('event.restore');
+
+    //Update Informasi Akun.
+    Route::resource('account', AccountController::class);
+    Route::get('acc/email', [AccountController::class, 'email'])->name('account.email');
+    Route::get('acc/password', [AccountController::class, 'password'])->name('account.password');
+    Route::get('account/{member}/edit', [AccountController::class, 'edit'])->name('account.edit');
+    Route::put('account/{member}/restore', [AccountController::class, 'restore'])->name('event.restore');
+
+    Route::match(['put', 'patch'], 'member/{member}/updateemail', [MemberController::class, 'updateemail'])->name('updateemail');
+    Route::match(['put', 'patch'], 'member/{member}/updatepassword', [MemberController::class, 'updatepassword'])->name('updatepassword');
+    
+    //Sertifikat
+    Route::resource('sertifikat', SertifikatanggotaController::class);
+    Route::get('sertifikat/{member}/edit', [SertifikatanggotaController::class, 'edit'])->name('institusi.edit');
+    Route::put('member/{member}/restore', [EventadminController::class, 'restore'])->name('event.restore');
+
 });
 
 Route::get('/penasehat', function () {
@@ -236,6 +296,8 @@ Route::get('/home', function () {
     
 });
 
+
+
 //Galeri asli
 /*Route::prefix('galeri')->name('galeri')->group(function () {
     route::get('/', [GaleriController::class, 'index']);    
@@ -314,10 +376,26 @@ Route::prefix('/')->name('front')->group(function (){
     //buku
     //Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
     //Event
-    Route::resource('event', EventController::class);
+    //Route::resource('event', EventController::class);
     Route::get('event/{event:slug}', [EventController::class, 'show'])->name('event.show');
     //Route::get('event/{id}/edit', [NewsController::class, 'edit'])->name('news.edit');
     
+        //anggota.dashboard.sertifikat.index
+    //Document
+    Route::resource('sertifikat', SertifikatController::class);
+    //Route::resource('prosiding', ProsidingController::class);
+    Route::get('sertifikat/search', [SertifikatController::class,'search'])->name('sertifikat.search');
+    //Route::get('prosiding/{prosiding:slug}', [ProsidingController::class, 'show'])->name('prosiding.show');
+
+    //Keanggotaan
+    Route::resource('keanggotaan', AnggotaController::class);
+    //Route::get('keanggotaan/daftar', [AnggotaController::class, 'show'])->name('anggota.show');
+    //Route::get('keanggotaan/{anggota:slug}', [AnggotaController::class, 'show'])->name('anggota.show');
+    Route::get('pendaftaran-anggota', [AnggotaController::class, 'daftar'])->name('anggota.daftar');
+    Route::get('pendaftaran-anggota/success', [AnggotaController::class, 'success'])->name('anggota.daftarsuccess');
+    
+    Route::get('dokumen/{dokumen:slug}', [DokumenController::class, 'show'])->name('dokumen.show');
+    Route::get('buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
 
     //response json
 
@@ -348,10 +426,15 @@ Route::prefix('/')->name('front')->group(function (){
     
 //});
 
+//hidden Dashboard for admin credicial
+//role:user
+//Route::get('/dashboard', function () {
+  //  return Inertia::render('Dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'role:admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

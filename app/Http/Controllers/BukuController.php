@@ -16,8 +16,9 @@ class BukuController extends Controller
     public function index()
     {
         //return Inertia::render('Buku/List');
-        $featuredBuku   = Buku::whereIsFeatured(true)->get();
+        $featuredBuku   = Buku::whereIsFeatured(true)->limit(3)->get();
         $buku           = Buku::orderBy('id', 'desc')->get();
+        $bukup          = Buku::where('bukus.status', '=', 1)->orderBy('id', 'desc')->paginate(6);
         $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
         //url saat ini
         $cururl     = URL::current();
@@ -25,6 +26,7 @@ class BukuController extends Controller
         return inertia ('Buku/List',[
             'featuredBuku'  => $featuredBuku,
             'buku'          => $buku,
+            'bukup'          => $bukup,
             'event' => [
                 'application-name'          => $konfigurasis->namawebsite,
                 'title'                     => 'Buku Terbitan Asosiasi Pengajar Hukum Adat (APHA) Indonesia',

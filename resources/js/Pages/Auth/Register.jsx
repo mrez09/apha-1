@@ -128,7 +128,7 @@ export default function Login() {
 
                                         <div class="form-group mb-3">
                                             <label class="label" for="password">
-                                                Password
+                                                Ulangi Password
                                             </label>
 
                                             <input

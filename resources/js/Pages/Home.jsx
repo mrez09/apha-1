@@ -188,7 +188,7 @@ export default function Home({
                                     </button>
                                 </Link>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-5 my-3">
                                 <Link
                                     href={route("frontevent.show", acara.slug)}
                                 >

@@ -19,6 +19,8 @@ class CommiteeSeeder extends Seeder
                 'nama'          =>  'Prof. Dr. H. Aminuddin Salle, SH, MH',
                 'slug'           =>  'slug-1',
                 'img'           =>  '',
+                'email'         =>  '',
+                'phone'         =>  '',
                 'divisi'        =>  '1',
                 'subdivisi'     =>  '1',
                 'jabatan'       =>  '1',

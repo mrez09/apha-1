@@ -19,25 +19,27 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        //$this->call(RoleTableSeeder::class);
-        //$this->call(UserTableSeeder::class);
-        //$this->call(BukuTableSeeder::class);
-        //$this->call(GaleriTableSeeder::class);
-        //$this->call(NewsTableSeeder::class);
-        //$this->call(ContactTableSeeder::class);
-        //$this->call(ProsidingTableSeeder::class);
-        //$this->call(BannerTableSeeder::class);
-        //$this->call(VideoTableSeeder::class);
-        //$this->call(PengurusTableSeeder::class);
-        //$this->call(DivisiTableSeeder::class);
-        //$this->call(SubdivisiTableSeeder::class);
-        //$this->call(JabatanTableSeeder::class);
-        //$this->call(PeriodeTableSeeder::class);
-        //$this->call(NewscategoryTableSeeder::class);
-        //$this->call(CommiteeSeeder::class);
-        //$this->call(KonfigurasiSeeder::class);
-        $this->call(StaticSeeder::class);
+        $this->call(RoleTableSeeder::class);
+        $this->call(UserTableSeeder::class);
+        $this->call(BukuTableSeeder::class);
+        $this->call(GaleriTableSeeder::class);
+        $this->call(NewsTableSeeder::class);
+        $this->call(ContactTableSeeder::class);
+        $this->call(ProsidingTableSeeder::class);
+        $this->call(BannerTableSeeder::class);
+        $this->call(VideoTableSeeder::class);
+        $this->call(PengurusTableSeeder::class);
+        $this->call(DivisiTableSeeder::class);
+        $this->call(SubdivisiTableSeeder::class);
+        $this->call(JabatanTableSeeder::class);
+        $this->call(PeriodeTableSeeder::class);
+        $this->call(NewscategoryTableSeeder::class);
+        $this->call(CommiteeSeeder::class);
+        $this->call(KonfigurasiSeeder::class);
+        $this->call(StaticpageSeeder::class);
         $this->call(EventdateSeeder::class);
-        
+        $this->call(SertifikatTableSeeder::class);
+        $this->call(AnggotaTableSeeder::class);
+        $this->call(MemberTableSeeder::class);
     }
 }

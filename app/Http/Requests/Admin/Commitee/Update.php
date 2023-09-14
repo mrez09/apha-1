@@ -33,7 +33,7 @@ class Update extends FormRequest
             'description'   => 'nullable',
             'periode'       => 'nullable',
             'is_featured'   => 'nullable',
-            'img'           => 'nullable',
+            'img'           => 'nullable|image',
             'join_at'       => 'nullable',
         ];
     }

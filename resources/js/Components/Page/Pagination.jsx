@@ -1,35 +1,36 @@
 import React from "react";
-import { Link } from "@inertiajs/inertia-react";
+import { Link } from "@inertiajs/react";
+import parse from "html-react-parser";
 
 export default function Pagination({ links }) {
     function getClassName(active) {
         if (active) {
-            return "mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary bg-blue-700 text-white";
+            return "page-item disabled";
         } else {
-            return "mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary";
+            return "page-item";
         }
     }
 
     return (
         links.length > 3 && (
-            <div className="mb-4">
-                <div className="flex flex-wrap mt-8">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
                     {links.map((link, key) =>
                         link.url === null ? (
-                            <div className="mr-1 mb-1 px-4 py-3 text-sm leading-4 text-gray-400 border rounded">
-                                {link.label}
-                            </div>
+                            <Link class="page-item">
+                                <a class="page-link">{parse(link.label)}</a>
+                            </Link>
                         ) : (
                             <Link
                                 className={getClassName(link.active)}
                                 href={link.url}
                             >
-                                {link.label}
+                                <a class="page-link">{parse(link.label)}</a>
                             </Link>
                         )
                     )}
-                </div>
-            </div>
+                </ul>
+            </nav>
         )
     );
 }

@@ -5,6 +5,7 @@
 /*@import url("https://rawcdn.githack.com/mrez09/aphets/546fa32b768ef5663d9b2117fe15e78493b96ad8/base.css");*/
 @import url("https://cdn.apha.or.id/base.css");
 
+/*Admin*/
 /*Maintenance and Error Page*/
 .maintenance {
     text-transform: uppercase;
@@ -101,8 +102,14 @@
     background-size: cover;
 }
 
+/*Form Select*/
+
+/*Front End*/
 /*HOMES*/
 
+.not-allowed {
+    cursor: not-allowed;
+}
 .item-config {
     margin-top: -20px;
 }
@@ -275,6 +282,10 @@
     100% {
         transform: translateX(-100%);
     }
+}
+
+.disabled {
+    cursor: default;
 }
 
 /*Bread bread*/
@@ -490,7 +501,6 @@ a:focus {
 ul {
     margin: 0;
     padding: 0;
-    list-style: none;
 }
 img {
     max-width: 100%;
@@ -509,6 +519,17 @@ section {
 
 .red-btn:hover {
     background: #1c376c;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+.apha-btn {
+    background: #ff6300;
+    color: #fff;
+}
+
+.apha-btn:hover {
+    background: #bc4d08;
     color: #fff;
     border-color: #ffffff;
 }
@@ -981,3 +1002,193 @@ p h1 {
     color: black;
 }
 /* Modal Event Course Card */
+
+/*Anggota*/
+/*Pendaftara*/
+h1 {
+    font-size: 2rem;
+}
+
+.li-anggota {
+    padding: 8px;
+    transition: ease 400ms;
+    cursor: pointer;
+    display: flex;
+    letter-spacing: 1px;
+    opacity: 0.85;
+}
+
+.li-anggota:hover {
+    transform: translateX(20px);
+    opacity: 1;
+}
+
+.li-anggota:focus-visible {
+    outline: 2px solid red;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.my-list {
+    list-style: none;
+    counter-reset: ordered-list;
+}
+
+.li-anggota:before {
+    counter-increment: ordered-list;
+    content: counter(ordered-list);
+    font-family: "Sharpie", sans-serif;
+    margin-right: 10px;
+    background-color: #ff6300;
+    color: #f6f6f6;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+}
+
+/*Form Pendaftaran Anggota*/
+
+h1 {
+    font-weight: 700;
+    font-size: 45px;
+    font-family: "Roboto", sans-serif;
+}
+.header {
+    margin-bottom: 80px;
+}
+#description {
+    font-size: 24px;
+}
+
+.form-wrap {
+    background: rgba(255, 255, 255, 1);
+    width: 100%;
+    padding: 50px;
+    margin: 0 auto;
+    position: relative;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+}
+.form-wrap:before {
+    content: "";
+    width: 90%;
+    height: calc(100% + 60px);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    position: absolute;
+    top: -30px;
+    background: #00bcd9;
+    z-index: -1;
+    opacity: 0.8;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+}
+.form-group {
+    margin-bottom: 25px;
+}
+.form-group > label {
+    display: block;
+    font-size: 18px;
+    color: #000;
+}
+.custom-control-label {
+    color: #000;
+    font-size: 16px;
+}
+.form-control {
+    background: #ecf0f4;
+    border-color: transparent;
+    padding: 0 15px;
+    font-size: 16px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.form-control:focus {
+    border-color: #00bcd9;
+    -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+textarea.form-control {
+    height: 160px;
+    padding-top: 15px;
+    resize: none;
+}
+
+.btn {
+    padding: 0.657rem 0.75rem;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #00bcd9;
+    border-color: #00bcd9;
+}
+
+.btn-primary:hover {
+    color: #00bcd9;
+    background-color: #ffffff;
+    border-color: #00bcd9;
+    -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+    color: #00bcd9;
+    background-color: #ffffff;
+    border-color: #00bcd9;
+    -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    color: #00bcd9;
+    background-color: #ffffff;
+    border-color: #00bcd9;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+    -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+/*Menu Dashboard*/
+/*Table*/
+
+.tb-progota {
+    width: 100%;
+}
+.tb-iprofile {
+    width: 35%;
+}
+
+.tb-profile {
+    width: 65%;
+}

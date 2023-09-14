@@ -183,12 +183,14 @@ export default function Authenticated({ auth, header, children }) {
                                     <NavLink
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
-                                            "admin.dashboard.document.index"
+                                            "admin.dashboard.member.index"
                                         )}
-                                        active={route().current("dashboard")}
+                                        active={route().current(
+                                            "admin.dashboard.member.index"
+                                        )}
                                     >
-                                        <i className="fas ic fa-folder-open"></i>
-                                        Dokumen
+                                        <i className="fas ic fa-person-shelter"></i>
+                                        Anggota
                                     </NavLink>
                                 </li>
 
@@ -198,7 +200,7 @@ export default function Authenticated({ auth, header, children }) {
                                         data-bs-toggle="collapse"
                                         href="#pengurus"
                                     >
-                                        <i className="fas ic fa-person-shelter"></i>
+                                        <i class="fas ic fa-people-group"></i>
                                         Pengurus
                                     </a>
                                     <div className="collapse" id="pengurus">
@@ -339,6 +341,32 @@ export default function Authenticated({ auth, header, children }) {
                             </h6>
                             <ul className="nav flex-column mb-2">
                                 {/*Photo*/}
+                                {/*Dokumen */}
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route(
+                                            "admin.dashboard.document.index"
+                                        )}
+                                        active={route().current("dashboard")}
+                                    >
+                                        <i className="fas ic fa-folder-open"></i>
+                                        Dokumen
+                                    </NavLink>
+                                </li>
+                                {/*Dokumen */}
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route(
+                                            "admin.dashboard.sertifikat.index"
+                                        )}
+                                        active={route().current("dashboard")}
+                                    >
+                                        <i className="fas ic fa-folder-open"></i>
+                                        Sertifikat
+                                    </NavLink>
+                                </li>
                                 <li className="nav-link px-3 sidebar-link">
                                     <a data-bs-toggle="collapse" href="#galeri">
                                         <i className="fa-solid ic fa-camera-retro"></i>

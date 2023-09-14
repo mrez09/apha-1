@@ -5,15 +5,13 @@ import parse from "html-react-parser";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { useState, useCallback } from "react";
-import ListTerkait from "@/Components/News/ListTerkait";
+//import ListTerkait from "@/Components/News/ListTerkait";
 
-export default function List({
-    featuredBuku,
+export default function Show({
     acara,
     //newsjoin,
     //newsterkait,
     //newsterkaitget,
-    imgevent,
     imgacara,
     props,
 }) {
@@ -33,7 +31,10 @@ export default function List({
             </Head>
 
             <div className="container">
-                <div className="row g-5 d-flex justify-content-center">
+                <div
+                    className="row g-5 d-flex justify-content-center"
+                    key={acara.id}
+                >
                     <div className="col-lg-8">
                         <article className="blog-post mt-5">
                             <nav className="" aria-label="breadcrumb">
@@ -45,14 +46,14 @@ export default function List({
                                     </li>
                                 </ol>
                             </nav>
-                            <div class="lane-gdark"></div>
+                            <div className="lane-gdark"></div>
 
                             <img
                                 src={`/storage/${acara.img}`}
                                 className="my-2 rounded img-fluid img-thumbnail"
                                 alt=""
                             />
-                            <div class="lanep-gdark"></div>
+                            <div className="lanep-gdark"></div>
                             <div className="kon-10">
                                 {parse(acara.description)}
                             </div>
@@ -62,29 +63,32 @@ export default function List({
 
                     {/**sidebar */}
                     <div className="col-lg-4 text-center sm-margin-top xs-margin-top ">
-                        <div class=" mx-0 wrapper-sidebar wrapper-btn">
-                            <div class="row">
-                                <div class="col-md-12 padding-top">
-                                    <h2 className="blog-post-title">
+                        <div className=" mx-0 wrapper-sidebar wrapper-btn my-5">
+                            <div className="row">
+                                <div className="col-md-12 padding-top ">
+                                    <h2 className="blog-post-title my-3 mx-3">
                                         {acara.judul}
                                     </h2>
-                                    <p className="blog-post-meta">
+                                    <p className="blog-post-meta ">
                                         {moment(acara.eventdate_at).format(
                                             "dddd D MMMM YYYY"
                                         )}
                                         &nbsp;
                                         <span className="blog-post-meta">
                                             - {acara.view} &nbsp;
-                                            <i class="fa-solid fa-eye"></i>
+                                            <i className="fa-solid fa-eye"></i>
                                         </span>
                                     </p>
-                                    <p>{parse(acara.subjudul)}</p>
+                                    {parse(acara.subjudul)}
 
                                     {/** image Galery */}
                                     <div className="container">
                                         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
                                             {imgacara.map((imgevent) => (
-                                                <div className="col">
+                                                <div
+                                                    className="col"
+                                                    key={imgevent.id}
+                                                >
                                                     <div className="card shadow-sm">
                                                         <img
                                                             src={imgevent.img}
@@ -107,88 +111,89 @@ export default function List({
 
                                     {imgacara.map((imgevent) => (
                                         <div
-                                            class="modal fade"
+                                            className="modal fade"
                                             id={imgevent.slug}
-                                            tabindex="-1"
+                                            tabIndex="-1"
                                             aria-labelledby="exampleModalLabel"
                                             aria-hidden="true"
                                         >
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
                                                     <div
-                                                        class="modal-header"
+                                                        className="modal-header"
                                                         id={imgevent.slug}
+                                                        key={imgevent.id}
                                                     >
                                                         <h1
-                                                            class="modal-title fs-5"
+                                                            className="modal-title fs-5"
                                                             id="exampleModalLabel"
                                                         >
                                                             {imgevent.judul}
                                                         </h1>
                                                         <button
                                                             type="button"
-                                                            class="btn-close"
+                                                            className="btn-close"
                                                             data-bs-dismiss="modal"
                                                             aria-label="Close"
                                                         ></button>
                                                     </div>
-                                                    <div class="modal-body">
+                                                    <div className="modal-body">
                                                         <div
                                                             id="carouselExampleInterval"
-                                                            class="carousel carousel-dark slide"
+                                                            className="carousel carousel-dark slide"
                                                             data-bs-ride="carousel"
                                                         >
-                                                            <div class="carousel-inner">
+                                                            <div className="carousel-inner">
                                                                 <div
-                                                                    class="carousel-item active"
+                                                                    className="carousel-item active"
                                                                     data-bs-interval="10000"
                                                                 >
                                                                     <img
                                                                         src={
                                                                             imgevent.img
                                                                         }
-                                                                        class="d-block w-100"
+                                                                        className="d-block w-100"
                                                                         alt="..."
                                                                     />
 
                                                                     {/** Img DB {`/storage/${listNews.img}`} */}
                                                                 </div>
                                                                 <div
-                                                                    class="carousel-item"
+                                                                    className="carousel-item"
                                                                     data-bs-interval="2000"
                                                                 >
                                                                     <img
                                                                         src="https://i.imgur.com/SM5Equu.jpg"
-                                                                        class="d-block w-100"
+                                                                        className="d-block w-100"
                                                                         alt="..."
                                                                     />
                                                                 </div>
                                                             </div>
                                                             <button
-                                                                class="carousel-control-prev"
+                                                                className="carousel-control-prev"
                                                                 type="button"
                                                                 data-bs-target="#carouselExampleInterval"
                                                                 data-bs-slide="prev"
                                                             >
                                                                 <span
-                                                                    class="carousel-control-prev-icon"
+                                                                    className="carousel-control-prev-icon"
                                                                     aria-hidden="true"
                                                                 ></span>
-                                                                <span class="visually-hidden">
+                                                                <span className="visually-hidden">
                                                                     Previous
                                                                 </span>
                                                             </button>
                                                             <button
-                                                                class="carousel-control-next"
+                                                                className="carousel-control-next"
                                                                 type="button"
                                                                 data-bs-target="#carouselExampleInterval"
                                                                 data-bs-slide="next"
                                                             >
                                                                 <span
-                                                                    class="carousel-control-next-icon"
+                                                                    className="carousel-control-next-icon"
                                                                     aria-hidden="true"
                                                                 ></span>
-                                                                <span class="visually-hidden">
+                                                                <span className="visually-hidden">
                                                                     Next
                                                                 </span>
                                                             </button>

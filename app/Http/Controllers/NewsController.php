@@ -24,7 +24,7 @@ class NewsController extends Controller
         //return Inertia::render('Buku/List');
         $featuredNews   = News::whereIsFeatured(true)->get();
         $news           = News::where('news.status', '=', 'Publish')->orderBy('publish_at', 'desc')->get();
-        $newsp           = News::where('news.status', '=', 'Publish')->orderBy('publish_at', 'desc')->paginate(3);
+        $newsp           = News::where('news.status', '=', 'Publish')->orderBy('publish_at', 'desc')->paginate(6);
         $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
         //$news_p         = News::paginate(15);
 

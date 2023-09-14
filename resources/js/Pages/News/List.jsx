@@ -5,6 +5,7 @@ import { Link, usePage, Head } from "@inertiajs/react";
 import ListNews from "@/Components/News/ListNews";
 import moment from "moment";
 import Pagination from "@/Components/Page/Pagination";
+import parse from "html-react-parser";
 
 export default function List({ featuredBuku, news, props }) {
     const { newsp } = usePage().props;
@@ -123,18 +124,24 @@ export default function List({ featuredBuku, news, props }) {
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         {/*loop*/}
 
-                        {news.map((listNews) => (
-                            <ListNews
-                                key={listNews.id}
-                                img={`/storage/${listNews.img}`}
-                                slug={listNews.slug}
-                                judul={listNews.judul}
-                                publish={moment(listNews.publish_at).format(
-                                    "dddd D MMMM YYYY "
-                                )}
-                            />
-                        ))}
+                        {newsp.data.map(
+                            ({ id, img, slug, judul, publish_at }) => (
+                                <ListNews
+                                    key={id}
+                                    img={`/storage/${img}`}
+                                    slug={slug}
+                                    judul={judul}
+                                    publish={moment(publish_at).format(
+                                        "dddd D MMMM YYYY "
+                                    )}
+                                />
+                            )
+                        )}
                     </div>
+
+                    <hr />
+
+                    <Pagination class="mt-6" links={newsp.links} />
                 </div>
             </div>
         </FrontendLayout>

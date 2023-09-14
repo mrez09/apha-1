@@ -151,7 +151,7 @@ export default function List(props) {
 
                             <div className="col-md-6">
                                 <label className="form-label">
-                                    Ditampilkan Sebagai Rekomendasi (Feature)
+                                    Status Prosiding
                                 </label>
                                 <select
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
