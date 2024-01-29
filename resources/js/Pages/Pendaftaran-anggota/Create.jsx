@@ -292,7 +292,7 @@ export default function List(props) {
                             <div className="col-sm-6">
                                 <div class="form-group">
                                     <label className="form-label">
-                                        Photo Pengurus
+                                        Photo Anggota
                                         <span className="text-danger">*</span>
                                     </label>
                                     <input

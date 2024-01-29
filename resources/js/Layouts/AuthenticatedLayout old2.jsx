@@ -177,63 +177,22 @@ export default function Authenticated({ auth, header, children }) {
                                 </li>
 
                                 {/*end Content*/}
-                            </ul>
 
-                            {/*Keanggotaan*/}
-                            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                <span>Keanggotaan</span>
-                                <a
-                                    className="link-secondary"
-                                    href="#"
-                                    aria-label="Add a new report"
-                                >
-                                    <span data-feather="plus-circle"></span>
-                                </a>
-                            </h6>
-                            <ul className="nav flex-column mb-2">
-                                {/*Anggota*/}
-                                <li className="nav-link px-3 sidebar-link">
-                                    <a
-                                        data-bs-toggle="collapse"
-                                        href="#anggota"
+                                {/*Dokumen */}
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route(
+                                            "admin.dashboard.member.index"
+                                        )}
+                                        active={route().current(
+                                            "admin.dashboard.member.index"
+                                        )}
                                     >
                                         <i className="fas ic fa-person-shelter"></i>
                                         Anggota
-                                    </a>
-                                    <div className="collapse" id="anggota">
-                                        <ul className="navbar-nav ps-3">
-                                            <li>
-                                                <a
-                                                    href={route(
-                                                        "admin.dashboard.member.index"
-                                                    )}
-                                                    active={route().current(
-                                                        "admin.dashboard.member.index"
-                                                    )}
-                                                    className="nav-link px-3"
-                                                >
-                                                    <i className="fas ic fa-person-shelter"></i>
-                                                    List Anggota
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href={route(
-                                                        "admin.dashboard.payment.index"
-                                                    )}
-                                                    active={route().current(
-                                                        "admin.dashboard.payment.index"
-                                                    )}
-                                                    className="nav-link px-3"
-                                                >
-                                                    <i class="fas ic fa-credit-card"></i>
-                                                    Payment
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    </NavLink>
                                 </li>
-                                {/*end news*/}
 
                                 {/*Pengurus*/}
                                 <li className="nav-link px-3 sidebar-link">
@@ -306,7 +265,6 @@ export default function Authenticated({ auth, header, children }) {
                                 </li>
                                 {/*end Pengurus*/}
                             </ul>
-                            {/*End Keanggotaan*/}
 
                             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                                 <span>Publikasi</span>

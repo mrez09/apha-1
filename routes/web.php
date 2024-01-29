@@ -39,12 +39,15 @@ use App\Http\Controllers\Admin\DocumentadminController;
 use App\Http\Controllers\Admin\EventadminController;
 use App\Http\Controllers\Admin\MemberadminController;
 use App\Http\Controllers\Admin\SertifikatadminController;
+use App\Http\Controllers\Admin\PaymentadminController;
 use App\Http\Controllers\Anggota\DashboardController as AnggotaDashboardContoller;
 use App\Http\Controllers\Anggota\ProfileController as AnggotaProfileController;
 use App\Http\Controllers\Anggota\MemberController;
 use App\Http\Controllers\Anggota\InstitusiController;
 use App\Http\Controllers\Anggota\AccountController;
 use App\Http\Controllers\Anggota\SertifikatanggotaController;
+use App\Http\Controllers\Anggota\PaymentController;
+use App\Http\Controllers\Anggota\KTAController;
 
 
 
@@ -132,13 +135,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::get('detail/{contact:id}', [ContactadminController::class, 'show'])->name('contact.detail');
     //Divisi
     Route::resource('newscategory', NewscategoryadminController::class);
-    Route::get('newscategory/{id}/edit', [NewscategoryadminController::class, 'edit'])->name('newscat.edit');
+    Route::get('newscategory/{id}/edit', [NewscategoryadminController::class, 'edit'])->name('newscategory.edit');
     Route::put('newscategory/{newscategory}/restore', [NewscategoryadminController::class, 'restore'])->name('newscategory.restore');
 
     //Pengurus Bahasa Inggris
     Route::resource('commitee', CommiteeadminController::class);
     Route::get('commitee/{id}/edit', [CommiteeadminController::class, 'edit'])->name('pengurus.edit');
-    Route::put('commitee/{jabatan}/restore', [CommiteeadminController::class, 'restore'])->name('newscategory.restore');
+    Route::put('commitee/{jabatan}/restore', [CommiteeadminController::class, 'restore'])->name('pengurus.restore');
 
     //Periode
     Route::resource('periode', PeriodeadminController::class);
@@ -168,15 +171,21 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::put('event/{event}/restore', [EventadminController::class, 'restore'])->name('event.restore');
 
     //Event
-    Route::resource('member', MemberController::class);
-    Route::get('member/{member}/edit', [MemberController::class, 'edit'])->name('member.edit');
-    Route::put('member/{member}/restore', [MemberController::class, 'restore'])->name('event.restore');
+    Route::resource('member', MemberadminController::class);
+    Route::get('member/{member}/edit', [MemberadminController::class, 'edit'])->name('memberadmin.edit');
+    Route::put('member/{member}/restore', [MemberadminController::class, 'restore'])->name('event.restore');
 
     //Sertifikat
     //Periode
     Route::resource('sertifikat', SertifikatadminController::class);
     Route::get('sertifikat/{document}/edit', [SertifikatadminController::class, 'edit'])->name('sertifikat.edit');
     Route::put('sertifikat/{document}/restore', [SertifikatadminController::class, 'restore'])->name('sertifikat.restore');
+
+    //Sertifikat
+    //Periode
+    Route::resource('payment', PaymentadminController::class);
+    Route::get('payment/{payment}/edit', [PaymentadminController::class, 'edit'])->name('payment.edit');
+    Route::put('payment/{payment}/restore', [PaymentadminController::class, 'restore'])->name('payment.restore');
 });
 
 //User Control
@@ -214,8 +223,25 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     
     //Sertifikat
     Route::resource('sertifikat', SertifikatanggotaController::class);
-    Route::get('sertifikat/{member}/edit', [SertifikatanggotaController::class, 'edit'])->name('institusi.edit');
+    Route::get('sertifikat/{member}/edit', [SertifikatanggotaController::class, 'edit'])->name('sertifikat.edit');
     Route::put('member/{member}/restore', [EventadminController::class, 'restore'])->name('event.restore');
+
+    //Payment
+    Route::resource('payment', PaymentController::class);
+    Route::get('payment/{payment:no_invoice}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
+    Route::get('payment/{payment:no_invoice}', [PaymentController::class, 'show'])->name('payment.show');
+    Route::put('member/{member}/restore', [PaymentController::class, 'restore'])->name('payment.restore');
+
+    //KTA
+    Route::resource('kta', KTAController::class);
+    Route::get('kta/{member}/edit', [KTAController::class, 'edit'])->name('nokta.edit');
+    Route::get('kta/{member}', [KTAController::class, 'show'])->name('nokta.show');
+    Route::put('kta/{member}/restore', [KTAController::class, 'restore'])->name('nokta.restore');
+
+    //KTA Sample
+    //Route::resource('profile', AnggotaProfileController::class);
+    //Route::get('profile/{id}/edit', [AnggotaProfileController::class, 'edit'])->name('anggotaprofile.edit');
+    //Route::put('profile/{anggota}/restore', [AnggotaProfileController::class, 'restore'])->name('news.restore');
 
 });
 

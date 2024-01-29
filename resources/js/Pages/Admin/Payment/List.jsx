@@ -4,11 +4,12 @@ import DataTable from "datatables.net-dt";
 import { Head, useForm } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
+import moment from "moment";
 
-export default function List({ auth, errors, flashMessage, props, member }) {
+export default function List({ auth, errors, flashMessage, props, news }) {
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
-        //options
+        // options
         destroy: true,
         processing: true,
         serverSide: false,
@@ -20,22 +21,20 @@ export default function List({ auth, errors, flashMessage, props, member }) {
             errors={errors}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    List Data Anggota Asosiasi Pengajar Hukum Adat (APHA)
+                    List Data Payment
                 </h2>
             }
         >
             <Head title="Dashboard" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">
-                    List Data Anggota Asosiasi Pengajar Hukum Adat (APHA)
-                </h1>
+                <h1 className="h2">List Payment</h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <Link
                             type="button"
-                            href={route("admin.dashboard.member.create")}
+                            href={route("admin.dashboard.payment.create")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Tambah
@@ -55,55 +54,49 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Image</th>
+                                <th>No Invoice</th>
+                                <th>Judul</th>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Category</th>
-                                <th>Rating</th>
+                                <th>Tanggal Pembayaran</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {member.map((member) => (
-                                <tr key={member.id}>
-                                    <td>{member.id}</td>
+                            {news.map((news, index) => (
+                                <tr key={news.link_id}>
+                                    <td>{++index}</td>
+                                    <td>{news.no_invoice}</td>
+                                    <td>{news.judul}</td>
+                                    <td>{news.name}</td>
                                     <td>
-                                        <img
-                                            src={`/storage/${member.img}`}
-                                            //src={'/storage/${newslist.img}'}
-                                            //src="'/storage/'${newslist.img}"
-                                            //src='" . asset($dirname . $curimg) . "'
-                                            //src={
-                                            //  "http://127.0.0.1:8000/storage/news/YKsAaWIYa2xsQQmbOS0Ejc5CIJcT7Q6aixQn2JWj.png"
-                                            //}
-                                            //src={
-                                            //  "http://127.0.0.1:8000/storage/${newslit.img}"
-                                            //}
-                                            //src="{{ asset('storage/'.$newslist->img) }}"
-
-                                            className="rounded img-thumb img-fluid img-thumbnail"
-                                            //src="{{ asset('storage/'.$newslist->img) }}"
-                                            //src="{{ asset('/storage/'.$newslist->img) }}"
-                                            //src="{{ url('storage/'.$news->img) }}"
-                                            alt=""
-                                        />
+                                        {(() => {
+                                            if (news.status == "Belum") {
+                                                return (
+                                                    <span className="text-warning fw-bold">
+                                                        {news.status}
+                                                    </span>
+                                                );
+                                            } else {
+                                                return (
+                                                    <span className="text-info fw-bold">
+                                                        {news.status}
+                                                    </span>
+                                                );
+                                            }
+                                        })()}
                                     </td>
-                                    <td>{member.nama}</td>
-                                    {(() => {
-                                        if (member.status == 0) {
-                                            return <td>Draft</td>;
-                                        } else {
-                                            return <td>Publish</td>;
-                                        }
-                                    })()}
-                                    <td>{member.category}</td>
-                                    <td>{member.rating}</td>
+                                    <td>
+                                        {moment(news.tanggal_bayar).format(
+                                            "dddd D MMMM YYYY"
+                                        )}
+                                    </td>
 
                                     <td>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.memberadmin.edit",
-                                                member.id
+                                                "admin.dashboard.payment.edit",
+                                                news.link_id
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -114,8 +107,8 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                                             onClick={() => {
                                                 destroy(
                                                     route(
-                                                        "admin.dashboard.member.destroy",
-                                                        member.id
+                                                        "admin.dashboard.payment.destroy",
+                                                        news.link_id
                                                     )
                                                 );
                                             }}

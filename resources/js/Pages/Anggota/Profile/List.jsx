@@ -345,9 +345,50 @@ export default function Profile(props) {
                                         </div>
 
                                         <div className="col-sm-12">
-                                            <label className="form-label">
+                                            {/*
+                                               <label className="form-label">
                                                 No Kartu Tanda Anggota (KTA)
-                                            </label>
+                                                {(() => {
+                                                    if (
+                                                        props.anggota.no_kta ==
+                                                        ""
+                                                    ) {
+                                                        return (
+                                                            <a
+                                                                href={route(
+                                                                    "anggota.dashboard.nokta.show",
+                                                                    props
+                                                                        .anggota
+                                                                        .com_id
+                                                                )}
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                className="btn btn-success btn-kecil"
+                                                            >
+                                                                Lihat KTA
+                                                            </a>
+                                                        );
+                                                    } else {
+                                                        return (
+                                                            <a
+                                                                href={route(
+                                                                    "anggota.dashboard.nokta.show",
+                                                                    props
+                                                                        .anggota
+                                                                        .no_kta
+                                                                )}
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                className="btn btn-success btn-kecil"
+                                                            >
+                                                                Lihat KTA
+                                                            </a>
+                                                        );
+                                                    }
+                                                })()}
+                                            </label>                                               
+                                               */}
+
                                             <input
                                                 type="text"
                                                 name="no_kta"

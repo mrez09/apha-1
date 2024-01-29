@@ -71,7 +71,7 @@ export default function List({ featuredBuku, buku, props, url, flashMessage }) {
                     </p>
                     <p>
                         Persyaratan untuk mengajukan permohonan sebagai anggota
-                        APHK adalah sebagai berikut:{" "}
+                        APHA adalah sebagai berikut:{" "}
                     </p>
                     <div class="container">
                         <ol class="my-list">

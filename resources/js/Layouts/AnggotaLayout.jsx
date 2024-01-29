@@ -98,6 +98,18 @@ export default function Authenticated({ auth, header, children }) {
                                     </a>
                                 </li>
 
+                                <li className="nav-item">
+                                    <a
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route(
+                                            "anggota.dashboard.payment.index"
+                                        )}
+                                    >
+                                        <i class="fas ic fa-credit-card"></i>
+                                        Payment
+                                    </a>
+                                </li>
+
                                 {/*end Photo*/}
                             </ul>
 

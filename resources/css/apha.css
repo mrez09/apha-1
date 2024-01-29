@@ -1192,3 +1192,10 @@ textarea.form-control {
 .tb-profile {
     width: 65%;
 }
+
+/*Button Kecil*/
+.btn-kecil {
+    padding: 10px;
+    font-size: 12px;
+    margin-left: 10px;
+}

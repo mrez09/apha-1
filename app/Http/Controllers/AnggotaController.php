@@ -138,7 +138,7 @@ class AnggotaController extends Controller
         $data['name'] = $data['nama'];
         $data['password'] = Hash::make($request->password);
 
-        if($request->validated()){
+        if($request->validated() ){
           $user = User::create($data);
         $user->assignRole('user');
         $Anggota = Member::create($data);
