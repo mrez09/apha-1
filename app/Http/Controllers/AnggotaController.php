@@ -105,6 +105,7 @@ class AnggotaController extends Controller
         $data = $request->validated();
         //$data['id_user'] = Auth::id();
 
+
         //foto
         $data['img'] = Storage::disk("public")->put('profile', $request->file('img'));
         
@@ -137,10 +138,15 @@ class AnggotaController extends Controller
         $data['name'] = $data['nama'];
         $data['password'] = Hash::make($request->password);
 
-        $user = User::create($data);
+        if($request->validated()){
+          $user = User::create($data);
         $user->assignRole('user');
         $Anggota = Member::create($data);
         $commitee = Commitee::create($data2);
+      } else {
+          $data['img'] = $news->img;
+      }
+        
 
         
         

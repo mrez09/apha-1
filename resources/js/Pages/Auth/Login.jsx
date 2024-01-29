@@ -57,7 +57,9 @@ export default function Login({ status, canResetPassword }) {
                                         <p>Don't have an account?</p>
                                         <Link
                                             className="btn btn-white btn-outline-white"
-                                            href={route("register")}
+                                            href={route(
+                                                "frontkeanggotaan.index"
+                                            )}
                                         >
                                             Sign Up
                                         </Link>

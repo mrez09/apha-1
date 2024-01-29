@@ -64,14 +64,12 @@ export default function List({
                                     <td>{member.judul}</td>
 
                                     <td>
-                                        <a href={member.link}>
-                                            <button
-                                                alt={member.judul}
-                                                download={member.judul}
-                                                className="btn btn-info mx-2"
-                                            >
-                                                Download
-                                            </button>
+                                        <a
+                                            href={member.link}
+                                            className="btn btn-info mx-2"
+                                            target="_blank"
+                                        >
+                                            Download
                                         </a>
                                     </td>
                                 </tr>
