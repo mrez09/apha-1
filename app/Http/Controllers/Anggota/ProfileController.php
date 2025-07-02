@@ -26,7 +26,7 @@ class ProfileController extends Controller
         //asli
 //        $anggota           = Member::select('users.id as user_id','members.id as anggota_id', 'nama', 'no_kta', 'jk', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
         //baru
-        $anggota           = Member::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
+        $anggota           = Member::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'slug_kta', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
 
         //$status           = Anggota::select('users.id as user_id','name', 'email')->join('anggotas','anggotas.id_user',"=",'users.user_id')->where('users.user_id', '=', 12)->first();
         $status           = Member::select('users.id as user_id', 'members.id as anggota_id', 'nama', 'users.email', 'status')->join('users','members.id_user',"=",'users.id')->where('users.id', '=', $user_id)->first();
@@ -69,6 +69,77 @@ class ProfileController extends Controller
             Storage::disk("public")->delete($member->img);
         } else {
             $data['img'] = $member->img;
+        }
+
+        if($request->file('img_kta')){
+            $data['img_kta'] = Storage::disk("public")->put('profile', $request->file('img_kta'));
+            Storage::disk("public")->delete($member->img_kta);
+        } else {
+            $data['img_kta'] = $member->img_kta;
+        }
+
+
+
+        //$path = Storage::url('public');
+
+        //$img = '<img src"' .$path.'" alt=""/>';
+
+        $member->update($data);
+        return redirect(route('anggota.dashboard.profile.index'))->with(
+            [
+                'message'   => "Biodata Anda Berhasil diPerbarui",
+                'type'      => "success"
+            ]
+        );
+        
+        
+//        return $request->all();
+        //return $news;
+        //return Inertia::render('Admin/News/Create');
+        
+        //$news           = News::all();
+        //return Inertia::render('Admin/News/Edit',
+        //[
+          //  'news'          => $news
+        //]);
+    }
+
+    public function imgkta(){
+        
+        //$anggota        = auth.user.id;
+        //$data = $request->session()->all();
+        $user_id            = Auth::user()->id;
+        //asli
+//        $anggota           = Member::select('users.id as user_id','members.id as anggota_id', 'nama', 'no_kta', 'jk', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
+        //baru
+        $anggota           = Member::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'slug_kta', 'kode', 'users.email', 'img', 'img_kta', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
+
+        //$status           = Anggota::select('users.id as user_id','name', 'email')->join('anggotas','anggotas.id_user',"=",'users.user_id')->where('users.user_id', '=', 12)->first();
+        $status           = Member::select('users.id as user_id', 'members.id as anggota_id', 'nama', 'users.email', 'status')->join('users','members.id_user',"=",'users.id')->where('users.id', '=', $user_id)->first();
+        return Inertia::render('Anggota/Profile/ImgKTA',
+        [
+            'status'          => $status,
+            'user_id'          => $user_id,
+            'anggota'          => $anggota,
+            'ckeditor'              => 'yes',
+        ]);
+    }
+
+    public function updateimgkta(Update $request, Member $member){
+        $data = $request->validated();
+        //$data['slug'] = Str::slug($data ['no_kta']);
+        if($request->file('img')){
+            $data['img'] = Storage::disk("public")->put('profile', $request->file('img'));
+            Storage::disk("public")->delete($member->img);
+        } else {
+            $data['img'] = $member->img;
+        }
+
+        if($request->file('img_kta')){
+            $data['img_kta'] = Storage::disk("public")->put('profile', $request->file('img_kta'));
+            Storage::disk("public")->delete($member->img_kta);
+        } else {
+            $data['img_kta'] = $member->img_kta;
         }
 
 

@@ -81,9 +81,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 */
 Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dashboard.')->group(function (){
-    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    
+// ini dashboardkan    
+//Route::get('/', [DashboardController::class, 'index'])->name('index');
     //Route::get('news', [NewsadminController::class, 'index'])->name('news.index');
     //News
+    //Route::resource('/', DashboardController::class);
     Route::resource('news', NewsadminController::class);
     Route::get('news/{id}/edit', [NewsadminController::class, 'edit'])->name('news.edit');
     Route::put('news/{news}/restore', [NewsadminController::class, 'restore'])->name('news.restore');
@@ -173,6 +176,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     //Event
     Route::resource('member', MemberadminController::class);
     Route::get('member/{member}/edit', [MemberadminController::class, 'edit'])->name('memberadmin.edit');
+    //Route::get('member/kta/{member}', [MemberadminController::class, 'show'])->name('membershow');
     Route::put('member/{member}/restore', [MemberadminController::class, 'restore'])->name('event.restore');
 
     //Sertifikat
@@ -185,7 +189,18 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     //Periode
     Route::resource('payment', PaymentadminController::class);
     Route::get('payment/{payment}/edit', [PaymentadminController::class, 'edit'])->name('payment.edit');
+    Route::get('payment/{payment:no_invoice}', [PaymentadminController::class, 'show'])->name('payment.show');
     Route::put('payment/{payment}/restore', [PaymentadminController::class, 'restore'])->name('payment.restore');
+
+
+    
+    //KTA
+    Route::resource('kta', KTAController::class);
+    Route::get('kta/{member}/edit', [KTAController::class, 'edit'])->name('nokta.edit');
+    Route::get('kta/{member:slug_kta}', [KTAController::class, 'show'])->name('nokta.show');
+    //Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
+    Route::put('kta/{member}/restore', [KTAController::class, 'restore'])->name('nokta.restore');
+
 });
 
 //User Control
@@ -194,12 +209,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::get('/', [AnggotaDashboardContoller::class, 'index'])->name('index');
     
     Route::resource('profile', AnggotaProfileController::class);
+
+    //
+    //Route::resource('imgkta', AnggotaProfileController::class);
+    Route::get('imgkta', [AnggotaProfileController::class, 'imgkta'])->name('anggotaprofile.imgkta');
     Route::get('profile/{id}/edit', [AnggotaProfileController::class, 'edit'])->name('anggotaprofile.edit');
     Route::put('profile/{anggota}/restore', [AnggotaProfileController::class, 'restore'])->name('news.restore');
 
     //Update Profile.
     Route::resource('member', MemberController::class);
     Route::get('member/{member}/edit', [MemberController::class, 'edit'])->name('member.edit');
+    Route::get('member/{member}/imgkta', [MemberController::class, 'imgkta'])->name('member.updateimgkta');
     //Route::put('member/{member}/updateinstansi', [EventadminController::class, 'restore'])->name('updateinstansi');
     
     
@@ -233,10 +253,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::put('member/{member}/restore', [PaymentController::class, 'restore'])->name('payment.restore');
 
     //KTA
-    Route::resource('kta', KTAController::class);
-    Route::get('kta/{member}/edit', [KTAController::class, 'edit'])->name('nokta.edit');
-    Route::get('kta/{member}', [KTAController::class, 'show'])->name('nokta.show');
-    Route::put('kta/{member}/restore', [KTAController::class, 'restore'])->name('nokta.restore');
+    Route::resource('ktacard', KTAController::class);
+    Route::get('ktacard/member/{member}/edit', [KTAController::class, 'edit'])->name('nokta.edit');
+    
+    Route::get('ktacard/member/{member:slug_kta}', [KTAController::class, 'show'])->name('nokta.show');
+    Route::get('namecard/member/{member:slug_kta}', [KTAController::class, 'namecard'])->name('namecard.show');
+    //Route::put('kta/{member}/restore', [KTAController::class, 'restore'])->name('nokta.restore');
 
     //KTA Sample
     //Route::resource('profile', AnggotaProfileController::class);
@@ -458,9 +480,15 @@ Route::prefix('/')->name('front')->group(function (){
   //  return Inertia::render('Dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'role:admin'])->name('dashboard');
+//dashboard bekasan
+//Route::get('/dashboard', function () {
+//    return Inertia::render('Dashboard');
+//})->middleware(['auth', 'role:admin'])->name('dashboard');
+
+// ===== Dashboard Routes =====
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'role:admin'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -3,8 +3,8 @@ import FrontendLayout from "@/Layouts/FrontendLayout";
 import NavbarGuest from "@/Pages/layouts/frontend/NavbarApha";
 import { Link, Head } from "@inertiajs/react";
 import ListNews from "@/Components/News/ListNews";
-import PDFFile from "@/Components/Pdf/KTAPDF";
-//import PDFFile from "@/Components/Pdf/IDCARDPDF";
+//import PDFFile from "@/Components/Pdf/KTAPDF";
+import PDFFile from "@/Components/Pdf/IDCARDPDF";
 import moment from "moment";
 //import parse from "html-react-parser";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -24,7 +24,6 @@ export default function List({
     props,
     tanggal_print,
     member,
-    img_kta,
 }) {
     //Page
     {
@@ -110,7 +109,7 @@ export default function List({
             </Head>
             <div className="container">
                 <div className="row g-5  d-flex justify-content-center mt-5">
-                    <h2>Informasi Anggota KTA</h2>
+                    <h2>Informasi Kartu Nama Anggota</h2>
 
                     {
                         //Tab 1>
@@ -176,42 +175,6 @@ export default function List({
 
                         <div className="row border">
                             <div className="col mt-4 col-lg-6">
-                                {(() => {
-                                    if (member.img_kta == null) {
-                                        return (
-                                            <img
-                                                src={`/storage/${member.img}`}
-                                                alt=""
-                                            />
-                                        );
-                                    } else {
-                                        return (
-                                            <img
-                                                src={`/storage/${member.img_kta}`}
-                                                alt=""
-                                            />
-                                        );
-                                    }
-                                })()}
-                                <img
-                                    src={`/storage/${member.img_kta}`}
-                                    alt=""
-                                />
-                                {
-                                    //upload img kta
-                                }
-
-                                <a
-                                    href={route(
-                                        "anggota.dashboard.anggotaprofile.imgkta"
-                                    )}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="btn btn-success btn-kecil"
-                                >
-                                    Lihat Name Card
-                                </a>
-
                                 <table>
                                     <tr>
                                         <td>NIDN/NIDK</td>
@@ -254,7 +217,6 @@ export default function List({
                             </div>
                         </div>
 
-                        {/*
                         <figure class="card Card_APHA">
                             <h1 className="h1-APHA">APHA</h1>
                             <h1 className="h1-APHA id_h1-2">
@@ -282,10 +244,8 @@ export default function List({
                                     <i class="fab fa-facebook-square"></i>
                                     <i class="fab fa-instagram"></i>
                                     <i class="fab fa-snapchat-square"></i>
-                                </div>*/
-                        /*}
+                                </div>*/}
                             </figcaption>
-
                             <img
                                 class="img-idcard"
                                 //src={`/storage/logo/Logo-Apha-card.png`}
@@ -303,7 +263,6 @@ export default function List({
                                 </span>
                             </div>
                         </figure>
-                        */}
 
                         {
                             //Invoice
@@ -325,10 +284,9 @@ export default function List({
                                             subjudul="abc"
                                             slug_judul="abc"
                                             img={member.img}
-                                            img_kta={member.img_kta}
                                             status="abc"
                                             //konten={parse(payment.konten)}
-                                            konten="abcd"
+                                            konten="abc"
                                             is_featured="abc"
                                             tanggal_bayar="abc"
                                             created_at="abc"
@@ -342,7 +300,7 @@ export default function List({
                                             url_img="https://apha.or.id/storage/logo/Logo-AphaC.png"
                                         />
                                     }
-                                    fileName={"KTA-" + member.slug_kta}
+                                    fileName={"Name_Card-" + member.slug_kta}
                                 >
                                     {({ loading }) =>
                                         loading ? (

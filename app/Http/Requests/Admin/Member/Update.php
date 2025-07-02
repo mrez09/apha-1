@@ -26,22 +26,23 @@ class Update extends FormRequest
     {
         return [
             //
-            'no_kta'     => 'nullable',
-            'nama'     => 'nullable',
-            'kode'     => 'nullable',
-            'jk'  => 'nullable',
-            'img'       => 'nullable|image',
-            'universitas'  => 'nullable',
-            'fakultas'  => 'nullable',
-            'alamatf'  => 'nullable',
-            'mk'        => 'nullable',
-            'alamat'  => 'nullable',
-            'phone'       => 'nullable',
-            'email'       => 'nullable',
-            'scholar'        => 'nullable',
-            'scopus'       => 'nullable',
-            'sinta'  => 'nullable',
-            'dec'  => 'nullable',
+            'no_kta'        => 'nullable',
+            'nama'          => 'nullable',
+            'kode'          => 'nullable',
+            'jk'            => 'nullable',
+            'img'           => 'nullable|image',
+            'universitas'   => 'nullable',
+            'fakultas'      => 'nullable',
+            'alamatf'       => 'nullable',
+            'mk'            => 'nullable',
+            'alamat'        => 'nullable',
+            'phone'         => 'nullable',
+            'email'         => 'nullable',
+            'scholar'       => 'nullable',
+            'scopus'        => 'nullable',
+            'sinta'         => 'nullable',
+            'dec'           => 'nullable',
+            'status'        => 'nullable'
         ];
     }
 }

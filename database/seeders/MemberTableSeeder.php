@@ -25,6 +25,7 @@ class MemberTableSeeder extends Seeder
                 'kode'          =>  '02-202207-0724',
                 'jk'            =>  'lk',
                 'img'           =>  'img.com',
+                'img_kta'       =>  'img.com',
                 'universitas'   =>  'Sahid',
                 'fakultas'      =>  'Hukum',
                 'alamatf'       =>  'Jl. Prof. DR. Soepomo No.84, RT.7/RW.1, Menteng Dalam, Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12870',

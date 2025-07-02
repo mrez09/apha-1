@@ -28,14 +28,14 @@ export default function List({
             errors={errors}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    List Data Payment
+                    Informasi Anggota KTA
                 </h2>
             }
         >
             <Head title="Dashboard" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">List Payment</h1>
+                <h1 className="h2">Informasi Anggota KTA</h1>
                 <h1>{order}</h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
@@ -62,9 +62,8 @@ export default function List({
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>No Invoice</th>
-                                <th>Judul</th>
-                                <th>Name</th>
+                                <th>No KTA</th>
+                                <th>Nama</th>
                                 <th>Status</th>
                                 <th>Tanggal Pembayaran</th>
                                 <th>Action</th>
@@ -74,9 +73,9 @@ export default function List({
                             {news.map((news, index) => (
                                 <tr key={news.link_id}>
                                     <td>{++index}</td>
-                                    <td>{news.no_invoice}</td>
-                                    <td>{news.judul}</td>
-                                    <td>{news.name}</td>
+                                    <td>{news.no_kta}</td>
+                                    <td>{news.nama}</td>
+                                    <td>{news.status}</td>
                                     <td>
                                         {(() => {
                                             if (news.status == "Belum") {

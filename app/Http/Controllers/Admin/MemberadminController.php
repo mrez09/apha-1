@@ -59,6 +59,14 @@ class MemberadminController extends Controller
     public function show(Member $member){
         //return Inertia::render('Admin/News/Create');
         //return $request->all();
+        $member          = Member::all();
+        return Inertia::render('Admin/Member/List',
+    [
+        'member'          => $member
+    ]);
+      //return  [
+        //    'news'          => $news,
+        //];
     }
 
     public function edit(Member $member){

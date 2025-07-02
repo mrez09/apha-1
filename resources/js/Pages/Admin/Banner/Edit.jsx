@@ -124,7 +124,7 @@ export default function List(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Photo : <p>{props.galeri.name}</p>
+                    Update Banner : <p>{props.galeri.name}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
@@ -151,19 +151,21 @@ export default function List(props) {
                                     type="hidden"
                                     name="category"
                                     defaultValue={props.galeri.category}
-                                    placeholder="Masukan Nama Photo"
+                                    placeholder="Masukan Nama Banner"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="nama photo"
+                                    autoComplete="Nama Banner"
                                     onChange={onHandleChange}
                                 />
-                                <label className="form-label">Nama Photo</label>
+                                <label className="form-label">
+                                    Nama Banner
+                                </label>
                                 <input
                                     type="text"
                                     name="name"
                                     defaultValue={props.galeri.name}
-                                    placeholder="Masukan Nama Photo"
+                                    placeholder="Masukan Nama Banner"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="nama photo"
+                                    autoComplete="Nama Banner"
                                     onChange={onHandleChange}
                                 />
 

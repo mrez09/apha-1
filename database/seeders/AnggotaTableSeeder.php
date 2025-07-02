@@ -45,4 +45,5 @@ class AnggotaTableSeeder extends Seeder
         Anggota::insert($anggota);
     
     }
+    
 }

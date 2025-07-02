@@ -17,13 +17,7 @@ import { useCallback } from "react";
 import { BuildingStorefrontIcon } from "@heroicons/react/24/outline";
 //import InvoicePDF from "@/Components/PDF/InvoicePDF";
 
-export default function List({
-    featuredBuku,
-    payment,
-    props,
-    tanggal_print,
-    pay,
-}) {
+export default function List({ featuredBuku, payment, props, tanggal_print }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     //const parse = require("html-react-parser");
     //Homes

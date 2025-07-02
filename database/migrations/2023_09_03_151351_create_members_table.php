@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('kode')->nullable();
             $table->string('jk')->nullable();
             $table->string('img')->nullable();
+            $table->string('img_kta')->nullable();
             
             $table->text('universitas')->nullable();
             $table->text('fakultas')->nullable();

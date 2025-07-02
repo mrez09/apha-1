@@ -94,7 +94,7 @@ export default function List(props) {
     });
 
     const { data, setData, processing, errors } = useForm({
-        ...props.buku,
+        ...props.member,
     });
 
     const onHandleChange = (event) => {
@@ -124,14 +124,14 @@ export default function List(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Buku : <p>{props.member.nama}</p>
+                    Update Member : <p>{props.member.nama}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href={route("admin.dashboard.buku.index")}
+                            href={route("admin.dashboard.member.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
@@ -324,6 +324,55 @@ export default function List(props) {
                                 </div>
                             </div>
 
+                            <div className="col-md-6">
+                                <label className="form-label">Status</label>
+                                <select
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="status"
+                                    name="status"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+
+                                    {(() => {
+                                        if (props.member.status == 0) {
+                                            return (
+                                                <option value="0" selected>
+                                                    Tidak aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="0">
+                                                    Tidak Aktif
+                                                </option>
+                                            );
+                                        }
+                                    })()}
+
+                                    {(() => {
+                                        if (props.member.status == "1") {
+                                            return (
+                                                <option value="1" selected>
+                                                    Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="1">Aktif</option>
+                                            );
+                                        }
+                                    })()}
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.jk}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
                             <h1>Instansi</h1>
                             <hr />
                             <div className="col-sm-6">
@@ -488,7 +537,7 @@ export default function List(props) {
                                     editor={ClassicEditor}
                                     name="dec"
                                     data={props.member.dec}
-                                    //data={props.buku.decription}
+                                    //data={props.member.decription}
 
                                     onReady={(editor) => {
                                         // You can store the "editor" and use when it is needed.

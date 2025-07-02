@@ -9,14 +9,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use App\Models\News;
 use App\Models\Newscategory;
-use App\Models\Payment; 
+use App\Models\Payment;
+use App\Models\Member; 
 use App\Models\Konfigurasi; 
 use Inertia\Inertia;
 use App\Http\Requests\Member\Payment\Store;
 use App\Http\Requests\Member\Payment\Update;
 use Storage;
 
-class PaymentController extends Controller
+class KTAController extends Controller
 {
     //
     public function index(){
@@ -79,7 +80,7 @@ class PaymentController extends Controller
         //return $request->all();
     }
 
-    public function edit(Payment $payment){
+    public function edit(Member $member){
       //return $news;
       //return Inertia::render('Admin/News/Create');
       //return $request->all();
@@ -93,11 +94,13 @@ class PaymentController extends Controller
       ]);
   }
 
-    public function show(Payment $payment){
+    public function show(Member $member){
         //url saat ini
         $cururl           = URL::current();
         $konfigurasis     = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
-        $paymentjoin      = Payment::select('payments.id as link_id','judul', 'subjudul', 'no_invoice',  'payments.status', 'payments.img', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payments.id_user')->where('payments.no_invoice', '=', $payment->no_invoice)->first();
+        $memberkta      = Payment::select('payments.id as link_id','judul', 'subjudul', 'no_invoice', 'payments.status', 'payments.img', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payments.id_user')->where('members.no_kta', '=', $member->no_kta)->first();
+        $memberjoin       = Member::select('members.id as link_id','no_kta', 'nama', 'slug_kta', 'members.id_user', 'id_com', 'members.img', 'universitas', 'members.status')->join('users','users.id',"=",'members.id_user')->where('members.no_kta', '=', $member->no_kta)->first();
+//        $memberkta        = Member::select('members.id as link_id','no_kta', 'nama', 'kode', 'jk', 'alamat', 'email', 'phone','scholar', 'scopus', 'sinta', 'slug_kta', 'members.id_user', 'id_com', 'members.img', 'universitas', 'members.status')->where('members.no_kta', '=', $member->no_kta)->first();
         //$tanggal_print    = date('d-m-Y');
         $tanggal_print    = date('l d M Y ');
         
@@ -111,10 +114,9 @@ class PaymentController extends Controller
        //$metatag    = Str::replace('</p>', '', $reptag1);
 
        //$cururl     = URL::current();
-       return Inertia::render('Anggota/Payment/Show', [
-           'payment'        => $paymentjoin,
+       return Inertia::render('Anggota/KTA/Show', [
+           'payment'        => $memberkta,
            'tanggal_print'  => $tanggal_print,
-           'pay'            => $payment,
            //'event' => [
              //  'application-name'          => $konfigurasis->namawebsite,
                //'title'                     => $buku->name,

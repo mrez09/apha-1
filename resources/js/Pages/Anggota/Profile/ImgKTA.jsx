@@ -29,6 +29,10 @@ export default function Profile(props) {
             delete data.img;
         }
 
+        if (data.img_kta == props.anggota.img_kta) {
+            delete data.img_kta;
+        }
+
         router.post(
             route("anggota.dashboard.member.update", props.anggota.anggota_id),
             {
@@ -485,6 +489,25 @@ export default function Profile(props) {
                                             <div>
                                                 <InputError
                                                     message={errors.img}
+                                                    className="mt-2"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-sm-6">
+                                            <label className="form-label">
+                                                Foto Kartu Tanda Anggota
+                                            </label>
+                                            <input
+                                                type="file"
+                                                name="img_kta"
+                                                placeholder="Masukan File"
+                                                className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                                onChange={onHandleChange}
+                                            />
+                                            <div>
+                                                <InputError
+                                                    message={errors.img_kta}
                                                     className="mt-2"
                                                 />
                                             </div>

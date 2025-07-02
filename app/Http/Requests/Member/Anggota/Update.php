@@ -14,7 +14,8 @@ class Update extends FormRequest
     //: bool
     {
         //return false;
-        return Auth::user()->hasRole('user');
+        return false;
+        //return Auth::user()->hasRole('user');
     }
 
     /**
@@ -33,6 +34,7 @@ class Update extends FormRequest
             'phone'         => 'nullable',
             'alamat'        => 'nullable',
             'img'           => 'nullable|image',
+            'img_kta'       => 'nullable|image',
             'jk'            => 'required',
             //'dec'           => 'nullable'
         ];

@@ -55,6 +55,7 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>No KTA</th>
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Status</th>
@@ -67,6 +68,7 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                             {member.map((member) => (
                                 <tr key={member.id}>
                                     <td>{member.id}</td>
+                                    <td>{member.no_kta}</td>
                                     <td>
                                         <img
                                             src={`/storage/${member.img}`}
@@ -88,12 +90,13 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                                             alt=""
                                         />
                                     </td>
+
                                     <td>{member.nama}</td>
                                     {(() => {
                                         if (member.status == 0) {
-                                            return <td>Draft</td>;
+                                            return <td>Tidak Aktif</td>;
                                         } else {
-                                            return <td>Publish</td>;
+                                            return <td>Aktif</td>;
                                         }
                                     })()}
                                     <td>{member.category}</td>

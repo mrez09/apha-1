@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use App\Models\News;
 use App\Models\Newscategory;
+use App\Models\Konfigurasi;
 use App\Models\Payment; 
 use Inertia\Inertia;
 use App\Http\Requests\Admin\Payment\Store;
@@ -59,10 +61,51 @@ class PaymentadminController extends Controller
     }
 
     public function show(Payment $payment){
-        //return Inertia::render('Admin/News/Create');
-        //return $request->all();
-    }
+        //url saat ini
+        $cururl           = URL::current();
+        $konfigurasis     = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
+        $paymentjoin      = Payment::select('payments.id as link_id','judul', 'subjudul', 'no_invoice',  'payments.status', 'payments.img', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payments.id_user')->where('payments.no_invoice', '=', $payment->no_invoice)->first();
+        //$tanggal_print    = date('d-m-Y');
+        $tanggal_print    = date('l d M Y ');
+        
+       
+        //Parse Data
+       //$repkonten1    = Str::replace('<p>', '', $buku->sinopsis);
+       //$repkonten2    = Str::replace('</p>', '', $repkonten1);
+       //$des    = Str::words( $repkonten2, 25);
 
+       //$reptag1    = Str::replace('<p>', '', $konfigurasis->metatag);
+       //$metatag    = Str::replace('</p>', '', $reptag1);
+
+       //$cururl     = URL::current();
+       return Inertia::render('Admin/Payment/Show', [
+           'payment'        => $paymentjoin,
+           'tanggal_print'  => $tanggal_print,
+           //'event' => [
+             //  'application-name'          => $konfigurasis->namawebsite,
+               //'title'                     => $buku->name,
+        //       'description'               => $des,
+          //     'keywords'                  => $metatag,
+            //   'image'                     => 'https://apha.or.id/storage/'.$buku->thumbnail,
+           //    'image_type'                => 'image/jpeg',
+      //         'image_width'               => '250',
+        //       'image_height'              => '550',
+          //     'image_alt'                 => $buku->name,
+            //   'og:type'                   => 'book',
+     //          'publish_time'              => $buku->publish_at,
+       //        'article_tag'               => 'Hukum Adat, APHA, Asosisasi Pengajar Hukum Adat',
+       //        'url'                       => $cururl,
+       //        'fb:app_id'                 => $konfigurasis->fbid,
+       //        'theme-color'               => '#ff6300',
+         //      'mobile-web-app-capable'    => 'yes',
+    //           'apple-mobile-web-app-title'=> $buku->name,
+      //         'card'                      => 'summary_large_image',
+        //   ]
+           ]
+       );
+       //return Inertia::render('Admin/News/Create');
+       //return $request->all();
+   }
     public function edit(Payment $payment){
         //return $news;
         //return Inertia::render('Admin/News/Create');
@@ -96,7 +139,7 @@ class PaymentadminController extends Controller
         $payment->update($data);
         return redirect(route('admin.dashboard.payment.index'))->with(
             [
-                'message'   => "Biodata Anda Berhasil diPerbarui",
+                'message'   => "Payment Berhasil diPerbarui",
                 'type'      => "success"
             ]
         );
@@ -117,7 +160,7 @@ class PaymentadminController extends Controller
         $payment->delete();
         return redirect(route('admin.dashboard.payment.index'))->with(
             [
-                'message'   => "Berita Berhasil diDelete",
+                'message'   => "Payment Berhasil diDelete",
                 'type'      => "success"
             ]
             );

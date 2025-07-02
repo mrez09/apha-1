@@ -129,7 +129,7 @@ export default function Edit(props) {
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
-            <Head title="Update Berita" />
+            <Head title="Update Payment" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">

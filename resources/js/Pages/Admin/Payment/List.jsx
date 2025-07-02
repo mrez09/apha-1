@@ -57,6 +57,7 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                 <th>No Invoice</th>
                                 <th>Judul</th>
                                 <th>Name</th>
+                                <th>Bukti Pembayaran</th>
                                 <th>Status</th>
                                 <th>Tanggal Pembayaran</th>
                                 <th>Action</th>
@@ -69,6 +70,15 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                     <td>{news.no_invoice}</td>
                                     <td>{news.judul}</td>
                                     <td>{news.name}</td>
+                                    <td>
+                                        <a
+                                            alt={news.no_invoice}
+                                            download={news.no_invoice}
+                                            href={`/storage/${news.img}`}
+                                        >
+                                            {news.name} - {news.no_invoice}
+                                        </a>
+                                    </td>
                                     <td>
                                         {(() => {
                                             if (news.status == "Belum") {
@@ -93,6 +103,17 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                     </td>
 
                                     <td>
+                                        <a
+                                            href={route(
+                                                "admin.dashboard.payment.show",
+                                                news.no_invoice
+                                            )}
+                                            target="_blank"
+                                        >
+                                            <button className="btn btn-info my-2 me-2">
+                                                Lihat
+                                            </button>
+                                        </a>
                                         <Link
                                             href={route(
                                                 "admin.dashboard.payment.edit",
