@@ -430,9 +430,18 @@ Route::prefix('/')->name('front')->group(function (){
     
         //anggota.dashboard.sertifikat.index
     //Document
-    Route::resource('sertifikat', SertifikatController::class);
+    //Pencarian Sertifikat Old
+    //Route::resource('sertifikat', SertifikatController::class);
     //Route::resource('prosiding', ProsidingController::class);
-    Route::get('sertifikat/search', [SertifikatController::class,'search'])->name('sertifikat.search');
+    //Route::get('sertifikat/search', [SertifikatController::class,'search'])->name('sertifikat.search');
+    
+    //Mencari Sertifikat
+
+    Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
+    Route::post('/sertifikat/search', [SertifikatController::class, 'search'])->name('sertifikat.search');
+    Route::get('/sertifikat/{no}', [SertifikatController::class, 'show'])->name('sertifikat.verify');
+    Route::get('/sertifikat/verify/{no}', [SertifikatController::class, 'verify'])->name('sertifikat.check');
+    //Route::get('/sertifikat/{no}', [SertifikatController::class, 'show'])->name('sertifikat.verify');
     //Route::get('prosiding/{prosiding:slug}', [ProsidingController::class, 'show'])->name('prosiding.show');
 
     //Keanggotaan

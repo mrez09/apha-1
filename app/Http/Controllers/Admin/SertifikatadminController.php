@@ -15,6 +15,7 @@ use Inertia\Inertia;
 use App\Http\Requests\Admin\Sertifikat\Store;
 use App\Http\Requests\Admin\Sertifikat\Update;
 use Storage;
+use App\Helpers\ImagekitHelper;
 
 class SertifikatadminController extends Controller
 {
@@ -42,13 +43,27 @@ class SertifikatadminController extends Controller
 
     public function store(Store $request){
         //return Inertia::render('Admin/News/Create');
-        $data = $request->validated();
+
+        /* Storage Biasa */
+        /*
+        
         if($request->file('img')){
             $data['img'] = Storage::disk("public")->put('sertifikat', $request->file('img'));
         }
+            */
+
+        $data = $request->validated();
+        /* Image Kit */
+        if ($request->file('img')) {
+        try {
+            $data['img'] = ImagekitHelper::uploadImage($request->file('img'));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Upload ke ImageKit gagal: ' . $e->getMessage());
+        }
+    }
         
         //$data['path'] = "/storage/".$data['img'];
-        $data['slug'] = Str::slug($data ['no']);
+        //$data['slug'] = Str::slug($data['no']);
         
       //  $data['dec'] = $data ['konten'];
         //$data['id_user'] = Auth::id();

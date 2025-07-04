@@ -6,59 +6,98 @@ import ListNews from "@/Components/News/ListNews";
 import moment from "moment";
 import Pagination from "@/Components/Page/Pagination";
 import parse from "html-react-parser";
+import { useForm } from "@inertiajs/react";
 
-export default function List({ featuredBuku, news, props }) {
+export default function List({ sertifikat, searchQuery }) {
     //const { newsp } = usePage().props;
 
-    const submit = (e) => {
-        e.preventDefault();
+    const { data, setData, post, processing } = useForm({
+        search: searchQuery || "",
+    });
 
-        get(route("frontsertifikat.search"));
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(route("frontsertifikat.search"));
     };
 
     return (
         <FrontendLayout>
             <Head>
                 <title>
-                    Newsletter Asosiasi Pengajar Hukum Adat (APHA) Indonesia
+                    Sertifikat Asosiasi Pengajar Hukum Adat (APHA) Indonesia
                 </title>
             </Head>
 
             <div className="Container text-center">
-                <h1 className="">News</h1>
+                <h1 className="">Sertifikat</h1>
                 <h2>Asosiasi Pengajar Hukum Adat</h2>
             </div>
 
             {/*News */}
             <div className="album py-5 bg-light">
-                <div className="container">
-                    <div className="row  g-3">
-                        {/*loop*/}
-                        <div class="d-flex align-items-center flex-column ">
-                            <form class="d-flex" onSubmit={submit}>
-                                <input
-                                    className="form-control search-form me-1"
-                                    type="search"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                />
-                                <button
-                                    class="btn btn-outline-primary btn-form"
-                                    type="submit"
-                                >
-                                    Search
-                                </button>
-                                <button
-                                    class="btn btn-outline-primary btn-form"
-                                    type="submit"
-                                >
-                                    pindah
-                                </button>
-                            </form>
+                <div className="container mt-4">
+                    <h2 className="mb-4">🔍 Cari Sertifikat Seminar</h2>
+                    <form onSubmit={handleSubmit} className="mb-4">
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Masukkan No Sertifikat"
+                                value={data.search}
+                                onChange={(e) =>
+                                    setData("search", e.target.value)
+                                }
+                            />
+                            <button
+                                className="btn btn-primary"
+                                type="submit"
+                                disabled={processing}
+                            >
+                                Cari
+                            </button>
                         </div>
-                    </div>
+                    </form>
 
-                    <hr />
+                    {sertifikat && sertifikat.length > 0 ? (
+                        <div className="table-responsive">
+                            <table className="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No Sertifikat</th>
+                                        <th>Nama</th>
+                                        <th>Acara</th>
+                                        <th>File</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {sertifikat.map((s) => (
+                                        <tr key={s.id}>
+                                            <td>{s.no}</td>
+                                            <td>{s.nama}</td>
+                                            <td>{s.judul}</td>
+                                            <td>
+                                                <a
+                                                    href={s.img}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="btn btn-sm btn-success"
+                                                >
+                                                    Lihat Sertifikat
+                                                </a>
+                                                <br />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : searchQuery ? (
+                        <div className="alert alert-warning">
+                            ⚠️ Sertifikat tidak ditemukan untuk:{" "}
+                            <strong>{searchQuery}</strong> Harap masukan No
+                            Sertifikat
+                        </div>
+                    ) : null}
                 </div>
             </div>
         </FrontendLayout>

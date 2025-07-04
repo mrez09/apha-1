@@ -9,51 +9,78 @@ use App\Models\Sertifikat;
 use App\Models\Konfigurasi;
 use Illuminate\Support\Str;
 use Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\HtmlString;
 
 class SertifikatController extends Controller
 {
     //
     public function index()
     {
-        //dd(request('search'));
-        //return Inertia::render('Buku/List');
-        //$featuredNews   = News::whereIsFeatured(true)->get();
-        //$news           = News::where('news.status', '=', 'Publish')->orderBy('publish_at', 'desc')->get();
+        
         $sertifikat       = Sertifikat::where('sertifikats.status', '=', 'Publish')->orderBy('publish_at', 'desc')->get();
-        //$newsp          = News::where('news.status', '=', 'Publish')->orderBy('publish_at', 'desc')->paginate(6);
-        $konfigurasis     = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
-        //$news_p         = News::paginate(15);
-
-        //meta
-        $reptag1    = Str::replace('<p>', '', $konfigurasis->metatag);
-        $metatag    = Str::replace('</p>', '', $reptag1);
-        //url saat ini
-        $cururl     = URL::current();
-        return inertia ('Sertifikat/List',[
-            //'featuredNews'  => $featuredNews,
-            'sertifikat'          => $sertifikat,
-            //'newsp'          => $newsp,
-            
-        ]);
-        /*return  [
-            'featuredNews' => $featuredNews,
-            'news'          => $news,
-        ];*/
+        
+        
+        
+        return inertia('Sertifikat/List', [
+        'sertifikat' => [],
+        'searchQuery' => null
+    ]);
     }
 
     public function search(Request $request){
-        if($request->has('search')){
-            $sertifikat = Sertifikat::where('nama', 'LIKE', '%'.$request->search.'%')->get();
-        }
-        else{
-            $sertifikat = Sertifikat::all();
-        }
+        $request->validate([
+        'search' => 'required|string'
+    ]);
 
-        return inertia ('Sertifikat/List',[
-            //'featuredNews'  => $featuredNews,
-            'sertifikat'          => $sertifikat,
-            //'newsp'          => $newsp,
-            
+    $query = $request->input('search');
+
+    $sertifikat = Sertifikat::where('no', 'LIKE', "%$query%")->get();
+
+    return inertia('Sertifikat/List', [
+        'sertifikat' => $sertifikat,
+        'searchQuery' => $query
+    ]);
+    }
+
+    public function show($no)
+{
+    //$sertifikat = Sertifikat::where('no', $no)->first();
+     $sertifikat = Sertifikat::where('no', $no)->first();
+
+    if (!$sertifikat) {
+        return Inertia::render('Sertifikat/Verifikasi', [
+            'valid' => false,
+            'no' => $no,
         ]);
     }
+
+    //$qr = QrCode::size(200)->generate(route('frontsertifikat.verify', $sertifikat->no));
+    $qr = (string) QrCode::size(200)->generate(route('frontsertifikat.check', $sertifikat->no ));
+    $qrasli = (string) QrCode::size(200)->generate(route('frontsertifikat.verify', $sertifikat->no ));
+
+    
+    return Inertia::render('Sertifikat/Show', [
+        'sertifikat' => $sertifikat,
+        'qrcode' => $qr, // ← ini HTML SVG
+    ]); 
+}
+
+public function verify($no)
+{
+    $sertifikat = Sertifikat::where('no', $no)->first();
+
+    if (!$sertifikat) {
+        return Inertia::render('Sertifikat/Verifikasi', [
+            'valid' => false,
+            'no' => $no,
+        ]);
+    }
+
+    return Inertia::render('Sertifikat/Show', [
+        'valid' => true,
+        'sertifikat' => $sertifikat,
+    ]);
+}
+
 }

@@ -353,7 +353,9 @@ export default function Profile(props) {
                                                         ""
                                                     ) {
                                                         return (
-                                                            <p>Belum Terbit</p>
+                                                            <p className="btn btn-success btn-kecil disabled">
+                                                                Belum Terbit
+                                                            </p>
                                                         );
                                                     } else {
                                                         return (
@@ -378,11 +380,13 @@ export default function Profile(props) {
                                             <label className="form-label">
                                                 {(() => {
                                                     if (
-                                                        props.anggota.no_kta ==
-                                                        ""
+                                                        props.anggota
+                                                            .slug_kta == ""
                                                     ) {
                                                         return (
-                                                            <p>Belum Terbit</p>
+                                                            <p className="btn btn-success btn-kecil disabled">
+                                                                Belum Terbit
+                                                            </p>
                                                         );
                                                     } else {
                                                         return (

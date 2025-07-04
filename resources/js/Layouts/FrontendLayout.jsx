@@ -234,16 +234,40 @@ export default function Guest({ children }, props) {
                                     Galeri
                                 </Link>
                             </li>
-
-                            <li className="nav-item">
-                                <Link
-                                    className="nav-link "
-                                    aria-current="page"
-                                    href={route("frontdokumen.index")}
+                            {/* Document */}
+                            <li className="nav-item dropdown">
+                                <a
+                                    className="nav-link dropdown-toggle"
+                                    href="#"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
                                 >
-                                    Dokumen
-                                </Link>
+                                    File
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li>
+                                        <Link
+                                            className="dropdown-item"
+                                            href={route("frontdokumen.index")}
+                                        >
+                                            Dokumen
+                                        </Link>
+                                    </li>
+
+                                    <li>
+                                        <Link
+                                            className="dropdown-item"
+                                            href={route(
+                                                "frontsertifikat.index"
+                                            )}
+                                        >
+                                            Sertifikat
+                                        </Link>
+                                    </li>
+                                </ul>
                             </li>
+
                             <li className="nav-item">
                                 <Link
                                     className="nav-link "

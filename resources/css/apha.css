@@ -1327,3 +1327,23 @@ figure.card .position {
   figure.card.hover > img {
     right: -12%;
   }*/
+
+/* Sertifikat */
+
+.img-sertifikat {
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+.Prev_serti {
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    padding: 50px;
+}
+.title_Serti {
+    font-size: 24px;
+}
+.Text_Serti {
+    font-size: 18px;
+}

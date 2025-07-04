@@ -27,7 +27,7 @@ class KTAController extends Controller
         //$anggota           = Payment::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
 
         $news           = Payment::all();
-        $newsjoin       = Member::select('members.id as link_id', 'no_kta', 'nama', 'slug_kta', 'id_user', 'id_com', 'kode', 'jk', 'img', 'img_kta')->join('users','users.id',"=",'members.id_user')->where('members.id_user', '=', $user_id)->first();
+        $newsjoin       = Member::select('members.id as link_id', 'no_kta', 'nama', 'slug_kta', 'id_user', 'id_com', 'kode', 'jk', 'img', 'img')->join('users','users.id',"=",'members.id_user')->where('members.id_user', '=', $user_id)->first();
         return Inertia::render('Anggota/KTA/Profile',
         [
             'news'          => $newsjoin,
