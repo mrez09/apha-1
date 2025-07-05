@@ -144,6 +144,13 @@ class KTAController extends Controller
 
   //end
   public function namecard(Member $member){
+    $this->authorize('view', $member);
+ //   dd([
+   // 'auth_user_id' => auth()->id(),
+  //  'member_id_user' => $member->id_user,
+  //  'pass_policy' => auth()->user()->id === $member->id_user,
+//]);
+    //$this->authorize('view', $member);
     //url saat ini
     $cururl           = URL::current();
     $konfigurasis     = Konfigurasi::where('konfigurasis.id', '=', 1)->first();

@@ -83,8 +83,10 @@ class MemberadminController extends Controller
 
     public function update(Update $request, Member $member){
         $data = $request->validated();
+        //$data['slug_kta'] = Str::slug($data ['no_kta']);
+        $data['slug_kta'] = Str::slug(str_replace('/', '-', $data['no_kta']));
         //$data['decription'] = $data['konten'];
-      //  $data['slug_kta'] = Str::slug($data ['no_kta']);
+      
         if($request->file('img')){
             $data['img'] = Storage::disk("public")->put('profile', $request->file('img'));
             //Storage::disk("public")->delete($buku->img);
@@ -103,15 +105,7 @@ class MemberadminController extends Controller
             );
         
         
-        //kreturn $update->all();
-        //return $news;
-        //return Inertia::render('Admin/News/Create');
         
-        //$news           = News::all();
-        //return Inertia::render('Admin/News/Edit',
-        //[
-          //  'news'          => $news
-        //]);
     }
 
     public function destroy(Member $member){

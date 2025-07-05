@@ -204,7 +204,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
 });
 
 //User Control
-    Route::middleware(['auth', 'role:user'])->prefix('anggota')->name('anggota.dashboard.')->group(function (){
+    Route::middleware(['auth', 'role:user|admin'])->prefix('anggota')->name('anggota.dashboard.')->group(function (){
     //Anggota
     Route::get('/', [AnggotaDashboardContoller::class, 'index'])->name('index');
     
