@@ -67,13 +67,12 @@ export default function List({
                                 </div>
 */}
                                 <div className="Prev_serti">
-                                    {sertifikat.img && (
-                                        <img
-                                            src={sertifikat.img}
-                                            className="img-sertifikat"
-                                            alt="Preview Sertifikat"
-                                        />
-                                    )}
+                                    <embed
+                                        src={sertifikat.img}
+                                        width="100%"
+                                        height="500px"
+                                        title="PDF Viewer"
+                                    />
                                 </div>
                             </div>
                         </div>
