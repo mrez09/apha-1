@@ -7,6 +7,7 @@ import ListBuku from "@/Components/Commitee/ListCommitee";
 
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+import _ from "lodash"; // pastikan lodash sudah diinstall
 
 export default function List({
     featuredCommitee,
@@ -17,6 +18,21 @@ export default function List({
     periodeget,
 }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    // 1. Group data berdasarkan jabatan
+    // Group dan urutkan berdasarkan jabatan_id
+    const groupedPengurus = pengurus
+        .filter((p) => p.periode === periodeget.periode_id)
+        .sort((a, b) => a.jabatan_id - b.jabatan_id)
+        .reduce((acc, curr) => {
+            const jabatan = curr.namajabatan;
+            if (!acc[jabatan]) {
+                acc[jabatan] = [];
+            }
+            acc[jabatan].push(curr);
+            return acc;
+        }, {});
+
     return (
         <FrontendLayout>
             <Head>
@@ -163,35 +179,59 @@ export default function List({
                         }
                     })()}
                     <div className="mb-10 p-5 border border-gray-200 rounded-lg">
-                        <table className="table ">
-                            <tbody>
-                                {pengurus.map((listPengurus) => {
-                                    if (
-                                        listPengurus.periode ==
-                                        periodeget.periode_id
-                                    ) {
-                                        return (
-                                            <tr>
-                                                <th className="position">
-                                                    {listPengurus.namajabatan}
-                                                </th>
-                                                <td className="doted">:</td>
-                                                <td className="name-manage">
-                                                    <Link
-                                                        href={route(
-                                                            "frontpengurus.commitee.show",
-                                                            listPengurus.slug
+                        {Object.entries(groupedPengurus).map(
+                            ([jabatan, anggotaList]) => (
+                                <div key={jabatan} className="mb-5">
+                                    <h5 className="mb-3 border-bottom pb-2 text-primary fw-bold">
+                                        {jabatan}
+                                    </h5>
+                                    <div className="row">
+                                        {anggotaList.map((listPengurus) => (
+                                            <div
+                                                className="col-md-4 mb-3"
+                                                key={listPengurus.id}
+                                            >
+                                                <Link
+                                                    href={route(
+                                                        "frontpengurus.commitee.show",
+                                                        listPengurus.slug
+                                                    )}
+                                                >
+                                                    <div className="card h-100 shadow-sm">
+                                                        {listPengurus.img && (
+                                                            <img
+                                                                src={`/storage/${listPengurus.img}`}
+                                                                className="card-img-top"
+                                                                alt={
+                                                                    listPengurus.nama
+                                                                }
+                                                                style={{
+                                                                    objectFit:
+                                                                        "cover",
+                                                                    height: "250px",
+                                                                }}
+                                                            />
                                                         )}
-                                                    >
-                                                        {listPengurus.nama}
-                                                    </Link>
-                                                </td>
-                                            </tr>
-                                        );
-                                    }
-                                })}
-                            </tbody>
-                        </table>
+                                                        <div className="card-body text-center">
+                                                            <h6 className="card-title fw-bold text-primary">
+                                                                {
+                                                                    listPengurus.namajabatan
+                                                                }
+                                                            </h6>
+                                                            <p className="card-text mb-0">
+                                                                {
+                                                                    listPengurus.nama
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )
+                        )}
                     </div>
                 </div>
             </div>
