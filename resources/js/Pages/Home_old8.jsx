@@ -8,8 +8,6 @@ import { Card, Carousel, Col } from "react-bootstrap";
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import featuredBuku from "@/Components/Buku/FeaturedBuku";
-import { FaGoogleScholar } from "react-icons/fa6";
-import { BiWorld } from "react-icons/bi";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -239,24 +237,46 @@ export default function Home({
                                                     <Link
                                                         href={route(
                                                             "frontpengurus.commitee.show",
-                                                            item.slug
+                                                            {
+                                                                slug_kta:
+                                                                    member.slug_kta,
+                                                            }
                                                         )}
                                                         className="text-decoration-none text-dark"
                                                     >
-                                                        <BiWorld className="btn btn-sm me-1 btn-de1" />
+                                                        <button className="btn btn-sm me-1 btn-de1">
+                                                            {item.member_relasi
+                                                                ?.length > 0
+                                                                ? item.member_relasi.map(
+                                                                      (
+                                                                          member,
+                                                                          i
+                                                                      ) => (
+                                                                          <div
+                                                                              key={
+                                                                                  i
+                                                                              }
+                                                                          >
+                                                                              {
+                                                                                  member.nama
+                                                                              }{" "}
+                                                                              (
+                                                                              {
+                                                                                  member.slug_kta
+                                                                              }
+                                                                              )
+                                                                          </div>
+                                                                      )
+                                                                  )
+                                                                : "Tidak ada member"}
+                                                        </button>
                                                     </Link>
-                                                    <a
-                                                        href={
-                                                            item
-                                                                .member_relasi?.[0]
-                                                                ?.scholar ?? "#"
-                                                        }
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="text-decoration-none text-dark"
-                                                    >
-                                                        <FaGoogleScholar className="btn btn-sm me-1 btn-de1" />
-                                                    </a>
+                                                    <button className="btn btn-sm me-1 btn-de1">
+                                                        TW
+                                                    </button>
+                                                    <button className="btn btn-sm me-1 btn-de1">
+                                                        IG
+                                                    </button>
                                                 </div>
                                                 <Link
                                                     href={route(

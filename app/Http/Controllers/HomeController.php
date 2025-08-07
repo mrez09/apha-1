@@ -9,6 +9,7 @@ use App\Models\Buku;
 use App\Models\Banner;
 use App\Models\Konfigurasi;
 use App\Models\Event;
+use App\Models\Commitee;
 
 
 class HomeController extends Controller
@@ -20,6 +21,18 @@ class HomeController extends Controller
         //return Inertia::render('Buku/List');
         $featuredNews   = News::whereIsFeatured(true)->get();
         $news           = News::where('status', '=', 'Publish')->orderBy('publish_at', 'desc')->limit(3)->get();
+        //$commitee       = Commitee::where('is_featured', '=', 1)->orderBy('id', 'desc')->limit(6)->get();
+        //$commitee = Commitee::with('jabatanRelasi')->where('is_featured', 1)->orderBy('id', 'desc')->limit(6)->get();
+        $commitee = Commitee::with([
+        'jabatanRelasi',
+        'divisiRelasi',
+        'subdivisiRelasi',
+        'memberRelasi.user' // Jika kamu juga ingin ambil data user dari member
+    ])
+    ->where('is_featured', 1)
+    ->orderBy('jabatan', 'asc') // Ini field di tabel commitee (FK)
+    ->limit(6)
+    ->get();
         $ticker         = News::orderBy('publish_at', 'desc')->where('news.ticker', '=', 1)->limit(3)->get();
         //$featuredBuku   = Buku::limit(3)->whereIsFeatured(true)->get();
         $featuredBuku   = Buku::orderBy('id', 'desc')->limit(3)->get();
@@ -38,6 +51,7 @@ class HomeController extends Controller
             'featuredNews'  => $featuredNews,
             'featuredBuku'  => $featuredBuku,
             'news'          => $news,
+            'commitee'          => $commitee,
             'ticker'          => $ticker,
             'acara'          => $acara,
             'event' => [

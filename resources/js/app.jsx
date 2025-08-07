@@ -1,5 +1,6 @@
 //import './bootstrap';
-import "../frontend/css/bootstrap.css";
+//import "../frontend/css/bootstrap.css"; //bootstrap biasa
+import "bootstrap/dist/css/bootstrap.min.css";
 //import "../css/app.css";
 import "../css/apha.css";
 import "../css/style.css";

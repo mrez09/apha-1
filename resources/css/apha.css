@@ -1347,3 +1347,103 @@ figure.card .position {
 .Text_Serti {
     font-size: 18px;
 }
+
+/* Card team */
+.team-card {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background-color: #fff;
+}
+
+.wave-top {
+    background: linear-gradient(135deg, #f09819, #ff5858);
+    height: 150px;
+    clip-path: ellipse(150% 100% at 50% 0%);
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 5px solid #f36f56;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+}
+
+.info-badge {
+    background-color: #f36f56;
+    color: #fff;
+    padding: 1rem;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+    margin-top: 80px;
+    height: 100%;
+}
+
+.info-badge h5 {
+    margin: 0;
+    font-weight: bold;
+    text-align: left;
+    width: 95%;
+}
+
+.text-jabatan {
+    text-align: left;
+    font-weight: bold;
+    color: black;
+}
+
+.info-badge small {
+    font-size: 0.85rem;
+}
+/*hover*/
+.team-card-wrapper {
+    position: relative;
+}
+
+.team-card .social-buttons {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.sosmed-button {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 5;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.btn-de1 {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 10px;
+    border: gray 1px solid;
+}
+
+.btn-de1:hover {
+    background-color: #f36f56;
+}
+
+.team-card:hover .sosmed-button {
+    top: 20px; /* jatuh ke posisi ini */
+    opacity: 1;
+}

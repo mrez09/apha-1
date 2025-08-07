@@ -4,12 +4,10 @@ import NavbarGuest from "@/Pages/layouts/frontend/NavbarApha";
 import { Link, Head, useForm } from "@inertiajs/react";
 import moment from "moment";
 import parse from "html-react-parser";
-import { Card, Carousel, Col } from "react-bootstrap";
+
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import featuredBuku from "@/Components/Buku/FeaturedBuku";
-import { FaGoogleScholar } from "react-icons/fa6";
-import { BiWorld } from "react-icons/bi";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -21,7 +19,6 @@ export default function Home({
     flashMessage,
     props,
     news,
-    commitee,
     featuredBuku,
     mainBanner,
     featuredBanner,
@@ -30,11 +27,6 @@ export default function Home({
     acara,
 }) {
     const { delete: destroy } = useForm();
-
-    const chunked = [];
-    for (let i = 0; i < commitee.length; i += 3) {
-        chunked.push(commitee.slice(i, i + 3));
-    }
 
     return (
         <FrontendLayout>
@@ -57,9 +49,6 @@ export default function Home({
                 </div>
             </div>
 
-            {
-                //Carousel
-            }
             <main>
                 <div
                     id="bannerCarousel"
@@ -217,85 +206,174 @@ export default function Home({
 
             {/*Dewan Pembina*/}
 
-            <div className="container py-5">
-                <h2 className="text-center fw-bold mb-4 ">
-                    SUSUNAN DEWAN PEMBINA
-                </h2>
-
-                <Carousel variant="dark" interval={null}>
-                    {chunked.map((group, index) => (
-                        <Carousel.Item key={index}>
-                            <div className="row justify-content-center g-4">
-                                {group.map((item) => (
-                                    <div
-                                        className="col-md-4 mb-4"
-                                        key={item.id}
-                                    >
-                                        <div className="team-card-wrapper h-100">
-                                            <Card className="team-card text-center h-100 shadow-sm border-0">
-                                                <div className="wave-top"></div>
-                                                {/* Tombol sosial media, muncul saat hover */}
-                                                <div className="sosmed-button">
-                                                    <Link
-                                                        href={route(
-                                                            "frontpengurus.commitee.show",
-                                                            item.slug
-                                                        )}
-                                                        className="text-decoration-none text-dark"
-                                                    >
-                                                        <BiWorld className="btn btn-sm me-1 btn-de1" />
-                                                    </Link>
-                                                    <a
-                                                        href={
-                                                            item
-                                                                .member_relasi?.[0]
-                                                                ?.scholar ?? "#"
-                                                        }
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="text-decoration-none text-dark"
-                                                    >
-                                                        <FaGoogleScholar className="btn btn-sm me-1 btn-de1" />
-                                                    </a>
-                                                </div>
-                                                <Link
-                                                    href={route(
-                                                        "frontpengurus.commitee.show",
-                                                        item.slug
-                                                    )}
-                                                    className="text-decoration-none text-dark"
-                                                >
-                                                    <Card.Img
-                                                        variant="top"
-                                                        src={`/storage/${item.img}`}
-                                                        alt={item.nama}
-                                                        className="profile-img"
-                                                    />
-                                                    <Card.Body className="info-badge position-relative">
-                                                        <h5 className="card-title mb-1 text-left">
-                                                            {item.nama}
-                                                        </h5>
-                                                        <p
-                                                            className="text-jabatan mb-2"
-                                                            style={{
-                                                                fontSize:
-                                                                    "0.9rem",
-                                                            }}
-                                                        >
-                                                            {item.jabatan_relasi
-                                                                ?.namajabatan ??
-                                                                "-"}
-                                                        </p>
-                                                    </Card.Body>
-                                                </Link>
-                                            </Card>
+            <div className="container council py-5">
+                <h1 className="mx-auto de1 ">SUSUNAN DEWAN PEMBINA</h1>
+                <div className="row py-3">
+                    <div
+                        id="de1Carousel"
+                        class="carousel carousel-dark slide"
+                        data-bs-ride="false"
+                    >
+                        <div class="carousel-indicators">
+                            <button
+                                type="button"
+                                data-bs-target="#de1Carousel"
+                                data-bs-slide-to="0"
+                                class="active"
+                                aria-current="true"
+                                aria-label="Slide 1"
+                            ></button>
+                            <button
+                                type="button"
+                                data-bs-target="#de1Carousel"
+                                data-bs-slide-to="1"
+                                aria-label="Slide 2"
+                            ></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="card-group ">
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Aminuddin-Salle.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. H. Aminuddin Salle,
+                                                SH, MH
+                                            </h5>
+                                            <p class="card-text">Ketua</p>
                                         </div>
                                     </div>
-                                ))}
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Sulistyowati-Irianto.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Sulistyowati Irianto,
+                                                MA
+                                            </h5>
+                                            <p class="card-text">Wakil Ketua</p>
+                                        </div>
+                                    </div>
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Wayan.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Wayan P. Windia, SH,
+                                                Msi
+                                            </h5>
+                                            <p class="card-text">Wakil Ketua</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </Carousel.Item>
-                    ))}
-                </Carousel>
+                            <div class="carousel-item">
+                                <div class="card-group">
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Catharina-Dewi-Wulansari.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Dr. Ch. Dewi
+                                                Wulansari, Ph. D, SH, MH, SE, MM
+                                            </h5>
+                                            <p class="card-text">Sekretaris</p>
+                                        </div>
+                                    </div>
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Endang-Sumiarni.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Dra. MG Endang
+                                                Sumiarni, SH, Mhum
+                                            </h5>
+                                            <p class="card-text">&nbsp;</p>
+                                        </div>
+                                    </div>
+                                    <div class="card de1">
+                                        <img
+                                            src="https://penerbit.lshi.or.id/assets/image/apha/Pengurus/Rato.png"
+                                            className="de1-pic bd-placeholder-img rounded-circle"
+                                            width="140"
+                                            height="140"
+                                            aria-label="Placeholder: 140x140"
+                                            preserveAspectRatio="xMidYMid slice"
+                                            focusable="false"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Prof. Dr. Dominikus Rato, SH,
+                                                M.Si
+                                            </h5>
+                                            <p class="card-text">&nbsp;</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            class="carousel-control-prev"
+                            type="button"
+                            data-bs-target="#de1Carousel"
+                            data-bs-slide="prev"
+                        >
+                            <span
+                                class="carousel-control-prev-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button
+                            class="carousel-control-next"
+                            type="button"
+                            data-bs-target="#de1Carousel"
+                            data-bs-slide="next"
+                        >
+                            <span
+                                class="carousel-control-next-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             {/*News */}
