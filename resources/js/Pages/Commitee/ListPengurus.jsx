@@ -159,56 +159,60 @@ export default function List({
 
                     {subdivisi.map((listSub) => {
                         return (
-                            <div className="mb-10 border border-gray-200 rounded-lg card">
-                                {(() => {
-                                    if (listSub.id == 1) {
-                                        return <h3></h3>;
-                                    } else {
-                                        return (
-                                            <div className="card-header ">
-                                                <h3>{listSub.namasubdivisi}</h3>
-                                            </div>
-                                        );
-                                    }
-                                })()}
+                            <div key={listSub.id} className="mb-10">
+                                {listSub.id != 1 && (
+                                    <h3 className="mb-3 fw-bold">
+                                        {listSub.namasubdivisi}
+                                    </h3>
+                                )}
 
-                                <table className="table m-3 table-borderless">
-                                    <tbody>
-                                        {pengurus.map((listPengurus) => {
-                                            if (
-                                                listSub.namasubdivisi ==
-                                                    listPengurus.namasubdivisi &&
-                                                periodeget.periode_id ==
-                                                    listPengurus.periode
-                                            ) {
-                                                return (
-                                                    <tr>
-                                                        <td className="position">
-                                                            {
-                                                                listPengurus.namajabatan
-                                                            }
-                                                        </td>
-                                                        <td className="doted">
-                                                            :
-                                                        </td>
-                                                        <td className="name-manage">
-                                                            <Link
-                                                                href={route(
-                                                                    "frontpengurus.commitee.show",
-                                                                    listPengurus.slug
-                                                                )}
-                                                            >
-                                                                {
-                                                                    listPengurus.nama
-                                                                }
-                                                            </Link>
-                                                        </td>
-                                                    </tr>
-                                                );
-                                            }
-                                        })}
-                                    </tbody>
-                                </table>
+                                <div className="row">
+                                    {pengurus
+                                        .filter(
+                                            (p) =>
+                                                p.namasubdivisi ===
+                                                    listSub.namasubdivisi &&
+                                                p.periode ===
+                                                    periodeget.periode_id
+                                        )
+                                        .map((p) => (
+                                            <Link
+                                                href={route(
+                                                    "frontpengurus.commitee.show",
+                                                    p.slug
+                                                )}
+                                                key={p.commitees_id}
+                                                target="_blank"
+                                                className="col-md-4 mb-4"
+                                            >
+                                                <div>
+                                                    <div className="card h-100 shadow-sm">
+                                                        {p.img && (
+                                                            <img
+                                                                //src={p.img}
+                                                                src={`/storage/${p.img}`}
+                                                                alt={p.nama}
+                                                                className="card-img-top"
+                                                                style={{
+                                                                    height: "200px",
+                                                                    objectFit:
+                                                                        "cover",
+                                                                }}
+                                                            />
+                                                        )}
+                                                        <div className="card-body">
+                                                            <h5 className="card-title">
+                                                                {p.nama}
+                                                            </h5>
+                                                            <p className="card-text text-muted">
+                                                                {p.namajabatan}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                </div>
                             </div>
                         );
                     })}

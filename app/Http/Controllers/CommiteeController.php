@@ -73,7 +73,25 @@ class CommiteeController extends Controller
         
         $subdivisi          = Subdivisi::all();
         $konfigurasi        = Konfigurasi::all();
-        $pengurus           = Commitee::select('commitees.id as commitees_id', 'periodes.id as periode_id','nama', 'slug', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan', 'namaperiode', 'commitees.periode as periode')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->where('divisi', '=', 2)->get();
+        //$pengurus           = Commitee::select('commitees.id as commitees_id', 'periodes.id as periode_id','nama', 'slug', 'img', 'namadivisi', 'namasubdivisi', 'namajabatan', 'namaperiode', 'commitees.periode as periode')->join('divisis','divisis.id',"=",'commitees.divisi')->join('subdivisis','subdivisis.id',"=",'commitees.subdivisi')->join('jabatans', 'jabatans.id',"=",'commitees.jabatan')->join('periodes', 'periodes.id',"=",'commitees.periode')->where('divisi', '=', 2)->get();
+        $pengurus = Commitee::select(
+            'commitees.id as commitees_id', 'periodes.id as periode_id',
+            'nama',
+            'slug',
+            'img',
+            'namadivisi',
+            'namasubdivisi',
+            'namajabatan',
+            'namaperiode',
+            'commitees.periode as periode'
+        )
+            ->join('divisis', 'divisis.id', '=', 'commitees.divisi')
+            ->join('subdivisis', 'subdivisis.id', '=', 'commitees.subdivisi')
+            ->join('jabatans', 'jabatans.id', '=', 'commitees.jabatan')
+            ->join('periodes', 'periodes.id', '=', 'commitees.periode')
+            ->where('divisi', '=', 2)
+            ->orderBy('jabatans.id', 'asc') // urut dari jabatan tertinggi ke rendah
+            ->get();
         $periodeget         = Konfigurasi::select('periodes.id as periode_id', 'namaperiode' ,'pengurus')->join('periodes', 'konfigurasis.pengurus',"=",'periodes.id')->where('konfigurasis.id', '=', 1)->first();
         $konfigurasis       = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
         return Inertia::render('Commitee/ListPengurus', 
