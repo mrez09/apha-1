@@ -65,11 +65,40 @@ export default function List(props) {
         );
     };
 
+    const submit = async (e) => {
+        e.preventDefault();
+
+        let imageUrl = data.link;
+
+        if (data.img instanceof File) {
+            const formData = new FormData();
+            formData.append("file", data.img);
+
+            const uploadRes = await fetch("/upload-imagekit", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await uploadRes.json();
+            if (result.success) {
+                imageUrl = result.url;
+                setData("link", imageUrl);
+            } else {
+                alert("Upload gagal");
+                return;
+            }
+        }
+
+        post(route("admin.dashboard.sertifikat.store"));
+    };
+
+    /* old
     const submit = (e) => {
         e.preventDefault();
 
         post(route("admin.dashboard.sertifikat.store"));
     };
+    */
 
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
