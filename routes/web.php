@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin\EventadminController;
 use App\Http\Controllers\Admin\MemberadminController;
 use App\Http\Controllers\Admin\SertifikatadminController;
 use App\Http\Controllers\Admin\PaymentadminController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Anggota\DashboardController as AnggotaDashboardContoller;
 use App\Http\Controllers\Anggota\ProfileController as AnggotaProfileController;
 use App\Http\Controllers\Anggota\MemberController;
@@ -184,6 +185,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::resource('sertifikat', SertifikatadminController::class);
     Route::get('sertifikat/{document}/edit', [SertifikatadminController::class, 'edit'])->name('sertifikat.edit');
     Route::put('sertifikat/{document}/restore', [SertifikatadminController::class, 'restore'])->name('sertifikat.restore');
+    //Route::post('sertifikat/upload-sertifikat', [UploadController::class, 'upload'])->name('upload.sertifikat');
+    Route::post('/sertifikat/upload-sertifikat', [UploadController::class, 'upload']);
 
     //Sertifikat
     //Periode

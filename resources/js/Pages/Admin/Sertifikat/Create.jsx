@@ -12,6 +12,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import Select from "react-select";
+import axios from "axios";
 
 //Tabs
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -20,6 +21,7 @@ import "react-tabs/style/react-tabs.css";
 export default function List(props) {
     const [users, setUsers] = useState();
     const [userId, setUserId] = useState();
+    const [imageUrl, setImageUrl] = useState("");
 
     const option =
         props.newscategory &&
@@ -63,6 +65,31 @@ export default function List(props) {
                 ? event.target.files[0]
                 : event.target.value
         );
+    };
+
+    const handleUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        let formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const res = await axios.post(
+                "/dashboard/sertifikat/upload-sertifikat",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+
+            setImageUrl(res.data.url); // untuk preview
+            console.log("Upload sukses:", res.data);
+        } catch (err) {
+            console.error("Upload gagal:", err);
+        }
     };
 
     const submit = async (e) => {
@@ -300,18 +327,30 @@ export default function List(props) {
                                         <label className="form-label">
                                             File
                                         </label>
+
                                         <input
                                             type="file"
                                             name="img"
                                             placeholder="Masukan File Sertifikat"
                                             className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                            onChange={onHandleChange}
+                                            //onChange={onHandleChange}
+                                            onChange={handleUpload}
                                         />
+
                                         <div className="">
                                             <InputError
                                                 message={errors.img}
                                                 className="mt-2"
                                             />
+                                        </div>
+                                        <div>
+                                            {imageUrl && (
+                                                <img
+                                                    src={imageUrl}
+                                                    alt="Preview Sertifikat"
+                                                    width="300"
+                                                />
+                                            )}
                                         </div>
                                     </div>
                                 </TabPanel>
