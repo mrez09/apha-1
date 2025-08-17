@@ -85,7 +85,7 @@ export default function List(props) {
                 }
             );
 
-            setImageUrl(res.data.url); // untuk preview
+            setImageUrl(res.data.img); // untuk preview
             console.log("Upload sukses:", res.data);
         } catch (err) {
             console.error("Upload gagal:", err);
@@ -95,28 +95,54 @@ export default function List(props) {
     const submit = async (e) => {
         e.preventDefault();
 
-        let imageUrl = data.link;
+        let imageUrl = "";
 
-        if (data.img instanceof File) {
+        // ✅ kalau sebelumnya sudah pakai handleUpload → imageUrl udah jadi
+        if (typeof data.img === "string" && data.img.startsWith("http")) {
+            imageUrl = data.img;
+        }
+        // ✅ kalau user upload file langsung (belum lewat handleUpload)
+        else if (data.img instanceof File) {
             const formData = new FormData();
             formData.append("file", data.img);
 
-            const uploadRes = await fetch("/upload-imagekit", {
-                method: "POST",
-                body: formData,
-            });
+            try {
+                const uploadRes = await fetch("/upload-imagekit", {
+                    method: "POST",
+                    body: formData,
+                });
 
-            const result = await uploadRes.json();
-            if (result.success) {
-                imageUrl = result.url;
-                setData("link", imageUrl);
-            } else {
-                alert("Upload gagal");
+                const result = await uploadRes.json();
+
+                if (result.success) {
+                    imageUrl = result.url;
+                } else {
+                    alert("Upload gagal");
+                    return;
+                }
+            } catch (error) {
+                console.error("Upload error:", error);
+                alert("Terjadi kesalahan saat upload.");
                 return;
             }
         }
+        // ✅ kalau ga ada file tapi ada link eksternal
+        else if (data.link && data.link.trim() !== "") {
+            imageUrl = data.link.trim();
+        }
+        // ❌ kalau dua-duanya kosong
+        else {
+            alert("Harus upload gambar atau isi link eksternal!");
+            return;
+        }
 
-        post(route("admin.dashboard.sertifikat.store"));
+        // ✅ submit ke Laravel
+        post(route("admin.dashboard.sertifikat.store"), {
+            data: {
+                ...data,
+                img: imageUrl, // simpan URL final ke DB
+            },
+        });
     };
 
     /* old
