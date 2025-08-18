@@ -74,7 +74,9 @@ export default function List({ sertifikat, searchQuery }) {
                                         <tr key={s.id}>
                                             <td>{s.no}</td>
                                             <td>{s.nama}</td>
-                                            <td>{s.judul}</td>
+                                            <td>
+                                                {s.judul} - {s.img}
+                                            </td>
                                             <td>
                                                 <a
                                                     href={s.img}

@@ -33,9 +33,9 @@ class UploadController extends Controller
             ]);
 
             return response()->json([
-    'success' => true,
-    'img' => $upload->result->url, // ganti jadi "img"
-]);
+                'success' => true,
+            'img' => $upload->result->url, // ganti jadi "img"
+            ]);
         }
 
         return response()->json(['error' => 'No file uploaded'], 400);

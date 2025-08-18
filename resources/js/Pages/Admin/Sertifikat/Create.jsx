@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import Select from "react-select";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 //Tabs
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -49,7 +50,6 @@ export default function List(props) {
     const { setData, post, processing, errors } = useForm({
         no: "",
         nama: "",
-        nama: "",
         id_user: "",
         judul: "",
         status: "",
@@ -78,16 +78,15 @@ export default function List(props) {
             const res = await axios.post(
                 "/dashboard/sertifikat/upload-sertifikat",
                 formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
+                { headers: { "Content-Type": "multipart/form-data" } }
             );
 
-            setImageUrl(res.data.img); // untuk preview
-            console.log("Upload sukses:", res.data);
+            const imageUrl = res.data.img;
+            setImageUrl(imageUrl);
+            setData("img", imageUrl);
+            toast.success("Upload berhasil!");
         } catch (err) {
+            toast.error("Upload gagal, coba lagi!");
             console.error("Upload gagal:", err);
         }
     };
@@ -95,52 +94,12 @@ export default function List(props) {
     const submit = async (e) => {
         e.preventDefault();
 
-        let imageUrl = "";
-
-        // ✅ kalau sebelumnya sudah pakai handleUpload → imageUrl udah jadi
-        if (typeof data.img === "string" && data.img.startsWith("http")) {
-            imageUrl = data.img;
-        }
-        // ✅ kalau user upload file langsung (belum lewat handleUpload)
-        else if (data.img instanceof File) {
-            const formData = new FormData();
-            formData.append("file", data.img);
-
-            try {
-                const uploadRes = await fetch("/upload-imagekit", {
-                    method: "POST",
-                    body: formData,
-                });
-
-                const result = await uploadRes.json();
-
-                if (result.success) {
-                    imageUrl = result.url;
-                } else {
-                    alert("Upload gagal");
-                    return;
-                }
-            } catch (error) {
-                console.error("Upload error:", error);
-                alert("Terjadi kesalahan saat upload.");
-                return;
-            }
-        }
-        // ✅ kalau ga ada file tapi ada link eksternal
-        else if (data.link && data.link.trim() !== "") {
-            imageUrl = data.link.trim();
-        }
-        // ❌ kalau dua-duanya kosong
-        else {
-            alert("Harus upload gambar atau isi link eksternal!");
-            return;
-        }
-
-        // ✅ submit ke Laravel
         post(route("admin.dashboard.sertifikat.store"), {
-            data: {
-                ...data,
-                img: imageUrl, // simpan URL final ke DB
+            onSuccess: () => {
+                console.log("Sertifikat berhasil disimpan");
+            },
+            onError: (errors) => {
+                console.log("Error submit:", errors);
             },
         });
     };

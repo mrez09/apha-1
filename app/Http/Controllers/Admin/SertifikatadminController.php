@@ -54,13 +54,9 @@ class SertifikatadminController extends Controller
 
         $data = $request->validated();
         /* Image Kit */
-        if ($request->file('img')) {
-        try {
-            $data['img'] = ImagekitHelper::uploadImage($request->file('img'));
-        } catch (\Exception $e) {
-            return back()->with('error', 'Upload ke ImageKit gagal: ' . $e->getMessage());
+        if ($request->has('img')) {
+            $data['img'] = $request->img; // langsung simpan URL
         }
-    }
         
         //$data['path'] = "/storage/".$data['img'];
         //$data['slug'] = Str::slug($data['no']);

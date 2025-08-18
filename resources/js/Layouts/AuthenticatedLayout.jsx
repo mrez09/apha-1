@@ -4,6 +4,8 @@ import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -11,6 +13,7 @@ export default function Authenticated({ auth, header, children }) {
 
     return (
         <div className="min-h-screen bg-gray-100">
+            <ToastContainer position="top-right" autoClose={3000} />
             <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
                 <a
                     className="navbar-brand col-md-3 col-lg-2 me-0 px-3"
