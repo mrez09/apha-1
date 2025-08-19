@@ -13,7 +13,6 @@ export default function Authenticated({ auth, header, children }) {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <ToastContainer position="top-right" autoClose={3000} />
             <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
                 <a
                     className="navbar-brand col-md-3 col-lg-2 me-0 px-3"
@@ -554,6 +553,7 @@ export default function Authenticated({ auth, header, children }) {
 
                     <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                         {children}
+                        <ToastContainer position="top-right" autoClose={3000} />
                     </main>
                 </div>
             </div>

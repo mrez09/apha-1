@@ -47,7 +47,7 @@ export default function List(props) {
         serverSide: false,
     });
 
-    const { setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         no: "",
         nama: "",
         id_user: "",
@@ -82,8 +82,10 @@ export default function List(props) {
             );
 
             const imageUrl = res.data.img;
+
             setImageUrl(imageUrl);
             setData("img", imageUrl);
+
             toast.success("Upload berhasil!");
         } catch (err) {
             toast.error("Upload gagal, coba lagi!");
@@ -93,13 +95,25 @@ export default function List(props) {
 
     const submit = async (e) => {
         e.preventDefault();
+        console.log("Final data sebelum submit:", data);
+        if (
+            (!data.img || data.img === "") &&
+            (!data.link || data.link.trim() === "")
+        ) {
+            toast.warning("Harus upload gambar atau isi link eksternal!");
+            console.log("tidak ada gambar atau link:", data);
+            return;
+        }
 
         post(route("admin.dashboard.sertifikat.store"), {
             onSuccess: () => {
                 console.log("Sertifikat berhasil disimpan");
+                toast.success("Sertifikat berhasil disimpan!");
             },
             onError: (errors) => {
+                // looping error laravel
                 console.log("Error submit:", errors);
+                Object.values(errors).forEach((msg) => toast.error(msg));
             },
         });
     };
@@ -122,7 +136,7 @@ export default function List(props) {
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href={route("admin.dashboard.document.index")}
+                            href={route("admin.dashboard.sertifikat.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
@@ -306,6 +320,17 @@ export default function List(props) {
                                     <Tab>Upload Image</Tab>
                                     <Tab>Link Image</Tab>
                                 </TabList>
+                                {/* Laravel validation (server side) */}
+                                {errors.img && (
+                                    <div className="alert alert-danger">
+                                        {errors.img}
+                                    </div>
+                                )}
+                                {errors.link && (
+                                    <div className="alert alert-danger">
+                                        {errors.link}
+                                    </div>
+                                )}
 
                                 <TabPanel>
                                     <div className="col-sm-6">
