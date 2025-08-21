@@ -73,4 +73,65 @@ class SertifikatadminController extends Controller
             );
         //return $request->all();
     }
+
+    public function edit(Sertifikat $sertifikat){
+        //return $news;
+        //return Inertia::render('Admin/News/Create');
+        //return $request->all();
+        //$news           = News::all();
+        //$newscategory           = Dokumen::all();
+        //$categoryget           = News::select('newscategories.id as newscategories_id','namakategori', 'newscategories.slug')->join('newscategories','newscategories.id',"=",'news.category')->where('newscategories.id', '=', $news->category)->first();
+        $usercategory           = User::all();
+        return Inertia::render('Admin/Sertifikat/Edit',
+        [
+            'sertifikat'            => $sertifikat,
+            'usercategory'          => $usercategory,
+            //'categoryget'         => $categoryget
+        ]);
+    }
+
+    public function update(Update $request, Sertifikat $sertifikat){
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data ['title']);
+        if($request->file('file')){
+            $data['file'] = Storage::disk("public")->put('file', $request->file('file'));
+            Storage::disk("public")->delete($document->file);
+        } else {
+            $data['file'] = $document->file;
+        }
+
+        //$path = Storage::url('public');
+
+        //$img = '<img src"' .$path.'" alt=""/>';
+
+        $document->update($data);
+        return redirect(route('admin.dashboard.document.index'))->with(
+            [
+                'message'   => "Document Berhasil diUpdate",
+                'type'      => "success"
+            ]
+            );
+        
+        
+        //return $request->all();
+        //return $news;
+        //return Inertia::render('Admin/News/Create');
+        
+        //$news           = News::all();
+        //return Inertia::render('Admin/News/Edit',
+        //[
+          //  'news'          => $news
+        //]);
+    }
+
+    public function destroy(Sertifikat $sertifikat){
+        $dokumen->delete();
+        return redirect(route('admin.dashboard.sertifikat.index'))->with(
+            [
+                'message'   => "Sertifikat Berhasil diDelete",
+                'type'      => "success"
+            ]
+            );
+        //return $news;
+    }
 }

@@ -11,6 +11,11 @@ import { Link, useForm, router } from "@inertiajs/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import Select from "react-select";
+
+//Tabs
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -101,6 +106,15 @@ export default function List(props) {
         serverSide: false,
     });
 
+    const option =
+        props.usercategory &&
+        props.usercategory.map((usercategory) => {
+            return {
+                label: usercategory.name,
+                value: usercategory.id,
+            };
+        });
+
     const { data, setData, processing, errors } = useForm({
         ...props.document,
     });
@@ -131,19 +145,19 @@ export default function List(props) {
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
-            <Head title="Update Dokumen Asosiasi Pengajar Hukum Adat Indonesia" />
+            <Head title="Update Sertifikat Asosiasi Pengajar Hukum Adat Indonesia" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Dokumen Asosiasi Pengajar Hukum Adat Indonesia :{" "}
-                    <p>{props.document.title}</p>
+                    Update Sertifikat Asosiasi Pengajar Hukum Adat Indonesia :{" "}
+                    <p>{props.sertifikat.title}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href={route("admin.dashboard.document.index")}
+                            href={route("admin.dashboard.sertifikat.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
@@ -159,12 +173,14 @@ export default function List(props) {
                     <form onSubmit={submit}>
                         <div className="row g-3">
                             <div className="col-sm-12">
-                                <label className="form-label">Judul</label>
+                                <label className="form-label">
+                                    No Sertifikat
+                                </label>
                                 <input
                                     type="text"
                                     name="title"
-                                    defaultValue={props.document.title}
-                                    placeholder="Masukan Judul"
+                                    defaultValue={props.sertifikat.no}
+                                    placeholder="Masukan No Sertifikat"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     autoComplete="judul"
                                     onChange={onHandleChange}
@@ -177,27 +193,117 @@ export default function List(props) {
                                 </div>
                             </div>
 
-                            <div className="col-sm-6">
-                                <label className="form-label">File</label>
+                            <div className="col-md-6">
+                                <label className="form-label">
+                                    Diberikan Kepada
+                                </label>
 
-                                <input
-                                    type="file"
-                                    name="file"
-                                    placeholder="Masukan File"
+                                {/* 
+                                <Select
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    onChange={onHandleChange}
+                                    id="id_user"
+                                    name="id_user"
+                                    options={props.newscategory.map(
+                                        (newscategory) => {
+                                            return {
+                                                value: newscategory.id,
+                                                label: newscategory.name,
+                                            };
+                                        }
+                                    )}
+                                    onChange={(option) =>
+                                        setUserId(option.value)
+                                    }
                                 />
-                                <div className="invalid-feedback">
+                                */}
+
+                                <Select
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="id_user"
+                                    name="id_user"
+                                    value={option.label}
+                                    options={option}
+                                    onChange={(option) => {
+                                        setUserId(option.value);
+                                        setData("id_user", option.value);
+                                        console.log(option.value);
+                                    }}
+                                />
+
+                                <div className="text-danger">
                                     <InputError
-                                        message={errors.file}
+                                        message={errors.id_user}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
 
+                            <div className="col-sm-12">
+                                <label className="form-label">
+                                    Nama Pemilik
+                                </label>
+                                <input
+                                    type="text"
+                                    name="nama"
+                                    placeholder="Masukan Nama Pemilik"
+                                    defaultValue={props.sertifikat.nama}
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="nama"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.nama}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-sm-12">
+                                <label className="form-label">
+                                    Judul Sertifikat
+                                </label>
+                                <input
+                                    type="text"
+                                    name="judul"
+                                    defaultValue={props.sertifikat.judul}
+                                    placeholder="Masukan Judul Sertifikat"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="judul"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.judul}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">
+                                    Status Sertifikat
+                                </label>
+                                <select
+                                    className="form-control  mb-3form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="status"
+                                    name="status"
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Choose...</option>
+                                    <option value="0">Tidak Aktif</option>
+                                    <option value="1">Aktif</option>
+                                </select>
+                                <div className="invalid-feedback">
+                                    <InputError
+                                        message={errors.status}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
                             <div className="col-sm-6">
                                 <label className="form-label">
-                                    Tanggal Upload
+                                    Tanggal Sertifikat
                                 </label>
                                 <div className="form-control">
                                     <DatePicker
@@ -224,62 +330,67 @@ export default function List(props) {
                                         //onSelect={(date, e) => setStartDate(date)}
                                     />
                                 </div>
-                            </div>
-
-                            {
-                                //featured baru
-                            }
-
-                            <div className="col-md-4">
-                                <label className="form-label">
-                                    Status Document
-                                </label>
-                                <select
-                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="status"
-                                    name="status"
-                                    onChange={onHandleChange}
-                                    required
-                                >
-                                    <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.document.status == 0) {
-                                            return (
-                                                <option value="0" selected>
-                                                    Draft
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="0">Draft</option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.document.status == 1) {
-                                            return (
-                                                <option value="1" selected>
-                                                    Publish
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="1">
-                                                    Publish
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-                                </select>
-                                <div className="invalid-feedback">
+                                <div className="">
                                     <InputError
-                                        message={errors.status}
+                                        message={errors.publish_at}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
+
+                            <hr />
+                            <h3>File Sertifikat</h3>
+                            <p>Harap Pilih Salah Satu</p>
+
+                            <Tabs>
+                                <TabList>
+                                    <Tab>Upload Image</Tab>
+                                    <Tab>Link Image</Tab>
+                                </TabList>
+
+                                <TabPanel>
+                                    <div className="col-sm-6">
+                                        <label className="form-label">
+                                            File
+                                        </label>
+
+                                        <input
+                                            type="file"
+                                            name="file"
+                                            placeholder="Masukan File"
+                                            className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                            onChange={onHandleChange}
+                                        />
+                                        <div className="invalid-feedback">
+                                            <InputError
+                                                message={errors.file}
+                                                className="mt-2"
+                                            />
+                                        </div>
+                                    </div>
+                                </TabPanel>
+                                <TabPanel>
+                                    <div className="col-sm-12">
+                                        <label className="form-label">
+                                            Link Sertifikat
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="link"
+                                            placeholder="Masukan Link Sertifikat"
+                                            className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                            autoComplete="link"
+                                            onChange={onHandleChange}
+                                        />
+                                        <div className="">
+                                            <InputError
+                                                message={errors.link}
+                                                className="mt-2"
+                                            />
+                                        </div>
+                                    </div>
+                                </TabPanel>
+                            </Tabs>
 
                             {
                                 //featured
@@ -312,27 +423,6 @@ export default function List(props) {
                             </div>
                             */
                             }
-
-                            <div className="col-sm-12">
-                                <label className="form-label">Deskripsi</label>
-
-                                <textarea
-                                    className="form-control deksripsi"
-                                    name="deskripsi"
-                                    defaultValue={props.document.deskripsi}
-                                    id="exampleFormControlTextarea1"
-                                    rows="3"
-                                    autoComplete="deskripsi"
-                                    onChange={onHandleChange}
-                                ></textarea>
-
-                                <div className="">
-                                    <InputError
-                                        message={errors.deskripsi}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
 
                             <hr className="my-4"></hr>
 

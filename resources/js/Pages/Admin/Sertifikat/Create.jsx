@@ -320,17 +320,6 @@ export default function List(props) {
                                     <Tab>Upload Image</Tab>
                                     <Tab>Link Image</Tab>
                                 </TabList>
-                                {/* Laravel validation (server side) */}
-                                {errors.img && (
-                                    <div className="alert alert-danger">
-                                        {errors.img}
-                                    </div>
-                                )}
-                                {errors.link && (
-                                    <div className="alert alert-danger">
-                                        {errors.link}
-                                    </div>
-                                )}
 
                                 <TabPanel>
                                     <div className="col-sm-6">

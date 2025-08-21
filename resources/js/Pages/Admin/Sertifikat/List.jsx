@@ -109,19 +109,19 @@ export default function List({
                                     <td>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.document.edit",
+                                                "admin.dashboard.sertifikat.edit",
                                                 document.id
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
-                                                Detail
+                                                Edit
                                             </button>
                                         </Link>
                                         <span
                                             onClick={() => {
                                                 destroy(
                                                     route(
-                                                        "admin.dashboard.document.destroy",
+                                                        "admin.dashboard.sertifikat.destroy",
                                                         document.id
                                                     )
                                                 );
