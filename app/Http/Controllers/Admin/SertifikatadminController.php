@@ -81,6 +81,7 @@ class SertifikatadminController extends Controller
         //$news           = News::all();
         //$newscategory           = Dokumen::all();
         //$categoryget           = News::select('newscategories.id as newscategories_id','namakategori', 'newscategories.slug')->join('newscategories','newscategories.id',"=",'news.category')->where('newscategories.id', '=', $news->category)->first();
+        $sertifikat = Sertifikat::with('user')->findOrFail($sertifikat->id);
         $usercategory           = User::all();
         return Inertia::render('Admin/Sertifikat/Edit',
         [

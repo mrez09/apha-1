@@ -10,4 +10,12 @@ class sertifikat extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['no', 'judul', 'slug', 'nama', 'status', 'id_user', 'category', 'img', 'link', 'konten', 'view', 'publish_at'];
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'id_user');
 }
+
+}
+
+

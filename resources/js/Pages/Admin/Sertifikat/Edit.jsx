@@ -2,7 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DataTable from "datatables.net-dt";
 import { Head } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
@@ -105,6 +105,12 @@ export default function List(props) {
         processing: true,
         serverSide: false,
     });
+
+    useEffect(() => {
+        if (props.sertifikat?.id_user) {
+            setData("id_user", props.sertifikat.id_user);
+        }
+    }, [props.sertifikat]);
 
     const option =
         props.usercategory &&
@@ -221,15 +227,26 @@ export default function List(props) {
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="id_user"
                                     name="id_user"
-                                    value={option.label}
+                                    // cari option yang sesuai dengan id_user sertifikat
+                                    value={
+                                        option.find(
+                                            (opt) =>
+                                                String(opt.value) ===
+                                                String(
+                                                    props.sertifikat?.id_user
+                                                )
+                                        ) || null
+                                    }
                                     options={option}
-                                    onChange={(option) => {
-                                        setUserId(option.value);
-                                        setData("id_user", option.value);
-                                        console.log(option.value);
+                                    onChange={(selected) => {
+                                        setUserId(selected.value);
+                                        setData("id_user", selected.value);
+                                        console.log(
+                                            "Selected user:",
+                                            selected.value
+                                        );
                                     }}
                                 />
-
                                 <div className="text-danger">
                                     <InputError
                                         message={errors.id_user}
@@ -279,20 +296,48 @@ export default function List(props) {
                                 </div>
                             </div>
 
-                            <div className="col-md-4">
+                            <div className="col-md-6">
                                 <label className="form-label">
                                     Status Sertifikat
                                 </label>
                                 <select
-                                    className="form-control  mb-3form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="status"
-                                    name="status"
+                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    id="is_featured"
+                                    name="is_featured"
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    <option value="0">Tidak Aktif</option>
-                                    <option value="1">Aktif</option>
+
+                                    {(() => {
+                                        if (props.sertifikat.status == 0) {
+                                            return (
+                                                <option value="0" selected>
+                                                    Tidak Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="0">
+                                                    Tidak Aktif
+                                                </option>
+                                            );
+                                        }
+                                    })()}
+
+                                    {(() => {
+                                        if (props.sertifikat.status == 1) {
+                                            return (
+                                                <option value="1" selected>
+                                                    Aktif
+                                                </option>
+                                            );
+                                        } else {
+                                            return (
+                                                <option value="1">Aktif</option>
+                                            );
+                                        }
+                                    })()}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -361,6 +406,16 @@ export default function List(props) {
                                             className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                             onChange={onHandleChange}
                                         />
+                                        {/* Preview gambar */}
+                                        {props.sertifikat.img && (
+                                            <div className="mt-3">
+                                                <img
+                                                    src={props.sertifikat.img}
+                                                    alt="Preview"
+                                                    className="max-h-48 rounded-lg shadow-md border"
+                                                />
+                                            </div>
+                                        )}
                                         <div className="invalid-feedback">
                                             <InputError
                                                 message={errors.file}
@@ -382,6 +437,8 @@ export default function List(props) {
                                             autoComplete="link"
                                             onChange={onHandleChange}
                                         />
+                                        {/** validasi sederhana */}
+
                                         <div className="">
                                             <InputError
                                                 message={errors.link}
