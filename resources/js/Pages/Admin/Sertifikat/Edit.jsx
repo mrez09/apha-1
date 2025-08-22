@@ -218,7 +218,7 @@ export default function Edit(props) {
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
                     Update Sertifikat Asosiasi Pengajar Hukum Adat Indonesia :{" "}
-                    <p>{props.sertifikat.title}</p>
+                    <p>{props.sertifikat.judul}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
@@ -246,7 +246,7 @@ export default function Edit(props) {
                                 </label>
                                 <input
                                     type="text"
-                                    name="title"
+                                    name="no"
                                     defaultValue={props.sertifikat.no}
                                     placeholder="Masukan No Sertifikat"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
@@ -255,7 +255,7 @@ export default function Edit(props) {
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.judul}
+                                        message={errors.no}
                                         className="mt-2"
                                     />
                                 </div>

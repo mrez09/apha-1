@@ -91,15 +91,11 @@ class SertifikatadminController extends Controller
         ]);
     }
 
-    public function update(Request $request, Sertifikat $sertifikat)
+  public function update(update $request, Sertifikat $sertifikat)
 {
-    $data = $request->validate([
-        'title' => 'required|string|max:255',
-        'id_user' => 'required|exists:users,id',
-        'img' => 'nullable|string', // tambahin ini
-    ]);
+    $data = $request->validated();
 
-    $data['slug'] = Str::slug($data['title']);
+    $data['slug'] = Str::slug($data['judul']);
 
     // kalau ada img baru → replace
     if ($request->has('img')) {
@@ -110,12 +106,10 @@ class SertifikatadminController extends Controller
 
     $sertifikat->update($data);
 
-    return response()->json([
-        'message' => 'Sertifikat berhasil diupdate',
-        'data' => $sertifikat
-    ]);
+    return redirect()
+        ->route('admin.dashboard.sertifikat.index')
+        ->with('success', 'Sertifikat berhasil diupdate');
 }
-
 
     public function destroy(Sertifikat $sertifikat){
         $dokumen->delete();
