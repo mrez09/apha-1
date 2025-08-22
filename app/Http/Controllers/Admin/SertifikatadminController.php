@@ -91,39 +91,31 @@ class SertifikatadminController extends Controller
         ]);
     }
 
-    public function update(Update $request, Sertifikat $sertifikat){
-        $data = $request->validated();
-        $data['slug'] = Str::slug($data ['title']);
-        if($request->file('file')){
-            $data['file'] = Storage::disk("public")->put('file', $request->file('file'));
-            Storage::disk("public")->delete($document->file);
-        } else {
-            $data['file'] = $document->file;
-        }
+    public function update(Request $request, Sertifikat $sertifikat)
+{
+    $data = $request->validate([
+        'title' => 'required|string|max:255',
+        'id_user' => 'required|exists:users,id',
+        'img' => 'nullable|string', // tambahin ini
+    ]);
 
-        //$path = Storage::url('public');
+    $data['slug'] = Str::slug($data['title']);
 
-        //$img = '<img src"' .$path.'" alt=""/>';
-
-        $document->update($data);
-        return redirect(route('admin.dashboard.document.index'))->with(
-            [
-                'message'   => "Document Berhasil diUpdate",
-                'type'      => "success"
-            ]
-            );
-        
-        
-        //return $request->all();
-        //return $news;
-        //return Inertia::render('Admin/News/Create');
-        
-        //$news           = News::all();
-        //return Inertia::render('Admin/News/Edit',
-        //[
-          //  'news'          => $news
-        //]);
+    // kalau ada img baru → replace
+    if ($request->has('img')) {
+        $data['img'] = $request->input('img');
+    } else {
+        $data['img'] = $sertifikat->img;
     }
+
+    $sertifikat->update($data);
+
+    return response()->json([
+        'message' => 'Sertifikat berhasil diupdate',
+        'data' => $sertifikat
+    ]);
+}
+
 
     public function destroy(Sertifikat $sertifikat){
         $dokumen->delete();

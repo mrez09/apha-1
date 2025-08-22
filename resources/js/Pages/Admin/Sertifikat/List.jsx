@@ -110,7 +110,7 @@ export default function List({
                                         <Link
                                             href={route(
                                                 "admin.dashboard.sertifikat.edit",
-                                                document.id
+                                                sertifikat.id
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -122,7 +122,7 @@ export default function List({
                                                 destroy(
                                                     route(
                                                         "admin.dashboard.sertifikat.destroy",
-                                                        document.id
+                                                        sertifikat.id
                                                     )
                                                 );
                                             }}

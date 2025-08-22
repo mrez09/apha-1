@@ -12,6 +12,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import Select from "react-select";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 //Tabs
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -95,8 +97,11 @@ const editorConfiguration = {
     },
 };
 
-export default function List(props) {
+export default function Edit(props) {
     const [startDate, setStartDate] = useState(new Date());
+    const [preview, setPreview] = useState(props.sertifikat?.img || "");
+    const [imgUrl, setImgUrl] = useState(props.sertifikat?.img || "");
+    const [loading, setLoading] = useState(false);
     //const changeDate = (e) => setDate(e.target.value);
 
     let table = new DataTable("#myTable", {
@@ -121,8 +126,8 @@ export default function List(props) {
             };
         });
 
-    const { data, setData, processing, errors } = useForm({
-        ...props.document,
+    const { data, setData, processing, put, errors } = useForm({
+        ...props.sertifikat,
     });
 
     const onHandleChange = (event) => {
@@ -134,18 +139,75 @@ export default function List(props) {
         );
     };
 
+    /* Submit Old
     const submit = (e) => {
         e.preventDefault();
 
-        if (data.img == props.document.file) {
+        if (data.img == props.sertifikat.file) {
             delete data.img;
         }
 
         router.post(
-            route("admin.dashboard.document.update", props.document.id),
+            route("admin.dashboard.sertifikat.update", props.sertifikat.id),
             {
                 _method: "PUT",
                 ...data,
+            }
+        );
+    };
+    */
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Preview dulu
+        setPreview(URL.createObjectURL(file));
+
+        // Upload ke ImageKit
+        const formData = new FormData();
+        formData.append("file", file);
+
+        setLoading(true);
+        try {
+            const res = await axios.post(
+                "/dashboard/sertifikat/upload-sertifikat",
+                formData,
+                {
+                    headers: { "Content-Type": "multipart/form-data" },
+                }
+            );
+
+            if (res.data.success) {
+                setImgUrl(res.data.img);
+                toast.success("Gambar berhasil diupload 🚀");
+            } else {
+                toast.error("Upload gagal");
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error("Terjadi error saat upload");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        router.post(
+            route("admin.dashboard.sertifikat.update", props.sertifikat.id),
+            {
+                _method: "PUT",
+                ...data,
+            },
+            {
+                onSuccess: () => toast.success("Sertifikat berhasil diupdate!"),
+                onError: (errors) => {
+                    // tampilkan semua error validasi di toast
+                    Object.values(errors).forEach((msg) => {
+                        toast.error(msg);
+                    });
+                },
             }
         );
     };
@@ -404,18 +466,19 @@ export default function List(props) {
                                             name="file"
                                             placeholder="Masukan File"
                                             className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                            onChange={onHandleChange}
+                                            onChange={handleFileChange}
                                         />
-                                        {/* Preview gambar */}
-                                        {props.sertifikat.img && (
-                                            <div className="mt-3">
-                                                <img
-                                                    src={props.sertifikat.img}
-                                                    alt="Preview"
-                                                    className="max-h-48 rounded-lg shadow-md border"
-                                                />
-                                            </div>
+                                        {loading && <p>Uploading...</p>}
+                                        {preview && (
+                                            <img
+                                                src={preview}
+                                                alt="preview"
+                                                className="mt-3"
+                                                width="200"
+                                            />
                                         )}
+                                        {/* Preview gambar */}
+
                                         <div className="invalid-feedback">
                                             <InputError
                                                 message={errors.file}
