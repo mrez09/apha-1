@@ -1,9 +1,11 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import FlashMessage from "@/Components/FlashMessage";
 import DataTable from "datatables.net-dt";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, usePage } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export default function List({
     auth,
@@ -19,6 +21,18 @@ export default function List({
         processing: true,
         serverSide: false,
     });
+
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        if (flash?.message) {
+            if (flash.type === "success") {
+                toast.success(flash.message);
+            } else {
+                toast.error(flash.message);
+            }
+        }
+    }, [flash]);
 
     return (
         <AuthenticatedLayout

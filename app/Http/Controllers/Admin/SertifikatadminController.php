@@ -108,7 +108,10 @@ class SertifikatadminController extends Controller
 
     return redirect()
         ->route('admin.dashboard.sertifikat.index')
-        ->with('success', 'Sertifikat berhasil diupdate');
+        ->with([
+        'message' => 'Sertifikat berhasil diupdate',
+        'type'    => 'success',
+    ]);
 }
 
     public function destroy(Sertifikat $sertifikat){

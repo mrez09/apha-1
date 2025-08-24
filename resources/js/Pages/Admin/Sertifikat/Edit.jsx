@@ -112,6 +112,12 @@ export default function Edit(props) {
     });
 
     useEffect(() => {
+        if (props.flash?.message) {
+            toast[props.flash.type || "info"](props.flash.message);
+        }
+    }, [props.flash]);
+
+    useEffect(() => {
         if (props.sertifikat?.id_user) {
             setData("id_user", props.sertifikat.id_user);
         }
