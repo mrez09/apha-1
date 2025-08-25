@@ -214,6 +214,7 @@ export default function Edit(props) {
         try {
             // reset state biar UI kosong
             setPreview(null);
+            setImgUrl(null);
             setData("file", null);
 
             // panggil API untuk hapus dari DB
@@ -523,6 +524,9 @@ export default function Edit(props) {
 
                                         {/* Icon trash */}
                                         <div className="img-preview-serti">
+                                            <p className="text-muted">
+                                                Preview:
+                                            </p>
                                             {preview && (
                                                 <img
                                                     src={preview}

@@ -1437,7 +1437,7 @@ figure.card .position {
 
 .btn-delimg {
     position: absolute;
-    top: 5px; /* jarak dari atas */
+    top: 2px; /* jarak dari atas */
     right: 5px; /* jarak dari kanan */
     z-index: 10; /* biar gak ketutupan */
 }
