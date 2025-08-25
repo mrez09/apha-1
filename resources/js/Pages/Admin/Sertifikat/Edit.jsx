@@ -126,7 +126,7 @@ export default function Edit(props) {
         }
     }, [props.sertifikat]);
 
-    const option =
+    const optionuser =
         props.usercategory &&
         props.usercategory.map((usercategory) => {
             return {
@@ -137,6 +137,7 @@ export default function Edit(props) {
 
     const { data, setData, processing, put, errors } = useForm({
         ...props.sertifikat,
+        id_user: props.sertifikat?.id_user || "",
     });
 
     const onHandleChange = (event) => {
@@ -217,8 +218,8 @@ export default function Edit(props) {
             return;
         }
 
-        if (!imgUrl) {
-            toast.error("Harap upload gambar dulu!");
+        if (!imgUrl && !data.link) {
+            toast.error("Harap upload gambar atau isi link dulu!");
             return;
         }
 
@@ -320,16 +321,19 @@ export default function Edit(props) {
                                     name="id_user"
                                     // cari option yang sesuai dengan id_user sertifikat
                                     value={
-                                        option.find(
+                                        optionuser.find(
                                             (opt) =>
                                                 String(opt.value) ===
-                                                String(
-                                                    props.sertifikat?.id_user
-                                                )
+                                                String(data.id_user)
                                         ) || null
                                     }
-                                    options={option}
+                                    options={optionuser}
                                     onChange={(selected) => {
+                                        console.log("Before:", data.id_user);
+                                        setData("id_user", selected.value);
+                                        console.log("After:", selected.value);
+                                    }}
+                                    /*onChange={(selected) => {
                                         setUserId(selected.value);
                                         setData("id_user", selected.value);
                                         console.log(
@@ -337,6 +341,7 @@ export default function Edit(props) {
                                             selected.value
                                         );
                                     }}
+                                        */
                                 />
                                 <div className="text-danger">
                                     <InputError
@@ -394,7 +399,7 @@ export default function Edit(props) {
                                 <select
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="is_featured"
-                                    name="is_featured"
+                                    name="status"
                                     onChange={onHandleChange}
                                     required
                                 >
