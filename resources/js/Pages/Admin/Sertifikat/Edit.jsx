@@ -100,6 +100,9 @@ const editorConfiguration = {
 export default function Edit(props) {
     const [startDate, setStartDate] = useState(new Date());
     const [preview, setPreview] = useState(props.sertifikat?.img || "");
+    const [previewlink, setPreviewlink] = useState(
+        props.sertifikat?.link || ""
+    );
     const [imgUrl, setImgUrl] = useState(props.sertifikat?.img || "");
     const [loading, setLoading] = useState(false);
     //const changeDate = (e) => setDate(e.target.value);
@@ -162,6 +165,14 @@ export default function Edit(props) {
         );
     };
     */
+
+    const handlePreviewlink = (e) => {
+        onHandleChange(e);
+
+        // update preview saat user ngetik link
+        setPreviewlink(e.target.value);
+    };
+
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -185,6 +196,7 @@ export default function Edit(props) {
 
             if (res.data.success) {
                 setImgUrl(res.data.img);
+                setData("img", res.data.img);
                 toast.success("Gambar berhasil diupload 🚀");
             } else {
                 toast.error("Upload gagal");
@@ -200,11 +212,22 @@ export default function Edit(props) {
     const submit = (e) => {
         e.preventDefault();
 
+        if (loading) {
+            toast.error("Tunggu dulu, gambar masih diupload 🚀");
+            return;
+        }
+
+        if (!imgUrl) {
+            toast.error("Harap upload gambar dulu!");
+            return;
+        }
+
         router.post(
             route("admin.dashboard.sertifikat.update", props.sertifikat.id),
             {
                 _method: "PUT",
                 ...data,
+                img: imgUrl,
             },
             {
                 onSuccess: () => toast.success("Sertifikat berhasil diupdate!"),
@@ -501,10 +524,11 @@ export default function Edit(props) {
                                         <input
                                             type="text"
                                             name="link"
+                                            defaultValue={props.sertifikat.link}
                                             placeholder="Masukan Link Sertifikat"
                                             className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                             autoComplete="link"
-                                            onChange={onHandleChange}
+                                            onChange={handlePreviewlink}
                                         />
                                         {/** validasi sederhana */}
 
@@ -514,6 +538,26 @@ export default function Edit(props) {
                                                 className="mt-2"
                                             />
                                         </div>
+
+                                        {/* preview image */}
+                                        {previewlink && (
+                                            <div className="mt-3">
+                                                <p className="text-muted">
+                                                    Preview:
+                                                </p>
+                                                <img
+                                                    src={previewlink}
+                                                    alt="Preview Sertifikat"
+                                                    className="mt-3"
+                                                    width="200"
+                                                    onError={(e) => {
+                                                        // kalo link bukan gambar valid
+                                                        e.target.style.display =
+                                                            "none";
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
                                     </div>
                                 </TabPanel>
                             </Tabs>
