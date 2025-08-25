@@ -1430,6 +1430,17 @@ figure.card .position {
     padding: 8px 12px;
     border-radius: 4px;
 }
+.img-preview-serti {
+    position: relative; /* biar tombol absolute ngikut ke wrapper */
+    display: inline-block; /* biar ukurannya ikut gambar */
+}
+
+.btn-delimg {
+    position: absolute;
+    top: 5px; /* jarak dari atas */
+    right: 5px; /* jarak dari kanan */
+    z-index: 10; /* biar gak ketutupan */
+}
 
 .btn-de1 {
     width: 50px;

@@ -210,6 +210,24 @@ export default function Edit(props) {
         }
     };
 
+    const handleDeleteImage = async () => {
+        try {
+            // reset state biar UI kosong
+            setPreview(null);
+            setData("file", null);
+
+            // panggil API untuk hapus dari DB
+            await axios.delete(
+                `/dashboard/sertifikat/upload-sertifikat/${props.sertifikat.id}/delete-image`
+            );
+
+            toast.success("Gambar berhasil dihapus!");
+        } catch (error) {
+            console.error("Error deleting image:", error);
+            toast.error("Gagal menghapus gambar.");
+        }
+    };
+
     const submit = (e) => {
         e.preventDefault();
 
@@ -502,16 +520,29 @@ export default function Edit(props) {
                                             className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                             onChange={handleFileChange}
                                         />
-                                        {loading && <p>Uploading...</p>}
-                                        {preview && (
-                                            <img
-                                                src={preview}
-                                                alt="preview"
-                                                className="mt-3"
-                                                width="200"
-                                            />
-                                        )}
-                                        {/* Preview gambar */}
+
+                                        {/* Icon trash */}
+                                        <div className="img-preview-serti">
+                                            {preview && (
+                                                <img
+                                                    src={preview}
+                                                    alt="preview"
+                                                    className="mt-3"
+                                                    width="200"
+                                                />
+                                            )}
+                                            {/* Preview gambar */}
+                                            {preview && (
+                                                <button
+                                                    type="button"
+                                                    onClick={handleDeleteImage}
+                                                    className="btn btn-danger btn-sm btn-delimg"
+                                                >
+                                                    🗑 delete
+                                                </button>
+                                            )}
+                                            {loading && <p>Uploading...</p>}
+                                        </div>
 
                                         <div className="invalid-feedback">
                                             <InputError

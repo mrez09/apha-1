@@ -8,6 +8,7 @@ use ImageKit\ImageKit;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Models\Sertifikat;
 
 //use App\Http\Controllers\Admin\UploadController;
 
@@ -40,4 +41,19 @@ class UploadController extends Controller
 
         return response()->json(['error' => 'No file uploaded'], 400);
     }
+
+    public function deleteImage($id)
+{
+    $sertifikat = Sertifikat::findOrFail($id);
+
+    if ($sertifikat->img) {
+        // kalau kamu pakai ImageKit/S3, hapus juga di sana
+        // contoh: Storage::delete($sertifikat->img);
+
+        $sertifikat->img = null; // kosongkan kolom img
+        $sertifikat->save();
+    }
+
+    return response()->json(['message' => 'Gambar dihapus'], 200);
+}
 }

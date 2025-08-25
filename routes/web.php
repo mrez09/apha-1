@@ -187,6 +187,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::put('sertifikat/{sertifikat}/restore', [SertifikatadminController::class, 'restore'])->name('sertifikat.restore');
     //Route::post('sertifikat/upload-sertifikat', [UploadController::class, 'upload'])->name('upload.sertifikat');
     Route::post('/sertifikat/upload-sertifikat', [UploadController::class, 'upload']);
+    Route::delete('/sertifikat/upload-sertifikat/{id}/delete-image', [UploadController::class, 'deleteImage']);
 
     //Sertifikat
     //Periode
