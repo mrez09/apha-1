@@ -78,15 +78,33 @@ export default function List({ sertifikat, searchQuery }) {
                                                 {s.judul} - {s.img}
                                             </td>
                                             <td>
-                                                <a
-                                                    href={s.img}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="btn btn-sm btn-success"
-                                                >
-                                                    Lihat Sertifikat
-                                                </a>
-                                                <br />
+                                                {/* tombol lihat dari img */}
+                                                {s.img && (
+                                                    <>
+                                                        <a
+                                                            href={s.img}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="btn btn-sm btn-success mb-1"
+                                                        >
+                                                            Lihat Sertifikat
+                                                            (Gambar)
+                                                        </a>
+                                                        <br />
+                                                    </>
+                                                )}
+
+                                                {/* tombol lihat dari link */}
+                                                {s.link && (
+                                                    <a
+                                                        href={s.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="btn btn-sm btn-success"
+                                                    >
+                                                        Lihat Sertifikat (Link)
+                                                    </a>
+                                                )}
                                             </td>
                                         </tr>
                                     ))}
