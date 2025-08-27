@@ -47,8 +47,7 @@ class UploadController extends Controller
     $sertifikat = Sertifikat::findOrFail($id);
 
     if ($sertifikat->img) {
-        // kalau kamu pakai ImageKit/S3, hapus juga di sana
-        // contoh: Storage::delete($sertifikat->img);
+        
 
         $sertifikat->img = null; // kosongkan kolom img
         $sertifikat->save();

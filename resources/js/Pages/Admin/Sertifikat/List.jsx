@@ -2,7 +2,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import FlashMessage from "@/Components/FlashMessage";
 import DataTable from "datatables.net-dt";
 import { Head, useForm, usePage } from "@inertiajs/react";
-import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import { useEffect } from "react";

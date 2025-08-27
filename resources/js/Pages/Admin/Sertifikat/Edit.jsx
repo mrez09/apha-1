@@ -19,16 +19,6 @@ import { toast } from "react-toastify";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-//import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-
-//import sourceEditing from "@ckeditor/ckeditor5-build-classic";
-//import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import ClassicEditor from "../../../../../../../texteditor/src/ckeditor";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import Markdown from "@ckeditor/ckeditor5-markdown-gfm/src/markdown";
 
 const editorConfiguration = {
     codeBlock: {
@@ -149,23 +139,7 @@ export default function Edit(props) {
         );
     };
 
-    /* Submit Old
-    const submit = (e) => {
-        e.preventDefault();
-
-        if (data.img == props.sertifikat.file) {
-            delete data.img;
-        }
-
-        router.post(
-            route("admin.dashboard.sertifikat.update", props.sertifikat.id),
-            {
-                _method: "PUT",
-                ...data,
-            }
-        );
-    };
-    */
+    
 
     const handlePreviewlink = (e) => {
         onHandleChange(e);
@@ -315,24 +289,7 @@ export default function Edit(props) {
                                     Diberikan Kepada
                                 </label>
 
-                                {/* 
-                                <Select
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="id_user"
-                                    name="id_user"
-                                    options={props.newscategory.map(
-                                        (newscategory) => {
-                                            return {
-                                                value: newscategory.id,
-                                                label: newscategory.name,
-                                            };
-                                        }
-                                    )}
-                                    onChange={(option) =>
-                                        setUserId(option.value)
-                                    }
-                                />
-                                */}
+                                
 
                                 <Select
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
@@ -352,15 +309,7 @@ export default function Edit(props) {
                                         setData("id_user", selected.value);
                                         console.log("After:", selected.value);
                                     }}
-                                    /*onChange={(selected) => {
-                                        setUserId(selected.value);
-                                        setData("id_user", selected.value);
-                                        console.log(
-                                            "Selected user:",
-                                            selected.value
-                                        );
-                                    }}
-                                        */
+                                    
                                 />
                                 <div className="text-danger">
                                     <InputError
@@ -480,14 +429,7 @@ export default function Edit(props) {
                                             console.log({ date });
                                         }}
 
-                                        //onChange={(e) =>
-                                        //  setData(
-                                        //    "is_featured",
-                                        //  e.target.checked
-                                        //)
-                                        //}
-                                        //onChange={onHandleChange}
-                                        //onSelect={(date, e) => setStartDate(date)}
+                                        
                                     />
                                 </div>
                                 <div className="">
@@ -602,44 +544,11 @@ export default function Edit(props) {
                                 </TabPanel>
                             </Tabs>
 
-                            {
-                                //featured
-                                /*<div className="col-sm-12">
-                                <label className="form-label">Feature</label>
-                                <div className="form-check">
-                                    <input
-                                        name="is_featured"
-                                        type="checkbox"
-                                        onChange={(e) =>
-                                            setData(
-                                                "is_featured",
-                                                e.target.checked
-                                            )
-                                        }
-                                        className="form-check-input"
-                                        checked={props.news.is_featured}
-                                    />
-                                    <label className="form-check-label">
-                                        Berita Ditampilkan sebagai
-                                        fitur/rekomendasi
-                                    </label>
-                                    <div className="invalid-feedback">
-                                        <InputError
-                                            message={errors.is_featured}
-                                            className="mt-2"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            */
-                            }
-
                             <hr className="my-4"></hr>
 
                             <button
                                 className="w-100 btn btn-primary btn-lg"
                                 type="submit"
-                                //processing={processing}
                             >
                                 Simpan
                             </button>
