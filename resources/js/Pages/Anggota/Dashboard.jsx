@@ -15,148 +15,112 @@ export default function Dashboard(props) {
             <Head title="Dashboard" />
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    <i className="fas ic fa-home"></i>Dashboard
+                    <i className="fas fa-home me-2"></i> Dashboard
                 </h1>
-                <div className="btn-toolbar mb-2 mb-md-0"></div>
             </div>
-            {/*End Dashboard Title*/}
-            <h2>Selamat Datang!</h2>
-            <h5>{props.auth.user.name}</h5>
+
+            {/* Greeting */}
+            <div className="mb-4">
+                <h2 className="fw-bold">Selamat Datang 👋</h2>
+                <h5 className="text-muted">{props.auth.user.name}</h5>
+            </div>
 
             <div className="container">
                 <div className="row">
-                    <div className="col-sm-12">
-                        <div className="card">
-                            <div className="container">
-                                <div className="row g-5 mt-2">
-                                    <div className="col-md-6 img-center">
-                                        <img
-                                            src={`/storage/${props.anggota.img}`}
-                                            className="rounded img-fluid img-thumb book-thumbnail img-thumbnail mb-5"
-                                            alt=""
-                                        />
+                    <div className="col-lg-12">
+                        <div className="card shadow-lg border-0 rounded-3">
+                            <div className="row g-4 p-4">
+                                {/* Foto Profil */}
+                                <div className="col-md-4 text-center">
+                                    <img
+                                        src={`/storage/${props.anggota.img}`}
+                                        className="rounded-circle img-fluid border shadow-sm mb-3"
+                                        alt="Foto Anggota"
+                                        style={{ maxWidth: "250px" }}
+                                    />
+                                    <div className="mt-3">
+                                        <a
+                                            href="#"
+                                            className={`btn btn-sm ${
+                                                props.anggota.status == 0
+                                                    ? "btn-outline-danger"
+                                                    : "btn-outline-success"
+                                            }`}
+                                        >
+                                            {props.anggota.status == 0
+                                                ? "Belum Aktif"
+                                                : "Aktif"}
+                                        </a>
                                     </div>
-                                    <div className="col-md-6 mt-5   ">
-                                        <article className="blog-post ">
-                                            <table className="tb-progota">
-                                                <tbody>
-                                                    <tr>
-                                                        <td className="tb-iprofile">
-                                                            No. Kta
-                                                        </td>
-                                                        <td className="tb-profile">
-                                                            :{" "}
-                                                            {(() => {
-                                                                if (
-                                                                    props
-                                                                        .anggota
-                                                                        .no_kta ==
-                                                                        null ||
-                                                                    props
-                                                                        .anggota
-                                                                        .no_kta ==
-                                                                        ""
-                                                                ) {
-                                                                    return (
-                                                                        <span>
-                                                                            Belum
-                                                                            Terbit
-                                                                        </span>
-                                                                    );
-                                                                } else {
-                                                                    return (
-                                                                        <span>
-                                                                            {
-                                                                                props
-                                                                                    .anggota
-                                                                                    .no_kta
-                                                                            }
-                                                                        </span>
-                                                                    );
-                                                                }
-                                                            })()}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Nama</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {props.anggota.name}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>NIDN/NIDK</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {props.anggota.kode}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jenis Kelamin</td>
-                                                        {(() => {
-                                                            if (
-                                                                props.anggota
-                                                                    .jk == "lk"
-                                                            ) {
-                                                                return (
-                                                                    <td>
-                                                                        : Laki
-                                                                        Laki
-                                                                    </td>
-                                                                );
-                                                            } else if (
-                                                                props.anggota
-                                                                    .jk == "pr"
-                                                            ) {
-                                                                return (
-                                                                    <td>
-                                                                        :
-                                                                        Perempuan
-                                                                    </td>
-                                                                );
-                                                            }
-                                                        })()}
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {
-                                                                props.anggota
-                                                                    .alamat
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No Telpon</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {
-                                                                props.anggota
-                                                                    .phone
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Email</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {
-                                                                props.anggota
-                                                                    .email
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <h4>Institusi</h4>
-                                            <table className="tb-progota">
+                                </div>
+
+                                {/* Data Profil */}
+                                <div className="col-md-8">
+                                    <article>
+                                        <h4 className="mb-3">Profil Anggota</h4>
+                                        <table className="table table-sm table-borderless">
+                                            <tbody>
                                                 <tr>
-                                                    <td className="tb-iprofile">
-                                                        Universitas
+                                                    <th className="w-25">
+                                                        No. KTA
+                                                    </th>
+                                                    <td>
+                                                        {props.anggota.no_kta
+                                                            ? props.anggota
+                                                                  .no_kta
+                                                            : "Belum Terbit"}
                                                     </td>
-                                                    <td className="tb-profile">
-                                                        :{" "}
+                                                </tr>
+                                                <tr>
+                                                    <th>Nama</th>
+                                                    <td>
+                                                        {props.anggota.nama}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>NIDN/NIDK</th>
+                                                    <td>
+                                                        {props.anggota.kode}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Jenis Kelamin</th>
+                                                    <td>
+                                                        {props.anggota.jk ==
+                                                        "lk"
+                                                            ? "Laki-laki"
+                                                            : "Perempuan"}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Alamat</th>
+                                                    <td>
+                                                        {props.anggota.alamat}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>No. Telp</th>
+                                                    <td>
+                                                        {props.anggota.phone}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <td>
+                                                        {props.anggota.email}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <h4 className="mt-4 mb-3">Institusi</h4>
+                                        <table className="table table-sm table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <th className="w-25">
+                                                        Universitas
+                                                    </th>
+                                                    <td>
                                                         {
                                                             props.anggota
                                                                 .universitas
@@ -164,63 +128,111 @@ export default function Dashboard(props) {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Fakultas</td>
+                                                    <th>Fakultas</th>
                                                     <td>
-                                                        :{" "}
                                                         {props.anggota.fakultas}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Alamat Fakultas</td>
+                                                    <th>Alamat Fakultas</th>
                                                     <td>
-                                                        :{" "}
                                                         {props.anggota.alamatf}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Mata Kuliah</td>
+                                                    <th>Mata Kuliah</th>
+                                                    <td>{props.anggota.mk}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Google Scholar</th>
                                                     <td>
-                                                        : {props.anggota.mk}
+                                                        <a
+                                                            href={
+                                                                props.anggota
+                                                                    .scholar
+                                                            }
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                        >
+                                                            {
+                                                                props.anggota
+                                                                    .scholar
+                                                            }
+                                                        </a>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <th>Scopus ID</th>
+                                                    <td>
+                                                        {props.anggota.scopus}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Sinta</th>
+                                                    <td>
+                                                        <a
+                                                            href={
+                                                                props.anggota
+                                                                    .sinta
+                                                            }
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                        >
+                                                            {
+                                                                props.anggota
+                                                                    .sinta
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 
-                                                <tr>
-                                                    <td>Link Google Scholar</td>
-                                                    <td>
-                                                        :{" "}
-                                                        {props.anggota.scholar}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Id Scopus</td>
-                                                    <td>
-                                                        : {props.anggota.scopus}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Link Google Sinta</td>
-                                                    <td>
-                                                        : {props.anggota.sinta}
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <hr />
-                                        </article>
-                                        <h5 className="card-title">
-                                            Status Keanggotaan Anda
-                                        </h5>
-                                        <a href="#" className="btn btn-primary">
-                                            {(() => {
-                                                if (props.anggota.status == 0) {
-                                                    return <h7>Belum Aktif</h7>;
-                                                } else {
-                                                    return <h7>Aktif</h7>;
-                                                }
-                                            })()}
-                                        </a>
-                                    </div>
+                                        {/* Tombol Aksi */}
+                                        <div className="mt-4">
+                                            {props.anggota.no_kta ? (
+                                                <a
+                                                    href={route(
+                                                        "anggota.dashboard.namecard.show",
+                                                        props.anggota.slug_kta
+                                                    )}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="btn btn-success btn-sm me-2"
+                                                >
+                                                    Lihat Name Card
+                                                </a>
+                                            ) : (
+                                                <button
+                                                    className="btn btn-secondary btn-sm me-2"
+                                                    disabled
+                                                >
+                                                    Belum Terbit
+                                                </button>
+                                            )}
 
-                                    {/*end News*/}
+                                            {props.anggota.slug_kta ? (
+                                                <a
+                                                    href={route(
+                                                        "anggota.dashboard.nokta.show",
+                                                        props.anggota.slug_kta
+                                                    )}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="btn btn-primary btn-sm"
+                                                >
+                                                    Lihat KTA
+                                                </a>
+                                            ) : (
+                                                <button
+                                                    className="btn btn-secondary btn-sm"
+                                                    disabled
+                                                >
+                                                    Belum Terbit
+                                                </button>
+                                            )}
+                                        </div>
+                                    </article>
                                 </div>
                             </div>
                         </div>

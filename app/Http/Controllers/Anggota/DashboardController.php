@@ -30,7 +30,10 @@ class DashboardController extends Controller
         
         
         //$value = $request->session()->get('name');
-        $anggota           = Member::select('users.id as user_id', 'members.id as member_id', 'name', 'nama', 'no_kta', 'kode', 'jk', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('users.id', '=', $user_id)->first();
+        //$anggota           = Member::select('users.id as user_id', 'members.id as member_id', 'name', 'nama', 'no_kta', 'kode', 'jk', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('users.id', '=', $user_id)->first();
+        $anggota           = Member::select('users.id as user_id', 'members.id as member_id', 'id_com as com_id', 'nama', 'no_kta', 'jk', 'slug_kta', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('users.id', '=', $user_id)->first();
+        //$anggota           = Member::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'slug_kta', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
+
         return Inertia::render('Anggota/Dashboard',
         [
             'anggota'          => $anggota,
