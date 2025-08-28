@@ -109,8 +109,10 @@ export default function List({
                 </title>
             </Head>
             <div className="container">
-                <div className="row g-5  d-flex justify-content-center mt-5">
-                    <h2>Informasi Anggota KTA</h2>
+                <div className="row g-4 justify-content-center mt-5">
+                    <h2 className="text-center mb-4 fw-bold">
+                        Informasi Anggota KTA
+                    </h2>
 
                     {
                         //Tab 1>
@@ -125,48 +127,27 @@ export default function List({
                         {
                             //KTA Normal
                         }
-                        <div className="row border">
-                            {
-                                //kta ID
-                            }
-
-                            {
-                                //kta Normal
-                            }
-                            <div class="col mt-4 col-lg-6">
-                                <h2 className="blog-post-title">
-                                    <p>{payment.nama}</p>
-                                </h2>
-                                <p className="t-kta">
-                                    No Kartu Tanda Anggota #{member.no_kta}
-                                </p>
-                            </div>
-                            <div className="col mt-4 col-lg-6">
-                                <table>
-                                    {(() => {
-                                        if ("payment.status == 1") {
-                                            return (
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-sm btn-success btn-kecil"
-                                                    disabled
-                                                >
-                                                    Aktif
-                                                </button>
-                                            );
-                                        } else {
-                                            return (
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-sm btn-danger btn-kecil"
-                                                    disabled
-                                                >
-                                                    Belum Aktif
-                                                </button>
-                                            );
-                                        }
-                                    })()}
-                                </table>
+                        {/* Header */}
+                        <div className="card shadow-sm border-0 mb-4">
+                            <div className="row g-3 align-items-center p-4">
+                                <div className="col-lg-6">
+                                    <h3 className="mb-1">{payment.nama}</h3>
+                                    <p className="text-muted mb-0">
+                                        No Kartu Tanda Anggota{" "}
+                                        <strong>#{member.no_kta}</strong>
+                                    </p>
+                                </div>
+                                <div className="col-lg-6 text-lg-end">
+                                    {payment.status == 1 ? (
+                                        <span className="badge bg-success px-3 py-2">
+                                            Aktif
+                                        </span>
+                                    ) : (
+                                        <span className="badge bg-danger px-3 py-2">
+                                            Belum Aktif
+                                        </span>
+                                    )}
+                                </div>
                             </div>
                         </div>
 
@@ -174,83 +155,70 @@ export default function List({
                             //Row 2
                         }
 
-                        <div className="row border">
-                            <div className="col mt-4 col-lg-6">
-                                {(() => {
-                                    if (member.img_kta == null) {
-                                        return (
-                                            <img
-                                                src={`/storage/${member.img}`}
-                                                alt=""
-                                            />
-                                        );
-                                    } else {
-                                        return (
-                                            <img
-                                                src={`/storage/${member.img_kta}`}
-                                                alt=""
-                                            />
-                                        );
-                                    }
-                                })()}
-                                <img
-                                    src={`/storage/${member.img_kta}`}
-                                    alt=""
-                                />
-                                {
-                                    //upload img kta
-                                }
-
-                                <a
-                                    href={route(
-                                        "anggota.dashboard.anggotaprofile.imgkta"
+                        {/* Detail Anggota */}
+                        <div className="card shadow-sm border-0 mb-4">
+                            <div className="row g-4 p-4">
+                                {/* Foto / KTA */}
+                                <div className="col-lg-5 text-center">
+                                    {member.img_kta ? (
+                                        <img
+                                            src={`/storage/${member.img_kta}`}
+                                            alt="Foto KTA"
+                                            className="img-fluid rounded shadow-sm mb-3"
+                                        />
+                                    ) : (
+                                        <img
+                                            src={`/storage/${member.img}`}
+                                            alt="Foto Anggota"
+                                            className="img-fluid rounded shadow-sm mb-3"
+                                        />
                                     )}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="btn btn-success btn-kecil"
-                                >
-                                    Lihat Name Card
-                                </a>
 
-                                <table>
-                                    <tr>
-                                        <td>NIDN/NIDK</td>
-                                        <td>:</td>
-                                        <td>{member.kode}</td>
-                                    </tr>
+                                    <a
+                                        href={route(
+                                            "anggota.dashboard.anggotaprofile.imgkta"
+                                        )}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="btn btn-success btn-sm w-100"
+                                    >
+                                        Lihat Name Card
+                                    </a>
+                                </div>
 
-                                    <tr>
-                                        <td>Jenis Kelamin </td>
-                                        <td>: </td>
-
-                                        {(() => {
-                                            if ("payment.jk == lk") {
-                                                return <td>Laki-Laki</td>;
-                                            } else {
-                                                return <td>Perempuan</td>;
-                                            }
-                                        })()}
-                                    </tr>
-                                    <tr>
-                                        <td>Alamat</td>
-                                        <td>:</td>
-                                        <td>{member.alamat}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col mt-4 col-lg-6">
-                                <table>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                </table>
+                                {/* Data Anggota */}
+                                <div className="col-lg-7">
+                                    <table className="table table-sm table-borderless mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <th className="w-50">
+                                                    NIDN/NIDK
+                                                </th>
+                                                <td>{member.kode}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Jenis Kelamin</th>
+                                                <td>
+                                                    {member.jk === "lk"
+                                                        ? "Laki-Laki"
+                                                        : "Perempuan"}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Alamat</th>
+                                                <td>{member.alamat}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Universitas</th>
+                                                <td>{member.universitas}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Masa Berlaku</th>
+                                                <td>2024</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 
@@ -313,56 +281,43 @@ export default function List({
                     {
                         //end tab
                     }
-                    <div className="col-md-4 mt-2   ">
-                        <article className="blog-post ">
-                            <hr />
-                            <div className="detail-article__share-wrapper">
-                                <PDFDownloadLink
-                                    document={
-                                        <PDFFile
-                                            no_invoice={member.no_kta}
-                                            judul="abc"
-                                            subjudul="abc"
-                                            slug_judul="abc"
-                                            img={member.img}
-                                            img_kta={member.img_kta}
-                                            status="abc"
-                                            //konten={parse(payment.konten)}
-                                            konten="abcd"
-                                            is_featured="abc"
-                                            tanggal_bayar="abc"
-                                            created_at="abc"
-                                            updated_at="abc"
-                                            deleted_at="abc"
-                                            nama={member.nama}
-                                            no_kta={member.no_kta}
-                                            universitas={member.universitas}
-                                            alamat="abc"
-                                            tanggal_print="abc"
-                                            url_img="https://apha.or.id/storage/logo/Logo-AphaC.png"
-                                        />
-                                    }
-                                    fileName={"KTA-" + member.slug_kta}
-                                >
-                                    {({ loading }) =>
-                                        loading ? (
-                                            <a className="btn btn-success btn-kecil">
-                                                Loading Document...
-                                            </a>
-                                        ) : (
-                                            <a className="btn btn-success btn-kecil">
-                                                Download Id Card
-                                            </a>
-                                        )
-                                    }
-                                </PDFDownloadLink>
-
-                                <p>Di print tanggal {tanggal_print}</p>
-                            </div>
-                        </article>
+                    {/* Sidebar Download */}
+                    <div className="col-md-4">
+                        <div className="card shadow-sm border-0 p-3">
+                            <h5 className="mb-3">Download KTA</h5>
+                            <PDFDownloadLink
+                                document={
+                                    <PDFFile
+                                        no_invoice={member.no_kta}
+                                        img={member.img}
+                                        img_kta={member.img_kta}
+                                        nama={member.nama}
+                                        no_kta={member.no_kta}
+                                        universitas={member.universitas}
+                                        alamat={member.alamat}
+                                        tanggal_print={tanggal_print}
+                                        url_img="https://apha.or.id/storage/logo/Logo-AphaC.png"
+                                    />
+                                }
+                                fileName={"KTA-" + member.slug_kta}
+                            >
+                                {({ loading }) =>
+                                    loading ? (
+                                        <a className="btn btn-outline-success w-100">
+                                            Loading...
+                                        </a>
+                                    ) : (
+                                        <a className="btn btn-success w-100">
+                                            Download ID Card
+                                        </a>
+                                    )
+                                }
+                            </PDFDownloadLink>
+                            <p className="mt-3 text-muted small">
+                                Dicetak tanggal {tanggal_print}
+                            </p>
+                        </div>
                     </div>
-
-                    {/*end News*/}
                 </div>
             </div>
         </FrontendLayout>
