@@ -46,17 +46,11 @@ class ProfileController extends Controller
 
 
   public function edit(Member $news){
-    //return $news;
-    //return Inertia::render('Admin/News/Create');
-    //return $request->all();
-    //$news           = News::all();
-    //$newscategory           = Newscategory::all();
     //$categoryget           = News::select('newscategories.id as newscategories_id','namakategori', 'newscategories.slug')->join('newscategories','newscategories.id',"=",'news.category')->where('newscategories.id', '=', $news->category)->first();
     return Inertia::render('Anggota/Profile/List',
     [
         'anggota'                 => $news,
-//        'newscategory'          => $newscategory,
-  //      'categoryget'          => $categoryget,
+
         'ckeditor'              => 'yes',
     ]);
 }
@@ -80,9 +74,6 @@ class ProfileController extends Controller
 
 
 
-        //$path = Storage::url('public');
-
-        //$img = '<img src"' .$path.'" alt=""/>';
 
         $member->update($data);
         return redirect(route('anggota.dashboard.profile.index'))->with(
@@ -93,25 +84,12 @@ class ProfileController extends Controller
         );
         
         
-//        return $request->all();
-        //return $news;
-        //return Inertia::render('Admin/News/Create');
-        
-        //$news           = News::all();
-        //return Inertia::render('Admin/News/Edit',
-        //[
-          //  'news'          => $news
-        //]);
+
     }
 
     public function imgkta(){
         
-        //$anggota        = auth.user.id;
-        //$data = $request->session()->all();
         $user_id            = Auth::user()->id;
-        //asli
-//        $anggota           = Member::select('users.id as user_id','members.id as anggota_id', 'nama', 'no_kta', 'jk', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
-        //baru
         $anggota           = Member::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'slug_kta', 'kode', 'users.email', 'img', 'img_kta', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
 
         //$status           = Anggota::select('users.id as user_id','name', 'email')->join('anggotas','anggotas.id_user',"=",'users.user_id')->where('users.user_id', '=', 12)->first();
@@ -157,14 +135,6 @@ class ProfileController extends Controller
         );
         
         
-//        return $request->all();
-        //return $news;
-        //return Inertia::render('Admin/News/Create');
-        
-        //$news           = News::all();
-        //return Inertia::render('Admin/News/Edit',
-        //[
-          //  'news'          => $news
-        //]);
+
     }
 }

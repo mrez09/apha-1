@@ -24,8 +24,7 @@ class DashboardController extends Controller
     //
     public function index(){
         
-        //$anggota        = auth.user.id;
-        //$status           = Anggota::select('users.id as user_id','name', 'email')->join('anggotas','anggotas.id_user',"=",'users.user_id')->where('users.user_id', '=', 12)->first();
+        
         $user_id            = Auth::user()->id;
         
         

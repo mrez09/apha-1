@@ -26,9 +26,7 @@ class SertifikatadminController extends Controller
     [
         'sertifikat'          => $sertifikat
     ]);
-      //return  [
-        //    'news'          => $news,
-        //];  
+      
 
     }
 
@@ -42,15 +40,7 @@ class SertifikatadminController extends Controller
     }
 
     public function store(Store $request){
-        //return Inertia::render('Admin/News/Create');
-
-        /* Storage Biasa */
-        /*
         
-        if($request->file('img')){
-            $data['img'] = Storage::disk("public")->put('sertifikat', $request->file('img'));
-        }
-            */
 
         $data = $request->validated();
         /* Image Kit */
@@ -58,11 +48,7 @@ class SertifikatadminController extends Controller
             $data['img'] = $request->img; // langsung simpan URL
         }
         
-        //$data['path'] = "/storage/".$data['img'];
-        //$data['slug'] = Str::slug($data['no']);
         
-      //  $data['dec'] = $data ['konten'];
-        //$data['id_user'] = Auth::id();
         $sertifikat = Sertifikat::create($data);
 
         return redirect(route('admin.dashboard.sertifikat.index'))->with(
@@ -71,14 +57,11 @@ class SertifikatadminController extends Controller
                 'type'      => "success"
             ]
             );
-        //return $request->all();
+        //return $request->all(); untuk debug
     }
 
     public function edit(Sertifikat $sertifikat){
-        //return $news;
-        //return Inertia::render('Admin/News/Create');
-        //return $request->all();
-        //$news           = News::all();
+        
         //$newscategory           = Dokumen::all();
         //$categoryget           = News::select('newscategories.id as newscategories_id','namakategori', 'newscategories.slug')->join('newscategories','newscategories.id',"=",'news.category')->where('newscategories.id', '=', $news->category)->first();
         $sertifikat = Sertifikat::with('user')->findOrFail($sertifikat->id);
@@ -87,7 +70,7 @@ class SertifikatadminController extends Controller
         [
             'sertifikat'            => $sertifikat,
             'usercategory'          => $usercategory,
-            //'categoryget'         => $categoryget
+            
         ]);
     }
 
@@ -122,6 +105,6 @@ class SertifikatadminController extends Controller
                 'type'      => "success"
             ]
             );
-        //return $news;
+        
     }
 }
