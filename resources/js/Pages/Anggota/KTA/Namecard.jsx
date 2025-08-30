@@ -226,7 +226,7 @@ export default function List({
                         </div>
                     </div>
 
-                    {/*end News*/}
+                    {/*end */}
                 </div>
             </div>
         </FrontendLayout>

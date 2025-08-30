@@ -11,19 +11,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-//import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-
-//import sourceEditing from "@ckeditor/ckeditor5-build-classic";
-//import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import ClassicEditor from "../../../../../../../texteditor/src/ckeditor";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import Markdown from "@ckeditor/ckeditor5-markdown-gfm/src/markdown";
-
 const editorConfiguration = {
     codeBlock: {
         languages: [
@@ -31,10 +18,7 @@ const editorConfiguration = {
             { language: "html", label: "HTML" },
         ],
     },
-    //plugins: [Alignment],
-    //alignment: {
-    //  options: ["left", "right"],
-    //},
+
     toolbar: [
         "sourceEditing",
         "undo",
@@ -234,15 +218,6 @@ export default function Edit(props) {
                                             setData("publish_at", date);
                                             console.log({ date });
                                         }}
-
-                                        //onChange={(e) =>
-                                        //  setData(
-                                        //    "is_featured",
-                                        //  e.target.checked
-                                        //)
-                                        //}
-                                        //onChange={onHandleChange}
-                                        //onSelect={(date, e) => setStartDate(date)}
                                     />
                                 </div>
                             </div>
@@ -408,49 +383,9 @@ export default function Edit(props) {
                                 </div>
                             </div>
 
-                            {
-                                //featured
-                                /*<div className="col-sm-12">
-                                <label className="form-label">Feature</label>
-                                <div className="form-check">
-                                    <input
-                                        name="is_featured"
-                                        type="checkbox"
-                                        onChange={(e) =>
-                                            setData(
-                                                "is_featured",
-                                                e.target.checked
-                                            )
-                                        }
-                                        className="form-check-input"
-                                        checked={props.news.is_featured}
-                                    />
-                                    <label className="form-check-label">
-                                        Berita Ditampilkan sebagai
-                                        fitur/rekomendasi
-                                    </label>
-                                    <div className="invalid-feedback">
-                                        <InputError
-                                            message={errors.is_featured}
-                                            className="mt-2"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            */
-                            }
-
                             <div className="col-sm-12">
                                 <label className="form-label">Isi</label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback"></div>*/}
+
                                 <CKEditor
                                     className="konten"
                                     //config={editorConfiguration}
