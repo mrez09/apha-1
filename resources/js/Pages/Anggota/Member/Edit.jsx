@@ -7,17 +7,6 @@ import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 
-//import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-//import sourceEditing from "@ckeditor/ckeditor5-build-classic";
-//import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import ClassicEditor from "../../../../../../../texteditor/src/ckeditor";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import Markdown from "@ckeditor/ckeditor5-markdown-gfm/src/markdown";
-
 const editorConfiguration = {
     codeBlock: {
         languages: [
@@ -473,15 +462,7 @@ export default function List(props) {
 
                             <div className="col-sm-12">
                                 <label className="form-label">Decription</label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback"></div>*/}
+
                                 <CKEditor
                                     className="dec"
                                     //config={editorConfiguration}

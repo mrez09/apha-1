@@ -387,14 +387,7 @@ export default function List(props) {
                                 <label className="form-label">
                                     Deskripsi Anggota
                                 </label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                    />*/}
+
                                 <CKEditor
                                     editor={ClassicEditor}
                                     name="dec"

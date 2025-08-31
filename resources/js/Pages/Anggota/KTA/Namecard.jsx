@@ -151,12 +151,7 @@ export default function List({
                                     <td>: 2024</td>
                                 </tr>
 
-                                {/** 
-                                <div class="icons">
-                                    <i class="fab fa-facebook-square"></i>
-                                    <i class="fab fa-instagram"></i>
-                                    <i class="fab fa-snapchat-square"></i>
-                                </div>*/}
+                                
                             </figcaption>
                             <img
                                 class="img-idcard"
