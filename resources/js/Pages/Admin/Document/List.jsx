@@ -76,37 +76,38 @@ export default function List({ auth, errors, flashMessage, props, document }) {
                                     })()}
                                     <td>{document.view}</td>
 
-                                    <td>
-                                        <a href={`/storage/${document.file}`}>
-                                            <button
-                                                alt={document.title}
+                                    <td className="text-center">
+                                        <div className="d-flex justify-content-center gap-2 flex-wrap">
+                                            <a
+                                                href={`/storage/${document.file}`}
                                                 download={document.title}
-                                                className="btn btn-info mx-2"
+                                                className="btn btn-sm btn-info"
+                                                alt={document.title}
                                             >
                                                 Download
-                                            </button>
-                                        </a>
-                                        <Link
-                                            href={route(
-                                                "admin.dashboard.document.edit",
-                                                document.id
-                                            )}
-                                        >
-                                            <button className="btn btn-warning my-2">
+                                            </a>
+
+                                            <Link
+                                                href={route(
+                                                    "admin.dashboard.document.edit",
+                                                    document.id
+                                                )}
+                                                className="btn btn-sm btn-warning"
+                                            >
                                                 Edit
-                                            </button>
-                                        </Link>
-                                        <div
-                                            onClick={() => {
-                                                destroy(
-                                                    route(
-                                                        "admin.dashboard.document.destroy",
-                                                        document.id
+                                            </Link>
+
+                                            <button
+                                                onClick={() =>
+                                                    destroy(
+                                                        route(
+                                                            "admin.dashboard.document.destroy",
+                                                            document.id
+                                                        )
                                                     )
-                                                );
-                                            }}
-                                        >
-                                            <button className="btn btn-danger my-2 mx-2">
+                                                }
+                                                className="btn btn-sm btn-danger"
+                                            >
                                                 Delete
                                             </button>
                                         </div>

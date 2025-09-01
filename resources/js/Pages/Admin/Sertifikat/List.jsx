@@ -88,28 +88,46 @@ export default function List({
                                     <td>{document.judul}</td>
                                     <td>{document.nama}</td>
                                     <td>
-                                        <a href={`/storage/${document.img}`}>
-                                            <button
-                                                alt={document.judul}
-                                                download={document.judul}
-                                                className="btn btn-info mx-2"
-                                            >
-                                                File
-                                            </button>
-                                        </a>
-                                        {(() => {
-                                            if (document.link == "") {
-                                                return <span>&nbsp;</span>;
-                                            } else {
-                                                return (
-                                                    <a href={document.link}>
-                                                        <button className="btn btn-info mx-2">
-                                                            Link
-                                                        </button>
+                                        <td>
+                                            {document.img && document.link ? (
+                                                <>
+                                                    <a
+                                                        href={document.img}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="btn btn-sm btn-success me-1 mb-1"
+                                                    >
+                                                        Download (S1)
                                                     </a>
-                                                );
-                                            }
-                                        })()}
+                                                    <a
+                                                        href={document.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="btn btn-sm btn-primary"
+                                                    >
+                                                        Download (S2)
+                                                    </a>
+                                                </>
+                                            ) : document.img ? (
+                                                <a
+                                                    href={document.img}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="btn btn-sm btn-success"
+                                                >
+                                                    Download
+                                                </a>
+                                            ) : document.link ? (
+                                                <a
+                                                    href={document.link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="btn btn-sm btn-primary"
+                                                >
+                                                    Download
+                                                </a>
+                                            ) : null}
+                                        </td>
                                     </td>
                                     {(() => {
                                         if (document.status == 1) {
@@ -119,31 +137,32 @@ export default function List({
                                         }
                                     })()}
 
-                                    <td>
-                                        <Link
-                                            href={route(
-                                                "admin.dashboard.sertifikat.edit",
-                                                document.id
-                                            )}
-                                        >
-                                            <button className="btn btn-warning my-2">
+                                    <td className="text-center">
+                                        <div className="d-flex justify-content-center gap-2">
+                                            <Link
+                                                href={route(
+                                                    "admin.dashboard.sertifikat.edit",
+                                                    document.id
+                                                )}
+                                                className="btn btn-sm btn-warning"
+                                            >
                                                 Edit
-                                            </button>
-                                        </Link>
-                                        <span
-                                            onClick={() => {
-                                                destroy(
-                                                    route(
-                                                        "admin.dashboard.sertifikat.destroy",
-                                                        document.id
+                                            </Link>
+
+                                            <button
+                                                onClick={() =>
+                                                    destroy(
+                                                        route(
+                                                            "admin.dashboard.sertifikat.destroy",
+                                                            document.id
+                                                        )
                                                     )
-                                                );
-                                            }}
-                                        >
-                                            <button className="btn btn-danger my-2 mx-2">
+                                                }
+                                                className="btn btn-sm btn-danger"
+                                            >
                                                 Delete
                                             </button>
-                                        </span>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
