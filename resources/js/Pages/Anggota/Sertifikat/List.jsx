@@ -64,13 +64,44 @@ export default function List({
                                     <td>{member.judul}</td>
 
                                     <td>
-                                        <a
-                                            href={member.link}
-                                            className="btn btn-info mx-2"
-                                            target="_blank"
-                                        >
-                                            Download
-                                        </a>
+                                        {member.img && member.link ? (
+                                            <>
+                                                <a
+                                                    href={member.img}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="btn btn-sm btn-success me-1 mb-1"
+                                                >
+                                                    Download (S1)
+                                                </a>
+                                                <a
+                                                    href={member.link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="btn btn-sm btn-primary"
+                                                >
+                                                    Download (S2)
+                                                </a>
+                                            </>
+                                        ) : member.img ? (
+                                            <a
+                                                href={member.img}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="btn btn-sm btn-success"
+                                            >
+                                                Download
+                                            </a>
+                                        ) : member.link ? (
+                                            <a
+                                                href={member.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="btn btn-sm btn-primary"
+                                            >
+                                                Download
+                                            </a>
+                                        ) : null}
                                     </td>
                                 </tr>
                             ))}
