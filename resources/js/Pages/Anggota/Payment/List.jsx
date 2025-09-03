@@ -42,6 +42,7 @@ export default function List({
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
+                        {/* sementara
                         <Link
                             type="button"
                             href={route("anggota.dashboard.payment.create")}
@@ -49,6 +50,7 @@ export default function List({
                         >
                             Tambah.
                         </Link>
+                        */}
                     </div>
                 </div>
             </div>
