@@ -39,6 +39,7 @@ export default function List({
                 <h1>{order}</h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
+                    {/* sementara
                     <div className="btn-group me-2">
                         <Link
                             type="button"
@@ -48,6 +49,7 @@ export default function List({
                             Tambah.
                         </Link>
                     </div>
+                    */}
                 </div>
             </div>
             {flashMessage?.message && (
