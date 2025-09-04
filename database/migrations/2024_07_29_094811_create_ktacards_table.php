@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ktacards', function (Blueprint $table) {
-            $table->id();$table->id();
+            $table->id();
             $table->string('id_user', 255)->nullable();
             $table->string('no_kta', 255)->nullable();
             $table->string('slug_kta', 255)->nullable();

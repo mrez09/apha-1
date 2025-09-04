@@ -10,29 +10,35 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::table('members', function (Blueprint $table) {
+{
+    Schema::table('members', function (Blueprint $table) {
+        // Pastikan kolom 'boolean' ada dulu sebelum rename
+        if (Schema::hasColumn('members', 'boolean')) {
             $table->renameColumn('boolean', 'is_active');
-        });
+        }
+    });
 
-        Schema::table('members', function (Blueprint $table) {
+    Schema::table('members', function (Blueprint $table) {
+        if (Schema::hasColumn('members', 'is_active')) {
             $table->boolean('is_active')->default(false)->change();
-        });
-    }
+        }
+    });
+}
 
-    
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('members', function (Blueprint $table) {
+public function down(): void
+{
+    Schema::table('members', function (Blueprint $table) {
+        if (Schema::hasColumn('members', 'is_active')) {
             $table->renameColumn('is_active', 'boolean');
-        });
+        }
+    });
 
-        Schema::table('members', function (Blueprint $table) {
+    Schema::table('members', function (Blueprint $table) {
+        if (Schema::hasColumn('members', 'boolean')) {
             $table->string('boolean')->default('0')->change();
-        });
-    }
+        }
+    });
+}
+
 
 };

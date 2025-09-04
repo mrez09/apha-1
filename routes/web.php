@@ -48,6 +48,7 @@ use App\Http\Controllers\Anggota\InstitusiController;
 use App\Http\Controllers\Anggota\AccountController;
 use App\Http\Controllers\Anggota\SertifikatanggotaController;
 use App\Http\Controllers\Anggota\PaymentController;
+use App\Http\Controllers\Anggota\InvoiceController;
 use App\Http\Controllers\Anggota\KTAController;
 
 
@@ -195,6 +196,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::get('payment/{payment}/edit', [PaymentadminController::class, 'edit'])->name('payment.edit');
     Route::get('payment/{payment:no_invoice}', [PaymentadminController::class, 'show'])->name('payment.show');
     Route::put('payment/{payment}/restore', [PaymentadminController::class, 'restore'])->name('payment.restore');
+    
 
 
     
@@ -256,6 +258,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::get('payment/{payment:no_invoice}', [PaymentController::class, 'show'])->name('payment.show');
     Route::put('member/{member}/restore', [PaymentController::class, 'restore'])->name('payment.restore');
 
+    //Invoice
+    Route::resource('invoice', InvoiceController::class);
+    Route::get('invoice/{payment:invoice_number}/edit', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::get('invoice/{payment:invoice_number}', [InvoiceController::class, 'show'])->name('invoice.show');
+    
     //KTA
     Route::resource('ktacard', KTAController::class);
     Route::get('ktacard/member/{member}/edit', [KTAController::class, 'edit'])->name('nokta.edit');
