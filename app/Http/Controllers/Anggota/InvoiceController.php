@@ -41,7 +41,7 @@ class InvoiceController extends Controller
     public function create(){
         //$newscategory           = Newscategory::all();
         $tanggal_print = date('Y-m-d');
-        return Inertia::render('Anggota/Payment/Create',
+        return Inertia::render('Anggota/Invoice/Create',
         
         [
             //'newscategory'          => $newscategory,
