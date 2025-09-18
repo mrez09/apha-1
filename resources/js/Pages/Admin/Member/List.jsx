@@ -59,8 +59,8 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Category</th>
-                                <th>Rating</th>
+                                <th>Email</th>
+                                <th>Universitas</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -99,10 +99,20 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                                             return <td>Aktif</td>;
                                         }
                                     })()}
-                                    <td>{member.category}</td>
-                                    <td>{member.rating}</td>
+                                    <td>{member.email}</td>
+                                    <td>{member.universitas}</td>
 
                                     <td>
+                                        <Link
+                                            href={route(
+                                                "admin.dashboard.memberadmin.view",
+                                                member.id
+                                            )}
+                                        >
+                                            <button className="btn btn-warning my-2">
+                                                View
+                                            </button>
+                                        </Link>
                                         <Link
                                             href={route(
                                                 "admin.dashboard.memberadmin.edit",

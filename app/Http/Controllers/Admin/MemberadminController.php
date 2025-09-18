@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Buku;
 use App\Models\Member;
+use App\Models\Commitee;
 use Inertia\Inertia;
 use App\Http\Requests\Admin\Member\Store;
 use App\Http\Requests\Admin\Member\Update;
@@ -67,6 +68,16 @@ class MemberadminController extends Controller
       //return  [
         //    'news'          => $news,
         //];
+    }
+
+    public function view(Member $member)
+    {
+        $commitee = Commitee::find($member->id_com);
+        return Inertia::render('Admin/Member/View', [
+            'member'    => $member,
+            'commitee' => $commitee,
+            'ckeditor'  => 'yes',
+        ]);
     }
 
     public function edit(Member $member){

@@ -178,6 +178,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     //Event
     Route::resource('member', MemberadminController::class);
     Route::get('member/{member}/edit', [MemberadminController::class, 'edit'])->name('memberadmin.edit');
+    Route::get('member/{member}/view', [MemberadminController::class, 'view'])->name('memberadmin.view');
     //Route::get('member/kta/{member}', [MemberadminController::class, 'show'])->name('membershow');
     Route::put('member/{member}/restore', [MemberadminController::class, 'restore'])->name('event.restore');
 
