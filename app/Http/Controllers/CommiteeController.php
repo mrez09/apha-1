@@ -138,12 +138,16 @@ class CommiteeController extends Controller
         'divisis.namadivisi',
         'subdivisis.namasubdivisi',
         'jabatans.namajabatan',
-        'commitees.description'
+        'commitees.description',
+        'members.scopus as link_scopus',
+        'members.scholar as link_scholar',
+        'members.sinta as link_sinta'
     )
     ->leftJoin('divisis', 'divisis.id', '=', 'commitees.divisi')
     ->leftJoin('subdivisis', 'subdivisis.id', '=', 'commitees.subdivisi')
     ->leftJoin('jabatans', 'jabatans.id', '=', 'commitees.jabatan')
     ->leftJoin('periodes', 'periodes.id', '=', 'commitees.periode')
+    ->leftJoin('members', 'members.id_com', '=', 'commitees.id')
     ->where('commitees.id', '=', $commitee->id)
     ->first();
 
