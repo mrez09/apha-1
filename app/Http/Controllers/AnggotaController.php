@@ -118,7 +118,7 @@ class AnggotaController extends Controller
         $data['id_user'] = $id_user;
         $data['slug'] = Str::slug($data['nama']);
         $data['divisi'] = 3;
-        $data['subdivisi'] = 1;
+        $data['subdivisi'] = 10;
         $data['jabatan'] = 12;
         $data['periode'] = 1;
         $data['join_at'] = date('Y-m-d H:i:s');;

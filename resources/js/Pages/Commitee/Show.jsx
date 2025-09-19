@@ -34,155 +34,204 @@ export default function List({ featuredBuku, commitee, cururl, props }) {
                     Pengurus - Asosiasi Pengajar Hukum Adat (APHA) Indonesia
                 </title>
             </Head>
-            <div className="container ">
-                <div className="row g-5 mx-4 my-4 d-flex justify-content-center mt-5 round-card">
-                    {(() => {
-                        if (commitee.img != null) {
-                            return (
-                                <div className="col-md-6 img-center mb-4">
-                                    <img
-                                        src={`/storage/${commitee.img}`}
-                                        className="rounded img-fluid book-thumbnail"
-                                        alt=""
-                                    />
-                                </div>
-                            );
-                        } else if (
-                            commitee.img == null &&
-                            commitee.gender == 1
-                        ) {
-                            return (
-                                <div className="col-md-6 img-center mb-4">
-                                    <img
-                                        src="https://i.imgur.com/T0CKh3Z.png"
-                                        className="rounded img-fluid book-thumbnail"
-                                        alt=""
-                                    />
-                                </div>
-                            );
-                        } else if (
-                            commitee.img == null &&
-                            commitee.gender == 2
-                        ) {
-                            return (
-                                <div className="col-md-6 img-center mb-4">
-                                    <img
-                                        src="https://i.imgur.com/Ap5NojU.png"
-                                        className="rounded img-fluid book-thumbnail"
-                                        alt=""
-                                    />
-                                </div>
-                            );
-                        }
-                    })()}
+            <div className="container py-5">
+                <div className="row g-5 justify-content-center align-items-start bg-light rounded shadow-sm p-4">
+                    {/* FOTO PROFIL */}
+                    <div className="col-md-5 text-center">
+                        <div
+                            className="portrait-frame mx-auto"
+                            style={{
+                                background:
+                                    "linear-gradient(145deg, #f0f4ff, #ffffff)",
+                                borderRadius: "18px",
+                                boxShadow:
+                                    "0 8px 20px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(255,255,255,0.6)",
+                                padding: "14px",
+                                border: "1px solid rgba(220,230,255,0.7)",
+                            }}
+                        >
+                            <div
+                                className="portrait-inner position-relative"
+                                style={{
+                                    borderRadius: "14px",
+                                    overflow: "hidden",
+                                    background:
+                                        "linear-gradient(180deg, #fff, #eef4ff)",
+                                    boxShadow:
+                                        "inset 0 0 12px rgba(0,0,0,0.05), 0 0 10px rgba(0,123,255,0.05)",
+                                }}
+                            >
+                                {(() => {
+                                    let imgSrc = "";
 
-                    <div className="col-md-6 mt-2   ">
-                        <article className="blog-post ">
-                            <h2 className="blog-post-title mt-5 text-accent">
+                                    if (commitee.img) {
+                                        imgSrc = `/storage/${commitee.img}`;
+                                    } else if (commitee.gender == 2) {
+                                        imgSrc =
+                                            "https://i.imgur.com/Ap5NojU.png";
+                                    } else {
+                                        imgSrc =
+                                            "https://i.imgur.com/T0CKh3Z.png";
+                                    }
+
+                                    return (
+                                        <img
+                                            src={imgSrc}
+                                            alt={commitee.nama}
+                                            className="img-fluid"
+                                            style={{
+                                                width: "100%",
+                                                height: "400px",
+                                                objectFit: "cover",
+                                                borderRadius: "14px",
+                                                transition:
+                                                    "transform 0.4s ease, box-shadow 0.4s ease",
+                                            }}
+                                            onMouseOver={(e) => {
+                                                e.currentTarget.style.transform =
+                                                    "scale(1.03)";
+                                                e.currentTarget.style.boxShadow =
+                                                    "0 10px 20px rgba(0, 123, 255, 0.15)";
+                                            }}
+                                            onMouseOut={(e) => {
+                                                e.currentTarget.style.transform =
+                                                    "scale(1)";
+                                                e.currentTarget.style.boxShadow =
+                                                    "none";
+                                            }}
+                                        />
+                                    );
+                                })()}
+                            </div>
+
+                            <div
+                                className="portrait-caption mt-3"
+                                style={{
+                                    fontSize: "1rem",
+                                    fontWeight: "600",
+                                    color: "#2b3d63",
+                                }}
+                            >
+                                {commitee.nama}
+                            </div>
+                            <div
+                                style={{
+                                    fontSize: "0.9rem",
+                                    color: "#6c7aa0",
+                                }}
+                            >
+                                {commitee.namajabatan}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* DETAIL PROFIL */}
+                    <div className="col-md-7">
+                        <article className="blog-post">
+                            <h2 className="fw-bold text-primary mb-1">
                                 {commitee.nama}
                             </h2>
+                            <hr className="mt-2 mb-3" />
+
+                            <div className="mb-4">
+                                {/* Baris pertama: Nama Divisi */}
+                                <h5 className="fw-semibold text-primary mb-1">
+                                    {commitee.namadivisi || ""}
+                                </h5>
+
+                                {/* Baris kedua: Subdivisi - Jabatan */}
+                                <h6 className="text-secondary fw-normal">
+                                    {(commitee.namasubdivisi || "") +
+                                        (commitee.namasubdivisi &&
+                                        commitee.namajabatan
+                                            ? " - "
+                                            : "") +
+                                        (commitee.namajabatan || "")}
+                                </h6>
+                            </div>
+
+                            {/* DESKRIPSI */}
+                            <div className="p-3 bg-white rounded shadow-sm border mb-3">
+                                {commitee.description ? (
+                                    <div className="kon-10">
+                                        {parse(commitee.description)}
+                                    </div>
+                                ) : (
+                                    <p className="text-muted fst-italic mb-0">
+                                        Belum ada deskripsi biodata yang
+                                        ditambahkan.
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* INFO TAMBAHAN */}
+                            {commitee.pendidikan && (
+                                <div className="mb-3">
+                                    <h6 className="text-uppercase text-secondary mb-2">
+                                        Pendidikan
+                                    </h6>
+                                    <div className="bg-white rounded shadow-sm border p-3">
+                                        {parse(commitee.pendidikan)}
+                                    </div>
+                                </div>
+                            )}
+
                             <hr />
-                            {(() => {
-                                if (commitee.subdivisi_id == 1) {
-                                    return (
-                                        <h4 className="blog-post-title mt-2 text-paragh">
-                                            {commitee.namajabatan}
-                                        </h4>
-                                    );
-                                } else {
-                                    return (
-                                        <h4 className="blog-post-title mt-2 text-paragh">
-                                            {commitee.namasubdivisi} -{" "}
-                                            {commitee.namajabatan}
-                                        </h4>
-                                    );
-                                }
-                            })()}
 
-                            {(() => {
-                                if (commitee.description != null) {
-                                    return (
-                                        <div>
-                                            <div className="kon-10">
-                                                {parse(commitee.description)}
-                                            </div>
-                                        </div>
-                                    );
-                                } else {
-                                    return <p></p>;
-                                }
-                            })()}
-
-                            {/*(() => {
-                                if (commitee.pendidikan != null) {
-                                    return (
-                                        <div>
-                                            <div className="kon-10">
-                                                {parse(commitee.pendidikan)}
-                                            </div>
-                                        </div>
-                                    );
-                                } else {
-                                    return <p></p>;
-                                }
-                            })()*/}
-
-                            <hr />
-                            <div className="detail-article__share-wrapper">
-                                <b>SHARE</b>
-
-                                <div className="detail-article__share">
+                            {/* SHARE AREA */}
+                            <div className="detail-article__share-wrapper mt-4">
+                                <b className="text-uppercase text-secondary">
+                                    Bagikan Profil
+                                </b>
+                                <div className="detail-article__share mt-2 d-flex align-items-center gap-3">
                                     <CopyToClipboard
                                         onCopy={onCopy}
                                         text={url_homes}
                                     >
-                                        <span>
+                                        <span className="cursor-pointer">
                                             <img
                                                 src={`/storage/icon/Chain.gif`}
                                                 className="detail-article__share-icon"
-                                                alt="share Copy Link"
+                                                alt="Copy Link"
                                             />
                                         </span>
                                     </CopyToClipboard>
 
                                     <a
                                         href={`https://api.whatsapp.com/send?text=${url_homes}`}
-                                        //"https://api.whatsapp.com/send?text={url_homes}"
                                         className="detail-article__share-link"
                                         target="_blank"
+                                        rel="noreferrer"
                                     >
                                         <img
                                             src={`/storage/icon/Whatsapp.gif`}
                                             className="detail-article__share-icon"
-                                            alt="share whatsapp icon"
+                                            alt="Share WhatsApp"
                                         />
                                     </a>
+
                                     <a
                                         href={`https://facebook.com/sharer.php?u=${url_homes}`}
-                                        //href="https://facebook.com/sharer.php?u=https://apindo.or.id/en/media/forum-pengusaha-umkm-malut-sepakati-pembentukan-holding-company"
                                         className="detail-article__share-link"
                                         target="_blank"
+                                        rel="noreferrer"
                                     >
                                         <img
-                                            //src="https://apindo.or.id/images/share-facebook.png"
                                             src={`/storage/icon/Facebook.gif`}
                                             className="detail-article__share-icon"
-                                            alt="share link facebook"
+                                            alt="Share Facebook"
                                         />
                                     </a>
-                                    <div>
-                                        {copied ? (
-                                            <span style={{ color: "red" }}>
-                                                Text berhasil dicopy
-                                            </span>
-                                        ) : null}
-                                    </div>
+
+                                    {copied && (
+                                        <span className="text-success small">
+                                            🔗 Link berhasil disalin
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         </article>
                     </div>
-
-                    {/*end News*/}
                 </div>
             </div>
         </FrontendLayout>
