@@ -51,89 +51,98 @@ export default function List({ auth, errors, flashMessage, props, member }) {
 
             <div className="container">
                 <div className="row">
-                    <table id="myTable" className="table table-striped">
-                        <thead>
+                    <table
+                        id="myTable"
+                        className="table table-striped align-middle"
+                    >
+                        <thead className=" text-center">
                             <tr>
                                 <th>No</th>
                                 <th>No KTA</th>
-                                <th>Image</th>
-                                <th>Name</th>
+                                <th>Foto</th>
+                                <th>Nama</th>
                                 <th>Status</th>
                                 <th>Email</th>
                                 <th>Universitas</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {member.map((member) => (
+                            {member.map((member, index) => (
                                 <tr key={member.id}>
-                                    <td>{member.id}</td>
-                                    <td>{member.no_kta}</td>
-                                    <td>
+                                    <td className="text-center">{index + 1}</td>
+                                    <td className="text-center fw-semibold">
+                                        {member.no_kta}
+                                    </td>
+
+                                    <td className="text-center">
                                         <img
                                             src={`/storage/${member.img}`}
-                                            //src={'/storage/${newslist.img}'}
-                                            //src="'/storage/'${newslist.img}"
-                                            //src='" . asset($dirname . $curimg) . "'
-                                            //src={
-                                            //  "http://127.0.0.1:8000/storage/news/YKsAaWIYa2xsQQmbOS0Ejc5CIJcT7Q6aixQn2JWj.png"
-                                            //}
-                                            //src={
-                                            //  "http://127.0.0.1:8000/storage/${newslit.img}"
-                                            //}
-                                            //src="{{ asset('storage/'.$newslist->img) }}"
-
-                                            className="rounded img-thumb img-fluid img-thumbnail"
-                                            //src="{{ asset('storage/'.$newslist->img) }}"
-                                            //src="{{ asset('/storage/'.$newslist->img) }}"
-                                            //src="{{ url('storage/'.$news->img) }}"
-                                            alt=""
+                                            alt={member.nama}
+                                            className="rounded-circle border shadow-sm"
+                                            style={{
+                                                width: "60px",
+                                                height: "60px",
+                                                objectFit: "cover",
+                                            }}
                                         />
                                     </td>
 
-                                    <td>{member.nama}</td>
-                                    {(() => {
-                                        if (member.status == 0) {
-                                            return <td>Tidak Aktif</td>;
-                                        } else {
-                                            return <td>Aktif</td>;
-                                        }
-                                    })()}
+                                    <td className="fw-semibold">
+                                        {member.nama}
+                                    </td>
+
+                                    <td className="text-center">
+                                        {member.status === 1 ? (
+                                            <span className="badge bg-success">
+                                                Aktif
+                                            </span>
+                                        ) : (
+                                            <span className="badge bg-secondary">
+                                                Tidak Aktif
+                                            </span>
+                                        )}
+                                    </td>
+
                                     <td>{member.email}</td>
                                     <td>{member.universitas}</td>
 
-                                    <td>
-                                        <Link
-                                            href={route(
-                                                "admin.dashboard.memberadmin.view",
-                                                member.id
-                                            )}
-                                        >
-                                            <button className="btn btn-warning my-2">
-                                                View
-                                            </button>
-                                        </Link>
-                                        <Link
-                                            href={route(
-                                                "admin.dashboard.memberadmin.edit",
-                                                member.id
-                                            )}
-                                        >
-                                            <button className="btn btn-warning my-2">
-                                                Edit
-                                            </button>
-                                        </Link>
-                                        <div
-                                            onClick={() => {
-                                                destroy(
-                                                    route(
-                                                        "admin.dashboard.member.destroy",
-                                                        member.id
+                                    <td className="text-center">
+                                        <div className="d-flex justify-content-center gap-2 flex-wrap">
+                                            <Link
+                                                href={route(
+                                                    "admin.dashboard.memberadmin.view",
+                                                    member.id
+                                                )}
+                                            >
+                                                <button className="btn btn-outline-primary btn-sm">
+                                                    <i className="bi bi-eye"></i>{" "}
+                                                    View
+                                                </button>
+                                            </Link>
+                                            <Link
+                                                href={route(
+                                                    "admin.dashboard.memberadmin.edit",
+                                                    member.id
+                                                )}
+                                            >
+                                                <button className="btn btn-outline-warning btn-sm">
+                                                    <i className="bi bi-pencil-square"></i>{" "}
+                                                    Edit
+                                                </button>
+                                            </Link>
+                                            <button
+                                                onClick={() =>
+                                                    destroy(
+                                                        route(
+                                                            "admin.dashboard.member.destroy",
+                                                            member.id
+                                                        )
                                                     )
-                                                );
-                                            }}
-                                        >
-                                            <button className="btn btn-danger my-2">
+                                                }
+                                                className="btn btn-outline-danger btn-sm"
+                                            >
+                                                <i className="bi bi-trash"></i>{" "}
                                                 Delete
                                             </button>
                                         </div>
