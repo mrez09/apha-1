@@ -125,74 +125,149 @@ class CommiteeController extends Controller
     }
 
     public function show(Commitee $commitee)
+    {
+        $konfigurasis = Konfigurasi::find(1);
+        
+        // Gunakan leftJoin supaya tetap tampil meski ada data yang null
+        $pengurusget = Commitee::select(
+            'commitees.id as commitees_id',
+            'subdivisis.id as subdivisi_id',
+            'commitees.nama',
+            'commitees.gender',
+            'commitees.img',
+            'divisis.namadivisi',
+            'subdivisis.namasubdivisi',
+            'jabatans.namajabatan',
+            'commitees.description',
+            'members.scopus as link_scopus',
+            'members.scholar as link_scholar',
+            'members.sinta as link_sinta'
+        )
+        ->leftJoin('divisis', 'divisis.id', '=', 'commitees.divisi')
+        ->leftJoin('subdivisis', 'subdivisis.id', '=', 'commitees.subdivisi')
+        ->leftJoin('jabatans', 'jabatans.id', '=', 'commitees.jabatan')
+        ->leftJoin('periodes', 'periodes.id', '=', 'commitees.periode')
+        ->leftJoin('members', 'members.id_com', '=', 'commitees.id')
+        ->where('commitees.id', '=', $commitee->id)
+        ->first();
+
+        // Antisipasi kalau $pengurusget null
+        if (!$pengurusget) {
+            abort(404, 'Data pengurus tidak ditemukan.');
+        }
+
+        // --- Meta section ---
+        $descriptionText = $pengurusget->description ?? '';
+        $repkonten1 = Str::replace('<p>', '', $descriptionText);
+        $repkonten2 = Str::replace('</p>', '', $repkonten1);
+        $des = Str::words($repkonten2, 25);
+
+        $reptag1 = Str::replace('<p>', '', $konfigurasis->metatag ?? '');
+        $metatag = Str::replace('</p>', '', $reptag1);
+
+        $cururl = URL::current();
+
+        return Inertia::render('Commitee/Show', [
+            'commitee' => $pengurusget,
+            'event' => [
+                'application-name'           => $konfigurasis->namawebsite ?? 'APHA',
+                'title'                      => $pengurusget->nama ?? 'Pengurus',
+                'description'                => $des,
+                'keywords'                   => $metatag,
+                'image'                      => $pengurusget->img 
+                    ? 'https://apha.or.id/storage/' . $pengurusget->img
+                    : 'https://apha.or.id/default-thumbnail.jpg',
+                'image_type'                 => 'image/jpeg',
+                'image_width'                => '1800',
+                'image_height'               => '550',
+                'image_alt'                  => $pengurusget->nama ?? '',
+                'og:type'                    => 'profile',
+                'firstname'                  => $pengurusget->nama ?? '',
+                'publish_time'               => $pengurusget->publish_at ?? now(),
+                'article_tag'                => 'Hukum Adat, APHA, Asosiasi Pengajar Hukum Adat',
+                'url'                        => $cururl,
+                'fb:app_id'                  => $konfigurasis->fbid ?? '',
+                'theme-color'                => '#ff6300',
+                'mobile-web-app-capable'     => 'yes',
+                'apple-mobile-web-app-title' => $pengurusget->nama ?? '',
+                'card'                       => 'summary_large_image',
+            ]
+        ]);
+    }
+
+    public function kta($slug_kta)
 {
     $konfigurasis = Konfigurasi::find(1);
 
-    // Gunakan leftJoin supaya tetap tampil meski ada data yang null
     $pengurusget = Commitee::select(
         'commitees.id as commitees_id',
         'subdivisis.id as subdivisi_id',
+        'commitees.slug',
         'commitees.nama',
-        'commitees.gender',
         'commitees.img',
         'divisis.namadivisi',
         'subdivisis.namasubdivisi',
         'jabatans.namajabatan',
         'commitees.description',
+        'members.no_kta',
+        'members.jk',
+        'members.status',
+        'members.universitas',
+        'members.fakultas',
         'members.scopus as link_scopus',
         'members.scholar as link_scholar',
         'members.sinta as link_sinta'
     )
-    ->leftJoin('divisis', 'divisis.id', '=', 'commitees.divisi')
-    ->leftJoin('subdivisis', 'subdivisis.id', '=', 'commitees.subdivisi')
-    ->leftJoin('jabatans', 'jabatans.id', '=', 'commitees.jabatan')
-    ->leftJoin('periodes', 'periodes.id', '=', 'commitees.periode')
-    ->leftJoin('members', 'members.id_com', '=', 'commitees.id')
-    ->where('commitees.id', '=', $commitee->id)
-    ->first();
+        ->leftJoin('divisis', 'divisis.id', '=', 'commitees.divisi')
+        ->leftJoin('subdivisis', 'subdivisis.id', '=', 'commitees.subdivisi')
+        ->leftJoin('jabatans', 'jabatans.id', '=', 'commitees.jabatan')
+        ->leftJoin('periodes', 'periodes.id', '=', 'commitees.periode')
+        ->leftJoin('members', 'members.id_com', '=', 'commitees.id')
+        ->where('members.slug_kta', '=', $slug_kta)
+        ->first();
 
-    // Antisipasi kalau $pengurusget null
-    if (!$pengurusget) {
-        abort(404, 'Data pengurus tidak ditemukan.');
+        // Antisipasi kalau $pengurusget null
+        if (!$pengurusget) {
+            abort(404, 'Data pengurus tidak ditemukan.');
+        }
+
+        // --- Meta section ---
+        $descriptionText = $pengurusget->description ?? '';
+        $repkonten1 = Str::replace('<p>', '', $descriptionText);
+        $repkonten2 = Str::replace('</p>', '', $repkonten1);
+        $des = Str::words($repkonten2, 25);
+
+        $reptag1 = Str::replace('<p>', '', $konfigurasis->metatag ?? '');
+        $metatag = Str::replace('</p>', '', $reptag1);
+
+        $cururl = URL::current();
+
+        return Inertia::render('Commitee/VerifKTA', [
+            'commitee' => $pengurusget,
+            'event' => [
+                'application-name'           => $konfigurasis->namawebsite ?? 'APHA',
+                'title'                      => $pengurusget->nama ?? 'Pengurus',
+                'description'                => $des,
+                'keywords'                   => $metatag,
+                'image'                      => $pengurusget->img 
+                    ? 'https://apha.or.id/storage/' . $pengurusget->img
+                    : 'https://apha.or.id/default-thumbnail.jpg',
+                'image_type'                 => 'image/jpeg',
+                'image_width'                => '1800',
+                'image_height'               => '550',
+                'image_alt'                  => $pengurusget->nama ?? '',
+                'og:type'                    => 'profile',
+                'firstname'                  => $pengurusget->nama ?? '',
+                'publish_time'               => $pengurusget->publish_at ?? now(),
+                'article_tag'                => 'Hukum Adat, APHA, Asosiasi Pengajar Hukum Adat',
+                'url'                        => $cururl,
+                'fb:app_id'                  => $konfigurasis->fbid ?? '',
+                'theme-color'                => '#ff6300',
+                'mobile-web-app-capable'     => 'yes',
+                'apple-mobile-web-app-title' => $pengurusget->nama ?? '',
+                'card'                       => 'summary_large_image',
+            ]
+        ]);
     }
-
-    // --- Meta section ---
-    $descriptionText = $pengurusget->description ?? '';
-    $repkonten1 = Str::replace('<p>', '', $descriptionText);
-    $repkonten2 = Str::replace('</p>', '', $repkonten1);
-    $des = Str::words($repkonten2, 25);
-
-    $reptag1 = Str::replace('<p>', '', $konfigurasis->metatag ?? '');
-    $metatag = Str::replace('</p>', '', $reptag1);
-
-    $cururl = URL::current();
-
-    return Inertia::render('Commitee/Show', [
-        'commitee' => $pengurusget,
-        'event' => [
-            'application-name'           => $konfigurasis->namawebsite ?? 'APHA',
-            'title'                      => $pengurusget->nama ?? 'Pengurus',
-            'description'                => $des,
-            'keywords'                   => $metatag,
-            'image'                      => $pengurusget->img 
-                ? 'https://apha.or.id/storage/' . $pengurusget->img
-                : 'https://apha.or.id/default-thumbnail.jpg',
-            'image_type'                 => 'image/jpeg',
-            'image_width'                => '1800',
-            'image_height'               => '550',
-            'image_alt'                  => $pengurusget->nama ?? '',
-            'og:type'                    => 'profile',
-            'firstname'                  => $pengurusget->nama ?? '',
-            'publish_time'               => $pengurusget->publish_at ?? now(),
-            'article_tag'                => 'Hukum Adat, APHA, Asosiasi Pengajar Hukum Adat',
-            'url'                        => $cururl,
-            'fb:app_id'                  => $konfigurasis->fbid ?? '',
-            'theme-color'                => '#ff6300',
-            'mobile-web-app-capable'     => 'yes',
-            'apple-mobile-web-app-title' => $pengurusget->nama ?? '',
-            'card'                       => 'summary_large_image',
-        ]
-    ]);
-}
 
 }

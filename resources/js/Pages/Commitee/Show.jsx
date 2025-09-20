@@ -31,7 +31,7 @@ export default function List({ featuredBuku, commitee, cururl, props }) {
         <FrontendLayout>
             <Head>
                 <title>
-                    Pengurus - Asosiasi Pengajar Hukum Adat (APHA) Indonesia
+                    Biodata - Asosiasi Pengajar Hukum Adat (APHA) Indonesia
                 </title>
             </Head>
             <div className="container py-5">

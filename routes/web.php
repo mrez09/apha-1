@@ -398,6 +398,34 @@ Route::prefix('/')->name('front')->group(function (){
         
     });
 
+    //verif kta
+    Route::prefix('biodata')->name('pengurus.')->group(function () {
+//        route::get('/dewan-pembina', function () {
+  //          return Inertia::render('Pengurus/Dewan_Pembina');
+//        })->name('dewan-penasehat');
+        route::get('/dewan-pengurus', function () {
+            return Inertia::render('Pengurus/Dewan_Pengurus');
+        })->name('dewan-pengurus');
+        Route::get('/{commitee:slug}', [CommiteeController::class, 'show'])->name('commitee.show');
+        
+        
+        
+        
+    });
+
+    Route::prefix('kta')->name('pengurus.')->group(function () {
+//        route::get('/dewan-pembina', function () {
+  //          return Inertia::render('Pengurus/Dewan_Pembina');
+//        })->name('dewan-penasehat');
+        
+        Route::get('/{slug_kta}', [CommiteeController::class, 'kta'])->name('commitee.kta');
+        
+        
+        
+        
+    });
+
+
     //Prosiding
     Route::resource('prosiding', ProsidingController::class);
     Route::get('prosiding/{prosiding:slug}', [ProsidingController::class, 'show'])->name('prosiding.show');

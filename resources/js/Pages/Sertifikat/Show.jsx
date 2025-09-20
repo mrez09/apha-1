@@ -28,7 +28,8 @@ export default function List({
         <FrontendLayout>
             <Head>
                 <title>
-                    Berita - Asosiasi Pengajar Hukum Adat (APHA) Indonesia
+                    Cek Sertifikat - Asosiasi Pengajar Hukum Adat (APHA)
+                    Indonesia
                 </title>
             </Head>
             <div className="container">
