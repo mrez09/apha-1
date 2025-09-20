@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -45,4 +48,23 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+{
+    // Tangani error throttle (Too Many Requests)
+    if ($e instanceof ThrottleRequestsException) {
+        if ($request->inertia()) {
+            return Inertia::render('FrontSertifikat/List', [
+                'error' => 'Terlalu banyak permintaan. Coba lagi dalam 1 menit.'
+            ])->toResponse($request)->setStatusCode(200);
+        }
+
+        // Kalau bukan request Inertia (misalnya Postman)
+        return response()->json([
+            'message' => 'Terlalu banyak permintaan. Coba lagi dalam 1 menit.'
+        ], 429);
+    }
+
+    return parent::render($request, $e);
+}
 }

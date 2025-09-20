@@ -1,9 +1,13 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link } from "@inertiajs/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Guest({ children }, props) {
     return (
         <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+            {/* 🔔 Komponen wajib untuk menampilkan toast */}
+
             <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <div className="container-fluid">
                     <Link className="navbar-brand" href={route("frontindex")}>

@@ -30,57 +30,55 @@ class SertifikatController extends Controller
 
     public function search(Request $request){
         $request->validate([
-        'search' => 'required|string'
-    ]);
-
-    $query = $request->input('search');
-
-    $sertifikat = Sertifikat::where('no', 'LIKE', "%$query%")->get();
-
-    return inertia('Sertifikat/List', [
-        'sertifikat' => $sertifikat,
-        'searchQuery' => $query
-    ]);
+            'search' => 'required|string'
+        ]);
+        
+        $query = $request->input('search');
+        $sertifikat = Sertifikat::where('no', 'LIKE', "%$query%")->get();
+        
+        return inertia('Sertifikat/List', [
+            'sertifikat' => $sertifikat,
+            'searchQuery' => $query
+        ]);
     }
 
     public function show($no)
-{
-    //$sertifikat = Sertifikat::where('no', $no)->first();
-     $sertifikat = Sertifikat::where('no', $no)->first();
-
-    if (!$sertifikat) {
-        return Inertia::render('Sertifikat/Verifikasi', [
-            'valid' => false,
-            'no' => $no,
-        ]);
+    {
+        //$sertifikat = Sertifikat::where('no', $no)->first();
+        $sertifikat = Sertifikat::where('no', $no)->first();
+         
+        if (!$sertifikat) {
+            return Inertia::render('Sertifikat/Verifikasi', [
+                'valid' => false,
+                'no' => $no,
+            ]);
+        }
+        
+        //$qr = QrCode::size(200)->generate(route('frontsertifikat.verify', $sertifikat->no));
+         
+        $qr = (string) QrCode::size(200)->generate(route('frontsertifikat.check', $sertifikat->no ));
+        $qrasli = (string) QrCode::size(200)->generate(route('frontsertifikat.verify', $sertifikat->no ));
+        
+        return Inertia::render('Sertifikat/Show', [
+            'sertifikat' => $sertifikat,
+            'qrcode' => $qr, // ← ini HTML SVG
+        ]); 
     }
-
-    //$qr = QrCode::size(200)->generate(route('frontsertifikat.verify', $sertifikat->no));
-    $qr = (string) QrCode::size(200)->generate(route('frontsertifikat.check', $sertifikat->no ));
-    $qrasli = (string) QrCode::size(200)->generate(route('frontsertifikat.verify', $sertifikat->no ));
-
     
-    return Inertia::render('Sertifikat/Show', [
-        'sertifikat' => $sertifikat,
-        'qrcode' => $qr, // ← ini HTML SVG
-    ]); 
-}
-
-public function verify($no)
-{
-    $sertifikat = Sertifikat::where('no', $no)->first();
-
-    if (!$sertifikat) {
-        return Inertia::render('Sertifikat/Verifikasi', [
-            'valid' => false,
-            'no' => $no,
+    public function verify($no)
+    {
+        $sertifikat = Sertifikat::where('no', $no)->first();
+        if (!$sertifikat) {
+            return Inertia::render('Sertifikat/Verifikasi', [
+                'valid' => false,
+                'no' => $no,
+            ]);
+        }
+        
+        return Inertia::render('Sertifikat/Show', [
+            'valid' => true,
+            'sertifikat' => $sertifikat,
         ]);
     }
-
-    return Inertia::render('Sertifikat/Show', [
-        'valid' => true,
-        'sertifikat' => $sertifikat,
-    ]);
-}
 
 }

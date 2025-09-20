@@ -479,6 +479,9 @@ Route::prefix('/')->name('front')->group(function (){
 
     Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
     Route::post('/sertifikat/search', [SertifikatController::class, 'search'])->name('sertifikat.search');
+//    Route::post('/sertifikat/search', [SertifikatController::class, 'search'])
+//    ->name('sertifikat.search')
+//    ->middleware('throttle:5,1');
     Route::get('/sertifikat/{no}', [SertifikatController::class, 'show'])->name('sertifikat.verify');
     Route::get('/sertifikat/verify/{no}', [SertifikatController::class, 'verify'])->name('sertifikat.check');
     //Route::get('/sertifikat/{no}', [SertifikatController::class, 'show'])->name('sertifikat.verify');
