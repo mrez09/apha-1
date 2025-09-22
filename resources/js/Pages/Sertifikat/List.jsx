@@ -12,15 +12,40 @@ import { router } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+
+console.log("sitekey:", import.meta.env.VITE_RECAPTCHA_SITE_KEY);
+console.log("Site key:", import.meta.env.RECAPTCHA_SITE_KEY);
 
 export default function List({ sertifikat, searchQuery, error }) {
+    const captchaRef = useRef(null);
     const { data, setData, post, processing } = useForm({
         search: searchQuery || "",
+        recaptcha: "",
     });
 
+    const { props } = usePage();
+    const flashMessage = props?.flashMessage;
+
+    useEffect(() => {
+        if (flashMessage?.message) {
+            if (flashMessage.type === "error") {
+                toast.error(flashMessage.message);
+            } else if (flashMessage.type === "success") {
+                toast.success(flashMessage.message);
+            } else {
+                toast.info(flashMessage.message);
+            }
+        }
+    }, [flashMessage]);
+
     const [lastSearchTime, setLastSearchTime] = useState(0);
+
+    const handleCaptchaChange = (value) => {
+        setData("recaptcha", value);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,21 +57,25 @@ export default function List({ sertifikat, searchQuery, error }) {
         }
         setLastSearchTime(now);
 
+        if (!data.recaptcha) {
+            toast.error("⚠️ Silakan verifikasi captcha terlebih dahulu!");
+            return;
+        }
+
         post(route("frontsertifikat.search"), {
             preserveScroll: true,
             onSuccess: (page) => {
                 const hasil = page?.props?.sertifikat || [];
-                if (hasil.length > 0) {
+                if (hasil.length > 0)
                     toast.success("✅ Data sertifikat ditemukan!");
-                } else {
-                    toast.warning("⚠️ Sertifikat tidak ditemukan.");
-                }
+                else toast.warning("⚠️ Sertifikat tidak ditemukan.");
             },
-            onError: () => {
-                toast.error("❌ Terjadi kesalahan. Coba lagi nanti.");
-            },
+            onError: () =>
+                toast.error("❌ Terjadi kesalahan. Coba lagi nanti."),
             onFinish: () => {
                 setData("search", "");
+                setData("recaptcha", ""); // hapus token lama
+                captchaRef.current?.reset(); // ⚡ re-render captcha agar bisa dicentang lagi
             },
         });
     };
@@ -94,6 +123,13 @@ export default function List({ sertifikat, searchQuery, error }) {
                         </div>
                     </form>
 
+                    <div className="d-flex justify-content-center">
+                        <ReCAPTCHA
+                            ref={captchaRef}
+                            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                            onChange={(value) => setData("recaptcha", value)}
+                        />
+                    </div>
                     {sertifikat && sertifikat.length > 0 ? (
                         <div className="table-responsive">
                             <table className="table table-bordered table-striped">
