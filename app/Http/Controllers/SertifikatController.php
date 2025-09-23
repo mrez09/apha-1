@@ -14,6 +14,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Cache;
 
 class SertifikatController extends Controller
 {
@@ -35,18 +36,24 @@ class SertifikatController extends Controller
     public function search(Request $request){
         //Limiter
         $ip = $request->ip();
-    $key = 'search-certificates:' . $ip;
+        $key = 'search-certificates:' . $ip;
 
-    if (RateLimiter::tooManyAttempts($key, 3)) {
-        $seconds = RateLimiter::availableIn($key);
+        // Ambil jumlah percobaan saat ini
+        $attempts = Cache::get($key . ':count', 0);
 
-        return redirect()->back()
-            ->with('message', "⛔ Terlalu banyak permintaan. Coba lagi dalam {$seconds} detik.")
-            ->with('type', 'error');
-    }
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            $seconds = RateLimiter::availableIn($key);
+
+            return redirect()->back()
+                ->with('message', "⛔ Terlalu banyak permintaan. Coba lagi dalam {$seconds} detik. Percobaan sudah {$attempts}x.")
+                ->with('type', 'error')
+                ->with('attempts', $attempts);
+        }
 
 
-         RateLimiter::hit($key, 300); // reset tiap 60 detik
+        RateLimiter::hit($key, 300); // reset tiap 60 detik
+        Cache::put($key . ':count', $attempts + 1, now()->addMinutes(5));
+
 
         //Capcha
          $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
@@ -68,10 +75,18 @@ class SertifikatController extends Controller
         $query = $request->input('search');
         $sertifikat = Sertifikat::where('no', 'LIKE', "%$query%")->get();
         
+        
         return inertia('Sertifikat/List', [
             'sertifikat' => $sertifikat,
-            'searchQuery' => $query
+            'searchQuery' => $query,
+            'flashMessage' => [
+                'message' => "✅ Pencarian berhasil. Percobaan {$attempts}x.",
+                'type' => 'success',
+                'attempts' => $attempts + 1
+            ]
         ]);
+
+        
     }
 
     public function show($no)

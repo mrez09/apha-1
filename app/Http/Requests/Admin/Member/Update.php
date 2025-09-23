@@ -31,6 +31,7 @@ class Update extends FormRequest
             'kode'          => 'nullable',
             'jk'            => 'nullable',
             'img'           => 'nullable|image',
+            'img_kta'       => 'nullable|image',
             'universitas'   => 'nullable',
             'fakultas'      => 'nullable',
             'alamatf'       => 'nullable',

@@ -4,12 +4,24 @@ import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
-import { ToastContainer } from "react-toastify";
+import { usePage } from "@inertiajs/react";
+import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Authenticated({ auth, header, children }) {
+export default function Authenticated({ auth, header, children, props }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        if (flash?.message) {
+            if (flash.type === "error") toast.error(flash.message);
+            else if (flash.type === "success") toast.success(flash.message);
+            else toast.info(flash.message);
+        }
+    }, [flash]);
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -228,7 +240,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     )}
                                                     className="nav-link px-3"
                                                 >
-                                                    <i class="fas ic fa-credit-card"></i>
+                                                    <i className="fas ic fa-credit-card"></i>
                                                     Payment
                                                 </a>
                                             </li>
@@ -243,7 +255,7 @@ export default function Authenticated({ auth, header, children }) {
                                         data-bs-toggle="collapse"
                                         href="#pengurus"
                                     >
-                                        <i class="fas ic fa-people-group"></i>
+                                        <i className="fas ic fa-people-group"></i>
                                         Pengurus
                                     </a>
                                     <div className="collapse" id="pengurus">
@@ -552,8 +564,31 @@ export default function Authenticated({ auth, header, children }) {
                     </nav>
 
                     <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                        {flash?.message && (
+                            <div
+                                className={`alert alert-${
+                                    flash.type === "error"
+                                        ? "danger"
+                                        : "success"
+                                } mt-2`}
+                                role="alert"
+                            >
+                                {flash.message}
+                            </div>
+                        )}
                         {children}
-                        <ToastContainer position="top-right" autoClose={3000} />
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={3000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="colored"
+                        />
                     </main>
                 </div>
             </div>

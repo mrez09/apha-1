@@ -30,8 +30,47 @@ class DashboardController extends Controller
         
         //$value = $request->session()->get('name');
         //$anggota           = Member::select('users.id as user_id', 'members.id as member_id', 'name', 'nama', 'no_kta', 'kode', 'jk', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('users.id', '=', $user_id)->first();
-        $anggota           = Member::select('users.id as user_id', 'members.id as member_id', 'id_com as com_id', 'nama', 'no_kta', 'jk', 'slug_kta', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('users.id', '=', $user_id)->first();
+//        $anggota           = Member::select('users.id as user_id', 'members.id as member_id', 'id_com as com_id', 'nama', 'no_kta', 'jk', 'slug_kta', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('users.id', '=', $user_id)->first();
         //$anggota           = Member::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'slug_kta', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
+
+        $anggota = Member::select(
+        'users.id as user_id',
+        'members.id as member_id',
+        'members.id_com as com_id',
+        'members.nama',
+        'members.no_kta',
+        'members.jk',
+        'members.slug_kta',
+        'members.kode',
+        'users.email',
+        'members.img',
+        'members.universitas',
+        'members.fakultas',
+        'members.alamatf',
+        'members.mk',
+        'members.alamat',
+        'members.phone',
+        'members.scholar',
+        'members.scopus',
+        'members.sinta',
+        'members.status',
+        'members.dec',
+        'members.join_at',
+
+        // tambahkan field dari tabel lain
+        'commitees.nama as nama_commitee',
+        'commitees.slug as slug_biodata',
+        'divisis.namadivisi as namadivisi',
+        'subdivisis.namasubdivisi as namasubdivisi',
+        'jabatans.namajabatan as namajabatan'
+    )
+    ->join('users', 'members.id_user', '=', 'users.id')
+    ->leftJoin('commitees', 'members.id_com', '=', 'commitees.id')
+    ->leftJoin('divisis', 'commitees.divisi', '=', 'divisis.id')
+    ->leftJoin('subdivisis', 'commitees.subdivisi', '=', 'subdivisis.id')
+    ->leftJoin('jabatans', 'commitees.jabatan', '=', 'jabatans.id')
+    ->where('users.id', '=', $user_id)
+    ->first();
 
         return Inertia::render('Anggota/Dashboard',
         [

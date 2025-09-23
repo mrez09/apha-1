@@ -413,12 +413,12 @@ Route::prefix('/')->name('front')->group(function (){
         
     });
 
-    Route::prefix('kta')->name('pengurus.')->group(function () {
+    Route::prefix('verifikasi')->name('pengurus.')->group(function () {
 //        route::get('/dewan-pembina', function () {
   //          return Inertia::render('Pengurus/Dewan_Pembina');
 //        })->name('dewan-penasehat');
         
-        Route::get('/{slug_kta}', [CommiteeController::class, 'kta'])->name('commitee.kta');
+        Route::get('kta/{slug_kta}', [CommiteeController::class, 'kta'])->name('commitee.kta');
         
         
         
@@ -483,7 +483,7 @@ Route::prefix('/')->name('front')->group(function (){
 //    ->name('sertifikat.search')
 //    ->middleware('throttle:5,1');
     Route::get('/sertifikat/{no}', [SertifikatController::class, 'show'])->name('sertifikat.verify');
-    Route::get('/sertifikat/verify/{no}', [SertifikatController::class, 'verify'])->name('sertifikat.check');
+    Route::get('/sertifikat/verifikasi/{no}', [SertifikatController::class, 'verify'])->name('sertifikat.check');
     //Route::get('/sertifikat/{no}', [SertifikatController::class, 'show'])->name('sertifikat.verify');
     //Route::get('prosiding/{prosiding:slug}', [ProsidingController::class, 'show'])->name('prosiding.show');
 

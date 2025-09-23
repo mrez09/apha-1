@@ -219,13 +219,35 @@ export default function Dashboard(props) {
                                                     )}
                                                     target="_blank"
                                                     rel="noreferrer"
-                                                    className="btn btn-primary btn-sm"
+                                                    className="btn btn-primary btn-sm me-2"
                                                 >
                                                     Lihat KTA
                                                 </a>
                                             ) : (
                                                 <button
-                                                    className="btn btn-secondary btn-sm"
+                                                    className="btn btn-secondary btn-sm me-2me-2"
+                                                    disabled
+                                                >
+                                                    Belum Terbit
+                                                </button>
+                                            )}
+
+                                            {props.anggota.slug_biodata ? (
+                                                <a
+                                                    href={route(
+                                                        "frontpengurus.commitee.show",
+                                                        props.anggota
+                                                            .slug_biodata
+                                                    )}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="btn btn-outline-primary btn-sm me-2"
+                                                >
+                                                    Lihat Biodata
+                                                </a>
+                                            ) : (
+                                                <button
+                                                    className="btn btn-secondary btn-sm me-2me-2"
                                                     disabled
                                                 >
                                                     Belum Terbit

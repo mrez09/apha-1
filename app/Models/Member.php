@@ -15,6 +15,10 @@ class Member extends Model
 {
     return $this->belongsTo(User::class, 'id_user');
 }
+public function committe()
+{
+    return $this->hasOne(Commitee::class, 'id', 'id_com');
+}
 }
 
 

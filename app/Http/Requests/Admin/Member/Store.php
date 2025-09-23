@@ -28,7 +28,7 @@ class Store extends FormRequest
             'no_kta'     => 'nullable',
             'nama'     => 'nullable',
             'kode'     => 'nullable',
-            'jk'  => 'nullable',
+            'jk'        => 'nullable',
             'img'       => 'nullable|image',
             'universitas'  => 'nullable',
             'fakultas'  => 'nullable',

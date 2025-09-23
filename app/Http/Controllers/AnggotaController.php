@@ -126,9 +126,9 @@ class AnggotaController extends Controller
         //Commitee
         $data2['nama'] = $data['nama'];
         $data2['gender'] = $data['jk'];
-        $data2['divisi'] = 2;
+        $data2['divisi'] = 3;
         $data2['subdivisi'] = 10;
-        $data2['jabatan'] = 10;
+        $data2['jabatan'] = 17;
         $data2['slug'] = Str::slug($data['nama']);
         $data2['periode'] = 1;
         $data2['is_featured'] = 0;

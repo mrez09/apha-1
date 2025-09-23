@@ -27,19 +27,27 @@ export default function List({ sertifikat, searchQuery, error }) {
     });
 
     const { props } = usePage();
-    const flashMessage = props?.flashMessage;
+    const flashMessage = props?.flashMessage ?? {};
+    const attempts = props?.flash?.attempts ?? 0; // ambil dari controller
 
     useEffect(() => {
         if (flashMessage?.message) {
-            if (flashMessage.type === "error") {
+            if (flashMessage.type === "error")
                 toast.error(flashMessage.message);
-            } else if (flashMessage.type === "success") {
+            else if (flashMessage.type === "warning")
+                toast.warning(flashMessage.message);
+            else if (flashMessage.type === "success")
                 toast.success(flashMessage.message);
-            } else {
-                toast.info(flashMessage.message);
-            }
+            else toast.info(flashMessage.message);
         }
-    }, [flashMessage]);
+
+        // 🔔 Peringatan mendekati limit
+        if (attempts > 2) {
+            toast.warning(
+                `⚠️ Anda sudah ${attempts}x mencari dalam 5 menit. Hindari spam ya~`
+            );
+        }
+    }, [flashMessage, attempts]);
 
     const [lastSearchTime, setLastSearchTime] = useState(0);
 

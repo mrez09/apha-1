@@ -521,7 +521,9 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-12">
-                                <label className="form-label">Decription</label>
+                                <label className="form-label">
+                                    Description
+                                </label>
                                 {/*<input
                                     type="text"
                                     name="konten"

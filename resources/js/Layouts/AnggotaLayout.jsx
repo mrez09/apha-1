@@ -2,12 +2,26 @@ import { useState } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
+import { usePage } from "@inertiajs/react";
+import { useEffect } from "react";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function Authenticated({ auth, header, children }) {
+export default function Authenticated({ auth, header, children, props }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        if (flash?.message) {
+            if (flash.type === "error") toast.error(flash.message);
+            else if (flash.type === "success") toast.success(flash.message);
+            else toast.info(flash.message);
+        }
+    }, [flash]);
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -170,7 +184,31 @@ export default function Authenticated({ auth, header, children }) {
                     </nav>
 
                     <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                        {flash?.message && (
+                            <div
+                                className={`alert alert-${
+                                    flash.type === "error"
+                                        ? "danger"
+                                        : "success"
+                                } mt-2`}
+                                role="alert"
+                            >
+                                {flash.message}
+                            </div>
+                        )}
                         {children}
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={3000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="colored"
+                        />
                     </main>
                 </div>
             </div>

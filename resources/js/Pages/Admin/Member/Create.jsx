@@ -17,15 +17,22 @@ export default function List(props) {
     });
 
     const { data, setData, post, processing, errors } = useForm({
-        name: "",
-        harga: "",
-        slug: "",
-        category: "",
-        url: "",
+        no_kta: "",
+        nama: "",
+        kode: "",
+        phone: "",
+        email: "",
+        alamat: "",
+        jk: "",
         img: "",
-        status: "",
-        konten: "",
-        sinopsis: "",
+        universitas: "",
+        fakultas: "",
+        alamatf: "",
+        mk: "",
+        scholar: "",
+        scopus: "",
+        sinta: "",
+        dec: "",
         rating: 0,
         is_featured: false,
     });
@@ -50,6 +57,7 @@ export default function List(props) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">Tambah Anggota</h1>
+
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <a
@@ -67,6 +75,7 @@ export default function List(props) {
             <div className="container">
                 <div className="row">
                     <h4 className="mb-3"></h4>
+
                     <form onSubmit={submit}>
                         <div className="row g-3">
                             <div className="col-sm-12">
@@ -75,7 +84,8 @@ export default function List(props) {
                                 <input
                                     type="text"
                                     name="no_kta"
-                                    placeholder="Masukan Nama Lengakap (Dengan Gelar)"
+                                    value={data.no_kta}
+                                    placeholder="Masukan No KTA"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     autoComplete="no_kta"
                                     onChange={onHandleChange}
@@ -96,6 +106,7 @@ export default function List(props) {
                                 <input
                                     type="text"
                                     name="nama"
+                                    value={data.nama}
                                     placeholder="Masukan Nama Lengakap (Dengan Gelar)"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     autoComplete="nama"
@@ -209,7 +220,7 @@ export default function List(props) {
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
-                                        message={errors.status}
+                                        message={errors.jk}
                                         className="mt-2"
                                     />
                                 </div>
