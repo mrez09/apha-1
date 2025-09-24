@@ -7,6 +7,7 @@ import {
     Document,
     StyleSheet,
 } from "@react-pdf/renderer";
+import QRCode from "qrcode"; // <=== tambahkan ini
 import { Link } from "@inertiajs/react";
 import LogoApha from "../photos/Logo-Apha.png";
 import KTAApha from "../photos/KTA-Apha.png";
@@ -16,6 +17,7 @@ import Html from "react-pdf-html";
 import "../../../css/invoice.css";
 
 const html = `<html>
+
 <head>
     <title>CSS - Make Two DIVs Left and Right Aligned inside Main DIV.</title>
     <!--Example CSS-->
@@ -81,19 +83,28 @@ export default function KTAPDF({
 
     no_kta,
     nama,
+    qrCodeUrl,
     alamat,
     tanggal_print,
 }) {
+    const dynamicFontSize = nama.length > 25 ? 9 : 11;
     const styles = StyleSheet.create({
+        //body: {
+        //paddingTop: 35,
+        //paddingBottom: 65,
+        //paddingHorizontal: 35,
+        //width: 638,
+        //height: 1004,
+        //maxWidth: 205,
+        //maxHeight: 380,
+        //maxHeight: 323,
+        //},
         body: {
-            //paddingTop: 35,
-            //paddingBottom: 65,
-            //paddingHorizontal: 35,
-            //width: 638,
-            //height: 1004,
-            maxWidth: 205,
-            //maxHeight: 380,
-            maxHeight: 323,
+            position: "relative",
+            width: 153,
+            height: 243,
+            backgroundColor: "#fff",
+            margin: "auto",
         },
         textup: {
             position: "absolute",
@@ -236,7 +247,6 @@ export default function KTAPDF({
             fontSize: 12,
             textAlign: "center",
             color: "white",
-
             bottom: 70,
             left: 0,
             right: 0,
@@ -265,6 +275,50 @@ export default function KTAPDF({
             fontWeight: "bold",
         },
         //Table
+
+        //nama new
+        nama: {
+            fontSize: 11,
+            color: "#0C2B4E",
+            fontWeight: "bold",
+            letterSpacing: 0.5,
+            lineHeight: 1.2,
+            textAlign: "center",
+
+            //position: "absolute",
+            //top: 152, // atur posisi dari atas, ganti sesuai layout kartu
+            //bottom: 82,
+            //left: 10,
+            //right: 10,
+            //textAlign: "center",
+            //fontSize: 11,
+            //color: "#0C2B4E",
+            //fontWeight: "bold",
+            //letterSpacing: 0.5,
+            //textTransform: "uppercase",
+
+            //maxWidth: 180, // <— sesuaikan dengan lebar kartu kamu
+            //marginHorizontal: "auto",
+            //lineHeight: 1.2, // biar jarak antar baris pas
+            //wordBreak: "break-word", // untuk nama panjang
+        },
+
+        noKta: {
+            fontSize: 7.5,
+            color: "#0C2B4E",
+            fontWeight: "medium",
+            marginTop: 3, // kasih jarak tetap di bawah nama
+            textAlign: "center",
+
+            //position: "absolute",
+            //top: 168, // sedikit di bawah nama
+            //left: 0,
+            //right: 0,
+            //textAlign: "center",
+            //fontSize: 7.5,
+            //color: "#0C2B4E",
+            //fontWeight: "medium",
+        },
 
         bootstrapBtn: {
             fontWeight: 400,
@@ -305,7 +359,7 @@ export default function KTAPDF({
             {
                 //<Page size="A7" style={styles.body}>
             }
-            <Page style={styles.body}>
+            <Page size={{ width: 153, height: 243 }} style={styles.body}>
                 <View
                     style={{
                         display: "flex",
@@ -314,45 +368,78 @@ export default function KTAPDF({
                     }}
                 >
                     <Image
+                        src={KTAApha}
                         style={{
                             position: "absolute",
-                            zIndex: -1,
                             top: 0,
-                            width: "100%",
+                            left: 0,
+                            width: 153, // sesuai ukuran page
+                            height: 243,
+                            objectFit: "fill", // bukan "cover"
                         }}
-                        src={KTAApha}
                     />
                     {
                         //<Image src={LogoApha} />
                     }
 
-                    <Image style={styles.image} src={`/storage/${img}`} />
+                    {/* foto anggota */}
+                    <View
+                        style={{
+                            position: "absolute",
+                            top: 60,
+                            left: 0,
+                            right: 0,
+                        }}
+                    >
+                        <Image
+                            src={`/storage/${img}`}
+                            style={{
+                                width: 65,
+                                height: 80,
+                                margin: "auto",
+                                borderRadius: 4,
+                                border: "1pt solid #fff",
+                            }}
+                        />
+                    </View>
                     <Text style={styles.textup}></Text>
                 </View>
 
-                {(() => {
-                    if (img_kta == "") {
-                        return <Text style={styles.bynamaif}>img kosong</Text>;
-                    } else {
-                        return <Text style={styles.bynamaif}>ada img</Text>;
-                    }
-                })()}
+                <Image
+                    src={qrCodeUrl}
+                    style={{
+                        position: "absolute",
+                        bottom: 10,
+                        right: 10,
+                        width: 40,
+                        height: 40,
+                    }}
+                />
 
-                <Text style={styles.bynama}>
-                    {nama} {"\n"}
-                    <Text style={styles.sendertext}></Text>
-                </Text>
-                <Text style={styles.byno_kta}>
-                    No Anggota : {no_kta} {"\n"}
-                    <Text style={styles.sendertext}></Text>
-                </Text>
+                <View
+                    style={{
+                        position: "absolute",
+                        top: 150, // posisi keseluruhan area nama + noKta
+                        left: 10,
+                        right: 10,
+                        textAlign: "center",
+                    }}
+                >
+                    <Text style={{ ...styles.nama, fontSize: dynamicFontSize }}>
+                        {nama}
+                    </Text>
+                    <Text style={styles.noKta}>No. Anggota: {no_kta}</Text>
+                </View>
 
                 {
                     //<Html>{konten}</Html>
                 }
             </Page>
 
-            <Page style={styles.body}>
+            {
+                //KTA Belakang
+            }
+            <Page size={{ width: 153, height: 243 }} style={styles.body}>
                 <View
                     style={{
                         display: "flex",
@@ -363,9 +450,11 @@ export default function KTAPDF({
                     <Image
                         style={{
                             position: "absolute",
-                            zIndex: -1,
                             top: 0,
-                            width: "100%",
+                            left: 0,
+                            width: 153, // sesuai ukuran page
+                            height: 243,
+                            objectFit: "fill", // bukan "cover"
                         }}
                         src={KTAAphaBelakang}
                     />

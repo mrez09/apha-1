@@ -24,6 +24,8 @@ export default function List({
     props,
     tanggal_print,
     member,
+    qrcode,
+    qrcodebase,
 }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -40,6 +42,14 @@ export default function List({
         setCopied(true);
     }, []);
     const url_homes = window.location.href;
+
+    //download qr
+    const handleDownload = () => {
+        const link = document.createElement("a");
+        link.href = qrcode;
+        link.download = `QR_${member.kta_token || "kta"}.png`;
+        link.click();
+    };
     return (
         <FrontendLayout>
             <Head>
@@ -150,8 +160,6 @@ export default function List({
                                     <td>Masa Berlaku</td>
                                     <td>: 2024</td>
                                 </tr>
-
-                                
                             </figcaption>
                             <img
                                 class="img-idcard"
@@ -181,6 +189,18 @@ export default function List({
                     }
                     {/* Kolom Samping */}
                     <div className="col-md-4 mt-3">
+                        <div className="d-flex justify-content-center mb-3">
+                            <img
+                                src={qrcode}
+                                alt="QR KTA"
+                                className="img-fluid"
+                                style={{
+                                    width: "100%",
+                                    maxWidth: "220px",
+                                    height: "auto",
+                                }}
+                            />
+                        </div>
                         <div className="card shadow-sm border-0 p-3">
                             <h5 className="mb-3">Download</h5>
                             <PDFDownloadLink
@@ -199,6 +219,8 @@ export default function List({
                                         alamat="abc"
                                         tanggal_print="abc"
                                         url_img="https://apha.or.id/storage/logo/Logo-AphaC.png"
+                                        qrCodeUrl={qrcode}
+                                        qrCodeBase={qrcodebase}
                                     />
                                 }
                                 fileName={"Name_Card-" + member.slug_kta}

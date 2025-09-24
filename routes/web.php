@@ -197,8 +197,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dash
     Route::get('payment/{payment}/edit', [PaymentadminController::class, 'edit'])->name('payment.edit');
     Route::get('payment/{payment:no_invoice}', [PaymentadminController::class, 'show'])->name('payment.show');
     Route::put('payment/{payment}/restore', [PaymentadminController::class, 'restore'])->name('payment.restore');
-    
-
 
     
     //KTA
@@ -479,14 +477,13 @@ Route::prefix('/')->name('front')->group(function (){
 
     Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
     Route::post('/sertifikat/search', [SertifikatController::class, 'search'])->name('sertifikat.search');
-//    Route::post('/sertifikat/search', [SertifikatController::class, 'search'])
-//    ->name('sertifikat.search')
-//    ->middleware('throttle:5,1');
+
     Route::get('/sertifikat/{no}', [SertifikatController::class, 'show'])->name('sertifikat.verify');
     Route::get('/sertifikat/verifikasi/{no}', [SertifikatController::class, 'verify'])->name('sertifikat.check');
-    //Route::get('/sertifikat/{no}', [SertifikatController::class, 'show'])->name('sertifikat.verify');
-    //Route::get('prosiding/{prosiding:slug}', [ProsidingController::class, 'show'])->name('prosiding.show');
-
+ 
+    Route::get('/kta/verifikasi/{token}', [KTAController::class, 'verify'])->name('verify.kta');
+    
+    
     //Keanggotaan
     Route::resource('keanggotaan', AnggotaController::class);
     //Route::get('keanggotaan/daftar', [AnggotaController::class, 'show'])->name('anggota.show');

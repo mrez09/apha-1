@@ -25,6 +25,7 @@ export default function List({
     tanggal_print,
     member,
     img_kta,
+    qrcode,
 }) {
     //Page
     {
@@ -100,6 +101,15 @@ export default function List({
         setCopied(true);
     }, []);
     const url_homes = window.location.href;
+
+    //download qr
+    const handleDownload = () => {
+        const link = document.createElement("a");
+        link.href = qrcode;
+        link.download = `QR_${member.kta_token || "kta"}.png`;
+        link.click();
+    };
+
     return (
         <FrontendLayout>
             <Head>
@@ -113,11 +123,9 @@ export default function List({
                     <h2 className="text-center mb-4 fw-bold">
                         Informasi Anggota KTA
                     </h2>
-
                     {
                         //Tab 1>
                     }
-
                     <div className="col-md-8  ">
                         {
                             //Invoice Date
@@ -283,6 +291,44 @@ export default function List({
                     }
                     {/* Sidebar Download */}
                     <div className="col-md-4">
+                        //taro sini.
+                        <div className="d-flex justify-content-center mb-3">
+                            <img
+                                src={qrcode}
+                                alt="QR KTA"
+                                className="img-fluid"
+                                style={{
+                                    width: "100%",
+                                    maxWidth: "220px",
+                                    height: "auto",
+                                }}
+                            />
+                        </div>
+                        {/* Tombol Download & Verifikasi */}
+                        <div className="row g-2">
+                            <div className="col-6">
+                                <a
+                                    className="btn btn-success w-100 d-flex align-items-center justify-content-center"
+                                    onClick={handleDownload}
+                                >
+                                    <i className="bi bi-download me-2"></i>{" "}
+                                    Download QR
+                                </a>
+                            </div>
+                            <div className="col-6">
+                                <a
+                                    className="btn btn-info w-100 d-flex align-items-center justify-content-center"
+                                    target="_blank"
+                                    href={route(
+                                        "frontverify.kta",
+                                        member.kta_token
+                                    )}
+                                >
+                                    <i className="bi bi-box-arrow-up-right me-2"></i>{" "}
+                                    Lihat
+                                </a>
+                            </div>
+                        </div>
                         <div className="card shadow-sm border-0 p-3">
                             <h5 className="mb-3">Download KTA</h5>
                             <PDFDownloadLink
@@ -296,6 +342,7 @@ export default function List({
                                         universitas={member.universitas}
                                         alamat={member.alamat}
                                         tanggal_print={tanggal_print}
+                                        qrCodeUrl={qrcode}
                                         url_img="https://apha.or.id/storage/logo/Logo-AphaC.png"
                                     />
                                 }

@@ -69,6 +69,7 @@ class MemberadminController extends Controller
                 'jk'          => $validated['jk'] ?? null,
                 'img'         => $imgPath,
                 'slug_kta'    => Str::slug($validated['no_kta']),
+                'kta_token' => 'APHA-' . strtoupper(Str::random(10)), // <== token unik
                 'universitas' => $request->input('universitas'),
                 'fakultas'    => $request->input('fakultas'),
                 'alamatf'     => $request->input('alamatf'),
@@ -209,6 +210,9 @@ class MemberadminController extends Controller
 {
     $data = $request->validated();
     $data['slug_kta'] = Str::slug(str_replace('/', '-', $data['no_kta']));
+    if (!$member->kta_token) {
+        $member->kta_token = 'APHA-' . strtoupper(Str::random(10));
+    }
 
     // ✅ Handle image upload untuk profile
     if ($request->hasFile('img')) {
