@@ -1,45 +1,48 @@
-import GuestLayout from '@/Layouts/GuestLayout';
-import PrimaryButton from '@/Components/PrimaryButton';
-import { Head, Link, useForm } from '@inertiajs/react';
+import React, { useState } from "react";
+import { router, usePage } from "@inertiajs/react";
 
-export default function VerifyEmail({ status }) {
-    const { post, processing } = useForm({});
+export default function VerifyEmail() {
+    const { flash } = usePage().props;
+    const [loading, setLoading] = useState(false);
 
-    const submit = (e) => {
+    const resendVerification = (e) => {
         e.preventDefault();
-
-        post(route('verification.send'));
+        setLoading(true);
+        router.post(
+            route("verification.send"),
+            {},
+            {
+                onFinish: () => setLoading(false),
+            }
+        );
     };
 
     return (
-        <GuestLayout>
-            <Head title="Email Verification" />
+        <div className="container mt-5">
+            <div className="card shadow-sm p-4">
+                <h3 className="mb-3">Verifikasi Email</h3>
+                <p className="text-muted">
+                    Terima kasih telah mendaftar! Sebelum lanjut, silakan
+                    verifikasi alamat email kamu dengan menekan tautan yang
+                    sudah dikirim.
+                </p>
 
-            <div className="mb-4 text-sm text-gray-600">
-                Thanks for signing up! Before getting started, could you verify your email address by clicking on the
-                link we just emailed to you? If you didn't receive the email, we will gladly send you another.
-            </div>
+                {flash?.message && (
+                    <div className="alert alert-success">{flash.message}</div>
+                )}
 
-            {status === 'verification-link-sent' && (
-                <div className="mb-4 font-medium text-sm text-green-600">
-                    A new verification link has been sent to the email address you provided during registration.
-                </div>
-            )}
-
-            <form onSubmit={submit}>
-                <div className="mt-4 flex items-center justify-between">
-                    <PrimaryButton disabled={processing}>Resend Verification Email</PrimaryButton>
-
-                    <Link
-                        href={route('logout')}
-                        method="post"
-                        as="button"
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                <form onSubmit={resendVerification}>
+                    <button
+                        type="submit"
+                        className="btn btn-primary"
+                        disabled={loading}
                     >
-                        Log Out
-                    </Link>
-                </div>
-            </form>
-        </GuestLayout>
+                        {loading
+                            ? "Mengirim..."
+                            : "Kirim Ulang Email Verifikasi"}
+                    </button>
+                </form>
+            </div>
+        </div>
     );
 }

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\ProsidingController;
@@ -54,6 +56,7 @@ use App\Http\Controllers\Anggota\KTAController;
 
 
 
+
 //use App\Http\Controllers\Admin\MainbanneradminController;
 
 
@@ -67,6 +70,24 @@ use App\Http\Controllers\Anggota\KTAController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//Verifiction
+// Halaman React (Inertia) untuk "verifikasi email dulu"
+Route::get('/email/verify', function () {
+    return inertia('Auth/VerifyEmail');
+})->middleware('auth')->name('verification.notice');
+
+// Link verifikasi (klik dari email)
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/dashboard'); // arahkan ke halaman React kamu
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Kirim ulang email verifikasi
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Link verifikasi telah dikirim!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 /*
 Route::get('admin', function () {

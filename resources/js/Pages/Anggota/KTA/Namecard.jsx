@@ -26,6 +26,7 @@ export default function List({
     member,
     qrcode,
     qrcodebase,
+    expired_date,
 }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -154,7 +155,7 @@ export default function List({
                                 </h2>
                                 <tr>
                                     <td>Afiliasi</td>
-                                    <td>: {member.universitas}</td>
+                                    <td>: {member.universitas} </td>
                                 </tr>
                                 <tr>
                                     <td>Masa Berlaku</td>
@@ -200,6 +201,16 @@ export default function List({
                                     height: "auto",
                                 }}
                             />
+                            <img
+                                src={qrcodebase}
+                                alt="QR Base URL"
+                                className="img-fluid"
+                                style={{
+                                    width: "100%",
+                                    maxWidth: "220px",
+                                    height: "auto",
+                                }}
+                            />
                         </div>
                         <div className="card shadow-sm border-0 p-3">
                             <h5 className="mb-3">Download</h5>
@@ -215,8 +226,12 @@ export default function List({
                                         konten="abc"
                                         nama={member.nama}
                                         no_kta={member.no_kta}
+                                        email={member.email}
+                                        phone={member.phone}
                                         universitas={member.universitas}
-                                        alamat="abc"
+                                        start_date={member.start_date}
+                                        expired_date={member.expired_date}
+                                        alamat={member.alamat}
                                         tanggal_print="abc"
                                         url_img="https://apha.or.id/storage/logo/Logo-AphaC.png"
                                         qrCodeUrl={qrcode}

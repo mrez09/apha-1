@@ -115,7 +115,9 @@ class KTAController extends Controller
             'members.img',
             'members.img_kta',
             'universitas',
-            'members.status'
+            'members.status',
+            'members.start_date',
+            'members.expired_date',
         )
         ->join('users', 'users.id', '=', 'members.id_user')
         ->where('members.slug_kta', $member->slug_kta)
@@ -253,6 +255,8 @@ class KTAController extends Controller
         'members.img_kta',
         'universitas',
         'members.status',
+        'members.start_date',
+        'members.expired_date',
         'commitees.slug as commitee_slug' // <--- tambahkan ini
     )
     ->join('users', 'users.id', '=', 'members.id_user')

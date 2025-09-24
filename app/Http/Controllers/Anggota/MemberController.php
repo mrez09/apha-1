@@ -108,7 +108,9 @@ class MemberController extends Controller
         Commitee::where('id', $id_com)->update(
             [
                 'nama' => $data['nama'],
-                'slug' => $slug
+                'description' => $data['dec'],
+                'slug' => $slug,
+                'gender' => $data['jk'],
             ],
         );
 

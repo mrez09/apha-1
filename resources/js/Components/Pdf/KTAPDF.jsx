@@ -15,7 +15,15 @@ import KTAAphaBelakang from "../photos/KTA_Apha-Belakang.png";
 import parse from "html-react-parser";
 import Html from "react-pdf-html";
 import "../../../css/invoice.css";
+import { Font } from "@react-pdf/renderer";
 
+Font.register({
+    family: "Poppins",
+    fonts: [
+        { src: "/fonts/Poppins-Regular.ttf" },
+        { src: "/fonts/Poppins-Bold.ttf", fontWeight: "bold" },
+    ],
+});
 const html = `<html>
 
 <head>
@@ -84,6 +92,7 @@ export default function KTAPDF({
     no_kta,
     nama,
     qrCodeUrl,
+    expired_date,
     alamat,
     tanggal_print,
 }) {
@@ -425,7 +434,14 @@ export default function KTAPDF({
                         textAlign: "center",
                     }}
                 >
-                    <Text style={{ ...styles.nama, fontSize: dynamicFontSize }}>
+                    <Text
+                        style={{
+                            ...styles.nama,
+                            fontFamily: "Times-Bold",
+                            fontWeight: "bold",
+                            fontSize: dynamicFontSize,
+                        }}
+                    >
                         {nama}
                     </Text>
                     <Text style={styles.noKta}>No. Anggota: {no_kta}</Text>
@@ -458,6 +474,21 @@ export default function KTAPDF({
                         }}
                         src={KTAAphaBelakang}
                     />
+                    <Text
+                        style={{
+                            position: "absolute",
+                            fontFamily: "Times-Bold",
+                            fontWeight: "bold",
+                            top: 170, // sedikit di atas tanda tangan
+                            width: "100%",
+                            left: 30,
+                            textAlign: "center",
+                            fontSize: 4,
+                            color: "black",
+                        }}
+                    >
+                        Berlaku s.d: {expired_date}
+                    </Text>
                     {
                         //<Image src={LogoApha} />
                     }

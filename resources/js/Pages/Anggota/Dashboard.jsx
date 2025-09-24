@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AnggotaLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 export default function Dashboard(props) {
     return (
@@ -106,8 +106,31 @@ export default function Dashboard(props) {
                                                 </tr>
                                                 <tr>
                                                     <th>Email</th>
-                                                    <td>
-                                                        {props.anggota.email}
+                                                    <td className="d-flex align-items-center gap-2">
+                                                        <span>
+                                                            {
+                                                                props.anggota
+                                                                    .email
+                                                            }
+                                                        </span>
+
+                                                        {/* ✅ Status verifikasi email */}
+                                                        {props.anggota
+                                                            .email_verified_at ? (
+                                                            <span className="badge bg-success">
+                                                                <i className="bi bi-check-circle-fill me-1"></i>{" "}
+                                                                Terverifikasi
+                                                            </span>
+                                                        ) : (
+                                                            <Link
+                                                                href="/email/verify"
+                                                                className="badge bg-warning text-dark text-decoration-none"
+                                                            >
+                                                                <i className="bi bi-exclamation-triangle-fill me-1"></i>
+                                                                Belum
+                                                                diverifikasi
+                                                            </Link>
+                                                        )}
                                                     </td>
                                                 </tr>
                                             </tbody>

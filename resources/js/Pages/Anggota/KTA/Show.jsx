@@ -343,6 +343,7 @@ export default function List({
                                         alamat={member.alamat}
                                         tanggal_print={tanggal_print}
                                         qrCodeUrl={qrcode}
+                                        expired_date={member.expired_date}
                                         url_img="https://apha.or.id/storage/logo/Logo-AphaC.png"
                                     />
                                 }
