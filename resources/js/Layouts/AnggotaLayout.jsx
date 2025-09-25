@@ -52,6 +52,7 @@ export default function Authenticated({ auth, header, children, props }) {
                         <ResponsiveNavLink
                             className="nav-link px-3"
                             method="post"
+                            target="_blank"
                             href={route("logout")}
                             as="button"
                         >

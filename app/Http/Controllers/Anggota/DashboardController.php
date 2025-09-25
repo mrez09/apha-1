@@ -56,6 +56,7 @@ class DashboardController extends Controller
         'members.status',
         'members.dec',
         'members.join_at',
+        'users.email_verified_at',
 
         // tambahkan field dari tabel lain
         'commitees.nama as nama_commitee',

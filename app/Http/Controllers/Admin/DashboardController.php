@@ -28,6 +28,7 @@ class DashboardController extends Controller
     //
     
     public function index(){
+     
         $jumlahPost = News::count();
         $jumlahMember = User::count();
         $jumlahGaleri = Galeri::count();

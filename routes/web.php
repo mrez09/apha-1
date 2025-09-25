@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Mail\VerificationSuccess;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BukuController;
@@ -71,23 +72,74 @@ use App\Http\Controllers\Anggota\KTAController;
 |
 */
 
+//after login
+//Route::middleware('guest')->group(function () {
+  //  Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+ //       ->name('login');
+ //   Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+//});
+
+Route::get('/redirect-after-login', function () {
+    $user = Auth::user();
+
+    if (!$user) {
+        return redirect('/login');
+    }
+
+    if ($user->hasRole('admin')) {
+        return redirect()->route('dashboard');
+    }
+
+    if ($user->hasRole('user')) {
+        return redirect()->route('anggota.dashboard.index');
+    }
+
+    return redirect('/'); // default fallback
+});
+
 //Verifiction
-// Halaman React (Inertia) untuk "verifikasi email dulu"
 Route::get('/email/verify', function () {
     return inertia('Auth/VerifyEmail');
-})->middleware('auth')->name('verification.notice');
+})->withoutMiddleware(['role'])->middleware(['auth'])->name('verification.notice');
 
-// Link verifikasi (klik dari email)
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/dashboard'); // arahkan ke halaman React kamu
-})->middleware(['auth', 'signed'])->name('verification.verify');
+    $user = $request->user();
+    $ip = request()->ip();
 
-// Kirim ulang email verifikasi
+    // Ambil lokasi (pakai API publik)
+    $response = Http::get("https://ipapi.co/{$ip}/json/");
+    $location = $response->json()['city'] ?? 'Tidak diketahui';
+    
+    $user->update([
+        'email_verified_at' => now(),
+        'verified_ip' => $ip,
+        'verified_location' => $location,
+    ]);
+
+    $request->fulfill();
+
+    // Kirim email konfirmasi
+    Mail::to($user->email)->send(new VerificationSuccess($user, $location, $ip));
+
+    // Arahkan berdasarkan role
+    if ($user->hasRole('admin')) {
+        return redirect()->route('frontindex');
+    } elseif ($user->hasRole('user')) {
+        return redirect()->route('frontindex');
+    }
+
+    return redirect('/');
+})
+// hilangkan role check di sini
+->withoutMiddleware(['role'])
+->middleware(['auth', 'signed'])
+->name('verification.verify');
+
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
+
     return back()->with('message', 'Link verifikasi telah dikirim!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+})->withoutMiddleware(['role'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 /*
 Route::get('admin', function () {
@@ -103,7 +155,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 */
-Route::middleware(['auth', 'role:admin'])->prefix('dashboard')->name('admin.dashboard.')->group(function (){
+Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard')->name('admin.dashboard.')->group(function (){
     
 // ini dashboardkan    
 //Route::get('/', [DashboardController::class, 'index'])->name('index');
@@ -555,9 +607,9 @@ Route::prefix('/')->name('front')->group(function (){
 //    return Inertia::render('Dashboard');
 //})->middleware(['auth', 'role:admin'])->name('dashboard');
 
-// ===== Dashboard Routes =====
+// ===== Dashboard Routes Base =====
 Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'role:admin'])
+    ->middleware(['auth', 'role:admin', 'redirect.if.user'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {

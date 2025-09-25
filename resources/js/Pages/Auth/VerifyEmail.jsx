@@ -36,6 +36,7 @@ export default function VerifyEmail() {
                         type="submit"
                         className="btn btn-primary"
                         disabled={loading}
+                        target="_blank"
                     >
                         {loading
                             ? "Mengirim..."

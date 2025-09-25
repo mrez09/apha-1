@@ -118,7 +118,7 @@ export default function Dashboard(props) {
                                                         {props.anggota
                                                             .email_verified_at ? (
                                                             <span className="badge bg-success">
-                                                                <i className="bi bi-check-circle-fill me-1"></i>{" "}
+                                                                <i className="bi bi-check-circle-fill me-1"></i>
                                                                 Terverifikasi
                                                             </span>
                                                         ) : (
