@@ -255,6 +255,10 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     //Route::get('member/kta/{member}', [MemberadminController::class, 'show'])->name('membershow');
     Route::put('member/{member}/restore', [MemberadminController::class, 'restore'])->name('event.restore');
 
+    //email
+    Route::post('/member/{id}/send-reminder', [MemberadminController::class, 'sendReminder'])
+    ->name('memberadmin.sendReminder');
+
     //Sertifikat
     //Periode
     Route::resource('sertifikat', SertifikatadminController::class);

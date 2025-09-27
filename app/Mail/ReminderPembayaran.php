@@ -27,7 +27,11 @@ class ReminderPembayaran extends Mailable
     public function build()
     {
         return $this->subject('Pengingat Pembayaran Keanggotaan')
-            ->markdown('emails.reminder_pembayaran');
+            ->view('emails.reminder_pembayaran')
+            ->with([
+                'user' => $this->member,
+                'url' => "www.facebook.com",
+            ]);
     }
     
 

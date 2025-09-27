@@ -16,6 +16,8 @@ use Inertia\Inertia;
 use App\Http\Requests\Admin\Member\Store;
 use App\Http\Requests\Admin\Member\Update;
 use Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReminderPembayaran;
 
 class MemberadminController extends Controller
 {
@@ -258,6 +260,22 @@ class MemberadminController extends Controller
                 'type'      => "success"
             ]
             );
-        //return $news;
+        
+    }
+
+    //
+    public function sendReminder($id)
+    {
+        $member = Member::findOrFail($id);
+
+        // Pastikan hanya kirim kalau belum aktif dan belum punya KTA
+        if ($member->status == 0) {
+            Mail::to($member->email)->send(new ReminderPembayaran($member));
+            return back()->with('message', 'Email berhasil dikirim ke ' . $member->email);
+        }
+
+        //dd('terpanggil', $id);
+        return back()->with('error', 'Member ini sudah aktif atau sudah memiliki KTA.');
+        
     }
 }
