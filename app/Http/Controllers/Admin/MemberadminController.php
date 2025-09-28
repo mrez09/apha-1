@@ -18,6 +18,7 @@ use App\Http\Requests\Admin\Member\Update;
 use Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReminderPembayaran;
+use App\Mail\VerificationSuccess;
 
 class MemberadminController extends Controller
 {
@@ -160,10 +161,50 @@ class MemberadminController extends Controller
 
     public function view(Member $member)
     {
+        $anggota = Member::select(
+        'users.id as user_id',
+        'members.id as member_id',
+        'members.id_com as com_id',
+        'members.nama',
+        'members.no_kta',
+        'members.jk',
+        'members.slug_kta',
+        'members.kode',
+        'users.email',
+        'members.img',
+        'members.universitas',
+        'members.fakultas',
+        'members.alamatf',
+        'members.mk',
+        'members.alamat',
+        'members.phone',
+        'members.scholar',
+        'members.scopus',
+        'members.sinta',
+        'members.status',
+        'members.dec',
+        'members.join_at',
+        'users.email_verified_at',
+
+        // tambahkan field dari tabel lain
+        'commitees.nama as nama_commitee',
+        'commitees.slug as slug_biodata',
+        'divisis.namadivisi as namadivisi',
+        'subdivisis.namasubdivisi as namasubdivisi',
+        'jabatans.namajabatan as namajabatan'
+    )
+    ->join('users', 'members.id_user', '=', 'users.id')
+    ->leftJoin('commitees', 'members.id_com', '=', 'commitees.id')
+    ->leftJoin('divisis', 'commitees.divisi', '=', 'divisis.id')
+    ->leftJoin('subdivisis', 'commitees.subdivisi', '=', 'subdivisis.id')
+    ->leftJoin('jabatans', 'commitees.jabatan', '=', 'jabatans.id')
+    ->where('users.id', '=', $member->id_user)
+    ->first();
         $commitee = Commitee::find($member->id_com);
         return Inertia::render('Admin/Member/View', [
             'member'    => $member,
             'commitee' => $commitee,
+            'anggota' => $anggota,
             'ckeditor'  => 'yes',
         ]);
     }
@@ -267,11 +308,15 @@ class MemberadminController extends Controller
     public function sendReminder($id)
     {
         $member = Member::findOrFail($id);
+        $user = User::findOrFail($id);
 
         // Pastikan hanya kirim kalau belum aktif dan belum punya KTA
         if ($member->status == 0) {
             Mail::to($member->email)->send(new ReminderPembayaran($member));
-            return back()->with('message', 'Email berhasil dikirim ke ' . $member->email);
+            return back()->with('message', 'Email Reminder berhasil dikirim ke ' . $member->email);
+        }else if ($member->status == 1) {
+            Mail::to($user->email)->send(new VerificationSuccess($user));
+            return back()->with('message', 'Email Verification berhasil dikirim ke ' . $user->email);
         }
 
         //dd('terpanggil', $id);

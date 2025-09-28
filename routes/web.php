@@ -97,40 +97,47 @@ Route::get('/redirect-after-login', function () {
     return redirect('/'); // default fallback
 });
 
-//Verifiction
+//Verifiction Link verifikasi 
 Route::get('/email/verify', function () {
     return inertia('Auth/VerifyEmail');
 })->withoutMiddleware(['role'])->middleware(['auth'])->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//verification Success
+Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $request) {
     $user = $request->user();
     $ip = request()->ip();
 
-    // Ambil lokasi (pakai API publik)
+    // Ambil lokasi pengguna (opsional)
     $response = Http::get("https://ipapi.co/{$ip}/json/");
     $location = $response->json()['city'] ?? 'Tidak diketahui';
     
+    // Update data user
     $user->update([
         'email_verified_at' => now(),
         'verified_ip' => $ip,
         'verified_location' => $location,
     ]);
 
-    $request->fulfill();
-
-    // Kirim email konfirmasi
-    Mail::to($user->email)->send(new VerificationSuccess($user, $location, $ip));
-
-    // Arahkan berdasarkan role
-    if ($user->hasRole('admin')) {
-        return redirect()->route('frontindex');
-    } elseif ($user->hasRole('user')) {
-        return redirect()->route('frontindex');
+    // ✅ Kirim email konfirmasi sukses + logging
+    try {
+        Mail::to($user->email)->send(new VerificationSuccess($user, $location, $ip));
+        \Log::info('Email sukses terkirim ke: ' . $user->email);
+    } catch (\Exception $e) {
+        \Log::error('Gagal kirim email sukses verifikasi: ' . $e->getMessage());
     }
 
-    return redirect('/');
+    // Baru fulfill token verifikasi (anggap email sudah valid)
+    $request->fulfill();
+
+    // Redirect sesuai role
+    if ($user->hasRole('admin')) {
+        return redirect()->route('frontindex')->with('message', 'Email berhasil diverifikasi!');
+    } elseif ($user->hasRole('user')) {
+        return redirect()->route('frontindex')->with('message', 'Email berhasil diverifikasi!');
+    }
+
+    return redirect('/')->with('message', 'Email berhasil diverifikasi!');
 })
-// hilangkan role check di sini
 ->withoutMiddleware(['role'])
 ->middleware(['auth', 'signed'])
 ->name('verification.verify');

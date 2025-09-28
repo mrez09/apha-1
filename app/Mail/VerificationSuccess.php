@@ -8,23 +8,34 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Member;
+use App\Models\User;
 
 class VerificationSuccess extends Mailable
 {
     use Queueable, SerializesModels;
-     public $user;
+    public $user;
     public $location;
     public $ip;
+    public $member;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $location, $ip)
+    /**
+    *public function __construct($user, $location, $ip)
+    *{
+    *    //
+    *    $this->user = $user;
+    *    $this->location = $location;
+    *    $this->ip = $ip;
+    *}
+        */
+
+    public function __construct(User $user)
     {
         //
         $this->user = $user;
-        $this->location = $location;
-        $this->ip = $ip;
     }
 
     /**
@@ -43,7 +54,7 @@ class VerificationSuccess extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            markdown: 'emails.verification-success',
         );
     }
 
@@ -58,7 +69,13 @@ class VerificationSuccess extends Mailable
     }
     public function build()
     {
-        return $this->subject('Email Kamu Berhasil Diverifikasi 🎉')
-                    ->view('emails.verification-success');
+        return $this->subject('Email Kamu Berhasil Diverifikasi ')
+                ->view('emails.verification-success')
+                ->with([
+                'user' => $this->user,
+                'url' => "www.facebook.com",
+            ]);;
+                    
+         
     }
 }
