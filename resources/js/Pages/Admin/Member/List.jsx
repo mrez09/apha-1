@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import FlashMessage from "@/Components/FlashMessage";
 import DataTable from "datatables.net-dt";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, router } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 
@@ -31,14 +31,35 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                     List Data Anggota Asosiasi Pengajar Hukum Adat (APHA)
                 </h1>
 
-                <div className="btn-toolbar mb-2 mb-md-0">
-                    <div className="btn-group me-2">
-                        <Link
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <div className="btn-group">
+                        <button
                             type="button"
-                            href={route("admin.dashboard.member.create")}
-                            className="btn btn-sm btn-outline-secondary"
+                            className="btn btn-danger d-flex align-items-center"
+                            onClick={() => {
+                                if (
+                                    confirm(
+                                        "Kirim reminder ke semua anggota yang belum bayar?"
+                                    )
+                                ) {
+                                    router.post(
+                                        route(
+                                            "admin.dashboard.memberadmin.sendReminderBatch"
+                                        )
+                                    );
+                                }
+                            }}
                         >
-                            Tambah
+                            <i className="bi bi-envelope-fill me-2"></i>
+                            Kirim Reminder Batch
+                        </button>
+
+                        <Link
+                            href={route("admin.dashboard.member.create")}
+                            className="btn btn-outline-secondary d-flex align-items-center"
+                        >
+                            <i className="bi bi-plus-lg me-2"></i>
+                            Tambah Anggota
                         </Link>
                     </div>
                 </div>

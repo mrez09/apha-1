@@ -19,6 +19,7 @@ use Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReminderPembayaran;
 use App\Mail\VerificationSuccess;
+use App\Mail\VerificationPembayaran;
 
 class MemberadminController extends Controller
 {
@@ -304,6 +305,25 @@ class MemberadminController extends Controller
         
     }
 
+    public function sendReminderBatch(Request $request)
+    {
+        // Ambil semua member yang belum aktif dan belum punya KTA
+        $members = Member::
+            //whereNull('no_kta')
+            where('status', 0)
+            ->get();
+
+        foreach ($members as $member) {
+            try {
+                Mail::to($member->email)->send(new ReminderPembayaran($member));
+            } catch (\Exception $e) {
+                \Log::error("Gagal kirim reminder ke {$member->email}: " . $e->getMessage());
+            }
+        }
+
+        return back()->with('message', 'Reminder berhasil dikirim ke semua anggota yang belum aktif.');
+    }
+
     //
     public function sendReminder($id)
     {
@@ -313,10 +333,10 @@ class MemberadminController extends Controller
         // Pastikan hanya kirim kalau belum aktif dan belum punya KTA
         if ($member->status == 0) {
             Mail::to($member->email)->send(new ReminderPembayaran($member));
-            return back()->with('message', 'Email Reminder berhasil dikirim ke ' . $member->email);
+            return back()->with('message', 'Iuran Reminder berhasil dikirim ke ' . $member->email);
         }else if ($member->status == 1) {
-            Mail::to($user->email)->send(new VerificationSuccess($user));
-            return back()->with('message', 'Email Verification berhasil dikirim ke ' . $user->email);
+            Mail::to($member->email)->send(new VerificationPembayaran($member));
+            return back()->with('message', 'Verification Iuran berhasil dikirim ke ' . $member->email);
         }
 
         //dd('terpanggil', $id);

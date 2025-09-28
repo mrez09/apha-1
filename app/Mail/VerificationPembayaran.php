@@ -11,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Member;
 use App\Models\User;
 
-class VerificationSuccess extends Mailable
+class VerificationPembayaran extends Mailable
 {
     use Queueable, SerializesModels;
     public $user;
@@ -44,7 +44,7 @@ class VerificationSuccess extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verification Success',
+            subject: 'Verification Pemabayaran Success',
         );
     }
 
@@ -54,7 +54,7 @@ class VerificationSuccess extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.verification-success',
+            markdown: 'emails.verification-pembayaran',
         );
     }
 
@@ -70,7 +70,7 @@ class VerificationSuccess extends Mailable
     public function build()
     {
         return $this->subject('Email Kamu Berhasil Diverifikasi ')
-                ->view('emails.verification-success')
+                ->view('emails.verification-pembayaran')
                 ->with([
                 'member' => $this->member,
                 'url' => "www.facebook.com",

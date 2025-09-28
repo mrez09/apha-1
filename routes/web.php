@@ -266,6 +266,12 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::post('/member/{id}/send-reminder', [MemberadminController::class, 'sendReminder'])
     ->name('memberadmin.sendReminder');
 
+    //bathc
+    // send email batch
+    Route::post('/member/send-reminder-batch', [MemberadminController::class, 'sendReminderBatch'])
+    ->name('memberadmin.sendReminderBatch');
+
+
     //Sertifikat
     //Periode
     Route::resource('sertifikat', SertifikatadminController::class);
