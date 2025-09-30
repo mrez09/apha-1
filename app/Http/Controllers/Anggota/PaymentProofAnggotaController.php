@@ -9,24 +9,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use App\Models\News;
 use App\Models\Newscategory;
-use App\Models\Payment; 
+use App\Models\PaymentProof; 
 use App\Models\Konfigurasi; 
 use Inertia\Inertia;
 use App\Http\Requests\Member\Payment\Store;
 use App\Http\Requests\Member\Payment\Update;
 use Storage;
 
-class PaymentController extends Controller
+class PaymentProofAnggotaController extends Controller
 {
     //
     public function index(){
 
         $user_id            = Auth::user()->id;
-        $order = Payment::max('id');
+        $order = PaymentProof::max('id');
         //$anggota           = Payment::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
 
-        $news           = Payment::all();
-        $newsjoin       = Payment::select('payments.id as link_id','judul', 'subjudul', 'no_invoice', 'status', 'img', 'tanggal_bayar', 'name')->join('users','users.id',"=",'payments.id_user')->where('payments.id_user', '=', $user_id)->get();
+        $news           = PaymentProof::all();
+        $newsjoin       = PaymentProof::select('payment_proofs.id as link_id','judul', 'subjudul', 'no_invoice', 'status', 'img', 'tanggal_bayar', 'name')->join('users','users.id',"=",'payment_proofs.id_user')->where('payment_proofs.id_user', '=', $user_id)->get();
         return Inertia::render('Anggota/Payment/List',
         [
             'news'          => $newsjoin,
@@ -56,7 +56,7 @@ class PaymentController extends Controller
         //validated
         $data = $request->validated();
         //max id
-        $data['order'] = Payment::max('id');
+        $data['order'] = PaymentProof::max('id');
         $data['img'] = Storage::disk("public")->put('payment', $request->file('img'));
         //$data['path'] = "/storage/".$data['img'];
         $data['status'] = 'UNPAID';
@@ -68,7 +68,7 @@ class PaymentController extends Controller
         
         $data['slug_judul'] = Str::slug($data ['no_invoice']);
         $data['id_user'] = Auth::id();
-        $news = Payment::create($data);
+        $news = PaymentProof::create($data);
 
         return redirect(route('anggota.dashboard.payment.index'))->with(
             [
@@ -79,7 +79,7 @@ class PaymentController extends Controller
         //return $request->all();
     }
 
-    public function edit(Payment $payment){
+    public function edit(PaymentProof $payment){
       //return $news;
       //return Inertia::render('Admin/News/Create');
       //return $request->all();
@@ -93,11 +93,11 @@ class PaymentController extends Controller
       ]);
   }
 
-    public function show(Payment $payment){
+    public function show(PaymentProof $payment){
         //url saat ini
         $cururl           = URL::current();
         $konfigurasis     = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
-        $paymentjoin      = Payment::select('payments.id as link_id','judul', 'subjudul', 'no_invoice',  'payments.status', 'payments.img', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payments.id_user')->where('payments.no_invoice', '=', $payment->no_invoice)->first();
+        $paymentjoin      = PaymentProof::select('payments.id as link_id','judul', 'subjudul', 'no_invoice',  'payments.status', 'payments.img', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payments.id_user')->where('payments.no_invoice', '=', $payment->no_invoice)->first();
         //$tanggal_print    = date('d-m-Y');
         $tanggal_print    = date('l d M Y ');
         

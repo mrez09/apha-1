@@ -42,17 +42,24 @@ use App\Http\Controllers\Admin\DocumentadminController;
 use App\Http\Controllers\Admin\EventadminController;
 use App\Http\Controllers\Admin\MemberadminController;
 use App\Http\Controllers\Admin\SertifikatadminController;
-use App\Http\Controllers\Admin\PaymentadminController;
+use App\Http\Controllers\Admin\PaymentProofadminController;
 use App\Http\Controllers\Admin\UploadController;
+//use App\Http\Controllers\Admin\InvoiceController as InvoiceAdminController;
+use App\Http\Controllers\Admin\InvoiceController as AdminInvoiceController;
 use App\Http\Controllers\Anggota\DashboardController as AnggotaDashboardContoller;
 use App\Http\Controllers\Anggota\ProfileController as AnggotaProfileController;
 use App\Http\Controllers\Anggota\MemberController;
 use App\Http\Controllers\Anggota\InstitusiController;
 use App\Http\Controllers\Anggota\AccountController;
 use App\Http\Controllers\Anggota\SertifikatanggotaController;
-use App\Http\Controllers\Anggota\PaymentController;
-use App\Http\Controllers\Anggota\InvoiceController;
+use App\Http\Controllers\Anggota\PaymentProofAnggotaController;
+use App\Http\Controllers\Anggota\InvoiceController as InvoiceAnggotaController;
 use App\Http\Controllers\Anggota\KTAController;
+use App\Http\Controllers\Anggota\InvoiceController as MemberInvoiceController;
+use App\Http\Controllers\PaymentController as PaymentGatewayController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\TransaksiController;
+
 
 
 
@@ -148,6 +155,18 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Link verifikasi telah dikirim!');
 })->withoutMiddleware(['role'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+// Payment Gateway
+//Midtrans sample
+Route::get('/payment', [PaymentGatewayController::class, 'createTransaction'])->name('payment.create');
+//Route::get('/payment', [PaymentController::class, 'createTransaction'])->name('payment.create')
+
+//Midtrans
+Route::get('/invoice/{id}/pdf', [InvoiceController::class, 'downloadPdf'])->name('invoice.pdf');
+//Route::post('/midtrans/callback', [TransaksiController::class, 'callback'])->name('midtrans.callback');
+//Route::post('/midtrans/notification', [TransaksiController::class, 'handleNotification']);
+Route::post('/midtrans/notification', [TransaksiController::class, 'notificationHandler'])
+     ->name('midtrans.notification');
+
 /*
 Route::get('admin', function () {
     return 'Hi Admin';
@@ -164,8 +183,8 @@ Route::get('/dashboard', function () {
 */
 Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard')->name('admin.dashboard.')->group(function (){
     
-// ini dashboardkan    
-//Route::get('/', [DashboardController::class, 'index'])->name('index');
+    // ini dashboardkan    
+    //Route::get('/', [DashboardController::class, 'index'])->name('index');
     //Route::get('news', [NewsadminController::class, 'index'])->name('news.index');
     //News
     //Route::resource('/', DashboardController::class);
@@ -271,6 +290,9 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::post('/member/send-reminder-batch', [MemberadminController::class, 'sendReminderBatch'])
     ->name('memberadmin.sendReminderBatch');
 
+    //Route::post('/midtrans/webhook', [InvoiceAdminController::class, 'webhook'])->name('midtrans.webhook');
+    //Route::get('/invoice/{id}/pay', [InvoiceAdminController::class, 'pay'])->name('invoice.pay');
+
 
     //Sertifikat
     //Periode
@@ -283,10 +305,10 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
 
     //Sertifikat
     //Periode
-    Route::resource('payment', PaymentadminController::class);
-    Route::get('payment/{payment}/edit', [PaymentadminController::class, 'edit'])->name('payment.edit');
-    Route::get('payment/{payment:no_invoice}', [PaymentadminController::class, 'show'])->name('payment.show');
-    Route::put('payment/{payment}/restore', [PaymentadminController::class, 'restore'])->name('payment.restore');
+    Route::resource('paymentproof', PaymentProofadminController::class);
+    Route::get('paymentproof/{payment}/edit', [PaymentProofadminController::class, 'edit'])->name('payment.edit');
+    Route::get('paymentproof/{payment:no_invoice}', [PaymentProofadminController::class, 'show'])->name('payment.show');
+    Route::put('paymentproof/{payment}/restore', [PaymentProofadminController::class, 'restore'])->name('payment.restore');
 
     
     //KTA
@@ -296,10 +318,15 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     //Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
     Route::put('kta/{member}/restore', [KTAController::class, 'restore'])->name('nokta.restore');
 
+    //Invoices
+    Route::get('/invoices', [AdminInvoiceController::class, 'index'])->name('admin.invoices.index');
+    Route::post('/invoices', [AdminInvoiceController::class, 'store'])->name('admin.invoices.store');
+    Route::get('/invoices/{id}', [AdminInvoiceController::class, 'show'])->name('admin.invoices.show');
+
 });
 
-//User Control
-    Route::middleware(['auth', 'role:user|admin'])->prefix('anggota')->name('anggota.dashboard.')->group(function (){
+//User Control Anggota
+Route::middleware(['auth', 'role:user|admin'])->prefix('anggota')->name('anggota.dashboard.')->group(function (){
     //Anggota
     Route::get('/', [AnggotaDashboardContoller::class, 'index'])->name('index');
     
@@ -342,15 +369,15 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::put('member/{member}/restore', [EventadminController::class, 'restore'])->name('event.restore');
 
     //Payment
-    Route::resource('payment', PaymentController::class);
-    Route::get('payment/{payment:no_invoice}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
-    Route::get('payment/{payment:no_invoice}', [PaymentController::class, 'show'])->name('payment.show');
-    Route::put('member/{member}/restore', [PaymentController::class, 'restore'])->name('payment.restore');
+    Route::resource('paymentproof', PaymentProofAnggotaController::class);
+    Route::get('paymentproof/{payment:no_invoice}/edit', [PaymentProofAnggotaController::class, 'edit'])->name('payment.edit');
+    Route::get('paymentproof/{payment:no_invoice}', [PaymentProofAnggotaController::class, 'show'])->name('payment.show');
+    Route::put('member/{member}/restore', [PaymentProofAnggotaController::class, 'restore'])->name('payment.restore');
 
-    //Invoice
-    Route::resource('invoice', InvoiceController::class);
-    Route::get('invoice/{payment:invoice_number}/edit', [InvoiceController::class, 'edit'])->name('invoice.edit');
-    Route::get('invoice/{payment:invoice_number}', [InvoiceController::class, 'show'])->name('invoice.show');
+    //Invoice old
+    //Route::resource('invoice', InvoiceController::class);
+    //Route::get('invoice/{payment:invoice_number}/edit', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    //Route::get('invoice/{payment:invoice_number}', [InvoiceController::class, 'show'])->name('invoice.show');
     
     //KTA
     Route::resource('ktacard', KTAController::class);
@@ -359,6 +386,16 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::get('ktacard/member/{member:slug_kta}', [KTAController::class, 'show'])->name('nokta.show');
     Route::get('namecard/member/{member:slug_kta}', [KTAController::class, 'namecard'])->name('namecard.show');
     //Route::put('kta/{member}/restore', [KTAController::class, 'restore'])->name('nokta.restore');
+
+    //Invoive
+    Route::get('/produk', [TransaksiController::class, 'index'])->name('produk.index');
+    Route::post('/bayar/{id}', [TransaksiController::class, 'createInvoice'])->name('produk.bayar');
+    Route::get('/invoice/{id}', [TransaksiController::class, 'show'])->name('invoice.show');
+    
+
+    //Invoice pay sample
+    Route::get('/invoices', [MemberInvoiceController::class, 'index'])->name('member.invoices.index');
+    Route::post('/invoices/pay/{id}', [MemberInvoiceController::class, 'pay'])->name('member.invoices.pay');
 
     //KTA Sample
     //Route::resource('profile', AnggotaProfileController::class);
@@ -415,10 +452,7 @@ Route::prefix('buku')->name('buku')->group(function () {
 */
 
 Route::prefix('news')->name('news')->group(function () {
-    route::get('/', [NewsController::class, 'index']);
-    
-    
-    
+    route::get('/', [NewsController::class, 'index']);   
 });
 
 
@@ -480,10 +514,6 @@ Route::prefix('/')->name('front')->group(function (){
             return Inertia::render('Pengurus/Dewan_Pengurus');
         })->name('dewan-pengurus');
         Route::get('/{commitee:slug}', [CommiteeController::class, 'show'])->name('commitee.show');
-        
-        
-        
-        
     });
 
     //verif kta

@@ -233,10 +233,10 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.payment.index"
+                                                        "admin.dashboard.paymentproof.index"
                                                     )}
                                                     active={route().current(
-                                                        "admin.dashboard.payment.index"
+                                                        "admin.dashboard.paymentproof.index"
                                                     )}
                                                     className="nav-link px-3"
                                                 >

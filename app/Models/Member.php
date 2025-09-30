@@ -19,6 +19,11 @@ public function committe()
 {
     return $this->hasOne(Commitee::class, 'id', 'id_com');
 }
+public function invoices()
+{
+    return $this->hasMany(Invoice::class);
+}
+
 }
 
 

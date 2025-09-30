@@ -34,7 +34,7 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                     <div className="btn-group me-2">
                         <Link
                             type="button"
-                            href={route("admin.dashboard.payment.create")}
+                            href={route("admin.dashboard.paymentproof.create")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Tambah
@@ -105,7 +105,7 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                     <td>
                                         <a
                                             href={route(
-                                                "admin.dashboard.payment.show",
+                                                "admin.dashboard.paymentproof.show",
                                                 news.no_invoice
                                             )}
                                             target="_blank"
@@ -116,7 +116,7 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                         </a>
                                         <Link
                                             href={route(
-                                                "admin.dashboard.payment.edit",
+                                                "admin.dashboard.paymentproof.edit",
                                                 news.link_id
                                             )}
                                         >
@@ -128,7 +128,7 @@ export default function List({ auth, errors, flashMessage, props, news }) {
                                             onClick={() => {
                                                 destroy(
                                                     route(
-                                                        "admin.dashboard.payment.destroy",
+                                                        "admin.dashboard.paymentproof.destroy",
                                                         news.link_id
                                                     )
                                                 );

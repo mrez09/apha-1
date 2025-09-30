@@ -10,19 +10,19 @@ use Illuminate\Support\Facades\URL;
 use App\Models\News;
 use App\Models\Newscategory;
 use App\Models\Konfigurasi;
-use App\Models\Payment; 
+use App\Models\PaymentProof; 
 use Inertia\Inertia;
 use App\Http\Requests\Admin\Payment\Store;
 use App\Http\Requests\Admin\Payment\Update;
 use Storage;
 
 
-class PaymentadminController extends Controller
+class PaymentProofadminController extends Controller
 {
     //
     public function index(){
-        $news           = Payment::all();
-        $newsjoin       = Payment::select('payments.id as link_id','judul', 'no_invoice', 'status', 'img', 'tanggal_bayar', 'name')->join('users','users.id',"=",'payments.id_user')->get();
+        $news           = PaymentProof::all();
+        $newsjoin       = PaymentProof::select('payment_proofs.id as link_id','judul', 'no_invoice', 'status', 'img', 'tanggal_bayar', 'name')->join('users','users.id',"=",'payment_proofs.id_user')->get();
         return Inertia::render('Admin/Payment/List',
         [
             'news'          => $newsjoin
@@ -49,9 +49,9 @@ class PaymentadminController extends Controller
         //$data['path'] = "/storage/".$data['img'];
         $data['slug_judul'] = Str::slug($data ['judul']);
         $data['id_user'] = Auth::id();
-        $news = Payment::create($data);
+        $news = PaymentProof::create($data);
 
-        return redirect(route('admin.dashboard.payment.index'))->with(
+        return redirect(route('admin.dashboard.paymentproof.index'))->with(
             [
                 'message'   => "Payment Berhasil diUpdate",
                 'type'      => "success"
@@ -60,11 +60,11 @@ class PaymentadminController extends Controller
         //return $request->all();
     }
 
-    public function show(Payment $payment){
+    public function show(PaymentProof $payment){
         //url saat ini
         $cururl           = URL::current();
         $konfigurasis     = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
-        $paymentjoin      = Payment::select('payments.id as link_id','judul', 'subjudul', 'no_invoice',  'payments.status', 'payments.img', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payments.id_user')->where('payments.no_invoice', '=', $payment->no_invoice)->first();
+        $paymentjoin      = PaymentProof::select('payment_proofs.id as link_id','judul', 'subjudul', 'no_invoice',  'payment_proofs.status', 'payment_proofs.img', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payment_proofs.id_user')->where('payment_proofs.no_invoice', '=', $payment->no_invoice)->first();
         //$tanggal_print    = date('d-m-Y');
         $tanggal_print    = date('l d M Y ');
         

@@ -22,6 +22,7 @@ export default function Authenticated({ auth, header, children, props }) {
             else toast.info(flash.message);
         }
     }, [flash]);
+    
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -117,11 +118,11 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <a
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
-                                            "anggota.dashboard.payment.index"
+                                            "anggota.dashboard.paymentproof.index"
                                         )}
                                     >
                                         <i class="fas ic fa-credit-card"></i>
-                                        Payment
+                                        Bukti Manual
                                     </a>
                                 </li>
 

@@ -28,14 +28,14 @@ export default function List({
             errors={errors}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    List Data Payment
+                    List Data Payment Proofs
                 </h2>
             }
         >
             <Head title="Dashboard" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">List Payment</h1>
+                <h1 className="h2">List Proofs</h1>
                 {/*
                     <h1>{order}</h1>
                 */}

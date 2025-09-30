@@ -9,12 +9,40 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Invoice extends Model
 {
     protected $fillable = [
-        'id', 'user_id', 'invoice_number', 'amount',
-        'method', 'gateway', 'status', 'proof', 'paid_at'
+        'id', 
+        'member_id',
+        'user_id', 
+        'invoice_number', 
+        'total_amount',
+        'description',
+        'method', 
+        'gateway', 
+        'status', 
+        'proof', 
+        'paid_at',
+        'due_date',
+        
+        
+        
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+    public function items() {
+        return $this->hasMany(InvoiceItem::class);
     }
+
+    public function product()
+{
+    return $this->belongsTo(Product::class);
+}
+
+
+public function user() {
+    return $this->belongsTo(User::class);
+}
+
+public function payment() {
+    return $this->hasOne(Payment::class);
+}
+
+    
 }

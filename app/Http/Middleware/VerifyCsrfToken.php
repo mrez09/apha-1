@@ -14,5 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
         'sertifikat/upload-sertifikat',
+        'midtrans/notification', 
+        //'anggota/midtrans/notification', //  kode lama
     ];
 }

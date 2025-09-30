@@ -47,7 +47,7 @@ export default function Create(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("admin.dashboard.payment.store"));
+        post(route("admin.dashboard.paymentproof.store"));
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
