@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Invoice;
 use App\Models\Payment;
+use App\Models\Member;
 use Midtrans\Snap;
 use Midtrans\Config;
 use Illuminate\Support\Str;
@@ -12,6 +13,38 @@ use Inertia\Inertia;
 
 class TransaksiController extends Controller
 {
+    private function parsePaymentType($d)
+    {
+        if (!$d || empty($d->payment_type)) return null;
+
+        $main = $d->payment_type;
+
+        // QRIS → cek acquirer atau issuer
+        if ($main === 'qris') {
+            $acq = $d->acquirer ?? $d->issuer ?? null;
+            return $acq ? "qris-$acq" : "qris";
+        }
+
+        // Bank transfer
+        if ($main === 'bank_transfer') {
+            if (!empty($d->va_numbers[0]->bank)) {
+                return "bank_{$d->va_numbers[0]->bank}-va";
+            }
+        }
+
+        // Echannel
+        if ($main === 'echannel') {
+            return "echannel-mandiri";
+        }
+
+        // Specific wallet
+        if ($main === 'gopay') return "gopay-wallet";
+        if ($main === 'shopeepay') return "shopeepay-wallet";
+
+        return $main;
+    }
+
+
     public function index()
     {
         $products = Product::all();
@@ -32,7 +65,10 @@ class TransaksiController extends Controller
         // 💾 Simpan ke tabel invoices
         $invoice = Invoice::create([
             'user_id' => $user->id,
+            'name' => $product->name,
+            'type' => $product->type,
             'invoice_number' => $invoiceNumber,
+            'product_id' => $product->id,
             'total_amount' => $product->price,
             'status' => 'pending',
         ]);
@@ -45,6 +81,33 @@ class TransaksiController extends Controller
             'subtotal' => $product->price,
         ]);
 
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$isSanitized = true;
+        \Midtrans\Config::$is3ds = true;
+
+        $orderId = 'INV-' . $invoice->id . '-' . time();
+        
+        $params = [
+            'transaction_details' => [
+                'order_id' => $orderId,
+                'gross_amount' => $product->price,
+            ],
+            'customer_details' => [
+                'first_name' => $user->name,
+                'email' => $user->email,
+            ],
+            'notification_url' => url('/midtrans/notification'),
+        ];
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        $invoice->update([
+            'order_id' => $orderId,
+            'snap_token' => $snapToken,
+            'payment_token' => $snapToken, 
+        ]);
+
         // 🧾 (Langkah berikutnya nanti panggil Midtrans Snap)
         return redirect()->route('anggota.dashboard.invoice.show', $invoice->id)
             ->with('success', 'Invoice berhasil dibuat!');
@@ -54,50 +117,25 @@ class TransaksiController extends Controller
     {
         $invoice = Invoice::with(['user', 'items'])->findOrFail($id);
 
-        // ✅ Inisialisasi konfigurasi Midtrans
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        \Midtrans\Config::$isProduction = config('midtrans.is_production');
-        \Midtrans\Config::$isSanitized = true;
-        \Midtrans\Config::$is3ds = true;
+        $member = Member::where('id_user', $invoice->user_id)->first();
 
-        // ✅ Pastikan total_amount digunakan
-        $grossAmount = $invoice->total_amount ?? 0;
+        // Jika ingin pajak otomatis, misal 11%
+        $taxRate = 0.11; // 11% PPN
+        $taxAmount = $invoice->total_amount * $taxRate;
+        $grandTotal = $invoice->total_amount + $taxAmount;
 
-        $orderId = 'INV-' . $invoice->id . '-' . now()->format('YmdHis');
+        //$grossAmount = $invoice->total_amount ?? 0; //amount total biasa
+        $grossAmount = $grandTotal; // total + tax
 
-        if (!$invoice->snap_token) {
-            $params = [
-                'transaction_details' => [
-                    //'order_id' => $invoice->invoice_number,
-                    'order_id' => 'INV-' . $invoice->id . '-' . time(),
-                    'gross_amount' => $grossAmount,
-                ],
-                'customer_details' => [
-                    'first_name' => $invoice->user->name,
-                    'email' => $invoice->user->email,
-                ],
-                'callbacks' => [
-                    'finish' => url('/invoice/finish'), // halaman yang kamu mau user lihat setelah bayar
-                ],
-                'notification_url' => url('/midtrans/notification'),
-                            
-                ];
-
-            $snapToken = \Midtrans\Snap::getSnapToken($params);
-
-            $invoice->update([
-                'snap_token' => $snapToken,
-                'order_id' => $orderId,
-            ]);
-            
-            
-            } else {
-                $snapToken = $invoice->snap_token;
-            }
+        
 
         return inertia('Invoice/Show', [
             'invoice' => $invoice,
-            'snapToken' => $snapToken,
+            'member' => $member,
+            'snapToken'    => $invoice->payment_token,
+            'tax' => $taxAmount,
+            'grand_total' => $grandTotal,
+            'order_id'     => $invoice->order_id,
         ]);
     }
     public function callback(Request $request)
@@ -182,7 +220,7 @@ class TransaksiController extends Controller
         return response()->json(['message' => 'Status updated successfully']);
     }
 
-    public function notificationHandler(Request $request)
+    public function notificationHandlerOld(Request $request)
     {
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = false;
@@ -200,50 +238,187 @@ class TransaksiController extends Controller
                 'transaction' => $transaction,
             ]);
 
-            // Cari invoice
+            // 🔎 Ambil invoice
             $invoice = Invoice::where('invoice_number', $orderId)->first();
+
+            // backup jika format order_id = prefix-ID
             if (!$invoice && str_contains($orderId, '-')) {
                 $parts = explode('-', $orderId);
-                $invoiceId = $parts[1] ?? null;
-                $invoice = Invoice::find($invoiceId);
+                $invoice = Invoice::find($parts[1] ?? null);
             }
 
             if (!$invoice) {
-                \Log::error('Invoice not found for order_id ' . $orderId);
+                \Log::error('Invoice not found: '.$orderId);
                 return response()->json(['message' => 'Invoice not found'], 404);
             }
 
-            // Update status invoice
+            // 🔄 Update status invoice
             if (in_array($transaction, ['capture', 'settlement'])) {
                 $invoice->update(['status' => 'paid']);
             } elseif ($transaction == 'pending') {
                 $invoice->update(['status' => 'pending']);
-            } elseif (in_array($transaction, ['deny', 'expire', 'cancel'])) {
+            } else {
                 $invoice->update(['status' => 'failed']);
             }
 
-            // ✅ Simpan atau update Payment di sini
-            $payment = Payment::where('order_id', $orderId)->first();
+            // 🔄 Simpan / update data payment
             Payment::updateOrCreate(
-            ['order_id' => $orderId],
-            [
-                'invoice_id' => $invoice->id,
-                'transaction_id' => $notif->transaction_id ?? null,
-                'gateway' => 'midtrans',
-                'payment_type' => $notif->payment_type ?? null,
-                'gross_amount' => $notif->gross_amount ?? 0,
-                'transaction_status' => $transaction,
-                'transaction_time' => $notif->transaction_time ?? now(),
-                'fraud_status' => $notif->fraud_status ?? null,
-                'payment_token' => $invoice->snap_token, 
-                'receipt_url' => $notif->receipt_url ?? null,
-            ]
-        );
+                ['order_id' => $orderId],
+                [
+                    'invoice_id' => $invoice->id,
+                    'transaction_id' => $notif->transaction_id ?? null,
+                    'gateway' => 'midtrans bro',
+                    'payment_type' => $notif->payment_type ?? null,
+                    'gross_amount' => $notif->gross_amount ?? 0,
+                    'transaction_status' => $transaction,
+                    'transaction_time' => $notif->transaction_time ?? now(),
+                    'fraud_status' => $notif->fraud_status ?? null,
+                    'payment_token' => $invoice->snap_token,
+                    'receipt_url' => $notif->receipt_url ?? null,
+                ]
+            );
+
+            // 🔥 UPDATE STATUS MEMBER HANYA UNTUK IURAN + BERHASIL BAYAR
+            if ($transaction === 'settlement' && $invoice->type === 'iuran') {
+
+                // cari member berdasarkan USER
+                $member = Member::where('id_user', $invoice->user_id)->first();
+
+                if ($member) {
+                    $member->update([
+                        'status' => 1,
+                        'iuran_status' => 'aktif',
+                        'iuran_berlaku_hingga' => now()->addYear(), 
+                    ]);
+                } else {
+                    \Log::error("Member not found for user_id: ".$invoice->user_id);
+                }
+            }
 
             return response()->json(['message' => 'ok'], 200);
 
         } catch (\Exception $e) {
             \Log::error('Midtrans Notification Error', ['message' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function notificationHandler(Request $request)
+    {
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$isSanitized = true;
+        \Midtrans\Config::$is3ds = true;
+
+        try {
+            // Ambil raw body biar payment_type 100% akurat
+            $notif = new \Midtrans\Notification();
+            $orderId = $notif->order_id;
+
+            // 🚀 Ambil data lengkap dari Midtrans
+            $detail = \Midtrans\Transaction::status($orderId);
+
+            // Gunakan parsePaymentType tapi pakai $detail
+            $paymentType = $this->parsePaymentType($detail);
+
+            //$notif = new \Midtrans\Notification();
+
+            $transaction   = $notif->transaction_status;
+            $orderId       = $notif->order_id;
+            //$paymentType   = $data->payment_type ?? $notif->payment_type;
+            $fraudStatus   = $notif->fraud_status ?? null;
+
+            \Log::info('Midtrans Callback', [
+                'order_id' => $orderId,
+                'status'   => $transaction,
+                'payment_type' => $paymentType,
+            ]);
+
+            // ===============================
+            //   CARI INVOICE DARI order_id
+            // ===============================
+            $invoice = null;
+
+            if (str_starts_with($orderId, 'INV-')) {
+                $parts = explode('-', $orderId);
+                $invoiceId = intval($parts[1] ?? 0);
+                $invoice = Invoice::find($invoiceId);
+            }
+
+            if (!$invoice) {
+                \Log::error("Invoice Not Found for order_id: $orderId");
+                return response()->json(['message' => 'invoice not found'], 404);
+            }
+
+            // ===============================
+            //   UPDATE STATUS INVOICE
+            // ===============================
+            if (in_array($transaction, ['capture', 'settlement'])) {
+                $invoice->update([
+                    'gateway'            => 'midtrans',
+                    'status' => 'paid',
+                    'paid_at' => now(),
+                    'payment_type'  => $paymentType,
+                    'payment_token'      => $invoice->snap_token,
+                ]);
+            } elseif ($transaction === 'pending') {
+                $invoice->update([
+                    'gateway'            => 'midtrans',
+                    'status' => 'pending',
+                    'payment_type'  => $paymentType,
+                    'payment_token'      => $invoice->snap_token,
+                ]);
+            } else {
+                $invoice->update([
+                    'gateway'            => 'midtrans',
+                    'status' => 'failed',
+                    'payment_type'  => $paymentType,
+                    'payment_token'      => $invoice->snap_token,
+                ]);
+            }
+
+            // ===============================
+            //   UPDATE / CREATE PAYMENT
+            // ===============================
+            Payment::updateOrCreate(
+                ['order_id' => $orderId],
+                [
+                    'invoice_id'         => $invoice->id,
+                    'transaction_id'     => $notif->transaction_id ?? null,
+                    'gateway'            => 'midtrans',
+                    'type'               => $invoice->type,
+                    'payment_type'       => $paymentType,
+                    'gross_amount'       => $notif->gross_amount ?? 0,
+                    'transaction_status' => $transaction,
+                    'transaction_time'   => $notif->transaction_time ?? now(),
+                    'fraud_status'       => $fraudStatus,
+                    'payment_token'      => $invoice->snap_token,  // ambil dari invoice
+                    'receipt_url'        => $data->receipt_url ?? null,
+                ]
+            );
+
+            // ===============================
+            //   UPDATE STATUS MEMBER (IURAN)
+            // ===============================
+            if ($transaction === 'settlement' && $invoice->type === 'iuran') {
+
+                $member = Member::where('id_user', $invoice->user_id)->first();
+
+                if ($member) {
+                    $member->update([
+                        'status' => 1,
+                        'iuran_status' => 'aktif',
+                        'iuran_berlaku_hingga' => now()->addYear(),
+                    ]);
+                } else {
+                    \Log::error("Member not found for user_id: ".$invoice->user_id);
+                }
+            }
+
+            return response()->json(['message' => 'ok'], 200);
+
+        } catch (\Exception $e) {
+            \Log::error('Midtrans Error', ['message' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

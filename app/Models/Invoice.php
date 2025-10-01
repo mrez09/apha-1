@@ -11,19 +11,21 @@ class Invoice extends Model
     protected $fillable = [
         'id', 
         'member_id',
+        'product_id',
+        'order_id',
         'user_id', 
         'invoice_number', 
         'total_amount',
         'description',
         'method', 
+        'type',
         'gateway', 
         'status', 
+        'payment_type',
+        'payment_token',
         'proof', 
         'paid_at',
-        'due_date',
-        
-        
-        
+        'due_date',  
     ];
 
     public function items() {

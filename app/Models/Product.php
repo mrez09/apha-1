@@ -10,8 +10,8 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'price',
-        'start_date', 'end_date', 'is_active'
+        'name', 'description', 'price', 'type',
+        'start_date', 'end_date', 'is_active', 'update_at'
     ];
 
     protected $casts = [
