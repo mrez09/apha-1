@@ -16,18 +16,18 @@ class KonfigurasiSeeder extends Seeder
         //
         $konfigurasi = [
             [
-                'namawebsite'          =>  'APHA',
-                'title'          =>  'Selamat Datang di Website APHA Indonesia',
-                'description'          =>  'Asosiasi Pengajar Hukum Adat Indonesia adalah badan/wadah Pendidikan Nasional yang memiliki wewenang dalam mengkordinasikan dan membina segala kegiatan pendidikan di seluruh wilayah Hukum Negara Kesatuan Republik Indonesia', 
+                'namawebsite'       =>  'APHA',
+                'title'             =>  'Selamat Datang di Website APHA Indonesia',
+                'description'       =>  'Asosiasi Pengajar Hukum Adat Indonesia adalah badan/wadah Pendidikan Nasional yang memiliki wewenang dalam mengkordinasikan dan membina segala kegiatan pendidikan di seluruh wilayah Hukum Negara Kesatuan Republik Indonesia', 
                 'apple_mobile'      =>  'Selamat Datang di Website APHA Indonesia',
-                'slug'           =>  'apha',
+                'slug'              =>  'apha',
                 'tagline'           =>  'Menjaga Adat dan Budaya Kita Bersama',
                 'address'           =>  'https://www.apha.or.id',
-                'fbid'           =>  '961443805039846',
-                'img'     =>  'logo/Logo-Apha.gif',
+                'fbid'              =>  '961443805039846',
+                'img'               =>  'logo/Logo-Apha.png',
                 'metatag'           =>  '<p>Asosiasi Pengajar Hukum Adat, Hukum Adat, Buku, Prosiding</p>',
-                'pengurus'    =>  '1',
-                'fav'        =>  'fav/Logo-Apha.gif',
+                'pengurus'          =>  '1',
+                'fav'               =>  'fav/Logo-Apha.gif',
                 
             ],
             

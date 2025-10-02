@@ -222,6 +222,18 @@ class MemberadminController extends Controller
         ]);
     }
 
+    public function edit_user(Member $member){
+        //return $news;
+        //return Inertia::render('Admin/News/Create');
+        //return $request->all();
+        //$news           = News::all();
+        return Inertia::render('Admin/Member/Edit_user',
+        [
+            'member'          => $member,
+            'ckeditor'              => 'yes',
+        ]);
+    }
+
     /*update old
     public function update(Update $request, Member $member){
         $data = $request->validated();
@@ -251,48 +263,92 @@ class MemberadminController extends Controller
     }*/
 
     public function update(Update $request, Member $member)
-{
-    $data = $request->validated();
-    $data['slug_kta'] = Str::slug(str_replace('/', '-', $data['no_kta']));
-    if (!$member->kta_token) {
-        $member->kta_token = 'APHA-' . strtoupper(Str::random(10));
-    }
-
-    // ✅ Handle image upload untuk profile
-    if ($request->hasFile('img')) {
-        if ($member->img && Storage::disk('public')->exists($member->img)) {
-            Storage::disk('public')->delete($member->img);
+    {
+        $data = $request->validated();
+        $data['slug_kta'] = Str::slug(str_replace('/', '-', $data['no_kta']));
+        if (!$member->kta_token) {
+            $member->kta_token = 'APHA-' . strtoupper(Str::random(10));
         }
 
-        $data['img'] = Storage::disk('public')->put('profile', $request->file('img'));
-    } else {
-        unset($data['img']);
-    }
+        // ✅ Handle image upload untuk profile
+        if ($request->hasFile('img')) {
+            if ($member->img && Storage::disk('public')->exists($member->img)) {
+                Storage::disk('public')->delete($member->img);
+            }
 
-    // ✅ Update data member
-    $member->update($data);
-
-    // ✅ Update data commitee terkait (jika ada id_com)
-    if ($member->id_com) {
-        $commitee = \App\Models\Commitee::find($member->id_com);
-
-        if ($commitee) {
-            $commitee->update([
-                'nama'      => $member->nama,
-                'img'       => $member->img,
-                'gender'    => $request->input('jk'),
-                'description' => $request->input('dec'),
-            ]);
+            $data['img'] = Storage::disk('public')->put('profile', $request->file('img'));
+        } else {
+            unset($data['img']);
         }
+
+        // ✅ Update data member
+        $member->update($data);
+
+        // ✅ Update data commitee terkait (jika ada id_com)
+        if ($member->id_com) {
+            $commitee = \App\Models\Commitee::find($member->id_com);
+
+            if ($commitee) {
+                $commitee->update([
+                    'nama'      => $member->nama,
+                    'img'       => $member->img,
+                    'gender'    => $request->input('jk'),
+                    'description' => $request->input('dec'),
+                ]);
+            }
+        }
+
+        return redirect(route('admin.dashboard.memberadmin.view', $member->id))
+        //return redirect(route('admin.dashboard.member.index'))
+        ->with([
+            'message' => "✅ Member dan Commitee berhasil diupdate",
+            'type' => "success"
+        ]);
     }
 
-    return redirect(route('admin.dashboard.memberadmin.view', $member->id))
-    //return redirect(route('admin.dashboard.member.index'))
-    ->with([
-        'message' => "✅ Member dan Commitee berhasil diupdate",
-        'type' => "success"
-    ]);
-}
+     public function update_user(Update $request, Member $member)
+    {
+        $data = $request->validated();
+        $data['slug_kta'] = Str::slug(str_replace('/', '-', $data['no_kta']));
+        if (!$member->kta_token) {
+            $member->kta_token = 'APHA-' . strtoupper(Str::random(10));
+        }
+
+        // ✅ Handle image upload untuk profile
+        if ($request->hasFile('img')) {
+            if ($member->img && Storage::disk('public')->exists($member->img)) {
+                Storage::disk('public')->delete($member->img);
+            }
+
+            $data['img'] = Storage::disk('public')->put('profile', $request->file('img'));
+        } else {
+            unset($data['img']);
+        }
+
+        // ✅ Update data member
+        $member->update($data);
+
+        // ✅ Update data commitee terkait (jika ada id_com)
+        if ($member->id_com) {
+            $commitee = \App\Models\Commitee::find($member->id_com);
+
+            if ($commitee) {
+                $commitee->update([
+                    'nama'      => $member->nama,
+                    'img'       => $member->img,
+                    'gender'    => $request->input('jk'),
+                    'description' => $request->input('dec'),
+                ]);
+            }
+        }
+
+        return redirect(route('admin.dashboard.memberadmin.view', $member->id))
+        //return redirect(route('admin.dashboard.member.index'))
+        ->with([
+            'message' => "✅ Member dan Commitee berhasil diupdate",
+            'type' => "success"
+        ]);
+    }
 
     public function destroy(Member $member){
         $member->delete();

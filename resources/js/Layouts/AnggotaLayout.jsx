@@ -22,7 +22,6 @@ export default function Authenticated({ auth, header, children, props }) {
             else toast.info(flash.message);
         }
     }, [flash]);
-    
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -106,7 +105,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <a
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
-                                            "anggota.dashboard.sertifikat.index"
+                                            "anggota.dashboard.sertifikat.index",
                                         )}
                                     >
                                         <i className="fas ic fa-stamp"></i>
@@ -118,7 +117,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <a
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
-                                            "anggota.dashboard.paymentproof.index"
+                                            "anggota.dashboard.paymentproof.index",
                                         )}
                                     >
                                         <i class="fas ic fa-credit-card"></i>
@@ -148,7 +147,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <NavLink
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
-                                            "anggota.dashboard.profile.index"
+                                            "anggota.dashboard.profile.index",
                                         )}
                                     >
                                         <i className="fas ic fa-file"></i>
@@ -160,7 +159,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <NavLink
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
-                                            "anggota.dashboard.institusi.index"
+                                            "anggota.dashboard.institusi.index",
                                         )}
                                     >
                                         <i className="fas ic fa-user-graduate"></i>
@@ -172,12 +171,62 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <NavLink
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
-                                            "anggota.dashboard.account.index"
+                                            "anggota.dashboard.account.index",
                                         )}
                                     >
                                         <i className="fas ic fa-user"></i>
                                         Informasi Akun
                                     </NavLink>
+                                </li>
+
+                                {/*end Photo*/}
+                            </ul>
+
+                            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Payment</span>
+                                <a
+                                    className="link-secondary"
+                                    href="#"
+                                    aria-label="Add a new report"
+                                >
+                                    <span data-feather="plus-circle"></span>
+                                </a>
+                            </h6>
+
+                            <ul className="nav flex-column mb-2">
+                                {/*Photo*/}
+
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a data-bs-toggle="collapse" href="#berita">
+                                        <i className="fa-solid ic fa-newspaper"></i>
+                                        Iuran
+                                    </a>
+                                    <div className="collapse" id="berita">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "anggota.dashboard.member.invoices.index",
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-list"></i>
+                                                    Invoices
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "anggota.dashboard.produk.index",
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-credit-card"></i>
+                                                    Bayar Iuran
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
 
                                 {/*end Photo*/}

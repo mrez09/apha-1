@@ -391,6 +391,8 @@ Route::middleware(['auth', 'role:user|admin'])->prefix('anggota')->name('anggota
     Route::get('/produk', [TransaksiController::class, 'index'])->name('produk.index');
     Route::post('/bayar/{id}', [TransaksiController::class, 'createInvoice'])->name('produk.bayar');
     Route::get('/invoice/{id}', [TransaksiController::class, 'show'])->name('invoice.show');
+    Route::get('/invoice/{id}/download', [TransaksiController::class, 'download'])
+    ->name('invoice.download');
     
 
     //Invoice pay sample

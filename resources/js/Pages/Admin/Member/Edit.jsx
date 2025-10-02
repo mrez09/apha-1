@@ -2,10 +2,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DataTable from "datatables.net-dt";
 import { Head } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
+import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -86,6 +90,16 @@ const editorConfiguration = {
 };
 
 export default function List(props) {
+    const [startDate, setStartDate] = useState(
+        props.member.start_date
+            ? new Date(props.member.start_date)
+            : new Date(),
+    );
+    const [expiredDate, setExpiredDate] = useState(
+        props.member.expired_date
+            ? new Date(props.member.expired_date)
+            : new Date(),
+    );
     let table = new DataTable("#myTable", {
         // options
         destroy: true,
@@ -102,7 +116,7 @@ export default function List(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -234,7 +248,7 @@ export default function List(props) {
                                     defaultValue={props.member.alamat}
                                     placeholder="Masukan NIDN atau NIDK"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="kode"
+                                    autoComplete="alamat"
                                     onChange={onHandleChange}
                                 />
                                 <div className="">
@@ -320,6 +334,48 @@ export default function List(props) {
                                     <InputError
                                         message={errors.img}
                                         className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    Tanggal Mulai
+                                </label>
+                                <div className="form-control">
+                                    <DatePicker
+                                        showIcon
+                                        name="start_date"
+                                        selected={startDate}
+                                        showTimeSelect={true}
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                        //onChange={(e) => setData("publish_at", date)}
+                                        onChange={(date) => {
+                                            setStartDate(date);
+                                            setData("start_date", date);
+                                            console.log({ date });
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    Expired Date
+                                </label>
+                                <div className="form-control">
+                                    <DatePicker
+                                        showIcon
+                                        name="expired_date"
+                                        selected={expiredDate}
+                                        showTimeSelect
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                        onChange={(date) => {
+                                            setExpiredDate(date);
+                                            setData("expired_date", date);
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -545,7 +601,7 @@ export default function List(props) {
                                         // You can store the "editor" and use when it is needed.
                                         console.log(
                                             "Editor is ready to use!",
-                                            editor
+                                            editor,
                                         );
                                     }}
                                     onChange={(event, editor, e) => {

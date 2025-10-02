@@ -67,8 +67,8 @@ class EventController extends Controller
         //$newsjoin           = News::findOrFail($news);
         //$newsjoin           = News::select('news.id as link_id','judul', 'view', 'namakategori', 'img', 'name', 'newscategories.id as id_cat')->join('users','users.id',"=",'news.id_user')->join('newscategories','newscategories.id',"=",'news.category')->where('news.slug', $news->slug)->get();
         //$konten       = Str::inlineMarkdown($news->konten);
-        $repkonten1    = Str::replace('<p>', '', $event->description);
-        $repkonten2    = Str::replace('</p>', '', $repkonten1);
+        $repkonten1     = Str::replace('<p>', '', $event->description);
+        $repkonten2     = Str::replace('</p>', '', $repkonten1);
         $des    = Str::words( $repkonten2, 25);
 
         $reptag1    = Str::replace('<p>', '', $konfigurasis->metatag);

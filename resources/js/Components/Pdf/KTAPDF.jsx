@@ -96,7 +96,14 @@ export default function KTAPDF({
     alamat,
     tanggal_print,
 }) {
-    const dynamicFontSize = nama.length > 25 ? 9 : 11;
+    //const dynamicFontSize = nama.length > 25 ? 9 : 11;
+    const maxFont = 11;
+    const minFont = 7;
+
+    const dynamicFontSize = Math.max(
+        minFont,
+        maxFont - Math.floor((nama.length - 20) / 10),
+    );
     const styles = StyleSheet.create({
         //body: {
         //paddingTop: 35,

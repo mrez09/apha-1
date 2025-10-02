@@ -1,5 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AnggotaLayout";
 import { Head, Link } from "@inertiajs/react";
+import moment from "moment";
+import "moment/locale/id";
 
 export default function Dashboard(props) {
     return (
@@ -51,6 +53,74 @@ export default function Dashboard(props) {
                                                 ? "Belum Aktif"
                                                 : "Aktif"}
                                         </a>
+                                    </div>
+                                    {/* MASA KEANGGOTAAN */}
+                                    <div className="card border-0 bg-light mb-3">
+                                        <div className="card-body py-3">
+                                            <div className="row text-center">
+                                                <div className="col-6 border-end">
+                                                    <small className="text-muted d-block">
+                                                        Tanggal Mulai
+                                                    </small>
+                                                    <strong>
+                                                        {props.anggota
+                                                            .start_date
+                                                            ? moment(
+                                                                  props.anggota
+                                                                      .start_date,
+                                                              ).format(
+                                                                  "DD MMM YYYY",
+                                                              )
+                                                            : "-"}
+                                                    </strong>
+                                                </div>
+
+                                                <div className="col-6">
+                                                    <small className="text-muted d-block">
+                                                        Berlaku Sampai
+                                                    </small>
+                                                    <strong
+                                                        className={
+                                                            moment(
+                                                                props.anggota
+                                                                    .expired_date,
+                                                            ).isBefore(moment())
+                                                                ? "text-danger"
+                                                                : "text-success"
+                                                        }
+                                                    >
+                                                        {props.anggota
+                                                            .expired_date
+                                                            ? moment(
+                                                                  props.anggota
+                                                                      .expired_date,
+                                                              ).format(
+                                                                  "DD MMM YYYY",
+                                                              )
+                                                            : "-"}
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="text-center mb-3">
+                                        <small className="text-muted">
+                                            Masa aktif tersisa{" "}
+                                            <strong>
+                                                {moment(
+                                                    props.anggota.expired_date,
+                                                ).diff(moment(), "days") > 0
+                                                    ? `${moment(
+                                                          props.anggota
+                                                              .expired_date,
+                                                      ).diff(
+                                                          moment(),
+                                                          "days",
+                                                      )} hari`
+                                                    : "Expired"}
+                                            </strong>
+                                        </small>
                                     </div>
                                 </div>
 
@@ -217,7 +287,7 @@ export default function Dashboard(props) {
                                                 <a
                                                     href={route(
                                                         "anggota.dashboard.namecard.show",
-                                                        props.anggota.slug_kta
+                                                        props.anggota.slug_kta,
                                                     )}
                                                     target="_blank"
                                                     rel="noreferrer"
@@ -238,7 +308,7 @@ export default function Dashboard(props) {
                                                 <a
                                                     href={route(
                                                         "anggota.dashboard.nokta.show",
-                                                        props.anggota.slug_kta
+                                                        props.anggota.slug_kta,
                                                     )}
                                                     target="_blank"
                                                     rel="noreferrer"
@@ -260,7 +330,7 @@ export default function Dashboard(props) {
                                                     href={route(
                                                         "frontpengurus.commitee.show",
                                                         props.anggota
-                                                            .slug_biodata
+                                                            .slug_biodata,
                                                     )}
                                                     target="_blank"
                                                     rel="noreferrer"

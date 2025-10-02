@@ -61,156 +61,161 @@ export default function List({
             </Head>
             <div className="container">
                 <div className="row g-4 justify-content-center mt-5">
-                    <h2 className="text-center mb-4 fw-bold">
-                        Informasi Kartu Nama Anggota
-                    </h2>
+                    <div className="card border-0 shadow-sm mb-4">
+                        <div className="card-body p-4">
+                            <div className="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h2 className="fw-bold mb-1">
+                                        {member.nama}
+                                    </h2>
+                                    <p className="text-muted mb-0">
+                                        Anggota APHA Indonesia
+                                    </p>
+                                    <small>
+                                        No. KTA :{" "}
+                                        <strong>{member.no_kta}</strong>
+                                    </small>
+                                </div>
 
-                    <div className="col-md-8  ">
-                        <div className="row border">
-                            <div className="card shadow-sm border-0 mb-4">
-                                <div className="row g-3 align-items-center p-4">
-                                    <div className="col-lg-6">
-                                        <h3 className="mb-1">{member.nama}</h3>
-                                        <p className="text-muted mb-0">
-                                            No Kartu Tanda Anggota{" "}
-                                            <strong>#{member.no_kta}</strong>
-                                        </p>
-                                    </div>
-                                    <div className="col-lg-6 text-lg-end">
-                                        {payment.status == 1 ? (
-                                            <span className="badge bg-success px-3 py-2">
-                                                Aktif
-                                            </span>
-                                        ) : (
-                                            <span className="badge bg-danger px-3 py-2">
-                                                Belum Aktif
-                                            </span>
-                                        )}
-                                    </div>
+                                <div>
+                                    {payment?.status == 1 ? (
+                                        <span className="badge bg-success fs-6 px-3 py-2">
+                                            ✓ Aktif
+                                        </span>
+                                    ) : (
+                                        <span className="badge bg-danger fs-6 px-3 py-2">
+                                            ✕ Tidak Aktif
+                                        </span>
+                                    )}
                                 </div>
                             </div>
-                            {/* Detail Anggota */}
-                            <div className="card shadow-sm border-0 mb-4">
-                                <div className="row p-4">
-                                    <div className="col-lg-6">
-                                        <table className="table table-sm table-borderless mb-0">
-                                            <tbody>
-                                                <tr>
-                                                    <th className="w-50">
-                                                        NIDN/NIDK
-                                                    </th>
-                                                    <td>{member.kode}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Jenis Kelamin</th>
-                                                    <td>
-                                                        {member.jk === "lk"
-                                                            ? "Laki-Laki"
-                                                            : "Perempuan"}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Alamat</th>
-                                                    <td>{member.alamat}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <table className="table table-sm table-borderless mb-0">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Universitas</th>
-                                                    <td>
-                                                        {member.universitas}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Masa Berlaku</th>
-                                                    <td>2024</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Email</th>
-                                                    <td>{member.email}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                        </div>
+                    </div>
+
+                    <div className="row g-3 mb-4">
+                        <div className="col-md-4">
+                            <div className="card border-0 shadow-sm">
+                                <div className="card-body text-center">
+                                    <h6 className="text-muted">Status</h6>
+                                    <h4 className="text-success">
+                                        {member.iuran_status}
+                                    </h4>
                                 </div>
                             </div>
                         </div>
 
-                        <figure class="card Card_APHA">
-                            <h1 className="h1-APHA">APHA</h1>
-                            <h1 className="h1-APHA id_h1-2">
-                                ASOSIASI PENGAJAR HUKUM ADAT
-                            </h1>
-
-                            <figcaption>
-                                <h2 className="Nama_id">
-                                    {member.nama} <br />
-                                    <span className="id_kta">
-                                        {member.no_kta}
-                                    </span>
-                                </h2>
-                                <tr>
-                                    <td>Afiliasi</td>
-                                    <td>: {member.universitas} </td>
-                                </tr>
-                                <tr>
-                                    <td>Masa Berlaku</td>
-                                    <td>: 2024</td>
-                                </tr>
-                            </figcaption>
-                            <img
-                                class="img-idcard"
-                                //src={`/storage/logo/Logo-Apha-card.png`}
-                                src={`https://apha.or.id/storage/logo/Logo-AphaC.png`}
-                            />
-
-                            <div class="position">
-                                <span>
-                                    Fakultas Hukum Universitas Trisakti Kampus A
-                                    Gedung H Lantai 6
-                                </span>{" "}
-                                <br />
-                                <span>
-                                    Jl. Kyai Tapa No.1 Grogol Jakarta Barat.
-                                </span>
+                        <div className="col-md-4">
+                            <div className="card border-0 shadow-sm">
+                                <div className="card-body text-center">
+                                    <h6 className="text-muted">
+                                        Berlaku Hingga
+                                    </h6>
+                                    <h5>
+                                        {moment(member.expired_date).format(
+                                            "DD MMM YYYY",
+                                        )}
+                                    </h5>
+                                </div>
                             </div>
-                        </figure>
+                        </div>
 
-                        {
-                            //Invoice
-                        }
+                        <div className="col-md-4">
+                            <div className="card border-0 shadow-sm">
+                                <div className="card-body text-center">
+                                    <h6 className="text-muted">Universitas</h6>
+                                    <small>{member.universitas}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card shadow-sm border-0 mb-4">
+                        <div className="card-header bg-white fw-bold">
+                            Data Anggota
+                        </div>
+
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="mb-3">
+                                        <small className="text-muted">
+                                            NIDN / NIDK
+                                        </small>
+                                        <div>{member.kode}</div>
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <small className="text-muted">
+                                            Jenis Kelamin
+                                        </small>
+                                        <div>
+                                            {member.jk === "lk"
+                                                ? "Laki-Laki"
+                                                : "Perempuan"}
+                                        </div>
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <small className="text-muted">
+                                            Alamat
+                                        </small>
+                                        <div>{member.alamat}</div>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <div className="mb-3">
+                                        <small className="text-muted">
+                                            Universitas
+                                        </small>
+                                        <div>{member.universitas}</div>
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <small className="text-muted">
+                                            Email
+                                        </small>
+                                        <div>{member.email}</div>
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <small className="text-muted">
+                                            Masa Berlaku
+                                        </small>
+                                        <div>
+                                            {moment(member.expired_date).format(
+                                                "dddd D MMMM YYYY",
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {
                         //end tab
                     }
                     {/* Kolom Samping */}
+
                     <div className="col-md-4 mt-3">
-                        <div className="d-flex justify-content-center mb-3">
-                            <img
-                                src={qrcode}
-                                alt="QR KTA"
-                                className="img-fluid"
-                                style={{
-                                    width: "100%",
-                                    maxWidth: "220px",
-                                    height: "auto",
-                                }}
-                            />
-                            <img
-                                src={qrcodebase}
-                                alt="QR Base URL"
-                                className="img-fluid"
-                                style={{
-                                    width: "100%",
-                                    maxWidth: "220px",
-                                    height: "auto",
-                                }}
-                            />
+                        <div className="card shadow-sm border-0 mb-3">
+                            <div className="card-body text-center">
+                                <h5>Verifikasi KTA</h5>
+
+                                <img
+                                    src={qrcode}
+                                    className="img-fluid mb-3"
+                                    style={{
+                                        maxWidth: 220,
+                                    }}
+                                />
+
+                                <p className="small text-muted">
+                                    Scan QR Code untuk memverifikasi keanggotaan
+                                    APHA Indonesia.
+                                </p>
+                            </div>
                         </div>
                         <div className="card shadow-sm border-0 p-3">
                             <h5 className="mb-3">Download</h5>
@@ -252,9 +257,9 @@ export default function List({
                                     )
                                 }
                             </PDFDownloadLink>
-                            <p className="mt-3 text-muted small">
-                                Dicetak tanggal {tanggal_print}
-                            </p>
+                            <small className="text-muted">
+                                Dicetak : {tanggal_print}
+                            </small>
                         </div>
                     </div>
 

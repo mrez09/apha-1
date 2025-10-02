@@ -26,6 +26,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
     ];
 
+    public function member()
+    {
+        return $this->hasOne(Member::class, 'id_user', 'id');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -49,4 +59,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new CustomVerifyEmail);
     }
+    
 }

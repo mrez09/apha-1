@@ -98,7 +98,14 @@ export default function KTAPDF({
     expired_date,
     start_date,
 }) {
-    const dynamicFontSize = nama.length > 25 ? 9 : 11;
+    //const dynamicFontSize = nama.length > 25 ? 9 : 11;
+    const maxFont = 11;
+    const minFont = 7;
+
+    const dynamicFontSize = Math.max(
+        minFont,
+        maxFont - Math.floor((nama.length - 20) / 10),
+    );
     const infoFontSize = nama.length > 25 ? 7 : 8;
     const styles = StyleSheet.create({
         body: {
@@ -237,26 +244,6 @@ export default function KTAPDF({
                         }}
                     >
                         {/* Baris email */}
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                marginBottom: 2,
-                            }}
-                        >
-                            <Image
-                                src={iconEmail}
-                                style={{ width: 8, height: 8, marginRight: 4 }}
-                            />
-                            <Text
-                                style={{
-                                    fontSize: infoFontSize,
-                                    color: "#333",
-                                }}
-                            >
-                                {email}
-                            </Text>
-                        </View>
 
                         {/* Baris telepon */}
                         <View

@@ -53,6 +53,8 @@ class DashboardController extends Controller
         'members.scholar',
         'members.scopus',
         'members.sinta',
+        'members.start_date',
+        'members.expired_date',
         'members.status',
         'members.dec',
         'members.join_at',

@@ -184,7 +184,7 @@ export default function List({
 
                                     <a
                                         href={route(
-                                            "anggota.dashboard.anggotaprofile.imgkta"
+                                            "anggota.dashboard.anggotaprofile.imgkta",
                                         )}
                                         target="_blank"
                                         rel="noreferrer"
@@ -321,7 +321,7 @@ export default function List({
                                     target="_blank"
                                     href={route(
                                         "frontverify.kta",
-                                        member.kta_token
+                                        member.kta_token,
                                     )}
                                 >
                                     <i className="bi bi-box-arrow-up-right me-2"></i>{" "}

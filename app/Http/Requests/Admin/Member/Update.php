@@ -43,6 +43,8 @@ class Update extends FormRequest
             'scopus'        => 'nullable',
             'sinta'         => 'nullable',
             'dec'           => 'nullable',
+            'start_date'    => 'nullable',
+            'expired_date'  => 'nullable',
             'status'        => 'nullable'
         ];
     }

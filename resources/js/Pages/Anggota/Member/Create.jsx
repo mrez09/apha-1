@@ -35,7 +35,7 @@ export default function List(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -396,7 +396,7 @@ export default function List(props) {
                                         // You can store the "editor" and use when it is needed.
                                         console.log(
                                             "Editor is ready to use!",
-                                            editor
+                                            editor,
                                         );
                                     }}
                                     onChange={(event, editor, e) => {

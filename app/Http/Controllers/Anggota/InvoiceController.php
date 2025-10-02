@@ -18,7 +18,19 @@ use App\Services\MidtransService;
 class InvoiceController extends Controller
 {
     //
+
     public function index(Request $request)
+    {
+        $invoices = Invoice::where('user_id', auth()->id())
+        ->latest()
+        ->get();
+
+        return Inertia::render('Anggota/Invoice/List', [
+            'invoices' => $invoices
+        ]);
+    }
+
+    public function indextest(Request $request)
     {
         $user = $request->user();
         $invoices = Invoice::with('items', 'payment')->where('user_id', $user->id)->get();

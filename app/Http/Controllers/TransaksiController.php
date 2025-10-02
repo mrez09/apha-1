@@ -10,6 +10,7 @@ use Midtrans\Snap;
 use Midtrans\Config;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransaksiController extends Controller
 {
@@ -356,6 +357,7 @@ class TransaksiController extends Controller
             if (in_array($transaction, ['capture', 'settlement'])) {
                 $invoice->update([
                     'gateway'            => 'midtrans',
+                    'method'            => 'digital',
                     'status' => 'paid',
                     'paid_at' => now(),
                     'payment_type'  => $paymentType,
@@ -364,6 +366,7 @@ class TransaksiController extends Controller
             } elseif ($transaction === 'pending') {
                 $invoice->update([
                     'gateway'            => 'midtrans',
+                    'method'            => 'digital',
                     'status' => 'pending',
                     'payment_type'  => $paymentType,
                     'payment_token'      => $invoice->snap_token,
@@ -371,6 +374,7 @@ class TransaksiController extends Controller
             } else {
                 $invoice->update([
                     'gateway'            => 'midtrans',
+                    'method'            => 'digital',
                     'status' => 'failed',
                     'payment_type'  => $paymentType,
                     'payment_token'      => $invoice->snap_token,
@@ -422,5 +426,56 @@ class TransaksiController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function download($id)
+    {
+        // Ambil invoice lengkap + relasi
+        $invoice = Invoice::with([
+            'items',
+            'user',
+            'user.member',
+            'payment'
+        ])->findOrFail($id);
+
+        // Data Member
+        $member = $invoice->user->member ?? null;
+
+        // List Item
+        $items = $invoice->items ?? collect([]);
+
+        // Payment (fallback jika belum ada callback)
+        $payment = $invoice->payment ?? (object) [
+            'payment_type'       => $invoice->payment_type ?? '-',
+            'transaction_status' => $invoice->status,
+            'transaction_time'   => $invoice->paid_at,
+            'gross_amount'       => $invoice->total,
+            'order_id'           => $invoice->order_id,
+            'receipt_url'        => null,
+        ];
+
+        // Pajak / No telp / Alamat — fallback
+        $memberPhone   = $member->phone ?? '-';
+        $memberAddress = $member->address ?? '-';
+
+        // Pajak jika pakai tax
+        $tax = $invoice->tax ?? 0;
+
+        // Kirim ke view PDF
+        $data = [
+            'invoice' => $invoice,
+            'member'  => $member,
+            'items'   => $items,
+            'payment' => $payment,
+            'memberPhone' => $memberPhone,
+            'memberAddress' => $memberAddress,
+            'tax' => $tax,
+        ];
+
+        $pdf = Pdf::loadView('pdf.invoiceproduk', $data)
+                ->setPaper('A4', 'portrait');
+
+        return $pdf->download('Invoice-'.$invoice->invoice_number.'.pdf');
+    }
+
     
 }

@@ -125,7 +125,9 @@ class KTAController extends Controller
     $tanggal_print    = date('l d M Y ');
 
     // URL verifikasi KTA
-    $verifyUrl = route('frontverify.kta', ['token' => $member->kta_token]);
+    //$verifyUrl = route('frontverify.kta', ['token' => $member->kta_token]);
+    $verifyUrl = 'https://apha.or.id/kta/verifikasi/' . $member->kta_token;
+
 
     $options = new QROptions([
       'outputType'  => QRCode::OUTPUT_IMAGE_PNG,
@@ -197,6 +199,8 @@ class KTAController extends Controller
     ]);
     // URL verifikasi KTA
     $verifyUrl = route('frontverify.kta', ['token' => $token]);
+    //khusus apha$verifyUrl = 'https://apha.or.id/kta/verifikasi/' . $member->kta_token;
+    
     $dataUri = (new QRCode($options))->render($verifyUrl);
         $cururl = URL::current();
 
@@ -266,13 +270,12 @@ class KTAController extends Controller
     //$tanggal_print    = date('d-m-Y');
     $tanggal_print    = date('l d M Y ');
 
-    //$verifyUrl = route('frontpengurus.commitee.show', ['commitee' => $member->slug]);
+    $verifyUrl = route('frontpengurus.commitee.show', ['commitee' => $memberjoin->commitee_slug]);
     //frontindex
-    $frontUrl = route('frontindex');
-    $verifyUrl = route('frontpengurus.commitee.show', [
-        'commitee' => $memberjoin->commitee_slug,
-    ]);
-    //"frontpengurus.commitee.show", props.commitee.slug"
+    $frontUrl = "https://apha.or.id/";
+    //$verifyUrl = "https://apha.or.id/biodata/prof-dr-ir-anastasia-sulistyawati-bae-ms-mm-mmis-mh-dth-phd-dag";
+    //$verifyUrl = "https://apha.or.id/biodata/Dr-Ramlin-Ahmad-SH-MH";
+    //$verifyUrl ="frontpengurus.commitee.show", props.commitee.slug"
     $options = new QROptions([
       'outputType'  => QRCode::OUTPUT_IMAGE_PNG,
       'imageBase64' => true,
