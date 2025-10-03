@@ -103,8 +103,8 @@ class SertifikatController extends Controller
         
         //$qr = QrCode::size(200)->generate(route('frontsertifikat.verify', $sertifikat->no));
          
-        $qr = (string) QrCode::size(200)->generate(route('frontsertifikat.check', $sertifikat->no ));
-        $qrasli = (string) QrCode::size(200)->generate(route('frontsertifikat.verify', $sertifikat->no ));
+        $qr = (string) QrCode::size(200)->generate(route('frontsertifikat.check', $sertifikat->serti_token ));
+        $qrasli = (string) QrCode::size(200)->generate(route('frontsertifikat.verify', $sertifikat->serti_token ));
         
         return Inertia::render('Sertifikat/Show', [
             'sertifikat' => $sertifikat,
@@ -114,7 +114,8 @@ class SertifikatController extends Controller
     
     public function verify($no)
     {
-        $sertifikat = Sertifikat::where('no', $no)->first();
+        $sertifikat = Sertifikat::where('serti_token', $no)->first();
+        //$sertifikat = Sertifikat::where('no', $no)->first();
         if (!$sertifikat) {
             return Inertia::render('Sertifikat/Verifikasi', [
                 'valid' => false,
@@ -122,7 +123,7 @@ class SertifikatController extends Controller
             ]);
         }
         
-        return Inertia::render('Sertifikat/Show', [
+        return Inertia::render('Sertifikat/Verifikasi', [
             'valid' => true,
             'sertifikat' => $sertifikat,
         ]);

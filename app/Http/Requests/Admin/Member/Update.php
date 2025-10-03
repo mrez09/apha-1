@@ -42,10 +42,12 @@ class Update extends FormRequest
             'scholar'       => 'nullable',
             'scopus'        => 'nullable',
             'sinta'         => 'nullable',
+            'kta_token'     => 'nullable',
             'dec'           => 'nullable',
             'start_date'    => 'nullable',
             'expired_date'  => 'nullable',
-            'status'        => 'nullable'
+            'status'        => 'nullable',
+            'iuran_status'  => 'nullable'
         ];
     }
 }

@@ -200,6 +200,25 @@ export default function List(props) {
                                 </div>
                             </div>
 
+                            <div className="col-sm-8">
+                                <label className="form-label">Email</label>
+                                <input
+                                    type="text"
+                                    name="email"
+                                    defaultValue={props.member.email}
+                                    placeholder="Masukan Nama Lengkap"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="email"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.email}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
                             <div className="col-sm-6">
                                 <label className="form-label">NIDN/NIDK</label>
                                 <input
@@ -381,49 +400,75 @@ export default function List(props) {
                             </div>
 
                             <div className="col-md-6">
-                                <label className="form-label">Status</label>
+                                <label className="form-label fw-semibold">
+                                    Status Anggota
+                                </label>
+
                                 <select
-                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    className="form-select py-3"
                                     id="status"
                                     name="status"
+                                    value={data.status}
                                     onChange={onHandleChange}
                                     required
                                 >
-                                    <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.member.status == 0) {
-                                            return (
-                                                <option value="0" selected>
-                                                    Tidak aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="0">
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.member.status == "1") {
-                                            return (
-                                                <option value="1" selected>
-                                                    Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="1">Aktif</option>
-                                            );
-                                        }
-                                    })()}
+                                    <option value="">Pilih Status</option>
+                                    <option value="1">🟢 Aktif</option>
+                                    <option value="0">🔴 Tidak Aktif</option>
                                 </select>
-                                <div className="invalid-feedback">
+
+                                <InputError
+                                    message={errors.status}
+                                    className="mt-2"
+                                />
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-label fw-semibold">
+                                    Status Iuran
+                                </label>
+
+                                <select
+                                    className="form-select py-3"
+                                    id="iuran_status"
+                                    name="iuran_status"
+                                    value={data.iuran_status}
+                                    onChange={onHandleChange}
+                                    required
+                                >
+                                    <option value="">Pilih Status Iuran</option>
+
+                                    <option value="aktif">🟢 Aktif</option>
+
+                                    <option value="belum_bayar">
+                                        🟡 Belum Bayar
+                                    </option>
+
+                                    <option value="kadaluarsa">
+                                        🔴 Expired
+                                    </option>
+                                </select>
+
+                                <InputError
+                                    message={errors.iuran_status}
+                                    className="mt-2"
+                                />
+                            </div>
+
+                            <div className="col-sm-8">
+                                <label className="form-label">Token KTA</label>
+                                <input
+                                    type="text"
+                                    name="kta_token"
+                                    defaultValue={props.member.kta_token}
+                                    placeholder="Masukan Nama Lengkap"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="kta_token"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
                                     <InputError
-                                        message={errors.jk}
+                                        message={errors.kta_token}
                                         className="mt-2"
                                     />
                                 </div>

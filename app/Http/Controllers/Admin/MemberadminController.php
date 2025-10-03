@@ -15,6 +15,7 @@ use App\Models\User;
 use Inertia\Inertia;
 use App\Http\Requests\Admin\Member\Store;
 use App\Http\Requests\Admin\Member\Update;
+use App\Http\Requests\Admin\Member\Updatepassword;
 use Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReminderPembayaran;
@@ -222,17 +223,20 @@ class MemberadminController extends Controller
         ]);
     }
 
-    public function edit_user(Member $member){
-        //return $news;
-        //return Inertia::render('Admin/News/Create');
-        //return $request->all();
-        //$news           = News::all();
-        return Inertia::render('Admin/Member/Edit_user',
+    public function edit_account(Member $member){
+        
+        //$user_id            = Auth::user()->id;
+        $anggota           = Member::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $member->id_user)->first();
+        $status           = Member::select('users.id as user_id', 'members.id as anggota_id', 'nama', 'users.email', 'status')->join('users','members.id_user',"=",'users.id')->where('users.id', '=', $member->user_id)->first();
+        return Inertia::render('Admin/Member/Edit_account',
         [
             'member'          => $member,
+            'anggota'          => $anggota,
             'ckeditor'              => 'yes',
         ]);
     }
+
+    
 
     /*update old
     public function update(Update $request, Member $member){
@@ -305,6 +309,55 @@ class MemberadminController extends Controller
             'type' => "success"
         ]);
     }
+
+    public function update_account(Updatepassword $request, Member $member)
+{
+    $data = $request->validated();
+
+    $id_user = $member->id_user;
+    $id_com = $member->id_com;
+
+    // update member
+    $member->update(collect($data)->except(['password','password_confirmation'])->toArray());
+
+    // update password
+    if ($request->filled('password')) {
+        User::where('id', $id_user)->update([
+            'password' => Hash::make($request->password),
+        ]);
+    }
+
+    return redirect()
+        ->route('admin.dashboard.memberadmin.view', $member->id)
+        ->with([
+            'message' => "✅ Update berhasil",
+            'type' => "success"
+        ]);
+}
+    
+
+    public function update_accountold(Update $request, Member $member)
+{
+    $data = $request->validated();
+
+    $user = User::findOrFail($data['user_id']);
+    $commitee = Commitee::findOrFail($data['com_id']);
+
+    if (!empty($request->password)) {
+        $user->password = Hash::make($request->password);
+        $user->save();
+    }
+
+    $member->update([
+        // field member
+    ]);
+
+    $commitee->update([
+        // field commitee
+    ]);
+
+    return redirect()->back()->with('message', 'Berhasil update');
+}
 
      public function update_user(Update $request, Member $member)
     {

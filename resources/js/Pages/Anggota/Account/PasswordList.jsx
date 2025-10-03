@@ -18,7 +18,7 @@ export default function Profile(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -34,7 +34,7 @@ export default function Profile(props) {
             {
                 _method: "PUT",
                 ...data,
-            }
+            },
         );
     };
 
@@ -52,7 +52,6 @@ export default function Profile(props) {
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
                     <i className="fas ic fa-person"></i>Edit Account{" "}
-                    <p>{props.anggota.no_kta}</p>
                     <p>
                         {
                             //props.anggota.anggota_id

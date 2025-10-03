@@ -59,166 +59,118 @@ export default function List({
                     Indonesia
                 </title>
             </Head>
-            <div className="container">
-                <div className="row g-4 justify-content-center mt-5">
-                    <div className="card border-0 shadow-sm mb-4">
-                        <div className="card-body p-4">
-                            <div className="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h2 className="fw-bold mb-1">
-                                        {member.nama}
-                                    </h2>
-                                    <p className="text-muted mb-0">
-                                        Anggota APHA Indonesia
-                                    </p>
-                                    <small>
-                                        No. KTA :{" "}
-                                        <strong>{member.no_kta}</strong>
-                                    </small>
-                                </div>
+            <div className="container py-4">
+                {/* HEADER MEMBER */}
+                <div className="card border-0 shadow-sm mb-4">
+                    <div className="card-body p-4">
+                        <div className="d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <h2 className="fw-bold mb-1">{member.nama}</h2>
 
-                                <div>
-                                    {payment?.status == 1 ? (
-                                        <span className="badge bg-success fs-6 px-3 py-2">
-                                            ✓ Aktif
-                                        </span>
-                                    ) : (
-                                        <span className="badge bg-danger fs-6 px-3 py-2">
-                                            ✕ Tidak Aktif
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row g-3 mb-4">
-                        <div className="col-md-4">
-                            <div className="card border-0 shadow-sm">
-                                <div className="card-body text-center">
-                                    <h6 className="text-muted">Status</h6>
-                                    <h4 className="text-success">
-                                        {member.iuran_status}
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-4">
-                            <div className="card border-0 shadow-sm">
-                                <div className="card-body text-center">
-                                    <h6 className="text-muted">
-                                        Berlaku Hingga
-                                    </h6>
-                                    <h5>
-                                        {moment(member.expired_date).format(
-                                            "DD MMM YYYY",
-                                        )}
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-4">
-                            <div className="card border-0 shadow-sm">
-                                <div className="card-body text-center">
-                                    <h6 className="text-muted">Universitas</h6>
-                                    <small>{member.universitas}</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="card shadow-sm border-0 mb-4">
-                        <div className="card-header bg-white fw-bold">
-                            Data Anggota
-                        </div>
-
-                        <div className="card-body">
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="mb-3">
-                                        <small className="text-muted">
-                                            NIDN / NIDK
-                                        </small>
-                                        <div>{member.kode}</div>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <small className="text-muted">
-                                            Jenis Kelamin
-                                        </small>
-                                        <div>
-                                            {member.jk === "lk"
-                                                ? "Laki-Laki"
-                                                : "Perempuan"}
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <small className="text-muted">
-                                            Alamat
-                                        </small>
-                                        <div>{member.alamat}</div>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="mb-3">
-                                        <small className="text-muted">
-                                            Universitas
-                                        </small>
-                                        <div>{member.universitas}</div>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <small className="text-muted">
-                                            Email
-                                        </small>
-                                        <div>{member.email}</div>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <small className="text-muted">
-                                            Masa Berlaku
-                                        </small>
-                                        <div>
-                                            {moment(member.expired_date).format(
-                                                "dddd D MMMM YYYY",
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {
-                        //end tab
-                    }
-                    {/* Kolom Samping */}
-
-                    <div className="col-md-4 mt-3">
-                        <div className="card shadow-sm border-0 mb-3">
-                            <div className="card-body text-center">
-                                <h5>Verifikasi KTA</h5>
-
-                                <img
-                                    src={qrcode}
-                                    className="img-fluid mb-3"
-                                    style={{
-                                        maxWidth: 220,
-                                    }}
-                                />
-
-                                <p className="small text-muted">
-                                    Scan QR Code untuk memverifikasi keanggotaan
-                                    APHA Indonesia.
+                                <p className="text-muted mb-0">
+                                    Anggota APHA Indonesia
                                 </p>
+
+                                <small>
+                                    No. KTA :<strong> {member.no_kta}</strong>
+                                </small>
+                            </div>
+
+                            <div>
+                                {payment?.status == 1 ? (
+                                    <span className="badge bg-success fs-6 px-3 py-2">
+                                        ✓ Aktif
+                                    </span>
+                                ) : (
+                                    <span className="badge bg-danger fs-6 px-3 py-2">
+                                        ✕ Tidak Aktif
+                                    </span>
+                                )}
                             </div>
                         </div>
-                        <div className="card shadow-sm border-0 p-3">
-                            <h5 className="mb-3">Download</h5>
+                    </div>
+                </div>
+
+                {/* STATUS CARD */}
+                <div className="row g-3 mb-4">
+                    <div className="col-md-4">
+                        <div className="card border-0 shadow-sm h-100">
+                            <div className="card-body text-center">
+                                <h6 className="text-muted mb-3">
+                                    Status Keanggotaan
+                                </h6>
+
+                                {member.iuran_status === "aktif" && (
+                                    <span className="badge bg-success fs-6 px-4 py-3">
+                                        Sudah Bayar
+                                    </span>
+                                )}
+
+                                {member.iuran_status === "belum_bayar" && (
+                                    <span className="badge bg-warning text-dark fs-6 px-4 py-3">
+                                        Belum Bayar
+                                    </span>
+                                )}
+
+                                {member.iuran_status === "kadaluarsa" && (
+                                    <span className="badge bg-danger fs-6 px-4 py-3">
+                                        Expired
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-4">
+                        <div className="card border-0 shadow-sm h-100">
+                            <div className="card-body text-center">
+                                <h6 className="text-muted">Tanggal Mulai</h6>
+
+                                <h5>
+                                    {moment(member.started_date).format(
+                                        "DD MMM YYYY",
+                                    )}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-4">
+                        <div className="card border-0 shadow-sm h-100">
+                            <div className="card-body text-center">
+                                <h6 className="text-muted">Berlaku Hingga</h6>
+
+                                <h5>
+                                    {moment(member.expired_date).format(
+                                        "DD MMM YYYY",
+                                    )}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* QR VERIFIKASI */}
+                <div className="card shadow-sm border-0 mb-4">
+                    <div className="card-header bg-white">
+                        <h5 className="mb-0 fw-bold">Verifikasi Keanggotaan</h5>
+                    </div>
+
+                    <div className="card-body text-center">
+                        <img
+                            src={qrcode}
+                            className="img-fluid mb-3"
+                            style={{
+                                maxWidth: 220,
+                            }}
+                        />
+
+                        <p className="text-muted">
+                            Scan QR Code untuk memverifikasi keanggotaan APHA
+                            Indonesia.
+                        </p>
+
+                        <div className="mt-3">
                             <PDFDownloadLink
                                 document={
                                     <PDFFile
@@ -247,23 +199,85 @@ export default function List({
                             >
                                 {({ loading }) =>
                                     loading ? (
-                                        <a className="btn btn-outline-success w-100">
+                                        <a className="btn btn-outline-success">
                                             Loading Document...
                                         </a>
                                     ) : (
-                                        <a className="btn btn-success w-100">
+                                        <a className="btn btn-success">
                                             Download ID Card
                                         </a>
                                     )
                                 }
                             </PDFDownloadLink>
+                        </div>
+
+                        <div className="mt-2">
                             <small className="text-muted">
                                 Dicetak : {tanggal_print}
                             </small>
                         </div>
                     </div>
+                </div>
 
-                    {/*end */}
+                {/* DATA ANGGOTA */}
+                <div className="card shadow-sm border-0">
+                    <div className="card-header bg-white fw-bold">
+                        Informasi Anggota
+                    </div>
+
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <small className="text-muted">
+                                        NIDN / NIDK
+                                    </small>
+                                    <div>{member.kode}</div>
+                                </div>
+
+                                <div className="mb-3">
+                                    <small className="text-muted">
+                                        Jenis Kelamin
+                                    </small>
+                                    <div>
+                                        {member.jk === "lk"
+                                            ? "Laki-Laki"
+                                            : "Perempuan"}
+                                    </div>
+                                </div>
+
+                                <div className="mb-3">
+                                    <small className="text-muted">Alamat</small>
+                                    <div>{member.alamat}</div>
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <small className="text-muted">
+                                        Universitas
+                                    </small>
+                                    <div>{member.universitas}</div>
+                                </div>
+
+                                <div className="mb-3">
+                                    <small className="text-muted">Email</small>
+                                    <div>{member.email}</div>
+                                </div>
+
+                                <div className="mb-3">
+                                    <small className="text-muted">
+                                        Masa Berlaku
+                                    </small>
+                                    <div>
+                                        {moment(member.expired_date).format(
+                                            "dddd D MMMM YYYY",
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </FrontendLayout>

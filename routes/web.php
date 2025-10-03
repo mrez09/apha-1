@@ -277,6 +277,9 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     //Event
     Route::resource('member', MemberadminController::class);
     Route::get('member/{member}/edit', [MemberadminController::class, 'edit'])->name('memberadmin.edit');
+    Route::get('member/{member}/editaccount', [MemberadminController::class, 'edit_account'])->name('memberadmin.editaccount');
+    Route::get('member/{member}/pws', [MemberadminController::class, 'pws'])->name('memberadmin.pws');
+    Route::match(['put', 'patch'], 'member/{member}/update_account', [MemberadminController::class, 'update_account'])->name('update_account');
     Route::get('member/{member}/view', [MemberadminController::class, 'view'])->name('memberadmin.view');
     //Route::get('member/kta/{member}', [MemberadminController::class, 'show'])->name('membershow');
     Route::put('member/{member}/restore', [MemberadminController::class, 'restore'])->name('event.restore');

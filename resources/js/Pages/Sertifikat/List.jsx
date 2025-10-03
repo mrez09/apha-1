@@ -44,7 +44,7 @@ export default function List({ sertifikat, searchQuery, error }) {
         // 🔔 Peringatan mendekati limit
         if (attempts > 2) {
             toast.warning(
-                `⚠️ Anda sudah ${attempts}x mencari dalam 5 menit. Hindari spam ya~`
+                `⚠️ Anda sudah ${attempts}x mencari dalam 5 menit. Hindari spam ya~`,
             );
         }
     }, [flashMessage, attempts]);
@@ -140,51 +140,46 @@ export default function List({ sertifikat, searchQuery, error }) {
                     </div>
                     {sertifikat && sertifikat.length > 0 ? (
                         <div className="table-responsive">
-                            <table className="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>No Sertifikat</th>
-                                        <th>Nama</th>
-                                        <th>Acara</th>
-                                        <th>File</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {sertifikat.map((s) => (
-                                        <tr key={s.id}>
-                                            <td>{s.no}</td>
-                                            <td>{s.nama}</td>
-                                            <td>{s.judul}</td>
-                                            <td>
-                                                {s.img && (
-                                                    <>
-                                                        <a
-                                                            href={s.img}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="btn btn-sm btn-success mb-1"
-                                                        >
-                                                            Lihat Sertifikat
-                                                            (Gambar)
-                                                        </a>
-                                                        <br />
-                                                    </>
-                                                )}
-                                                {s.link && (
-                                                    <a
-                                                        href={s.link}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="btn btn-sm btn-success"
-                                                    >
-                                                        Lihat Sertifikat (Link)
-                                                    </a>
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            {sertifikat.map((s) => (
+                                <div
+                                    className="card shadow border-0 mb-3"
+                                    key={s.id}
+                                >
+                                    <div className="card-body">
+                                        <div className="d-flex justify-content-between">
+                                            <div>
+                                                <h5 className="fw-bold mb-1">
+                                                    {s.nama}
+                                                </h5>
+
+                                                <span className="badge bg-success">
+                                                    Sertifikat Terdaftar
+                                                </span>
+                                            </div>
+
+                                            <div>
+                                                <Link
+                                                    href={`/sertifikat/${s.serti_token}`}
+                                                    className="btn btn-success"
+                                                >
+                                                    Verifikasi
+                                                </Link>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+
+                                        <p>
+                                            <strong>No Sertifikat:</strong>{" "}
+                                            {s.no}
+                                        </p>
+
+                                        <p>
+                                            <strong>Acara:</strong> {s.judul}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     ) : searchQuery ? (
                         <div className="alert alert-warning">

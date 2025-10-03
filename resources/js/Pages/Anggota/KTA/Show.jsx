@@ -222,7 +222,13 @@ export default function List({
                                             </tr>
                                             <tr>
                                                 <th>Masa Berlaku</th>
-                                                <td>2024</td>
+                                                <td>
+                                                    {moment(
+                                                        member.expired_date,
+                                                    ).format(
+                                                        "dddd D MMMM YYYY",
+                                                    )}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -291,7 +297,6 @@ export default function List({
                     }
                     {/* Sidebar Download */}
                     <div className="col-md-4">
-                        //taro sini.
                         <div className="d-flex justify-content-center mb-3">
                             <img
                                 src={qrcode}
