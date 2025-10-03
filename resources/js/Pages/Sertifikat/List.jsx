@@ -159,7 +159,7 @@ export default function List({ sertifikat, searchQuery, error }) {
 
                                             <div>
                                                 <Link
-                                                    href={`/sertifikat/${s.serti_token}`}
+                                                    href={`/sertifikat/${s.no}`}
                                                     className="btn btn-success"
                                                 >
                                                     Verifikasi

@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "@inertiajs/react";
 import moment from "moment";
 
-export default function Verifikasi({ valid, sertifikat, no }) {
+export default function Verifikasi({ valid, sertifikat, slug }) {
     return (
         <FrontendLayout>
             <Head>
@@ -160,7 +160,7 @@ export default function Verifikasi({ valid, sertifikat, no }) {
                                         Sertifikat Tidak Valid{" "}
                                     </h2>
                                     <p>
-                                        Nomor sertifikat <strong>{no}</strong>
+                                        Nomor sertifikat <strong>{slug}</strong>
                                         tidak ditemukan.
                                     </p>
 

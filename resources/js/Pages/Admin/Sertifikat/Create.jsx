@@ -33,7 +33,15 @@ export default function List(props) {
             };
         });
 
-    const [startDate, setStartDate] = useState(new Date());
+    //const [startDate, setStartDate] = useState(new Date());
+
+    const [startDate, setStartDate] = useState(
+        props.newscategory.start_date
+            ? new Date(props.newscategory.start_date)
+            : new Date(),
+    );
+    const [expiredDate, setExpiredDate] = useState(null);
+
     const options = [
         { value: "chocolate", label: "Chocolate" },
         { value: "strawberry", label: "Strawberry" },
@@ -52,10 +60,14 @@ export default function List(props) {
         nama: "",
         id_user: "",
         judul: "",
+        category: "",
+        serti_token: "",
         status: "",
         img: "",
         link: "",
         publish_at: "",
+        expired_date: "",
+        konten: "",
     });
 
     const onHandleChange = (event) => {
@@ -63,7 +75,7 @@ export default function List(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -78,7 +90,7 @@ export default function List(props) {
             const res = await axios.post(
                 "/dashboard/sertifikat/upload-sertifikat",
                 formData,
-                { headers: { "Content-Type": "multipart/form-data" } }
+                { headers: { "Content-Type": "multipart/form-data" } },
             );
 
             const imageUrl = res.data.img;
@@ -276,7 +288,46 @@ export default function List(props) {
                                     />
                                 </div>
                             </div>
-                            <div className="col-sm-6">
+
+                            <div className="col-md-4">
+                                <label className="form-label">Category</label>
+                                <select
+                                    className="form-control  mb-3form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    name="category"
+                                    value={data.category}
+                                    onChange={onHandleChange}
+                                >
+                                    <option value="">Pilih Kategori</option>
+
+                                    <option value="Seminar">Seminar</option>
+
+                                    <option value="Workshop">Workshop</option>
+
+                                    <option value="Pelatihan">Pelatihan</option>
+
+                                    <option value="Webinar">Webinar</option>
+
+                                    <option value="Narasumber">
+                                        Narasumber
+                                    </option>
+
+                                    <option value="Moderator">Moderator</option>
+
+                                    <option value="Panitia">Panitia</option>
+
+                                    <option value="Pemateri">Pemateri</option>
+
+                                    <option value="Keanggotaan">
+                                        Keanggotaan
+                                    </option>
+
+                                    <option value="Penghargaan">Awards</option>
+
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+
+                            {/*<div className="col-sm-6">
                                 <label className="form-label">
                                     Tanggal Acara
                                 </label>
@@ -312,6 +363,46 @@ export default function List(props) {
                                     />
                                 </div>
                             </div>
+                            */}
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    Tanggal Mulai
+                                </label>
+                                <div className="form-control">
+                                    <DatePicker
+                                        selected={startDate}
+                                        showTimeSelect
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                        onChange={(date) => {
+                                            setStartDate(date);
+                                            setData("publish_at", date);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    Expired Date
+                                </label>
+                                <div className="form-control">
+                                    <DatePicker
+                                        selected={expiredDate}
+                                        isClearable
+                                        placeholderText="Berlaku Permanen"
+                                        showTimeSelect
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                        onChange={(date) => {
+                                            setExpiredDate(date);
+                                            setData("expired_date", date);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
                             <hr />
                             <h3>File Sertifikat</h3>
                             <p>Harap Pilih Salah Satu</p>

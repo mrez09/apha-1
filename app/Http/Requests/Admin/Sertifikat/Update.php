@@ -26,19 +26,20 @@ class Update extends FormRequest
     {
         return [
             //
-            'no'     => 'nullable',
-            'slug'  => 'nullable',
-            'nama'  => 'nullable',
-            'judul'     => 'nullable',
+            'no'            => 'nullable',
+            'nama'          => 'nullable',
+            'slug'          => 'nullable',
+            'serti_token'   => 'nullable',
+            'judul'         => 'nullable',
             'status'        => 'required',
-            'id_user'        => 'required',
-            'category'  => 'nullable',
-            'img'       => 'nullable',
-            'link'       => 'nullable',
+            'id_user'       => 'required',
+            'category'      => 'nullable',
+            'img'           => 'nullable',
+            'link'          => 'nullable',
             'konten'        => 'nullable',
-            'view'        => 'nullable',
-            'publish_at'       => 'nullable',
-            
+            'view'          => 'nullable',
+            'publish_at'    => 'nullable',
+            'expired_date'  => 'nullable',
         ];
     }
 }

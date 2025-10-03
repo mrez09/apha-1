@@ -19,7 +19,6 @@ import { toast } from "react-toastify";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-
 const editorConfiguration = {
     codeBlock: {
         languages: [
@@ -88,10 +87,20 @@ const editorConfiguration = {
 };
 
 export default function Edit(props) {
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(
+        props.sertifikat.publish_at
+            ? new Date(props.sertifikat.publish_at)
+            : null,
+    );
+
+    const [expiredDate, setExpiredDate] = useState(
+        props.sertifikat.expired_date
+            ? new Date(props.sertifikat.expired_date)
+            : null,
+    );
     const [preview, setPreview] = useState(props.sertifikat?.img || "");
     const [previewlink, setPreviewlink] = useState(
-        props.sertifikat?.link || ""
+        props.sertifikat?.link || "",
     );
     const [imgUrl, setImgUrl] = useState(props.sertifikat?.img || "");
     const [loading, setLoading] = useState(false);
@@ -135,11 +144,9 @@ export default function Edit(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
-
-    
 
     const handlePreviewlink = (e) => {
         onHandleChange(e);
@@ -166,7 +173,7 @@ export default function Edit(props) {
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" },
-                }
+                },
             );
 
             if (res.data.success) {
@@ -193,7 +200,7 @@ export default function Edit(props) {
 
             // panggil API untuk hapus dari DB
             await axios.delete(
-                `/dashboard/sertifikat/upload-sertifikat/${props.sertifikat.id}/delete-image`
+                `/dashboard/sertifikat/upload-sertifikat/${props.sertifikat.id}/delete-image`,
             );
 
             toast.success("Gambar berhasil dihapus!");
@@ -231,7 +238,7 @@ export default function Edit(props) {
                         toast.error(msg);
                     });
                 },
-            }
+            },
         );
     };
     return (
@@ -241,7 +248,7 @@ export default function Edit(props) {
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
                     Update Sertifikat Asosiasi Pengajar Hukum Adat Indonesia :{" "}
-                    <p>{props.sertifikat.judul}</p>
+                    <p>{props.sertifikat.no}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
@@ -289,8 +296,6 @@ export default function Edit(props) {
                                     Diberikan Kepada
                                 </label>
 
-                                
-
                                 <Select
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="id_user"
@@ -300,7 +305,7 @@ export default function Edit(props) {
                                         optionuser.find(
                                             (opt) =>
                                                 String(opt.value) ===
-                                                String(data.id_user)
+                                                String(data.id_user),
                                         ) || null
                                     }
                                     options={optionuser}
@@ -309,11 +314,29 @@ export default function Edit(props) {
                                         setData("id_user", selected.value);
                                         console.log("After:", selected.value);
                                     }}
-                                    
                                 />
                                 <div className="text-danger">
                                     <InputError
                                         message={errors.id_user}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-sm-12">
+                                <label className="form-label">Token</label>
+                                <input
+                                    type="text"
+                                    name="serti_token"
+                                    defaultValue={props.sertifikat.serti_token}
+                                    placeholder="Masukan Token Sertifikat"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    autoComplete="serti_token"
+                                    onChange={onHandleChange}
+                                />
+                                <div className="">
+                                    <InputError
+                                        message={errors.serti_token}
                                         className="mt-2"
                                     />
                                 </div>
@@ -410,6 +433,35 @@ export default function Edit(props) {
                                     />
                                 </div>
                             </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">Category</label>
+                                <select
+                                    name="category"
+                                    value={data.category}
+                                    onChange={onHandleChange}
+                                    className="form-control  mb-3form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                >
+                                    <option value="">Pilih Kategori</option>
+
+                                    <option value="Seminar">Seminar</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Pelatihan">Pelatihan</option>
+                                    <option value="Webinar">Webinar</option>
+                                    <option value="Narasumber">
+                                        Narasumber
+                                    </option>
+                                    <option value="Moderator">Moderator</option>
+                                    <option value="Panitia">Panitia</option>
+                                    <option value="Pemateri">Pemateri</option>
+                                    <option value="Keanggotaan">
+                                        Keanggotaan
+                                    </option>
+                                    <option value="Penghargaan">Awards</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+
                             <div className="col-sm-6">
                                 <label className="form-label">
                                     Tanggal Sertifikat
@@ -421,15 +473,39 @@ export default function Edit(props) {
                                         selected={startDate}
                                         showTimeSelect={true}
                                         dateFormat="MMMM d, yyyy h:mm aa"
-                                        className="form-control"
+                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                         //onChange={(e) => setData("publish_at", date)}
                                         onChange={(date) => {
                                             setStartDate(date);
                                             setData("publish_at", date);
                                             console.log({ date });
                                         }}
+                                    />
+                                </div>
+                                <div className="">
+                                    <InputError
+                                        message={errors.publish_at}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
 
-                                        
+                            <div className="col-sm-6">
+                                <label className="form-label">
+                                    Tanggal Expired
+                                </label>
+                                <div className="form-control">
+                                    <DatePicker
+                                        isClearable
+                                        placeholderText="Berlaku Permanen"
+                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                        selected={expiredDate}
+                                        showTimeSelect
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        onChange={(date) => {
+                                            setExpiredDate(date);
+                                            setData("expired_date", date);
+                                        }}
                                     />
                                 </div>
                                 <div className="">

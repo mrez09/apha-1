@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class sertifikat extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['no', 'judul', 'slug', 'nama', 'status', 'id_user', 'category', 'img', 'link', 'konten', 'view', 'publish_at'];
+    protected $fillable = ['no', 'judul', 'slug', 'serti_token', 'nama', 'status', 'id_user', 'category', 'img', 'link', 'konten', 'view', 'publish_at', 'expired_date'];
 
     public function user()
 {

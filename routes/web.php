@@ -301,6 +301,8 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     //Periode
     Route::resource('sertifikat', SertifikatadminController::class);
     Route::get('sertifikat/{sertifikat}/edit', [SertifikatadminController::class, 'edit'])->name('sertifikat.edit');
+    Route::get('sertifikat/{sertifikat}', [SertifikatadminController::class, 'show'])->name('sertifikat.show');
+    //Route::get('/sertifikat/{no}', [SertifikatController::class, 'show'])->name('sertifikat.verify');
     Route::put('sertifikat/{sertifikat}/restore', [SertifikatadminController::class, 'restore'])->name('sertifikat.restore');
     //Route::post('sertifikat/upload-sertifikat', [UploadController::class, 'upload'])->name('upload.sertifikat');
     Route::post('/sertifikat/upload-sertifikat', [UploadController::class, 'upload']);

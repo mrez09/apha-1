@@ -5,6 +5,7 @@ import { Head, useForm, usePage } from "@inertiajs/react";
 import { Link } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import moment from "moment";
 
 export default function List({
     auth,
@@ -73,10 +74,13 @@ export default function List({
                             <tr>
                                 <th>No</th>
                                 <th>No Sertifikat</th>
-                                <th>Judul</th>
-                                <th>Nama Pemilik</th>
-                                <th>File</th>
+                                <th>Nama</th>
+                                <th>Acara</th>
+                                <th>Kategori</th>
                                 <th>Status</th>
+                                <th>Berlaku</th>
+                                <th>Views</th>
+                                <th>Publish</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -85,64 +89,60 @@ export default function List({
                                 <tr key={document.id}>
                                     <td>{++index}</td>
                                     <td>{document.no}</td>
-                                    <td>{document.judul}</td>
                                     <td>{document.nama}</td>
+                                    <td>{document.judul}</td>
+                                    <td>{document.category}</td>
                                     <td>
                                         <td>
-                                            {document.img && document.link ? (
-                                                <>
-                                                    <a
-                                                        href={document.img}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="btn btn-sm btn-success me-1 mb-1"
-                                                    >
-                                                        Download (S1)
-                                                    </a>
-                                                    <a
-                                                        href={document.link}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="btn btn-sm btn-primary"
-                                                    >
-                                                        Download (S2)
-                                                    </a>
-                                                </>
-                                            ) : document.img ? (
-                                                <a
-                                                    href={document.img}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="btn btn-sm btn-success"
-                                                >
-                                                    Download
-                                                </a>
-                                            ) : document.link ? (
-                                                <a
-                                                    href={document.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="btn btn-sm btn-primary"
-                                                >
-                                                    Download
-                                                </a>
-                                            ) : null}
+                                            {document.status == 1 ? (
+                                                <span className="badge bg-success">
+                                                    Aktif
+                                                </span>
+                                            ) : (
+                                                <span className="badge bg-danger">
+                                                    Nonaktif
+                                                </span>
+                                            )}
                                         </td>
                                     </td>
-                                    {(() => {
-                                        if (document.status == 1) {
-                                            return <td>Aktif</td>;
-                                        } else {
-                                            return <td>Tidak Aktif</td>;
-                                        }
-                                    })()}
+                                    <td>
+                                        <td>
+                                            {document.expired_date ? (
+                                                moment(
+                                                    document.expired_date,
+                                                ).format("DD/MM/YYYY")
+                                            ) : (
+                                                <span className="badge bg-info">
+                                                    Permanen
+                                                </span>
+                                            )}
+                                        </td>
+                                    </td>
+                                    <td>
+                                        <td>{document.view ?? 0}</td>
+                                    </td>
+                                    <td>
+                                        {moment(document.publish_at).format(
+                                            "DD/MM/YYYY",
+                                        )}
+                                    </td>
 
                                     <td className="text-center">
                                         <div className="d-flex justify-content-center gap-2">
                                             <Link
                                                 href={route(
+                                                    "admin.dashboard.sertifikat.show",
+                                                    document.id,
+                                                )}
+                                                target="_blank"
+                                                className="btn btn-sm btn-info"
+                                            >
+                                                Preview
+                                            </Link>
+                                            <Link
+                                                href={route(
                                                     "admin.dashboard.sertifikat.edit",
-                                                    document.id
+                                                    document.id,
                                                 )}
                                                 className="btn btn-sm btn-warning"
                                             >
@@ -154,8 +154,8 @@ export default function List({
                                                     destroy(
                                                         route(
                                                             "admin.dashboard.sertifikat.destroy",
-                                                            document.id
-                                                        )
+                                                            document.id,
+                                                        ),
                                                     )
                                                 }
                                                 className="btn btn-sm btn-danger"

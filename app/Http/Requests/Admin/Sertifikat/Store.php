@@ -28,6 +28,8 @@ class Store extends FormRequest
             //
             'no'            => 'nullable',
             'nama'          => 'required',
+            'slug'         => 'nullable',
+            'serti_token'   => 'nullable',
             'judul'         => 'nullable',
             'status'        => 'nullable',
             'id_user'       => 'nullable',
@@ -37,6 +39,7 @@ class Store extends FormRequest
             'konten'        => 'nullable',
             'view'          => 'nullable',
             'publish_at'    => 'nullable',
+            'expired_date'    => 'nullable',
             
         ];
     }
