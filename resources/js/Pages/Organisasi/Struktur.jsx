@@ -110,7 +110,7 @@ export default function Pengurus(props) {
                 <h2>SK Pengurus</h2>
                 <embed
                     type="application/pdf"
-                    src="https://penerbit.lshi.or.id/assets/image/apha/File/Pengurus-APHA.pdf"
+                    src="https://drive.google.com/file/d/1fA1bIvKhjZIfTB09JzOl_I1-MKYXik5L/preview"
                     width="800"
                     height="800"
                 ></embed>

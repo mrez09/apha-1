@@ -20,7 +20,7 @@ ChartJS.register(
     CategoryScale,
     LinearScale,
     PointElement,
-    LineElement
+    LineElement,
 );
 
 export default function Dashboard(props) {
@@ -185,7 +185,7 @@ export default function Dashboard(props) {
                     <div className="col-md-6">
                         <div className="card shadow">
                             <div className="card-header bg-success text-white">
-                                Anggota Aktif vs Tidak Aktif Tahun 2025
+                                Anggota Aktif vs Tidak Aktif Tahun 2026
                             </div>
                             <div
                                 className="card-body"

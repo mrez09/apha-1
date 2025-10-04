@@ -16,6 +16,7 @@ import parse from "html-react-parser";
 import Html from "react-pdf-html";
 import "../../../css/invoice.css";
 import { Font } from "@react-pdf/renderer";
+import moment from "moment";
 
 Font.register({
     family: "Poppins",
@@ -494,7 +495,11 @@ export default function KTAPDF({
                             color: "black",
                         }}
                     >
-                        Berlaku s.d: {expired_date}
+                        {
+                            //Berlaku s.d: {expired_date}
+                        }
+                        Berlaku s.d:{" "}
+                        {moment(expired_date).format("DD MMM YYYY")}
                     </Text>
                     {
                         //<Image src={LogoApha} />

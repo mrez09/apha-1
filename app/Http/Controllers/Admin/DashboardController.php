@@ -46,7 +46,7 @@ class DashboardController extends Controller
     ->orderBy('bulan')
     ->get();
 
-$eventPerMonth = DB::table('events')
+    $eventPerMonth = DB::table('events')
     ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as bulan, COUNT(*) as jumlah')
     ->groupBy('bulan')
     ->orderBy('bulan')
@@ -78,7 +78,7 @@ $eventPerMonth = DB::table('events')
             'totalBuku' => $totalBuku,
             'totalProsiding' => $totalProsiding,
             'postPerMonth' => $postPerMonth,
-    'eventPerMonth' => $eventPerMonth,
+            'eventPerMonth' => $eventPerMonth,
         ]);
     }
 }

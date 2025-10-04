@@ -181,17 +181,6 @@ export default function List({
                                             className="img-fluid rounded shadow-sm mb-3"
                                         />
                                     )}
-
-                                    <a
-                                        href={route(
-                                            "anggota.dashboard.anggotaprofile.imgkta",
-                                        )}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="btn btn-success btn-sm w-100"
-                                    >
-                                        Lihat Name Card
-                                    </a>
                                 </div>
 
                                 {/* Data Anggota */}

@@ -39,13 +39,13 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                             onClick={() => {
                                 if (
                                     confirm(
-                                        "Kirim reminder ke semua anggota yang belum bayar?"
+                                        "Kirim reminder ke semua anggota yang belum bayar?",
                                     )
                                 ) {
                                     router.post(
                                         route(
-                                            "admin.dashboard.memberadmin.sendReminderBatch"
-                                        )
+                                            "admin.dashboard.memberadmin.sendReminderBatch",
+                                        ),
                                     );
                                 }
                             }}
@@ -114,7 +114,7 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                                     </td>
 
                                     <td className="text-center">
-                                        {member.status === 1 ? (
+                                        {member.status == 1 ? (
                                             <span className="badge bg-success">
                                                 Aktif
                                             </span>
@@ -133,7 +133,7 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                                             <Link
                                                 href={route(
                                                     "admin.dashboard.memberadmin.view",
-                                                    member.id
+                                                    member.id,
                                                 )}
                                             >
                                                 <button className="btn btn-outline-primary btn-sm">
@@ -144,7 +144,7 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                                             <Link
                                                 href={route(
                                                     "admin.dashboard.memberadmin.edit",
-                                                    member.id
+                                                    member.id,
                                                 )}
                                             >
                                                 <button className="btn btn-outline-warning btn-sm">
@@ -157,8 +157,8 @@ export default function List({ auth, errors, flashMessage, props, member }) {
                                                     destroy(
                                                         route(
                                                             "admin.dashboard.member.destroy",
-                                                            member.id
-                                                        )
+                                                            member.id,
+                                                        ),
                                                     )
                                                 }
                                                 className="btn btn-outline-danger btn-sm"

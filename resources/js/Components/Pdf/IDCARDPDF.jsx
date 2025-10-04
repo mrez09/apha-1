@@ -245,6 +245,27 @@ export default function KTAPDF({
                     >
                         {/* Baris email */}
 
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                marginBottom: 2,
+                            }}
+                        >
+                            <Image
+                                src={iconEmail}
+                                style={{ width: 8, height: 8, marginRight: 4 }}
+                            />
+                            <Text
+                                style={{
+                                    fontSize: infoFontSize,
+                                    color: "#333",
+                                }}
+                            >
+                                {email}
+                            </Text>
+                        </View>
+
                         {/* Baris telepon */}
                         <View
                             style={{

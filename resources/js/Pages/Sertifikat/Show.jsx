@@ -198,19 +198,45 @@ export default function List({
                                         <div className="col-lg-8">
                                             <div className="border rounded-4 overflow-hidden">
                                                 {sertifikat.img ? (
-                                                    <embed
-                                                        src={sertifikat.img}
-                                                        width="100%"
-                                                        height="750px"
-                                                        title="Preview Sertifikat"
-                                                    />
+                                                    <span>
+                                                        <embed
+                                                            src={sertifikat.img}
+                                                            width="100%"
+                                                            height="750px"
+                                                            title="Preview Sertifikat"
+                                                        />
+                                                        <a
+                                                            href={
+                                                                sertifikat.img
+                                                            }
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="btn btn-primary m-2"
+                                                        >
+                                                            Buka Sertifikat
+                                                        </a>
+                                                    </span>
                                                 ) : sertifikat.link ? (
-                                                    <iframe
-                                                        src={sertifikat.link}
-                                                        width="100%"
-                                                        height="750px"
-                                                        title="Preview Sertifikat"
-                                                    />
+                                                    <span>
+                                                        <iframe
+                                                            src={
+                                                                sertifikat.link
+                                                            }
+                                                            width="100%"
+                                                            height="750px"
+                                                            title="Preview Sertifikat"
+                                                        />
+                                                        <a
+                                                            href={
+                                                                sertifikat.link
+                                                            }
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="btn btn-primary m-2"
+                                                        >
+                                                            Buka Sertifikat
+                                                        </a>
+                                                    </span>
                                                 ) : (
                                                     <div className="p-5 text-center">
                                                         Tidak ada file

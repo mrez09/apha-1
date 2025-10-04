@@ -133,7 +133,7 @@ export default function Verifikasi({ valid, sertifikat, slug }) {
                                         <Link
                                             href={route(
                                                 "frontsertifikat.verify",
-                                                sertifikat.slug,
+                                                sertifikat.no,
                                             )}
                                             className="btn btn-primary px-4"
                                         >
