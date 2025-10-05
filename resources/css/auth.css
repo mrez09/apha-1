@@ -6,12 +6,9 @@ ROOT COLOR
     --apha-primary: #b45309;
     --apha-secondary: #d97706;
     --apha-accent: #f59e0b;
-
     --apha-light: #fff7ed;
     --apha-white: #ffffff;
-
     --apha-dark: #3f2a16;
-
     --glass: rgba(255, 255, 255, 0.2);
     --glass-border: rgba(255, 255, 255, 0.35);
 }
@@ -24,7 +21,6 @@ html,
 body {
     margin: 0;
     padding: 0;
-
     width: 100%;
     height: 100%;
 }
@@ -39,235 +35,166 @@ BACKGROUND
 
 .auth-wrapper {
     min-height: 100vh;
-
     display: flex;
-
     overflow: hidden;
-
     background: linear-gradient(135deg, #7c2d12, #b45309, #f59e0b);
-
     position: relative;
 }
 
 .auth-wrapper::before {
     content: "";
-
     position: absolute;
-
     width: 500px;
     height: 500px;
-
     border-radius: 50%;
-
     background: rgba(255, 255, 255, 0.08);
-
     left: -120px;
     top: -100px;
-
     animation: blob1 12s infinite alternate;
 }
 
 .auth-wrapper::after {
     content: "";
-
     position: absolute;
-
     width: 350px;
     height: 350px;
-
     border-radius: 50%;
-
     background: rgba(255, 255, 255, 0.06);
-
     right: -80px;
     bottom: -80px;
-
     animation: blob2 15s infinite alternate;
 }
 
 .auth-left {
     width: 45%;
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     color: white;
-
     z-index: 2;
 }
 
 .auth-left {
     position: relative;
-
     overflow: hidden;
 }
 
 .auth-left::before {
     content: "";
-
     position: absolute;
-
     width: 650px;
     height: 650px;
-
     background: url("/storage/logo/Logo-AphaW.png") no-repeat center;
-
     background-size: contain;
-
     opacity: 0.25;
-
     top: 50%;
     left: 50%;
-
     transform: translate(-50%, -50%);
-
     pointer-events: none;
 }
 
 .auth-left::after {
     content: "";
-
     position: absolute;
-
     inset: 0;
-
     background-image: radial-gradient(
         rgba(255, 255, 255, 0.08) 2px,
         transparent 2px
     );
-
     background-size: 32px 32px;
-
     opacity: 0.3;
 }
 
 .auth-right {
     width: 55%;
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     z-index: 2;
 }
 
 .auth-overlay {
     width: 80%;
-
     max-width: 520px;
 }
 
 .auth-overlay {
     position: relative;
-
     z-index: 5;
 }
 
 .auth-logo {
     width: 130px;
-
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 .auth-slogan {
     font-size: 17px;
-
     line-height: 1.8;
-
     opacity: 0.9;
-
     margin-top: 20px;
 }
 
 .auth-title {
     font-size: 42px;
-
     font-weight: 700;
-
     line-height: 1.3;
 }
 
 .auth-subtitle {
-    margin-top: 20px;
-
+    margin-top: 10px;
     font-size: 18px;
-
     opacity: 0.95;
 }
 
 .auth-divider {
     width: 120px;
-
     height: 4px;
-
     background: white;
-
-    margin: 30px 0;
-
+    margin: 8px 0;
     border-radius: 30px;
 }
 
 /* List */
 .auth-feature-list {
     list-style: none;
-
     padding: 0;
-
-    margin-top: 35px;
+    margin-top: 30px;
 }
 
 .auth-feature-list li {
     display: flex;
-
     align-items: center;
-
     gap: 15px;
-
-    margin-bottom: 18px;
-
+    margin-bottom: 8px;
     font-size: 18px;
 }
 
 .auth-feature-list i {
     width: 42px;
     height: 42px;
-
     border-radius: 50%;
-
     background: rgba(255, 255, 255, 0.15);
-
     display: flex;
-
     justify-content: center;
     align-items: center;
 }
 
 .auth-footer {
     margin-top: 50px;
-
     opacity: 0.75;
-
     font-size: 14px;
 }
 
 /* card */
 .glass-card {
     width: 100%;
-
     max-width: 480px;
-
     padding: 45px;
-
     border-radius: 24px;
-
     background: rgba(255, 255, 255, 0.82);
-
     backdrop-filter: blur(16px);
-
     border: 1px solid rgba(255, 255, 255, 0.35);
-
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
 }
 
@@ -275,48 +202,35 @@ BACKGROUND
 .glass-icon {
     width: 90px;
     height: 90px;
-
     border-radius: 50%;
-
     margin: auto;
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     background: linear-gradient(
         135deg,
         var(--apha-secondary),
         var(--apha-accent)
     );
-
     color: white;
-
     font-size: 38px;
-
     box-shadow: 0 10px 25px rgba(217, 119, 6, 0.35);
 }
 
 .glass-card .form-control {
     height: 55px;
-
     border-radius: 12px;
 }
 
 .glass-card .form-control:focus {
     border-color: var(--apha-secondary);
-
     box-shadow: 0 0 0 0.2rem rgba(217, 119, 6, 0.18);
 }
 
 .auth-btn {
     height: 55px;
-
     border-radius: 12px;
-
     font-weight: 600;
-
     transition: 0.25s;
 }
 
@@ -346,11 +260,8 @@ BACKGROUND
 
 .auth-link {
     color: var(--apha-primary);
-
     text-decoration: none;
-
     font-weight: 600;
-
     transition: 0.25s;
 }
 
@@ -360,7 +271,6 @@ BACKGROUND
 
 .form-check-input:checked {
     background: var(--apha-primary);
-
     border-color: var(--apha-primary);
 }
 
@@ -430,13 +340,11 @@ SHOW PASSWORD
 @keyframes fadeUp {
     from {
         opacity: 0;
-
         transform: translateY(25px);
     }
 
     to {
         opacity: 1;
-
         transform: translateY(0);
     }
 }
@@ -466,19 +374,12 @@ SHOW PASSWORD
 
 .auth-link::after {
     content: "";
-
     position: absolute;
-
     left: 0;
-
     bottom: -2px;
-
     width: 0;
-
     height: 2px;
-
     background: var(--apha-secondary);
-
     transition: 0.25s;
 }
 
