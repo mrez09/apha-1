@@ -5,7 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
-        <link rel="icon" type="image/x-icon" href="https://penerbit.lshi.or.id/assets/image/logo/Fav-Apha.ico" />
+        <?php 
+            
+            //<link rel="icon" type="image/x-icon" href="https://apha.or.id/storage/logo/Logo-AphaC.png" />
+            //<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+        ?>
+
+        <link rel="icon" type="image/png" href="{{ asset('storage/logo/Logo-AphaC.png') }}">
+        
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -18,11 +25,14 @@
         <?php 
         //sementara 7 agustus 2025
         //<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        
         ?>
  
         <!-- JS Scripts -->
-            <script src="https://cdn.apha.or.id/ckeditor/build/ckeditor.js"></script>
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+        <?php 
+            //<script src="https://cdn.apha.or.id/ckeditor/build/ckeditor.js"></script>
+         ?>
+        
         
 
         <!--Generate OG -->

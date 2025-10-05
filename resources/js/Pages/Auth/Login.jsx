@@ -41,6 +41,7 @@ export default function Login({ status, canResetPassword }) {
             title="Login"
             heading="Selamat Datang"
             description="Masuk menggunakan akun APHA Anda."
+            icon="fa-lock"
         >
             <Head title="Log in" />
             {status && (

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { router, usePage } from "@inertiajs/react";
+import AuthLayout from "@/Layouts/AuthLayout";
 
 export default function VerifyEmail() {
     const { flash } = usePage().props;
@@ -13,37 +14,46 @@ export default function VerifyEmail() {
             {},
             {
                 onFinish: () => setLoading(false),
-            }
+            },
         );
     };
 
     return (
-        <div className="container mt-5">
-            <div className="card shadow-sm p-4">
-                <h3 className="mb-3">Verifikasi Email</h3>
-                <p className="text-muted">
-                    Terima kasih telah mendaftar! Sebelum lanjut, silakan
-                    verifikasi alamat email kamu dengan menekan tautan yang
-                    sudah dikirim.
-                </p>
+        <AuthLayout
+            title="Reset Password"
+            heading="Reset Password"
+            description="Silakan buat password baru."
+            icon="fa-envelope"
+        >
+            <div className="container mt-5">
+                <div className="card shadow-sm p-4">
+                    <h3 className="mb-3">Verifikasi Email</h3>
+                    <p className="text-muted">
+                        Terima kasih telah mendaftar! Sebelum lanjut, silakan
+                        verifikasi alamat email kamu dengan menekan tautan yang
+                        sudah dikirim.
+                    </p>
 
-                {flash?.message && (
-                    <div className="alert alert-success">{flash.message}</div>
-                )}
+                    {flash?.message && (
+                        <div className="alert alert-success">
+                            {flash.message}
+                        </div>
+                    )}
 
-                <form onSubmit={resendVerification}>
-                    <button
-                        type="submit"
-                        className="btn btn-primary"
-                        disabled={loading}
-                        target="_blank"
-                    >
-                        {loading
-                            ? "Mengirim..."
-                            : "Kirim Ulang Email Verifikasi"}
-                    </button>
-                </form>
+                    <form onSubmit={resendVerification}>
+                        <button
+                            type="submit"
+                            className="btn btn-primary"
+                            disabled={loading}
+                            target="_blank"
+                        >
+                            {loading
+                                ? "Mengirim..."
+                                : "Kirim Ulang Email Verifikasi"}
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
+        </AuthLayout>
     );
 }

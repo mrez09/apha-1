@@ -1,10 +1,12 @@
 import { Head } from "@inertiajs/react";
 import "@/../css/auth.css";
+import AuthCarousel from "@/Components/Auth/AuthCarousel";
 
 export default function AuthLayout({
-    title = "Authentication",
-    heading = "Selamat Datang",
-    description = "",
+    title,
+    heading,
+    description,
+    icon = "fa-lock",
     children,
 }) {
     return (
@@ -26,10 +28,7 @@ export default function AuthLayout({
                             <br />
                             Hukum Adat Indonesia
                         </h1>
-                        <p className="auth-slogan">
-                            Membangun jejaring akademisi, peneliti, dan pengajar
-                            Hukum Adat Indonesia.
-                        </p>
+                        <AuthCarousel />
 
                         <p className="auth-subtitle">
                             Sistem Informasi Keanggotaan APHA
@@ -72,7 +71,7 @@ export default function AuthLayout({
                     <div className="glass-card">
                         <div className="text-center mb-4">
                             <div className="glass-icon">
-                                <i className="fas fa-lock"></i>
+                                <i className={`fas ${icon}`}></i>
                             </div>
 
                             <h2 className="mt-4 fw-bold">{heading}</h2>

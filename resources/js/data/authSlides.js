@@ -1,0 +1,38 @@
+const authSlides = [
+    {
+        icon: "fa-landmark",
+        title: "APHA",
+        description:
+            "Membangun jejaring akademisi, peneliti, dan praktisi untuk melestarikan Hukum Adat Indonesia.",
+    },
+
+    {
+        icon: "fa-id-card",
+        title: "Kartu Anggota Digital",
+        description:
+            "Kartu anggota dapat diakses secara online kapan saja melalui sistem APHA.",
+    },
+
+    {
+        icon: "fa-qrcode",
+        title: "Verifikasi QR Code",
+        description:
+            "Verifikasi kartu anggota dan sertifikat hanya dalam hitungan detik.",
+    },
+
+    {
+        icon: "fa-certificate",
+        title: "Sertifikat Digital",
+        description:
+            "Sertifikat digital dilengkapi QR Code untuk menjaga keaslian dokumen.",
+    },
+
+    {
+        icon: "fa-credit-card",
+        title: "Pembayaran Online",
+        description:
+            "Pembayaran iuran anggota melalui Midtrans dengan berbagai metode pembayaran.",
+    },
+];
+
+export default authSlides;
