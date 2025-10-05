@@ -1,8 +1,10 @@
 import { useEffect } from "react";
+import { useState } from "react";
 import Checkbox from "@/Components/Checkbox";
 import Input from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import { Head, Link, useForm } from "@inertiajs/react";
+import AuthLayout from "@/Layouts/AuthLayout";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -17,12 +19,14 @@ export default function Login({ status, canResetPassword }) {
         };
     }, []);
 
+    const [showPassword, setShowPassword] = useState(false);
+
     const handleOnChange = (event) => {
         setData(
             event.target.name,
             event.target.type === "checkbox"
                 ? event.target.checked
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -33,125 +37,98 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <>
+        <AuthLayout
+            title="Login"
+            heading="Selamat Datang"
+            description="Masuk menggunakan akun APHA Anda."
+        >
             <Head title="Log in" />
             {status && (
                 <div className="mb-4 font-medium text-sm text-green-600">
                     {status}
                 </div>
             )}
-            <section className="ftco-section">
-                <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-md-6 text-center mb-1">
-                            <h2 className="heading-section">Login </h2>
-                        </div>
-                    </div>
-                    <div className="row justify-content-center">
-                        <div className="col-md-12 col-lg-10">
-                            <div className="wrap d-md-flex">
-                                <div className="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
-                                    <div className="text w-100">
-                                        <h2>Welcome Back!</h2>
+            <form onSubmit={submit}>
+                {/* EMAIL */}
 
-                                        <p>Don't have an account?</p>
-                                        <Link
-                                            className="btn btn-white btn-outline-white"
-                                            href={route(
-                                                "frontkeanggotaan.index"
-                                            )}
-                                        >
-                                            Sign Up
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="login-wrap p-4 p-lg-5">
-                                    <div className="d-flex">
-                                        <div className="w-100">
-                                            <h3 className="mb-4">Sign In</h3>
-                                        </div>
-                                    </div>
-                                    <form
-                                        onSubmit={submit}
-                                        className="signin-form"
-                                    >
-                                        <div className="form-group mb-3">
-                                            <label className="label">
-                                                Email
-                                            </label>
-                                            <input
-                                                id="email"
-                                                type="email"
-                                                name="email"
-                                                value={data.email}
-                                                placeholder="Email Addres"
-                                                className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                                autoComplete="username"
-                                                onChange={handleOnChange}
-                                            />
-                                        </div>
-                                        <InputError
-                                            message={errors.email}
-                                            className="mt-2"
-                                        />
-                                        <div className="form-group mb-3">
-                                            <label className="label">
-                                                Password
-                                            </label>
-                                            <input
-                                                id="password"
-                                                type="password"
-                                                name="password"
-                                                value={data.password}
-                                                placeholder="Password"
-                                                className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                                autoComplete="current-password"
-                                                onChange={handleOnChange}
-                                            />
-                                            <InputError
-                                                message={errors.password}
-                                                className="mt-2"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <button
-                                                className="form-control btn btn-primary submit px-3"
-                                                disabled={processing}
-                                            >
-                                                Login
-                                            </button>
-                                        </div>
-                                        <div className="form-group d-md-flex">
-                                            <div className="w-50 text-left">
-                                                <Checkbox
-                                                    name="remember"
-                                                    value={data.remember}
-                                                    onChange={handleOnChange}
-                                                />
-                                                <label className=" checkbox-primary mb-0">
-                                                    Remember Me
-                                                </label>
-                                            </div>
-                                            <div className="w-50 text-md-right">
-                                                {canResetPassword && (
-                                                    <Link
-                                                        href={route(
-                                                            "password.request"
-                                                        )}
-                                                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                    >
-                                                        Forgot your password?
-                                                    </Link>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="mb-3">
+                    <label className="form-label">Email</label>
+
+                    <input
+                        type="email"
+                        className={`form-control ${
+                            errors.email ? "is-invalid" : ""
+                        }`}
+                        value={data.email}
+                        autoComplete="username"
+                        onChange={(e) => setData("email", e.target.value)}
+                    />
+
+                    {errors.email && (
+                        <div className="invalid-feedback">{errors.email}</div>
+                    )}
                 </div>
-            </section>
-        </>
+
+                {/* PASSWORD */}
+
+                <div className="mb-3">
+                    <label className="form-label">Password</label>
+
+                    <input
+                        type="password"
+                        className={`form-control ${
+                            errors.password ? "is-invalid" : ""
+                        }`}
+                        value={data.password}
+                        autoComplete="current-password"
+                        onChange={(e) => setData("password", e.target.value)}
+                    />
+
+                    {errors.password && (
+                        <div className="invalid-feedback">
+                            {errors.password}
+                        </div>
+                    )}
+                </div>
+
+                {/* REMEMBER */}
+
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                    <div className="form-check">
+                        <input
+                            id="remember"
+                            className="form-check-input"
+                            type="checkbox"
+                            checked={data.remember}
+                            onChange={(e) =>
+                                setData("remember", e.target.checked)
+                            }
+                        />
+
+                        <label htmlFor="remember" className="form-check-label">
+                            Remember Me
+                        </label>
+                    </div>
+
+                    {canResetPassword && (
+                        <Link
+                            href={route("password.request")}
+                            className="small auth-link"
+                        >
+                            Forgot Password?
+                        </Link>
+                    )}
+                </div>
+
+                {/* BUTTON */}
+
+                <button
+                    className="btn btn-warning auth-btn w-100"
+                    disabled={processing}
+                >
+                    {processing ? "Signing In..." : "Login"}
+                </button>
+            </form>
+        </AuthLayout>
     );
 }

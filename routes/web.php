@@ -415,25 +415,8 @@ Route::get('/penasehat', function () {
     return Inertia::render('Penasehat');
 });
 
-Route::prefix('/accounts')->name('accounts.')->group(function () {
-    route::get('/login', function () {
-        return Inertia::render('Accounts/Login');
-    })->name('login');
 
-    route::get('/register', function () {
-        return Inertia::render('Accounts/Login');
-    })->name('register');
-});
 
-//pengurus_old
-//Route::prefix('pengurus')->name('pengurus.')->group(function () {
-  //  route::get('/dewan-pembina', function () {
-//        return Inertia::render('Pengurus/Dewan_Pembina');
-//    })->name('dewan-penasehat');
-//    route::get('/dewan-pengurus', function () {
-//        return Inertia::render('Pengurus/Dewan_Pengurus');
-  //  })->name('dewan-pengurus');
-//});
 
 Route::prefix('organisasi')->name('organisasi.')->group(function () {
     route::get('/badan-hukum', function () {
@@ -450,13 +433,7 @@ Route::prefix('organisasi')->name('organisasi.')->group(function () {
     })->name('programkerja');
 });
 
-/*
-Route::prefix('buku')->name('buku')->group(function () {
-    route::get('/', [BukuController::class, 'index']);
-    
-    
-});
-*/
+
 
 Route::prefix('news')->name('news')->group(function () {
     route::get('/', [NewsController::class, 'index']);   

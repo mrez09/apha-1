@@ -1,12 +1,13 @@
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import GuestLayout from "@/Layouts/GuestLayout";
+import AuthLayout from "@/Layouts/AuthLayout";
+import InputError from "@/Components/InputError";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
-        email: '',
+        email: "",
     });
 
     const onHandleChange = (event) => {
@@ -16,39 +17,95 @@ export default function ForgotPassword({ status }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('password.email'));
+        post(route("password.email"));
     };
 
     return (
-        <GuestLayout>
+        <AuthLayout>
             <Head title="Forgot Password" />
 
-            <div className="mb-4 text-sm text-gray-600">
-                Forgot your password? No problem. Just let us know your email address and we will email you a password
-                reset link that will allow you to choose a new one.
-            </div>
+            <div className="auth-bg">
+                <div className="container">
+                    <div className="row justify-content-center align-items-center min-vh-100">
+                        <div className="col-lg-5 col-md-7 col-sm-11">
+                            <div className="card auth-card border-0">
+                                <div className="card-body p-5">
+                                    <div className="text-center mb-4">
+                                        <div className="auth-icon">
+                                            <i className="fas fa-key"></i>
+                                        </div>
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+                                        <h2 className="fw-bold mt-3">
+                                            Lupa Password
+                                        </h2>
 
-            <form onSubmit={submit}>
-                <TextInput
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={data.email}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    onChange={onHandleChange}
-                />
+                                        <p className="text-muted">
+                                            Masukkan email akun APHA Anda. Kami
+                                            akan mengirimkan link untuk membuat
+                                            password baru.
+                                        </p>
+                                    </div>
 
-                <InputError message={errors.email} className="mt-2" />
+                                    {status && (
+                                        <div className="alert alert-success">
+                                            {status}
+                                        </div>
+                                    )}
 
-                <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ml-4" disabled={processing}>
-                        Email Password Reset Link
-                    </PrimaryButton>
+                                    <form onSubmit={submit}>
+                                        <div className="mb-4">
+                                            <label className="form-label fw-semibold">
+                                                Email
+                                            </label>
+
+                                            <input
+                                                type="email"
+                                                className={`form-control ${
+                                                    errors.email
+                                                        ? "is-invalid"
+                                                        : ""
+                                                }`}
+                                                placeholder="email@domain.com"
+                                                value={data.email}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "email",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+
+                                            {errors.email && (
+                                                <div className="invalid-feedback">
+                                                    {errors.email}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <button
+                                            className="btn btn-warning w-100 auth-btn"
+                                            disabled={processing}
+                                        >
+                                            {processing
+                                                ? "Mengirim..."
+                                                : "Kirim Link Reset Password"}
+                                        </button>
+                                    </form>
+
+                                    <div className="text-center mt-4">
+                                        <Link
+                                            href={route("login")}
+                                            className="text-decoration-none"
+                                        >
+                                            ← Kembali ke Login
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </GuestLayout>
+            </div>
+        </AuthLayout>
     );
 }

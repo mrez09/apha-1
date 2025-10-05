@@ -196,7 +196,7 @@ export default function List({
                                             <tr>
                                                 <th>Jenis Kelamin</th>
                                                 <td>
-                                                    {member.jk === "lk"
+                                                    {member.jk == "lk"
                                                         ? "Laki-Laki"
                                                         : "Perempuan"}
                                                 </td>
