@@ -10,7 +10,7 @@ export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
-        remember: "",
+        remember: false,
     });
 
     useEffect(() => {
@@ -48,6 +48,12 @@ export default function Login({ status, canResetPassword }) {
                     {status}
                 </div>
             )}
+            {(errors.email || errors.password) && (
+                <div className="alert alert-danger mb-4">
+                    <i className="fas fa-circle-exclamation me-2"></i>
+                    {errors.email || errors.password}
+                </div>
+            )}
             <form onSubmit={submit}>
                 {/* EMAIL */}
 
@@ -63,32 +69,33 @@ export default function Login({ status, canResetPassword }) {
                         autoComplete="username"
                         onChange={(e) => setData("email", e.target.value)}
                     />
-
-                    {errors.email && (
-                        <div className="invalid-feedback">{errors.email}</div>
-                    )}
                 </div>
 
                 {/* PASSWORD */}
 
-                <div className="mb-3">
+                <div className="position-relative">
                     <label className="form-label">Password</label>
 
                     <input
-                        type="password"
-                        className={`form-control ${
+                        type={showPassword ? "text" : "password"}
+                        className={`form-control pe-5 ${
                             errors.password ? "is-invalid" : ""
                         }`}
                         value={data.password}
                         autoComplete="current-password"
                         onChange={(e) => setData("password", e.target.value)}
                     />
-
-                    {errors.password && (
-                        <div className="invalid-feedback">
-                            {errors.password}
-                        </div>
-                    )}
+                    <button
+                        type="button"
+                        className="password-toggle"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        <i
+                            className={`fas ${
+                                showPassword ? "fa-eye-slash" : "fa-eye"
+                            }`}
+                        ></i>
+                    </button>
                 </div>
 
                 {/* REMEMBER */}
@@ -126,7 +133,20 @@ export default function Login({ status, canResetPassword }) {
                     className="btn btn-warning auth-btn w-100"
                     disabled={processing}
                 >
-                    {processing ? "Signing In..." : "Login"}
+                    {processing ? (
+                        <>
+                            <span
+                                className="spinner-border spinner-border-sm me-2"
+                                role="status"
+                            ></span>
+                            Signing In...
+                        </>
+                    ) : (
+                        <>
+                            <i className="fas fa-right-to-bracket me-2"></i>
+                            Login
+                        </>
+                    )}
                 </button>
             </form>
         </AuthLayout>
