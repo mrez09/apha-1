@@ -120,17 +120,17 @@ export default function List({ galeri, props }) {
 
             <div className="container">
                 <div className="row tabs-galeri">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
+                    <ul className="nav nav-pills">
+                        <li className="nav-item">
                             <Link
-                                class="nav-link "
+                                className="nav-link "
                                 href={route("frontgaleri.index")}
                             >
                                 Photo
                             </Link>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page">
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page">
                                 Video
                             </a>
                         </li>

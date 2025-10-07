@@ -14,20 +14,27 @@ export default function Pagination({ links }) {
     return (
         links.length > 3 && (
             <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    {links.map((link, key) =>
+                <ul className="pagination justify-content-center">
+                    {links.map((link, index) =>
                         link.url === null ? (
-                            <Link class="page-item">
-                                <a class="page-link">{parse(link.label)}</a>
-                            </Link>
-                        ) : (
-                            <Link
-                                className={getClassName(link.active)}
-                                href={link.url}
+                            <li
+                                key={`${link.label}-${index}`}
+                                className="page-item disabled"
                             >
-                                <a class="page-link">{parse(link.label)}</a>
-                            </Link>
-                        )
+                                <span className="page-link">
+                                    {parse(link.label)}
+                                </span>
+                            </li>
+                        ) : (
+                            <li
+                                key={`${link.label}-${index}`}
+                                className={getClassName(link.active)}
+                            >
+                                <Link href={link.url} className="page-link">
+                                    {parse(link.label)}
+                                </Link>
+                            </li>
+                        ),
                     )}
                 </ul>
             </nav>

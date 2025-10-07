@@ -73,21 +73,21 @@ export default function List({ featuredBuku, buku, props, url, flashMessage }) {
                         Persyaratan untuk mengajukan permohonan sebagai anggota
                         APHA adalah sebagai berikut:{" "}
                     </p>
-                    <div class="container">
-                        <ol class="my-list">
-                            <li className="li-anggota" tabindex="1">
+                    <div className="container">
+                        <ol className="my-list">
+                            <li className="li-anggota">
                                 Mengisi formulir keanggotaan yang disediakan ;
                             </li>
 
-                            <li className="li-anggota" tabindex="1">
+                            <li className="li-anggota">
                                 Memiliki Nomor Induk Dosen Nasional (NIDN) atau
                                 Nomor Induk Dosen Khusus (NIDK);
                             </li>
-                            <li className="li-anggota" tabindex="1">
+                            <li className="li-anggota">
                                 Bersedia untuk terikat pada Anggaran Dasar dan
                                 Anggaran Rumah Tangga;
                             </li>
-                            <li className="li-anggota" tabindex="1">
+                            <li className="li-anggota">
                                 Bersedia untuk membayar iuran keanggotaan;
                             </li>
                         </ol>

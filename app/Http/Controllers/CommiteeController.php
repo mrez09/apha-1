@@ -40,6 +40,7 @@ class CommiteeController extends Controller
             ->get();
         $periodeget           = Konfigurasi::select('periodes.id as periode_id', 'namaperiode' ,'pengurus')->join('periodes', 'konfigurasis.pengurus',"=",'periodes.id')->where('konfigurasis.id', '=', 1)->first();
         $konfigurasis           = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
+        
         return Inertia::render('Commitee/ListPembina', 
             [
                 'pengurus' => $pengurus,

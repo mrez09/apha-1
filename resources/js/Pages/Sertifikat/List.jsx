@@ -16,8 +16,10 @@ import { useEffect, useRef } from "react";
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
-console.log("sitekey:", import.meta.env.VITE_RECAPTCHA_SITE_KEY);
-console.log("Site key:", import.meta.env.RECAPTCHA_SITE_KEY);
+{
+    //   console.log("sitekey:", import.meta.env.VITE_RECAPTCHA_SITE_KEY);
+    // console.log("Site key:", import.meta.env.RECAPTCHA_SITE_KEY);
+}
 
 export default function List({ sertifikat, searchQuery, error }) {
     const captchaRef = useRef(null);

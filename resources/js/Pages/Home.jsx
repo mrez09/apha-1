@@ -44,17 +44,19 @@ export default function Home({
                 </title>
             </Head>
 
-            <div class="ticker-container">
-                <div class="ticker-wrapper">
-                    {ticker.map((ticker) => (
-                        <div class="ticker">
+            <div className="ticker-container">
+                {ticker.map((ticker) => (
+                    <div className="ticker-wrapper" key={ticker.id}>
+                        <div className="ticker">
                             <Link href={route("frontnews.show", ticker.slug)}>
-                                <span class="ticker-text">{ticker.judul}</span>
+                                <span className="ticker-text">
+                                    {ticker.judul}
+                                </span>
                             </Link>{" "}
                             &nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
 
             {
@@ -103,10 +105,11 @@ export default function Home({
                                 <div className="container">
                                     <div className="carousel-caption text-start">
                                         <h1 className="text-black">
-                                            {/*banner.name*/}
+                                            {/*banner.name*/}&nbsp;
                                         </h1>
                                         <span className="text-black">
-                                            {/*parse(banner.decription)*/}
+                                            {/*parse(banner.decription)*/}{" "}
+                                            &nbsp;
                                         </span>
                                         {/*<p>
                                             <a
@@ -136,11 +139,11 @@ export default function Home({
                                 <div className="container">
                                     <div className="carousel-caption text-start">
                                         <h1 className="text-black">
-                                            {/*banner.name*/}
+                                            {/*banner.name*/} &nbsp;
                                         </h1>
-                                        <p className="text-black">
-                                            {/*parse(banner.decription)*/}
-                                        </p>
+                                        <span className="text-black">
+                                            {/*parse(banner.decription)*/}&nbsp;
+                                        </span>
                                         {/*<p>
                                             <a
                                                 className="btn btn-lg btn-primary"
@@ -186,11 +189,13 @@ export default function Home({
             {/*START THE FEATURETTES*/}
             <div className="event-home">
                 {acara.map((acara) => (
-                    <div class="container " key={acara.id}>
-                        <div class="row ">
-                            <div class="col-md-7 featurette">
+                    <div className="container " key={acara.id}>
+                        <div className="row ">
+                            <div className="col-md-7 featurette">
                                 <h2>{acara.judul}</h2>
-                                <p class="lead">{parse(acara.subjudul)}</p>
+                                <span className="lead">
+                                    {parse(acara.subjudul)}
+                                </span>
                                 <Link
                                     href={route("frontevent.show", acara.slug)}
                                 >
@@ -199,12 +204,12 @@ export default function Home({
                                     </button>
                                 </Link>
                             </div>
-                            <div class="col-md-5 my-3">
+                            <div className="col-md-5 my-3">
                                 <Link
                                     href={route("frontevent.show", acara.slug)}
                                 >
                                     <img
-                                        class="featurette-image img-fluid mx-auto"
+                                        className="featurette-image img-fluid mx-auto"
                                         src={`/storage/${acara.img}`}
                                         alt={acara.judul}
                                     />
@@ -239,7 +244,7 @@ export default function Home({
                                                     <Link
                                                         href={route(
                                                             "frontpengurus.commitee.show",
-                                                            item.slug
+                                                            item.slug,
                                                         )}
                                                         className="text-decoration-none text-dark"
                                                     >
@@ -261,7 +266,7 @@ export default function Home({
                                                 <Link
                                                     href={route(
                                                         "frontpengurus.commitee.show",
-                                                        item.slug
+                                                        item.slug,
                                                     )}
                                                     className="text-decoration-none text-dark"
                                                 >
@@ -333,9 +338,9 @@ export default function Home({
                                                         "dddd D MMMM YYYY"
                                                     )*/}
                                                     {moment(
-                                                        news.publish_at
+                                                        news.publish_at,
                                                     ).format(
-                                                        "dddd D MMMM YYYY "
+                                                        "dddd D MMMM YYYY ",
                                                     )}
                                                 </p>
                                             </div>

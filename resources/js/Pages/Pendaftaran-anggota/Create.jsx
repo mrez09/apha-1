@@ -51,7 +51,7 @@ export default function List(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -83,18 +83,18 @@ export default function List(props) {
                 </div>
             )}
 
-            <div class="container">
-                <header class="header">
-                    <h1 id="title" class="text-center">
+            <div className="container">
+                <header className="header">
+                    <h1 id="title" className="text-center">
                         Formulir Pendaftaran Anggota
                     </h1>
-                    <p id="description" class="text-center">
+                    <p id="description" className="text-center">
                         Silahkan Isi Form Pendaftaran Dibawah
                     </p>
                 </header>
-                <div class="form-wrap">
+                <div className="form-wrap">
                     <form onSubmit={submit}>
-                        <div class="row">
+                        <div className="row">
                             <br />
                             <h3>Data Diri</h3>
                             <hr />
@@ -102,7 +102,7 @@ export default function List(props) {
                                 Kolom dengan tanda bintang (*) wajib diisi
                             </span>
                             <div className="col-sm-12">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Nama Lengkap (Dengan Gelar){" "}
                                         <span className="text-danger">*</span>
@@ -139,7 +139,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         NIDN/NIDK
                                         <span className="text-danger">*</span>
@@ -176,7 +176,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Nomer HP
                                         <span className="text-danger">*</span>
@@ -214,7 +214,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-12">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Alamat Rumah
                                         <span className="text-danger">*</span>
@@ -252,7 +252,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Jenis Kelamin
                                         <span className="text-danger">*</span>
@@ -290,7 +290,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Photo Anggota
                                         <span className="text-danger">*</span>
@@ -328,7 +328,7 @@ export default function List(props) {
                             <hr />
 
                             <div className="col-sm-6">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Universitas
                                         <span className="text-danger">*</span>
@@ -365,7 +365,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Fakultas
                                         <span className="text-danger">*</span>
@@ -442,7 +442,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Mata Kuliah Yang di Ampu
                                         <span className="text-danger">*</span>
@@ -482,7 +482,7 @@ export default function List(props) {
                             </div>
                             {/*Publish*/}
                             <div className="col-sm-12">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Google Scholar
                                     </label>
@@ -517,7 +517,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-12">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Id Scopus
                                     </label>
@@ -552,7 +552,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-12">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         ID Sinta
                                     </label>
@@ -592,7 +592,7 @@ export default function List(props) {
                             <hr className="my-4"></hr>
 
                             <div className="col-sm-12">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Email{" "}
                                         <span className="text-danger">*</span>
@@ -617,7 +617,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="form-label">
                                         Password
                                         <span className="text-danger">*</span>
@@ -641,7 +641,7 @@ export default function List(props) {
                             </div>
 
                             <div className="col-sm-6">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label className="label">
                                         Ulangi Password
                                         <span className="text-danger">*</span>
@@ -671,8 +671,8 @@ export default function List(props) {
                             {/*end Of FOrm */}
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-4">
+                        <div className="row">
+                            <div className="col-md-4">
                                 <button
                                     className="btn btn-primary btn-lg"
                                     type="submit"

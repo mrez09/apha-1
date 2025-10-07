@@ -118,13 +118,17 @@ export default function List({ featuredBuku, buku, props, url }) {
                                     thumbnail={id}
                                     rating={rating}
                                 />
-                            )
+                            ),
                         )}
                     </div>
 
                     <hr />
 
-                    <Pagination class="mt-6" links={bukup.links} />
+                    <Pagination
+                        class="mt-6"
+                        links={bukup.links}
+                        key={bukup.id}
+                    />
                 </div>
             </div>
         </FrontendLayout>

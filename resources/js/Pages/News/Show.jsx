@@ -44,7 +44,7 @@ export default function List({
                                         <Link
                                             href={route(
                                                 "frontnewscategory.show",
-                                                newsjoin.slug_category
+                                                newsjoin.slug_category,
                                             )}
                                         >
                                             {newsjoin.namakategori}
@@ -52,17 +52,17 @@ export default function List({
                                     </li>
                                 </ol>
                             </nav>
-                            <div class="lane-gdark"></div>
+                            <div className="lane-gdark"></div>
                             <h2 className="blog-post-title">{news.judul}</h2>
 
                             <p className="blog-post-meta">
                                 {moment(news.publish_at).format(
-                                    "dddd D MMMM YYYY"
+                                    "dddd D MMMM YYYY",
                                 )}
                                 &nbsp;
                                 <span className="blog-post-meta">
                                     - {news.view} &nbsp;
-                                    <i class="fa-solid fa-eye"></i>
+                                    <i className="fa-solid fa-eye"></i>
                                 </span>
                             </p>
 
@@ -71,7 +71,7 @@ export default function List({
                                 className="rounded img-fluid img-thumbnail"
                                 alt=""
                             />
-                            <div class="lanep-gdark"></div>
+                            <div className="lanep-gdark"></div>
                             <div className="kon-10">{parse(news.konten)}</div>
                             <hr />
                             <div className="detail-article__share-wrapper">
@@ -148,7 +148,7 @@ export default function List({
                                             slug={listNews.slug_news}
                                             judul={listNews.judul}
                                             publish={moment(
-                                                listNews.publish_at
+                                                listNews.publish_at,
                                             ).format("dddd D MMMM YYYY ")}
                                         />
                                     ))}

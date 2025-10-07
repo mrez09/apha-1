@@ -189,12 +189,12 @@ export default function List({
                                         {anggotaList.map((listPengurus) => (
                                             <div
                                                 className="col-md-4 mb-3"
-                                                key={listPengurus.id}
+                                                key={listPengurus.commitees_id}
                                             >
                                                 <Link
                                                     href={route(
                                                         "frontpengurus.commitee.show",
-                                                        listPengurus.slug
+                                                        listPengurus.slug,
                                                     )}
                                                 >
                                                     <div className="card h-100 shadow-sm">
@@ -230,7 +230,7 @@ export default function List({
                                         ))}
                                     </div>
                                 </div>
-                            )
+                            ),
                         )}
                     </div>
                 </div>
