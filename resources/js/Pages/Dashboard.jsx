@@ -8,6 +8,7 @@ import {
     LinearScale,
     PointElement,
     LineElement,
+    Filler,
 } from "chart.js";
 import { Head } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
@@ -21,6 +22,7 @@ ChartJS.register(
     LinearScale,
     PointElement,
     LineElement,
+    Filler,
 );
 
 export default function Dashboard(props) {

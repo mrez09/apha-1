@@ -74,7 +74,9 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <NavLink
                                         className="nav-link px-3 sidebar-link"
                                         href={route("anggota.dashboard.index")}
-                                        active={route().current("dashboard")}
+                                        active={route().current(
+                                            "anggota.dashboard.index",
+                                        )}
                                     >
                                         <i className="fas ic fa-home"></i>
                                         Dashboard
@@ -99,11 +101,17 @@ export default function Authenticated({ auth, header, children, props }) {
                             </h6>
 
                             <ul className="nav flex-column mb-2">
-                                {/*Photo*/}
+                                {/*Serifikat*/}
 
                                 <li className="nav-item">
                                     <a
-                                        className="nav-link px-3 sidebar-link"
+                                        className={`nav-link px-3 sidebar-link ${
+                                            route().current(
+                                                "anggota.dashboard.sertifikat.index",
+                                            )
+                                                ? "active"
+                                                : ""
+                                        }`}
                                         href={route(
                                             "anggota.dashboard.sertifikat.index",
                                         )}
@@ -115,7 +123,13 @@ export default function Authenticated({ auth, header, children, props }) {
 
                                 <li className="nav-item">
                                     <a
-                                        className="nav-link px-3 sidebar-link"
+                                        className={`nav-link px-3 sidebar-link ${
+                                            route().current(
+                                                "anggota.dashboard.paymentproof.index",
+                                            )
+                                                ? "active"
+                                                : ""
+                                        }`}
                                         href={route(
                                             "anggota.dashboard.paymentproof.index",
                                         )}
@@ -149,6 +163,9 @@ export default function Authenticated({ auth, header, children, props }) {
                                         href={route(
                                             "anggota.dashboard.profile.index",
                                         )}
+                                        active={route().current(
+                                            "anggota.dashboard.profile.index",
+                                        )}
                                     >
                                         <i className="fas ic fa-file"></i>
                                         Profile
@@ -161,6 +178,9 @@ export default function Authenticated({ auth, header, children, props }) {
                                         href={route(
                                             "anggota.dashboard.institusi.index",
                                         )}
+                                        active={route().current(
+                                            "anggota.dashboard.institusi.index",
+                                        )}
                                     >
                                         <i className="fas ic fa-user-graduate"></i>
                                         Institusi
@@ -171,6 +191,9 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <NavLink
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
+                                            "anggota.dashboard.account.index",
+                                        )}
+                                        active={route().current(
                                             "anggota.dashboard.account.index",
                                         )}
                                     >
@@ -205,7 +228,13 @@ export default function Authenticated({ auth, header, children, props }) {
                                         <ul className="navbar-nav ps-3">
                                             <li>
                                                 <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "anggota.dashboard.member.invoices.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
                                                         "anggota.dashboard.member.invoices.index",
                                                     )}
@@ -215,15 +244,21 @@ export default function Authenticated({ auth, header, children, props }) {
                                                 </a>
                                             </li>
                                             <li>
-                                                <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                <NavLink
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "anggota.dashboard.produk.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
                                                         "anggota.dashboard.produk.index",
                                                     )}
                                                 >
                                                     <i className="fas ic fa-credit-card"></i>
                                                     Bayar Iuran
-                                                </a>
+                                                </NavLink>
                                             </li>
                                         </ul>
                                     </div>

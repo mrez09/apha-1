@@ -2,6 +2,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link } from "@inertiajs/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NavLink from "@/Components/NavLink";
 
 export default function Guest({ children }, props) {
     return (
@@ -34,17 +35,30 @@ export default function Guest({ children }, props) {
                     >
                         <ul className="navbar-nav me-auto mb-2 mb-md-0">
                             <li className="nav-item">
-                                <Link
-                                    className="nav-link"
+                                <NavLink
+                                    className="nav-link front-nav-link"
+                                    active={route().current("frontindex")}
                                     aria-current="page"
                                     href={route("frontindex")}
                                 >
                                     Home
-                                </Link>
+                                </NavLink>
                             </li>
                             <li className="nav-item dropdown">
                                 <a
-                                    className="nav-link dropdown-toggle"
+                                    //className="nav-link dropdown-toggle front-nav-link"
+                                    className={`nav-link dropdown-toggle front-nav-link ${
+                                        route().current(
+                                            "frontcommitee.pembina",
+                                        ) ||
+                                        route().current(
+                                            "frontcommitee.pengurus",
+                                        ) ||
+                                        route().current("frontpengurus.*") ||
+                                        route().current("frontverify.*")
+                                            ? "active"
+                                            : ""
+                                    }`}
                                     href="#"
                                     role="button"
                                     data-bs-toggle="dropdown"
@@ -54,31 +68,45 @@ export default function Guest({ children }, props) {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li>
-                                        <Link
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route(
-                                                "frontcommitee.pembina"
+                                                "frontcommitee.pembina",
+                                            )}
+                                            active={route().current(
+                                                "frontcommitee.pembina",
                                             )}
                                         >
                                             Dewan Pembina
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                     <li>
-                                        <Link
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route(
-                                                "frontcommitee.pengurus"
+                                                "frontcommitee.pengurus",
+                                            )}
+                                            active={route().current(
+                                                "frontcommitee.pengurus",
                                             )}
                                         >
                                             Dewan Pengurus
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                 </ul>
                             </li>
 
                             <li className="nav-item dropdown">
                                 <a
-                                    className="nav-link dropdown-toggle"
+                                    className={`nav-link dropdown-toggle front-nav-link ${
+                                        route().current(
+                                            "organisasi.badan_hukum",
+                                        ) ||
+                                        route().current("organisasi.sejarah") ||
+                                        route().current("organisasi.struktur")
+                                            ? "active"
+                                            : ""
+                                    }`}
                                     href="#"
                                     role="button"
                                     data-bs-toggle="dropdown"
@@ -86,32 +114,41 @@ export default function Guest({ children }, props) {
                                 >
                                     Tentang
                                 </a>
-                                <ul className="dropdown-menu">
+                                <ul className="dropdown-menu ">
                                     <li>
-                                        <Link
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route(
-                                                "organisasi.badan_hukum"
+                                                "organisasi.badan_hukum",
+                                            )}
+                                            active={route().current(
+                                                "organisasi.badan_hukum",
                                             )}
                                         >
                                             Badan Hukum
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                     <li>
-                                        <a
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route("organisasi.sejarah")}
+                                            active={route().current(
+                                                "organisasi.sejarah",
+                                            )}
                                         >
                                             Sejarah dan Perkembangan
-                                        </a>
+                                        </NavLink>
                                     </li>
                                     <li>
-                                        <Link
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route("organisasi.struktur")}
+                                            active={route().current(
+                                                "organisasi.struktur",
+                                            )}
                                         >
                                             Struktur
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                     {/*
                                     <li>
@@ -125,7 +162,13 @@ export default function Guest({ children }, props) {
 
                             <li className="nav-item dropdown">
                                 <a
-                                    className="nav-link dropdown-toggle"
+                                    className={`nav-link dropdown-toggle front-nav-link ${
+                                        route().current("frontbuku.*") ||
+                                        route().current("frontprosiding.*") ||
+                                        route().current("frontnews.*")
+                                            ? "active"
+                                            : ""
+                                    }`}
                                     href="#"
                                     role="button"
                                     data-bs-toggle="dropdown"
@@ -135,16 +178,19 @@ export default function Guest({ children }, props) {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li>
-                                        <Link
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route("frontbuku.index")}
+                                            active={route().current(
+                                                "frontbuku.*",
+                                            )}
                                         >
                                             Buku
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                     <li>
                                         <a
-                                            className="dropdown-item"
+                                            className="dropdown-item front-dropdown-item"
                                             target="_blank"
                                             href="https://jial-apha.or.id/"
                                         >
@@ -152,25 +198,31 @@ export default function Guest({ children }, props) {
                                         </a>
                                     </li>
                                     <li>
-                                        <Link
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route("frontprosiding.index")}
+                                            active={route().current(
+                                                "frontprosiding.index",
+                                            )}
                                         >
                                             Prosiding
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                     <li>
-                                        <Link
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route("frontnews.index")}
+                                            active={route().current(
+                                                "frontnews.index",
+                                            )}
                                         >
                                             Newsletter
-                                        </Link>
+                                        </NavLink>
                                     </li>
 
                                     <li>
                                         <a
-                                            className="dropdown-item"
+                                            className="dropdown-item front-dropdown-item"
                                             href="https://www.youtube.com/@aphaindonesia"
                                             target="_blank"
                                         >
@@ -229,19 +281,27 @@ export default function Guest({ children }, props) {
                                 </ul>
                             </li>*/}
 
-                            <li className="nav-item">
-                                <Link
-                                    className="nav-link "
+                            <li className="nav-item ">
+                                <NavLink
+                                    className="nav-link front-nav-link "
                                     aria-current="page"
                                     href={route("frontgaleri.index")}
+                                    active={route().current(
+                                        "frontgaleri.index",
+                                    )}
                                 >
                                     Galeri
-                                </Link>
+                                </NavLink>
                             </li>
                             {/* Document */}
                             <li className="nav-item dropdown">
                                 <a
-                                    className="nav-link dropdown-toggle"
+                                    className={`nav-link dropdown-toggle front-nav-link ${
+                                        route().current("frontdokumen.*") ||
+                                        route().current("frontsertifikat.*")
+                                            ? "active"
+                                            : ""
+                                    }`}
                                     href="#"
                                     role="button"
                                     data-bs-toggle="dropdown"
@@ -251,45 +311,57 @@ export default function Guest({ children }, props) {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li>
-                                        <Link
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route("frontdokumen.index")}
+                                            active={route().current(
+                                                "frontdokumen.index",
+                                            )}
                                         >
                                             Dokumen
-                                        </Link>
+                                        </NavLink>
                                     </li>
 
                                     <li>
-                                        <Link
-                                            className="dropdown-item"
+                                        <NavLink
+                                            className="dropdown-item front-dropdown-item"
                                             href={route(
-                                                "frontsertifikat.index"
+                                                "frontsertifikat.index",
+                                            )}
+                                            active={route().current(
+                                                "frontsertifikat.index",
                                             )}
                                         >
                                             Sertifikat
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                 </ul>
                             </li>
 
                             <li className="nav-item">
-                                <Link
-                                    className="nav-link "
+                                <NavLink
+                                    className="nav-link front-nav-link"
                                     aria-current="page"
                                     href={route("frontkeanggotaan.index")}
+                                    active={route().current(
+                                        "frontkeanggotaan.index",
+                                    )}
                                 >
                                     Keanggotaan
-                                </Link>
+                                </NavLink>
                             </li>
 
                             <li className="nav-item">
-                                <Link
-                                    className="nav-link "
+                                <NavLink
+                                    className="nav-link front-nav-link"
                                     aria-current="page"
                                     href={route("frontcontact.index")}
+                                    active={route().current(
+                                        "frontcontact.index",
+                                    )}
                                 >
                                     Contact
-                                </Link>
+                                </NavLink>
                             </li>
                         </ul>
                     </div>
@@ -360,7 +432,7 @@ export default function Guest({ children }, props) {
                                     <li>
                                         <Link
                                             href={route(
-                                                "organisasi.badan_hukum"
+                                                "organisasi.badan_hukum",
                                             )}
                                         >
                                             Organisasi

@@ -94,9 +94,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                         <ul className="navbar-nav ps-3">
                                             <li>
                                                 <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.newscategory.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
-                                                        "admin.dashboard.newscategory.index"
+                                                        "admin.dashboard.newscategory.index",
                                                     )}
                                                 >
                                                     <i className="fas ic fa-home"></i>
@@ -105,9 +111,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             </li>
                                             <li>
                                                 <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.news.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
-                                                        "admin.dashboard.news.index"
+                                                        "admin.dashboard.news.index",
                                                     )}
                                                 >
                                                     <i className="fas ic fa-home"></i>
@@ -116,9 +128,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             </li>
                                             <li>
                                                 <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.event.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
-                                                        "admin.dashboard.event.index"
+                                                        "admin.dashboard.event.index",
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
@@ -146,7 +164,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
                                                     href={route(
-                                                        "admin.dashboard.errorpage.maintenance"
+                                                        "admin.dashboard.errorpage.maintenance",
                                                     )}
                                                 >
                                                     <i className="fas ic fa-home"></i>
@@ -157,7 +175,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
                                                     href={route(
-                                                        "admin.dashboard.errorpage.maintenance"
+                                                        "admin.dashboard.errorpage.maintenance",
                                                     )}
                                                 >
                                                     <i className="fas ic fa-home"></i>
@@ -168,7 +186,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
                                                     href={route(
-                                                        "admin.dashboard.errorpage.maintenance"
+                                                        "admin.dashboard.errorpage.maintenance",
                                                     )}
                                                 >
                                                     <i className="fas ic fa-home"></i>
@@ -179,7 +197,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                                 <a
                                                     className="nav-link px-3 sidebar-link"
                                                     href={route(
-                                                        "admin.dashboard.errorpage.maintenance"
+                                                        "admin.dashboard.errorpage.maintenance",
                                                     )}
                                                 >
                                                     <i className="fas ic fa-home"></i>
@@ -219,12 +237,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.member.index"
+                                                        "admin.dashboard.member.index",
                                                     )}
-                                                    active={route().current(
-                                                        "admin.dashboard.member.index"
-                                                    )}
-                                                    className="nav-link px-3"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.member.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
                                                     <i className="fas ic fa-person-shelter"></i>
                                                     List Anggota
@@ -233,12 +254,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.paymentproof.index"
+                                                        "admin.dashboard.paymentproof.index",
                                                     )}
-                                                    active={route().current(
-                                                        "admin.dashboard.paymentproof.index"
-                                                    )}
-                                                    className="nav-link px-3"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.paymentproof.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
                                                     <i className="fas ic fa-credit-card"></i>
                                                     Payment
@@ -262,9 +286,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                         <ul className="navbar-nav ps-3">
                                             <li>
                                                 <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.divisi.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
-                                                        "admin.dashboard.divisi.index"
+                                                        "admin.dashboard.divisi.index",
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
@@ -273,9 +303,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             </li>
                                             <li>
                                                 <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.subdivisi.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
-                                                        "admin.dashboard.subdivisi.index"
+                                                        "admin.dashboard.subdivisi.index",
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
@@ -284,9 +320,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             </li>
                                             <li>
                                                 <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.jabatan.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
-                                                        "admin.dashboard.jabatan.index"
+                                                        "admin.dashboard.jabatan.index",
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
@@ -295,9 +337,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             </li>
                                             <li>
                                                 <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.periode.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
-                                                        "admin.dashboard.periode.index"
+                                                        "admin.dashboard.periode.index",
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
@@ -306,9 +354,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             </li>
                                             <li>
                                                 <a
-                                                    className="nav-link px-3 sidebar-link"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.commitee.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                     href={route(
-                                                        "admin.dashboard.commitee.index"
+                                                        "admin.dashboard.commitee.index",
                                                     )}
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
@@ -344,9 +398,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.buku.index"
+                                                        "admin.dashboard.buku.index",
                                                     )}
-                                                    className="nav-link px-3"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.buku.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
                                                     <i className="fas ic fa-newspaper"></i>
                                                     List Buku
@@ -371,9 +431,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.prosiding.index"
+                                                        "admin.dashboard.prosiding.index",
                                                     )}
-                                                    className="nav-link px-3"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.prosiding.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
                                                     <i className="fas ic fa-newspaper"></i>
                                                     List Prosiding
@@ -402,11 +468,13 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <NavLink
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
-                                            "admin.dashboard.document.index"
+                                            "admin.dashboard.document.index",
                                         )}
-                                        active={route().current("dashboard")}
+                                        active={route().current(
+                                            "admin.dashboard.document.index",
+                                        )}
                                     >
-                                        <i className="fas ic fa-folder-open"></i>
+                                        <i className="fas ic fa-folder"></i>
                                         Dokumen
                                     </NavLink>
                                 </li>
@@ -415,9 +483,11 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <NavLink
                                         className="nav-link px-3 sidebar-link"
                                         href={route(
-                                            "admin.dashboard.sertifikat.index"
+                                            "admin.dashboard.sertifikat.index",
                                         )}
-                                        active={route().current("dashboard")}
+                                        active={route().current(
+                                            "admin.dashboard.sertifikat.index",
+                                        )}
                                     >
                                         <i className="fas ic fa-folder-open"></i>
                                         Sertifikat
@@ -433,9 +503,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.galeri.index"
+                                                        "admin.dashboard.galeri.index",
                                                     )}
-                                                    className="nav-link px-3"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.galeri.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
                                                     <i className="fas ic fa-file-image"></i>
                                                     Photo
@@ -444,9 +520,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.video.index"
+                                                        "admin.dashboard.video.index",
                                                     )}
-                                                    className="nav-link px-3"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.video.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
                                                     <i className="fas ic fa-video"></i>
                                                     Video
@@ -467,9 +549,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.mainbanner.index"
+                                                        "admin.dashboard.mainbanner.index",
                                                     )}
-                                                    className="nav-link px-3"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.mainbanner.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
                                                     <i className="fa-sharp ic fa-solid fa-image"></i>
                                                     Main Banner
@@ -478,9 +566,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.banner.index"
+                                                        "admin.dashboard.banner.index",
                                                     )}
-                                                    className="nav-link px-3"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.banner.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
                                                     <i className="fa-sharp ic fa-solid fa-image"></i>
                                                     Banner
@@ -524,15 +618,21 @@ export default function Authenticated({ auth, header, children, props }) {
                             <ul className="nav flex-column mb-2">
                                 {/*Photo*/}
                                 <li className="nav-item">
-                                    <NavLink
-                                        className="nav-link px-3 sidebar-link"
+                                    <a
+                                        className={`nav-link px-3 sidebar-link ${
+                                            route().current(
+                                                "admin.dashboard.contact.index",
+                                            )
+                                                ? "active"
+                                                : ""
+                                        }`}
                                         href={route(
-                                            "admin.dashboard.contact.index"
+                                            "admin.dashboard.contact.index",
                                         )}
                                     >
                                         <i className="fas ic fa-address-book"></i>
                                         Contact
-                                    </NavLink>
+                                    </a>
                                 </li>
                                 <li className="nav-link px-3 sidebar-link">
                                     <a
@@ -547,9 +647,15 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
-                                                        "admin.dashboard.konfigurasi.index"
+                                                        "admin.dashboard.konfigurasi.index",
                                                     )}
-                                                    className="nav-link px-3"
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.konfigurasi.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
                                                 >
                                                     <i className="fas ic fa-file-image"></i>
                                                     Konfigurasi Website
