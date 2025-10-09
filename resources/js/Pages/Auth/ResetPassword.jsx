@@ -1,11 +1,9 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
 import AuthLayout from "@/Layouts/AuthLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
 import { Head, useForm } from "@inertiajs/react";
 
 export default function ForgotPassword({ token, email }) {
@@ -56,7 +54,7 @@ export default function ForgotPassword({ token, email }) {
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-4 position-relative">
                     <InputLabel htmlFor="password" value="Password" />
 
                     <input
@@ -64,18 +62,29 @@ export default function ForgotPassword({ token, email }) {
                         id="password"
                         name="password"
                         value={data.password}
-                        className={`form-control ${
+                        className={`form-control pe-5 ${
                             errors.password ? "is-invalid" : ""
                         }`}
                         autoComplete="new-password"
-                        isFocused={true}
                         onChange={onHandleChange}
                     />
+
+                    <button
+                        type="button"
+                        className="password-toggle"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        <i
+                            className={`fas ${
+                                showPassword ? "fa-eye-slash" : "fa-eye"
+                            }`}
+                        ></i>
+                    </button>
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-4 position-relative">
                     <InputLabel
                         htmlFor="password_confirmation"
                         value="Confirm Password"
@@ -83,14 +92,29 @@ export default function ForgotPassword({ token, email }) {
 
                     <input
                         type={showConfirmPassword ? "text" : "password"}
+                        id="password_confirmation"
                         name="password_confirmation"
                         value={data.password_confirmation}
-                        className={`form-control ${
+                        className={`form-control pe-5 ${
                             errors.password_confirmation ? "is-invalid" : ""
                         }`}
                         autoComplete="new-password"
                         onChange={onHandleChange}
                     />
+
+                    <button
+                        type="button"
+                        className="password-toggle"
+                        onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                        }
+                    >
+                        <i
+                            className={`fas ${
+                                showConfirmPassword ? "fa-eye-slash" : "fa-eye"
+                            }`}
+                        ></i>
+                    </button>
 
                     <InputError
                         message={errors.password_confirmation}

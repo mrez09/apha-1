@@ -18,7 +18,7 @@
                 <h2 style="margin:10px 0;">Kepada Yth. {{ $member->nama }} 👋</h2>
                 <p style="margin:10px 0;">Semoga Bapak/Ibu dalam keadaan sehat dan sejahtera.</p>
                 <p style="margin:10px 0;">Kami ingin mengingatkan bahwa iuran keanggotaan Asosaisi Pengajar Hukum Adat Indonesia (APHA) untuk periode ini sudah kami terima hingga saat ini.
-                    Besaran iuran yang perlu dibayarkan adalah Rp 200.000.
+                    Besaran iuran yang perlu dibayarkan adalah Rp 250.000.
                 </p>
                 <p style="margin:10px 0;">
                     Kami sangat menghargai partisipasi dan dukungan Bapak/Ibu dalam menjaga keberlangsungan kegiatan organisasi ini.
