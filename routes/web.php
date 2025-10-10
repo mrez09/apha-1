@@ -46,6 +46,7 @@ use App\Http\Controllers\Admin\PaymentProofadminController;
 use App\Http\Controllers\Admin\UploadController;
 //use App\Http\Controllers\Admin\InvoiceController as InvoiceAdminController;
 use App\Http\Controllers\Admin\InvoiceController as AdminInvoiceController;
+use App\Http\Controllers\Admin\GuideController;
 use App\Http\Controllers\Anggota\DashboardController as AnggotaDashboardContoller;
 use App\Http\Controllers\Anggota\ProfileController as AnggotaProfileController;
 use App\Http\Controllers\Anggota\MemberController;
@@ -59,6 +60,7 @@ use App\Http\Controllers\Anggota\InvoiceController as MemberInvoiceController;
 use App\Http\Controllers\PaymentController as PaymentGatewayController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\TransaksiController;
+
 
 
 
@@ -328,6 +330,14 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::post('/invoices', [AdminInvoiceController::class, 'store'])->name('admin.invoices.store');
     Route::get('/invoices/{id}', [AdminInvoiceController::class, 'show'])->name('admin.invoices.show');
 
+    //Guide
+    Route::get('/guide', [GuideController::class, 'index'])->name('guide.index');
+    Route::get('/guide/create', [GuideController::class, 'create'])->name('guide.create');
+    Route::post('/guide/store', [GuideController::class, 'store'])->name('guide.store');
+    Route::get('guide/{id}/edit', [GuideController::class, 'edit'])->name('guide.edit');
+    Route::post('/guide/upload_guide', [UploadController::class, 'uploadGuide'])->name('guide.upload');
+    Route::delete('/guide/upload_guide/{id}/delete-image', [UploadController::class, 'deleteImage_guide'])->name('guide.delete-image');
+    //Route::resource('guide', GuideController::class);
 });
 
 //User Control Anggota

@@ -43,16 +43,56 @@ class UploadController extends Controller
     }
 
     public function deleteImage($id)
-{
-    $sertifikat = Sertifikat::findOrFail($id);
+    {
+        $sertifikat = Sertifikat::findOrFail($id);
 
-    if ($sertifikat->img) {
-        
+        if ($sertifikat->img) {
+            
 
-        $sertifikat->img = null; // kosongkan kolom img
-        $sertifikat->save();
+            $sertifikat->img = null; // kosongkan kolom img
+            $sertifikat->save();
+        }
+
+        return response()->json(['message' => 'Gambar dihapus'], 200);
     }
 
-    return response()->json(['message' => 'Gambar dihapus'], 200);
-}
+    public function uploadGuide(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = fopen($request->file('file')->getPathname(), "r");
+            $fileName = $request->file('file')->getClientOriginalName();
+
+            $imageKit = new ImageKit(
+                env('IMAGEKIT_PUBLIC'),
+                env('IMAGEKIT_PRIVATE'),
+                env('IMAGEKIT_URL_ENDPOINT')
+            );
+
+            $upload = $imageKit->upload([
+                'file' => $file,
+                'fileName' => $fileName,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'thumbnail' => $upload->result->url, // ganti jadi "img"
+            ]);
+        }
+
+        return response()->json(['error' => 'No file uploaded'], 400);
+    }
+
+    public function deleteImage_guide($id)
+    {
+        $sertifikat = Sertifikat::findOrFail($id);
+
+        if ($sertifikat->img) {
+            
+
+            $sertifikat->img = null; // kosongkan kolom img
+            $sertifikat->save();
+        }
+
+        return response()->json(['message' => 'Gambar dihapus'], 200);
+    }
 }
