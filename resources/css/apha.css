@@ -1619,6 +1619,13 @@ figure.card .position {
     display: none;
 }
 
+/* Sidebar */
+.sidebar {
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 /* Navbar Mobile Frontend Bro */
 @media (max-width: 991.98px) {
     /* Navbar */
