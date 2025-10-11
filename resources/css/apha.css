@@ -1619,7 +1619,7 @@ figure.card .position {
     display: none;
 }
 
-/* Navbar Mobile Bro */
+/* Navbar Mobile Frontend Bro */
 @media (max-width: 991.98px) {
     /* Navbar */
     .navbar {
@@ -1703,5 +1703,30 @@ figure.card .position {
 
     .navbar-toggler:focus {
         box-shadow: none;
+    }
+}
+
+/* Navbar Authenticated bre */
+@media (max-width: 767.98px) {
+    #sidebarMenu {
+        position: fixed;
+        top: 56px; /* tinggi navbar */
+        left: 0;
+        width: 280px;
+        height: calc(100vh - 56px);
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        z-index: 1040;
+
+        background: #fff;
+
+        padding-bottom: 80px;
+    }
+
+    #sidebarMenu .position-sticky {
+        position: relative !important;
+        height: auto;
     }
 }

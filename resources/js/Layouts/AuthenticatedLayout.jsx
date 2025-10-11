@@ -35,6 +35,7 @@ export default function Authenticated({ auth, header, children, props }) {
                         className="img-fluid img-dash"
                     />
                 </a>
+
                 <button
                     className="navbar-toggler position-absolute d-md-none collapsed"
                     type="button"
@@ -52,7 +53,7 @@ export default function Authenticated({ auth, header, children, props }) {
                     placeholder="Search"
                     aria-label="Search"
                 />
-                <div className="navbar-nav">
+                <div className="navbar-nav d-none d-md-flex">
                     <div className="nav-item text-nowrap">
                         <ResponsiveNavLink
                             className="nav-link px-3"
@@ -665,6 +666,20 @@ export default function Authenticated({ auth, header, children, props }) {
                                     </div>
                                 </li>
                                 {/*end Photo*/}
+
+                                <hr className="d-md-none my-3" />
+
+                                <li className="nav-item d-md-none">
+                                    <ResponsiveNavLink
+                                        className="nav-link px-3 sidebar-link text-danger"
+                                        method="post"
+                                        href={route("logout")}
+                                        as="button"
+                                    >
+                                        <i className="fas fa-right-from-bracket ic"></i>
+                                        Logout
+                                    </ResponsiveNavLink>
+                                </li>
                             </ul>
                         </div>
                     </nav>

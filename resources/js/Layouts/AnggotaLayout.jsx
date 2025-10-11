@@ -35,6 +35,7 @@ export default function Authenticated({ auth, header, children, props }) {
                         className="img-fluid img-dash"
                     />
                 </a>
+
                 <button
                     className="navbar-toggler position-absolute d-md-none collapsed"
                     type="button"
@@ -47,12 +48,11 @@ export default function Authenticated({ auth, header, children, props }) {
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="navbar-nav">
+                <div className="navbar-nav d-none d-md-flex">
                     <div className="nav-item text-nowrap">
                         <ResponsiveNavLink
                             className="nav-link px-3"
                             method="post"
-                            target="_blank"
                             href={route("logout")}
                             as="button"
                         >
@@ -262,6 +262,20 @@ export default function Authenticated({ auth, header, children, props }) {
                                             </li>
                                         </ul>
                                     </div>
+                                </li>
+
+                                <hr className="d-md-none my-3" />
+
+                                <li className="nav-item d-md-none">
+                                    <ResponsiveNavLink
+                                        className="nav-link px-3 sidebar-link text-danger"
+                                        method="post"
+                                        href={route("logout")}
+                                        as="button"
+                                    >
+                                        <i className="fas fa-right-from-bracket ic"></i>
+                                        Logout
+                                    </ResponsiveNavLink>
                                 </li>
 
                                 {/*end Photo*/}
