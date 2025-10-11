@@ -1618,3 +1618,90 @@ figure.card .position {
 .front-nav-link.dropdown-toggle::after {
     display: none;
 }
+
+/* Navbar Mobile Bro */
+@media (max-width: 991.98px) {
+    /* Navbar */
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+
+    /* Logo */
+    .img-logo {
+        max-height: 45px;
+        width: auto;
+    }
+
+    /* Container menu */
+    #navbarCollapse {
+        margin-top: 12px;
+        background: #111;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    /* Menu */
+    .front-nav-link {
+        display: block;
+        padding: 12px 16px !important;
+        color: #fff !important;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    /* Hover */
+    .front-nav-link:hover {
+        color: #fbaa69 !important;
+        background: rgba(251, 170, 105, 0.12);
+    }
+
+    /* Active */
+    .front-nav-link.active {
+        color: #f08f4a !important;
+        background: rgba(240, 143, 74, 0.15);
+        font-weight: 600;
+    }
+
+    /* Hilangkan underline mobile */
+    .front-nav-link::before {
+        display: none;
+    }
+
+    /* Dropdown */
+    .dropdown-menu {
+        background: #1b1b1b;
+        border: none;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 5px;
+        border-radius: 8px;
+        box-shadow: none;
+    }
+
+    /* Item dropdown */
+    .front-dropdown-item {
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 6px;
+    }
+
+    .front-dropdown-item:hover {
+        background: rgba(251, 170, 105, 0.12);
+        color: #fbaa69;
+    }
+
+    .front-dropdown-item.active {
+        background: rgba(240, 143, 74, 0.18);
+        color: #f08f4a !important;
+        font-weight: 600;
+    }
+
+    /* Tombol hamburger */
+    .navbar-toggler {
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+}

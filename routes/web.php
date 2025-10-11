@@ -335,6 +335,7 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::get('/guide/create', [GuideController::class, 'create'])->name('guide.create');
     Route::post('/guide/store', [GuideController::class, 'store'])->name('guide.store');
     Route::get('guide/{id}/edit', [GuideController::class, 'edit'])->name('guide.edit');
+    Route::put('/guide/{id}/update', [GuideController::class, 'update'])->name('guide.update');
     Route::post('/guide/upload_guide', [UploadController::class, 'uploadGuide'])->name('guide.upload');
     Route::delete('/guide/upload_guide/{id}/delete-image', [UploadController::class, 'deleteImage_guide'])->name('guide.delete-image');
     //Route::resource('guide', GuideController::class);

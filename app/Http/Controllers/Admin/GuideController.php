@@ -77,9 +77,17 @@ class GuideController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $guide = Guides::with('roles')
+            ->findOrFail($id);
+
+        $roles = Role::all();
+
+        return Inertia::render('Admin/Guide/Edit', [
+            'guide' => $guide,
+            'roles' => $roles,
+        ]);
     }
 
     /**
