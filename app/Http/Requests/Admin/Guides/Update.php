@@ -45,7 +45,7 @@ class Update extends FormRequest
             'description'    => 'nullable|string',
             'sort_order'   => 'nullable|integer',
             'status'       => 'required|boolean',
-            'roles'        => 'required|array',
+            'roles'        => 'nullable|array',
             'roles.*'      => 'exists:roles,id',
         ];
     }

@@ -46,26 +46,10 @@
 }
 .container-maintenance {
     margin-top: 100px;
-    .what-is-up {
-        display: block;
-        vertical-align: middle;
-        text-align: center;
-        box-sizing: border-box;
-        .spinny-cogs {
-            display: block;
-            margin-bottom: 2rem;
+}
 
-            .fa {
-                &:nth-of-type(1) {
-                    @extend .fa-spin-one;
-                }
-
-                &:nth-of-type(3) {
-                    @extend .fa-spin-two;
-                }
-            }
-        }
-    }
+.container-maintenance .what-is-up {
+    display: block;
 }
 
 @-webkit-keyframes fa-spin-one {
@@ -727,6 +711,14 @@ ul.footer-social li:last-child {
 ul.footer-social i:hover {
     background: #ed1b24;
     color: #fff;
+}
+
+.page-more-info ul,
+.about-footer ul,
+.footer-social {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
 }
 
 .page-more-info li {

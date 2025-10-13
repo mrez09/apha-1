@@ -388,6 +388,19 @@ export default function Guest({ children }, props) {
 
                                 <ul className="footul">
                                     <li>
+                                        <i className="fas ic fa-map-marker-alt"></i>
+                                        <span className="f1">
+                                            <a
+                                                target="_blank"
+                                                href="https://goo.gl/maps/gqQE1wstP2YHe9xM7?coh=178572&entry=tt"
+                                                rel="noopener noreferrer"
+                                            >
+                                                Jl. Kyai Tapa No. 1 Grogol
+                                                Jakarta Barat
+                                            </a>
+                                        </span>
+                                    </li>
+                                    <li>
                                         {/*<a href="tel:(010) 1234 4321"></a>*/}
                                         <i className="fas ic fa-phone"></i>
                                         <span className="f1">
@@ -396,18 +409,7 @@ export default function Guest({ children }, props) {
                                             </a>
                                         </span>
                                     </li>
-                                    <li>
-                                        <i className="fas ic fa-map-marker-alt"></i>
-                                        <span className="f1">
-                                            <a
-                                                target="_blank"
-                                                href="https://goo.gl/maps/gqQE1wstP2YHe9xM7?coh=178572&entry=tt"
-                                            >
-                                                Jl. Kyai Tapa No. 1 Grogol
-                                                Jakarta Barat
-                                            </a>
-                                        </span>
-                                    </li>
+
                                     <li>
                                         <i className="fas ic fa-envelope"></i>
                                         <a href="mailto:apha.sekretariat@gmail.com">
@@ -426,9 +428,18 @@ export default function Guest({ children }, props) {
                             </div>
                             <div className="col-md-6 col-lg-2 page-more-info">
                                 <div className="footer-title">
-                                    <h4>Menu</h4>
+                                    <h4>Tentang APHA</h4>
                                 </div>
                                 <ul>
+                                    <li>
+                                        <Link
+                                            href={route(
+                                                "organisasi.badan_hukum",
+                                            )}
+                                        >
+                                            Tentang APHA
+                                        </Link>
+                                    </li>
                                     <li>
                                         <Link
                                             href={route(
@@ -447,7 +458,25 @@ export default function Guest({ children }, props) {
                                     </li>
                                     <li>
                                         <Link href={route("frontbuku.index")}>
-                                            Publikasi
+                                            Keanggotaan
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route(
+                                                "organisasi.badan_hukum",
+                                            )}
+                                        >
+                                            Berita
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route(
+                                                "organisasi.badan_hukum",
+                                            )}
+                                        >
+                                            Contact
                                         </Link>
                                     </li>
                                 </ul>
@@ -455,7 +484,7 @@ export default function Guest({ children }, props) {
 
                             <div className="col-md-6 col-lg-3 page-more-info">
                                 <div className="footer-title">
-                                    <h4>More Info</h4>
+                                    <h4>Publikasi</h4>
                                 </div>
                                 <ul>
                                     <li>
@@ -478,6 +507,33 @@ export default function Guest({ children }, props) {
                                             Prosiding
                                         </Link>
                                     </li>
+                                    <li>
+                                        <Link
+                                            href={route(
+                                                "organisasi.badan_hukum",
+                                            )}
+                                        >
+                                            Galeri
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route(
+                                                "organisasi.badan_hukum",
+                                            )}
+                                        >
+                                            Dokumen
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route(
+                                                "organisasi.badan_hukum",
+                                            )}
+                                        >
+                                            FAQ
+                                        </Link>
+                                    </li>
                                 </ul>
                             </div>
                             <div className="col-md-6    col-lg-4 open-hours">
@@ -491,6 +547,7 @@ export default function Guest({ children }, props) {
                                             <a
                                                 href="https://www.youtube.com/@aphaindonesia"
                                                 target="_blank"
+                                                rel="noopener noreferrer"
                                             >
                                                 <i className="fab fa-youtube"></i>
                                             </a>
@@ -504,6 +561,7 @@ export default function Guest({ children }, props) {
                                             <a
                                                 href="https://id.linkedin.com/company/apha-indonesia"
                                                 target="_blank"
+                                                rel="noopener noreferrer"
                                             >
                                                 <i className="fab fa-linkedin-in"></i>
                                             </a>
@@ -515,16 +573,21 @@ export default function Guest({ children }, props) {
                                     Pengajar Hukum Adat (APHA)
                                 </p>
                                 <p>
-                                    Asosiasi Pengajar Hukum Adat (APHA)
-                                    Indonesia dibentuk dalam usaha Mengembangkan
-                                    serta meningkatkan kemampuan anggota agar
-                                    berperan menjadi agen pembangunan terdepan
-                                    dalam usaha meneliti, mengembangkan dan
-                                    menerapkan ilmu pengetahuan hukum dan budaya
-                                    bangsa untuk meningkatkan taraf kehidupan
-                                    masyarakat.
+                                    Organisasi profesi yang menghimpun para
+                                    akademisi dan pengajar Hukum Adat untuk
+                                    mendukung pendidikan, penelitian, dan
+                                    pengabdian kepada masyarakat.
                                 </p>
                                 <hr />
+                                <div className="mt-3">
+                                    <Link
+                                        href=""
+                                        className="btn btn-outline-light btn-sm"
+                                    >
+                                        <i className="fas fa-circle-question me-2"></i>
+                                        Help Center
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -532,14 +595,23 @@ export default function Guest({ children }, props) {
                     <hr />
                     <div className="footer-bottom">
                         <div className="row">
-                            <div className="col-sm-4">
-                                <span href="" className="privacy-police">
-                                    © 2023 Asosiasi Pengajar Hukum Adat. All
-                                    Rights Reserved{" "}
+                            <div className="col-sm-6">
+                                <span className="privacy-police">
+                                    © 2023 - {new Date().getFullYear()} Asosiasi
+                                    Pengajar Hukum Adat (APHA). All Rights
+                                    Reserved.
                                 </span>
                             </div>
-                            <div className="col-sm-8">
-                                <p>&nbsp;</p>
+                            <div className="col-sm-6 text-end">
+                                <Link href="#" className="me-3">
+                                    Privacy Policy
+                                </Link>
+
+                                <Link href="#" className="me-3">
+                                    Terms & Conditions
+                                </Link>
+
+                                <Link href="">Help Center</Link>
                             </div>
                         </div>
                     </div>
