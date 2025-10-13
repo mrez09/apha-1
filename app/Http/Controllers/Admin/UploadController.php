@@ -83,16 +83,15 @@ class UploadController extends Controller
     }
 
     public function deleteImage_guide($id)
-    {
-        $sertifikat = Sertifikat::findOrFail($id);
+{
+    $guide = Guides::findOrFail($id);
 
-        if ($sertifikat->img) {
-            
+    $guide->thumbnail = null;
+    $guide->save();
 
-            $sertifikat->img = null; // kosongkan kolom img
-            $sertifikat->save();
-        }
-
-        return response()->json(['message' => 'Gambar dihapus'], 200);
-    }
+    return response()->json([
+        'success' => true,
+        'message' => 'Thumbnail berhasil dihapus.'
+    ]);
+}
 }

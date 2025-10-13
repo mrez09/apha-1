@@ -14,6 +14,7 @@ import moment from "moment";
 import Select from "react-select";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 //Tabs
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -87,20 +88,12 @@ const editorConfiguration = {
 };
 
 export default function Edit(props) {
-    const [preview, setPreview] = useState(props.sertifikat?.img || "");
-    const [previewlink, setPreviewlink] = useState(
-        props.sertifikat?.link || "",
-    );
-    const [imgUrl, setImgUrl] = useState(props.sertifikat?.img || "");
+    const { guide, roles } = props;
+    const [preview, setPreview] = useState(props.guide?.thumbnail || "");
+    const [thumbnail, setThumbnail] = useState(props.guide?.thumbnail || "");
+
     const [loading, setLoading] = useState(false);
     //const changeDate = (e) => setDate(e.target.value);
-
-    let table = new DataTable("#myTable", {
-        // options
-        destroy: true,
-        processing: true,
-        serverSide: false,
-    });
 
     useEffect(() => {
         if (props.flash?.message) {
@@ -109,23 +102,22 @@ export default function Edit(props) {
     }, [props.flash]);
 
     useEffect(() => {
-        if (props.sertifikat?.id_user) {
-            setData("id_user", props.sertifikat.id_user);
+        if (props.guide?.id) {
+            setData("id", props.guide.id);
         }
-    }, [props.sertifikat]);
+    }, [props.guide]);
 
-    const optionuser =
-        props.usercategory &&
-        props.usercategory.map((usercategory) => {
-            return {
-                label: usercategory.name,
-                value: usercategory.id,
-            };
-        });
+    const { data, setData, processing, errors } = useForm({
+        title: guide.title ?? "",
+        slug: guide.slug ?? "",
+        category: guide.category ?? "",
+        youtube_url: guide.youtube_url ?? "",
+        thumbnail: guide.thumbnail ?? "",
+        description: guide.description ?? "",
+        sort_order: guide.sort_order ?? 0,
+        status: guide.status ?? 1,
 
-    const { data, setData, processing, put, errors } = useForm({
-        ...props.sertifikat,
-        id_user: props.sertifikat?.id_user || "",
+        roles: guide.roles ? guide.roles.map((role) => role.id) : [],
     });
 
     const onHandleChange = (event) => {
@@ -135,13 +127,6 @@ export default function Edit(props) {
                 ? event.target.files[0]
                 : event.target.value,
         );
-    };
-
-    const handlePreviewlink = (e) => {
-        onHandleChange(e);
-
-        // update preview saat user ngetik link
-        setPreviewlink(e.target.value);
     };
 
     const handleFileChange = async (e) => {
@@ -158,7 +143,7 @@ export default function Edit(props) {
         setLoading(true);
         try {
             const res = await axios.post(
-                "/dashboard/sertifikat/upload-sertifikat",
+                route("admin.dashboard.guide.upload"),
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" },
@@ -166,8 +151,8 @@ export default function Edit(props) {
             );
 
             if (res.data.success) {
-                setImgUrl(res.data.img);
-                setData("img", res.data.img);
+                setPreview(res.data.thumbnail);
+                setData("thumbnail", res.data.thumbnail);
                 toast.success("Gambar berhasil diupload 🚀");
             } else {
                 toast.error("Upload gagal");
@@ -182,20 +167,17 @@ export default function Edit(props) {
 
     const handleDeleteImage = async () => {
         try {
-            // reset state biar UI kosong
-            setPreview(null);
-            setImgUrl(null);
-            setData("file", null);
-
-            // panggil API untuk hapus dari DB
             await axios.delete(
-                `/dashboard/sertifikat/upload-sertifikat/${props.sertifikat.id}/delete-image`,
+                route("admin.dashboard.guide.delete-image", props.guide.id),
             );
 
-            toast.success("Gambar berhasil dihapus!");
+            setPreview("");
+            setData("thumbnail", "");
+
+            toast.success("Thumbnail berhasil dihapus!");
         } catch (error) {
-            console.error("Error deleting image:", error);
-            toast.error("Gagal menghapus gambar.");
+            console.error(error);
+            toast.error("Gagal menghapus thumbnail.");
         }
     };
 
@@ -207,20 +189,20 @@ export default function Edit(props) {
             return;
         }
 
-        if (!imgUrl && !data.link) {
-            toast.error("Harap upload gambar atau isi link dulu!");
+        if (!data.thumbnail && !data.youtube_url) {
+            toast.error("Harap upload thumbnail atau isi link YouTube!");
             return;
         }
 
         router.post(
-            route("admin.dashboard.sertifikat.update", props.sertifikat.id),
+            route("admin.dashboard.guide.update", props.guide.id),
             {
                 _method: "PUT",
                 ...data,
-                img: imgUrl,
+                thumbnail: data.thumbnail,
             },
             {
-                onSuccess: () => toast.success("Sertifikat berhasil diupdate!"),
+                onSuccess: () => toast.success("Guide berhasil diupdate!"),
                 onError: (errors) => {
                     // tampilkan semua error validasi di toast
                     Object.values(errors).forEach((msg) => {
@@ -232,19 +214,19 @@ export default function Edit(props) {
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
-            <Head title="Update Sertifikat Asosiasi Pengajar Hukum Adat Indonesia" />
+            <Head title="Update Guide Asosiasi Pengajar Hukum Adat Indonesia" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
-                    Update Sertifikat Asosiasi Pengajar Hukum Adat Indonesia :{" "}
-                    <p>{props.sertifikat.no}</p>
+                    Update Guide Asosiasi Pengajar Hukum Adat Indonesia :{" "}
+                    <p>{props.guide.id}</p>
                 </h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href={route("admin.dashboard.sertifikat.index")}
+                            href={route("admin.dashboard.guide.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
@@ -261,64 +243,70 @@ export default function Edit(props) {
                         <div className="row g-3">
                             <div className="col-sm-12">
                                 <label className="form-label">
-                                    No Sertifikat
+                                    Judul Guide
                                 </label>
                                 <input
                                     type="text"
-                                    name="no"
-                                    defaultValue={props.sertifikat.no}
-                                    placeholder="Masukan No Sertifikat"
+                                    name="title"
+                                    defaultValue={props.guide.title}
+                                    placeholder="Masukan Judul Guide"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
+                                    autoComplete="title"
                                     onChange={onHandleChange}
                                 />
                                 <div className="">
                                     <InputError
-                                        message={errors.no}
+                                        message={errors.title}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
 
-                            <div className="col-md-6">
-                                <label className="form-label">
-                                    Diberikan Kepada
-                                </label>
+                            <div className="mb-3">
+                                <label className="form-label">Role</label>
 
-                                <Select
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="id_user"
-                                    name="id_user"
-                                    // cari option yang sesuai dengan id_user sertifikat
-                                    value={
-                                        optionuser.find(
-                                            (opt) =>
-                                                String(opt.value) ===
-                                                String(data.id_user),
-                                        ) || null
-                                    }
-                                    options={optionuser}
-                                    onChange={(selected) => {
-                                        console.log("Before:", data.id_user);
-                                        setData("id_user", selected.value);
-                                        console.log("After:", selected.value);
-                                    }}
-                                />
-                                <div className="text-danger">
-                                    <InputError
-                                        message={errors.id_user}
-                                        className="mt-2"
-                                    />
-                                </div>
+                                {roles.map((role) => (
+                                    <div className="form-check" key={role.id}>
+                                        <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            checked={data.roles.includes(
+                                                role.id,
+                                            )}
+                                            onChange={(e) => {
+                                                if (e.target.checked) {
+                                                    setData("roles", [
+                                                        ...data.roles,
+                                                        role.id,
+                                                    ]);
+                                                } else {
+                                                    setData(
+                                                        "roles",
+                                                        data.roles.filter(
+                                                            (id) =>
+                                                                id !== role.id,
+                                                        ),
+                                                    );
+                                                }
+                                            }}
+                                        />
+
+                                        <label className="form-check-label">
+                                            {role.name}
+                                        </label>
+                                    </div>
+                                ))}
                             </div>
 
                             <div className="col-sm-12">
-                                <label className="form-label">Token</label>
+                                <label className="form-label">
+                                    Link YouTube
+                                </label>
                                 <input
                                     type="text"
                                     name="serti_token"
-                                    defaultValue={props.sertifikat.serti_token}
-                                    placeholder="Masukan Token Sertifikat"
+                                    defaultValue={props.guide.youtube_url}
+                                    placeholder="Masukan Link Youtube"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     autoComplete="serti_token"
                                     onChange={onHandleChange}
@@ -331,89 +319,18 @@ export default function Edit(props) {
                                 </div>
                             </div>
 
-                            <div className="col-sm-12">
-                                <label className="form-label">
-                                    Nama Pemilik
-                                </label>
-                                <input
-                                    type="text"
-                                    name="nama"
-                                    placeholder="Masukan Nama Pemilik"
-                                    defaultValue={props.sertifikat.nama}
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="nama"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.nama}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-sm-12">
-                                <label className="form-label">
-                                    Judul Sertifikat
-                                </label>
-                                <input
-                                    type="text"
-                                    name="judul"
-                                    defaultValue={props.sertifikat.judul}
-                                    placeholder="Masukan Judul Sertifikat"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.judul}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
                             <div className="col-md-6">
                                 <label className="form-label">
-                                    Status Sertifikat
+                                    Status Guide
                                 </label>
                                 <select
-                                    className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    id="is_featured"
                                     name="status"
+                                    value={data.status}
                                     onChange={onHandleChange}
-                                    required
+                                    className="form-select"
                                 >
-                                    <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.sertifikat.status == 0) {
-                                            return (
-                                                <option value="0" selected>
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="0">
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.sertifikat.status == 1) {
-                                            return (
-                                                <option value="1" selected>
-                                                    Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="1">Aktif</option>
-                                            );
-                                        }
-                                    })()}
+                                    <option value={1}>Aktif</option>
+                                    <option value={0}>Tidak Aktif</option>
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -429,193 +346,134 @@ export default function Edit(props) {
                                     name="category"
                                     value={data.category}
                                     onChange={onHandleChange}
-                                    className="form-control  mb-3form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    className="form-select"
                                 >
                                     <option value="">Pilih Kategori</option>
-
-                                    <option value="Seminar">Seminar</option>
-                                    <option value="Workshop">Workshop</option>
-                                    <option value="Pelatihan">Pelatihan</option>
-                                    <option value="Webinar">Webinar</option>
-                                    <option value="Narasumber">
-                                        Narasumber
+                                    <option value="Dashboard">Dashboard</option>
+                                    <option value="Member">Member</option>
+                                    <option value="Sertifikat">
+                                        Sertifikat
                                     </option>
-                                    <option value="Moderator">Moderator</option>
-                                    <option value="Panitia">Panitia</option>
-                                    <option value="Pemateri">Pemateri</option>
-                                    <option value="Keanggotaan">
-                                        Keanggotaan
+                                    <option value="Event">Event</option>
+                                    <option value="News">News</option>
+                                    <option value="KTA">KTA</option>
+                                    <option value="Kartu Nama">
+                                        Kartu Nama
                                     </option>
-                                    <option value="Penghargaan">Awards</option>
-                                    <option value="Lainnya">Lainnya</option>
+                                    <option value="Buku">Buku</option>
+                                    <option value="Galeri">Galeri</option>
+                                    <option value="Committee">Committee</option>
                                 </select>
                             </div>
 
                             <div className="col-sm-6">
                                 <label className="form-label">
-                                    Tanggal Sertifikat
+                                    Thumbnail Guide
                                 </label>
-                                <div className="form-control">
-                                    <DatePicker
-                                        showIcon
-                                        name="publish_at"
-                                        selected={startDate}
-                                        showTimeSelect={true}
-                                        dateFormat="MMMM d, yyyy h:mm aa"
-                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                        //onChange={(e) => setData("publish_at", date)}
-                                        onChange={(date) => {
-                                            setStartDate(date);
-                                            setData("publish_at", date);
-                                            console.log({ date });
-                                        }}
-                                    />
+
+                                <input
+                                    type="file"
+                                    name="thumbnail"
+                                    placeholder="Masukan File"
+                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                    onChange={handleFileChange}
+                                />
+
+                                {/* Icon trash */}
+                                <div className="img-preview-serti">
+                                    <p className="text-muted">Preview:</p>
+                                    {preview ? (
+                                        <img
+                                            src={preview}
+                                            width="200"
+                                            className="mt-3"
+                                        />
+                                    ) : (
+                                        props.guide.thumbnail && (
+                                            <img
+                                                src={props.guide.thumbnail}
+                                                width="200"
+                                                className="mt-3"
+                                            />
+                                        )
+                                    )}
+                                    {/* Preview gambar */}
+                                    {preview && (
+                                        <button
+                                            type="button"
+                                            onClick={handleDeleteImage}
+                                            className="btn btn-danger btn-sm btn-delimg"
+                                        >
+                                            🗑 delete
+                                        </button>
+                                    )}
+                                    {loading && <p>Uploading...</p>}
                                 </div>
-                                <div className="">
+
+                                <div className="invalid-feedback">
                                     <InputError
-                                        message={errors.publish_at}
+                                        message={errors.thumbnail}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
 
-                            <div className="col-sm-6">
+                            <div className="col-md-4">
+                                <label className="form-label">Sort Order</label>
+
+                                <input
+                                    type="number"
+                                    name="sort_order"
+                                    value={data.sort_order}
+                                    onChange={onHandleChange}
+                                    className="form-control"
+                                />
+                            </div>
+
+                            <div className="col-sm-12">
                                 <label className="form-label">
-                                    Tanggal Expired
+                                    Description
                                 </label>
-                                <div className="form-control">
-                                    <DatePicker
-                                        isClearable
-                                        placeholderText="Berlaku Permanen"
-                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                        selected={expiredDate}
-                                        showTimeSelect
-                                        dateFormat="MMMM d, yyyy h:mm aa"
-                                        onChange={(date) => {
-                                            setExpiredDate(date);
-                                            setData("expired_date", date);
-                                        }}
-                                    />
-                                </div>
+                                <CKEditor
+                                    className="description"
+                                    editor={ClassicEditor}
+                                    name="konten"
+                                    data={props.guide.description}
+                                    onReady={(editor) => {
+                                        // You can store the "editor" and use when it is needed.
+                                        console.log(
+                                            "Editor is ready to use!",
+                                            editor,
+                                        );
+                                    }}
+                                    onChange={(event, editor, e) => {
+                                        const data = editor.getData();
+                                        setData("description", data);
+
+                                        console.log({ event, editor, data });
+                                    }}
+                                    onBlur={(event, editor) => {
+                                        console.log("Blur.", editor);
+                                    }}
+                                    onFocus={(event, editor) => {
+                                        console.log("Focus.", editor);
+                                    }}
+                                />
                                 <div className="">
                                     <InputError
-                                        message={errors.publish_at}
+                                        message={errors.description}
                                         className="mt-2"
                                     />
                                 </div>
                             </div>
-
-                            <hr />
-                            <h3>File Sertifikat</h3>
-                            <p>Harap Pilih Salah Satu</p>
-
-                            <Tabs>
-                                <TabList>
-                                    <Tab>Upload Image</Tab>
-                                    <Tab>Link Image</Tab>
-                                </TabList>
-
-                                <TabPanel>
-                                    <div className="col-sm-6">
-                                        <label className="form-label">
-                                            File
-                                        </label>
-
-                                        <input
-                                            type="file"
-                                            name="file"
-                                            placeholder="Masukan File"
-                                            className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                            onChange={handleFileChange}
-                                        />
-
-                                        {/* Icon trash */}
-                                        <div className="img-preview-serti">
-                                            <p className="text-muted">
-                                                Preview:
-                                            </p>
-                                            {preview && (
-                                                <img
-                                                    src={preview}
-                                                    alt="preview"
-                                                    className="mt-3"
-                                                    width="200"
-                                                />
-                                            )}
-                                            {/* Preview gambar */}
-                                            {preview && (
-                                                <button
-                                                    type="button"
-                                                    onClick={handleDeleteImage}
-                                                    className="btn btn-danger btn-sm btn-delimg"
-                                                >
-                                                    🗑 delete
-                                                </button>
-                                            )}
-                                            {loading && <p>Uploading...</p>}
-                                        </div>
-
-                                        <div className="invalid-feedback">
-                                            <InputError
-                                                message={errors.file}
-                                                className="mt-2"
-                                            />
-                                        </div>
-                                    </div>
-                                </TabPanel>
-                                <TabPanel>
-                                    <div className="col-sm-12">
-                                        <label className="form-label">
-                                            Link Sertifikat
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="link"
-                                            defaultValue={props.sertifikat.link}
-                                            placeholder="Masukan Link Sertifikat"
-                                            className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                            autoComplete="link"
-                                            onChange={handlePreviewlink}
-                                        />
-                                        {/** validasi sederhana */}
-
-                                        <div className="">
-                                            <InputError
-                                                message={errors.link}
-                                                className="mt-2"
-                                            />
-                                        </div>
-
-                                        {/* preview image */}
-                                        {previewlink && (
-                                            <div className="mt-3">
-                                                <p className="text-muted">
-                                                    Preview:
-                                                </p>
-                                                <img
-                                                    src={previewlink}
-                                                    alt="Preview Sertifikat"
-                                                    className="mt-3"
-                                                    width="200"
-                                                    onError={(e) => {
-                                                        // kalo link bukan gambar valid
-                                                        e.target.style.display =
-                                                            "none";
-                                                    }}
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
-                                </TabPanel>
-                            </Tabs>
 
                             <hr className="my-4"></hr>
 
                             <button
-                                className="w-100 btn btn-primary btn-lg"
-                                type="submit"
+                                className="btn btn-primary btn-lg w-100"
+                                disabled={processing}
                             >
-                                Simpan
+                                {processing ? "Mengupdate..." : "Update Guide"}
                             </button>
                         </div>
                     </form>

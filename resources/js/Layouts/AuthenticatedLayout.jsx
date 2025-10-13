@@ -635,6 +635,23 @@ export default function Authenticated({ auth, header, children, props }) {
                                         Contact
                                     </a>
                                 </li>
+                                <li className="nav-item">
+                                    <a
+                                        className={`nav-link px-3 sidebar-link ${
+                                            route().current(
+                                                "admin.dashboard.guide.index",
+                                            )
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        href={route(
+                                            "admin.dashboard.guide.index",
+                                        )}
+                                    >
+                                        <i className="fas ic fa-address-book"></i>
+                                        Guide
+                                    </a>
+                                </li>
                                 <li className="nav-link px-3 sidebar-link">
                                     <a
                                         data-bs-toggle="collapse"
@@ -666,9 +683,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                     </div>
                                 </li>
                                 {/*end Photo*/}
-
                                 <hr className="d-md-none my-3" />
-
                                 <li className="nav-item d-md-none">
                                     <ResponsiveNavLink
                                         className="nav-link px-3 sidebar-link text-danger"

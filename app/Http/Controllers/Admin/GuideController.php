@@ -90,19 +90,61 @@ class GuideController extends Controller
         ]);
     }
 
+    
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Update $request, $id)
     {
-        //
+        $guide = Guides::findOrFail($id);
+        $slug = Str::slug($request->title);
+
+        $count = Guides::where('slug', 'like', "{$slug}%")
+            ->where('id', '!=', $id)
+            ->count();
+
+        if ($count > 0) {
+            $slug .= '-' . ($count + 1);
+        }
+
+        $guide->update([
+            'title'        => $request->title,
+            'slug'          => $slug,
+            'category'     => $request->category,
+            'youtube_url'  => $request->youtube_url,
+            'thumbnail'    => $request->thumbnail,
+            'description'  => $request->description,
+            'sort_order'   => $request->sort_order ?? 0,
+            'status'       => $request->status,
+        ]);
+
+        $guide->roles()->sync($request->roles);
+
+        return redirect()
+            ->route('admin.dashboard.guide.index')
+            ->with([
+                'type' => 'success',
+                'message' => 'Guide berhasil diupdate.',
+            ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $guide = Guides::findOrFail($id);
+
+        $guide->roles()->detach();
+
+        $guide->delete();
+
+        return redirect()
+            ->route('admin.dashboard.guide.index')
+            ->with([
+                'type' => 'success',
+                'message' => 'Guide berhasil dihapus.',
+            ]);
     }
 }

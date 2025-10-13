@@ -66,25 +66,32 @@ export default function List({ auth, errors, flashMessage, props, guides }) {
                                 <tr key={guide.id}>
                                     <td>{guide.id}</td>
                                     <td>{guide.title}</td>
-                                    <td>{guide.category}</td>
                                     <td>
-                                        {
-                                            //guide.roles?.map((role) => (
-                                            // <span
-                                            //   key={role.id}
-                                            // className="badge bg-primary me-1"
-                                            // >
-                                            //</td>   {role.name}
-                                            //</tr></span>
-                                            //))
-                                        }
-                                        <td>
-                                            {guide.roles
-                                                .map((role) => role.name)
-                                                .join(", ")}
-                                        </td>
+                                        <span className="badge bg-info">
+                                            {guide.category}
+                                        </span>
                                     </td>
-                                    <td>{guide.status}</td>
+                                    <td>
+                                        {guide.roles?.map((role) => (
+                                            <span
+                                                key={role.id}
+                                                className="badge bg-primary me-1"
+                                            >
+                                                {role.name}
+                                            </span>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {guide.status == 1 ? (
+                                            <span className="badge bg-success">
+                                                Aktif
+                                            </span>
+                                        ) : (
+                                            <span className="badge bg-danger">
+                                                Tidak Aktif
+                                            </span>
+                                        )}
+                                    </td>
                                     <td>{guide.sort_order}</td>
 
                                     <td>
@@ -105,6 +112,11 @@ export default function List({ auth, errors, flashMessage, props, guides }) {
                                                         "admin.dashboard.guide.destroy",
                                                         guide.id,
                                                     ),
+                                                    {
+                                                        onSuccess: () => {
+                                                            window.location.reload();
+                                                        },
+                                                    },
                                                 );
                                             }}
                                         >
