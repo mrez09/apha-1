@@ -611,7 +611,9 @@ export default function Guest({ children }, props) {
                                     Terms & Conditions
                                 </Link>
 
-                                <Link href="">Help Center</Link>
+                                <NavLink href={route("fronthelp.index")}>
+                                    Help Center
+                                </NavLink>
                             </div>
                         </div>
                     </div>

@@ -1,12 +1,8 @@
-import GuestLayout from "@/Layouts/GuestLayout";
 import FrontendLayout from "@/Layouts/FrontendLayout";
-import NavbarGuest from "@/Pages/layouts/frontend/NavbarApha";
 import { Link, Head } from "@inertiajs/react";
-import FeaturedBuku from "@/Components/Buku/FeaturedBuku";
 import ListGaleri from "@/Components/Galeri/ListGaleri";
 
-import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+import { useState } from "react";
 
 export default function List({ galeri, props }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

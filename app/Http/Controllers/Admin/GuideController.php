@@ -50,6 +50,8 @@ class GuideController extends Controller
         $guide = Guides::create([
             'title'        => $request->title,
             'slug'         => Str::slug($request->title),
+            'icon' => $request->icon,
+            'visibility' => $request->visibility,
             'category'     => $request->category,
             'youtube_url'  => $request->youtube_url,
             'thumbnail'    => $request->thumbnail,
@@ -110,7 +112,9 @@ class GuideController extends Controller
 
         $guide->update([
             'title'        => $request->title,
-            'slug'          => $slug,
+            'slug'         => $slug,
+            'icon'         => $request->icon,
+            'visibility'   => $request->visibility,
             'category'     => $request->category,
             'youtube_url'  => $request->youtube_url,
             'thumbnail'    => $request->thumbnail,

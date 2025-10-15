@@ -5,7 +5,15 @@ import { Head, useForm } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 
-export default function List({ auth, errors, flashMessage, props, guides }) {
+export default function List({
+    auth,
+    errors,
+    flashMessage,
+    props,
+    guides,
+    previousGuide,
+    nextGuide,
+}) {
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
         // options

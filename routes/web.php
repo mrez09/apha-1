@@ -60,6 +60,7 @@ use App\Http\Controllers\Anggota\InvoiceController as MemberInvoiceController;
 use App\Http\Controllers\PaymentController as PaymentGatewayController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\HelpCenterController;
 
 
 
@@ -590,7 +591,6 @@ Route::prefix('/')->name('front')->group(function (){
     //Route::get('sertifikat/search', [SertifikatController::class,'search'])->name('sertifikat.search');
     
     //Mencari Sertifikat
-
     Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
     Route::post('/sertifikat/search', [SertifikatController::class, 'search'])->name('sertifikat.search');
 
@@ -610,6 +610,11 @@ Route::prefix('/')->name('front')->group(function (){
     Route::get('dokumen/{dokumen:slug}', [DokumenController::class, 'show'])->name('dokumen.show');
     Route::get('buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
 
+    //Guide
+    Route::get('/help', [HelpCenterController::class, 'index'])->name('help.index');
+    Route::get('/help-center', [HelpCenterController::class, 'index'])->name('help.index');
+    Route::get('/help/{slug}', [HelpCenterController::class, 'show'])->name('help.show');
+    
     //response json
 
     Route::get('getCourse/{id}', function ($id) {

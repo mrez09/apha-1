@@ -26,6 +26,8 @@ class Store extends FormRequest
         return [
             'title'        => 'required|string|max:255|unique:guides,title',
             'category'     => 'required|string|max:100',
+            'icon' => 'nullable|string|max:100',
+            'visibility' => 'required|in:public,private',
             'youtube_url'  => 'required|url',
             'thumbnail'    => 'nullable|string|max:255',
             'description'  => 'nullable|string',

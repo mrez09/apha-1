@@ -131,8 +131,24 @@ export default function Create(props) {
                                     </div>
                                 )}
                             </div>
+                            <div className="col-md-4">
+                                <label className="form-label">Icon</label>
 
-                            <div className="mb-3">
+                                <input
+                                    type="text"
+                                    name="icon"
+                                    value={data.icon}
+                                    onChange={onHandleChange}
+                                    className="form-control"
+                                    placeholder="fa-solid fa-book"
+                                />
+
+                                <small className="text-muted">
+                                    Contoh: fa-solid fa-book
+                                </small>
+                            </div>
+
+                            <div className=" col-md-4 mb-4">
                                 <label className="form-label">Kategori</label>
                                 <select
                                     className="form-select form-control"
@@ -164,7 +180,7 @@ export default function Create(props) {
                                 )}
                             </div>
 
-                            <div className="mb-3">
+                            <div className="mb-3 col-md-4">
                                 <label className="form-label">Role</label>
 
                                 {roles.map((role) => (
@@ -233,7 +249,7 @@ export default function Create(props) {
                                 )}
                             </div>
 
-                            <div className="col-sm-6">
+                            <div className="col-sm-4">
                                 <label className="form-label">
                                     Thumbnail Guide
                                 </label>
@@ -291,6 +307,19 @@ export default function Create(props) {
                                         </div>
                                     )}
                                 </div>
+                            </div>
+                            <div className="col-md-4">
+                                <label className="form-label">Visibility</label>
+
+                                <select
+                                    name="visibility"
+                                    value={data.visibility}
+                                    onChange={onHandleChange}
+                                    className="form-select form-control"
+                                >
+                                    <option value="private">Private</option>
+                                    <option value="public">Public</option>
+                                </select>
                             </div>
 
                             <div className="mb-3">

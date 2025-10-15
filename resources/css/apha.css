@@ -14,6 +14,34 @@
     font-size: 3rem;
 }
 
+/*APHA id*/
+
+.btn-apha {
+    background: #fbaa69;
+    color: #fff;
+    border-color: #fbaa69;
+}
+
+.btn-apha:hover {
+    background: #f7944d;
+    border-color: #f7944d;
+    color: #fff;
+}
+
+.apha-bg {
+    background: #f08f4a;
+}
+.apha-item {
+    color: #f08f4a;
+}
+.apha-item:hover {
+    color: #fff;
+}
+
+.def-bg {
+    background: #fff;
+}
+
 /* sidebar */
 /* Sidebar Link */
 .sidebar-link {
@@ -1728,4 +1756,23 @@ figure.card .position {
         position: relative !important;
         height: auto;
     }
+}
+
+/* Help Center */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.list-group-item.active {
+    background: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
+.active-guide {
+    background: #fbaa69;
+
+    color: white;
+
+    border-radius: 10px;
 }
