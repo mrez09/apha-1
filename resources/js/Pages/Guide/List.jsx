@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import FrontendLayout from "@/Layouts/FrontendLayout";
 import { Link, Head } from "@inertiajs/react";
+import "~/css/guide.css";
 
 export default function List({
     guides,
@@ -95,92 +96,197 @@ export default function List({
 
     return (
         <FrontendLayout>
-            <div className="container py-5">
-                <div className="row">
+            <Head>
+                <title>
+                    Help Center Asosiasi Pengajar Hukum Adat (APHA) Indonesia
+                </title>
+                <meta
+                    head-key="Description"
+                    name="description"
+                    content="Help Center Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Mobile Capable"
+                    name="mobile-web-app-capable"
+                    content="yes"
+                />
+                <meta
+                    head-key="App Name"
+                    name="application-name"
+                    content="Asosiasi Pengajar Hukum Adat (APHA)"
+                />
+                <meta
+                    head-key="Apple Mobile App Name"
+                    name="apple-mobile-web-app-title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA)"
+                />
+                <meta
+                    head-key="Theme Color"
+                    name="theme-color"
+                    content="#ff6300"
+                ></meta>
+                {/*Sosial Media*/}
+                {/*Open Graph Protocol*/}
+                <meta
+                    head-key="App id Facebook"
+                    property="fb:app_id"
+                    content="961443805039846"
+                ></meta>
+
+                <meta
+                    head-key="Title Open Graph"
+                    property="og:title"
+                    content="Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Description Open Graph"
+                    property="og:description"
+                    content="Help Center Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Type Open Graph"
+                    property="og:type"
+                    content="website"
+                />
+                <meta
+                    head-key="URL Open Graph"
+                    property="og:url"
+                    content="https://www.apha.or.id"
+                />
+                <meta
+                    head-key="Image Open Graph"
+                    property="og:image"
+                    content="https://i.imgur.com/R4DyCBa.png"
+                />
+                <meta
+                    head-key="Image Type Open Graph"
+                    property="og:image:type"
+                    content="image/jpeg"
+                />
+                <meta
+                    head-key="Image Width Open Graph"
+                    property="og:image:width"
+                    content="1800"
+                />
+                <meta
+                    head-key="Image Height Open Graph"
+                    property="og:image:height"
+                    content="550"
+                />
+                {/*Twitard*/}
+
+                <meta
+                    head-key="Twitter Title"
+                    name="twitter:title"
+                    content="Help CenterAsosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Twitter Description"
+                    name="twitter:description"
+                    content="Help Center Asosiasi Pengajar Hukum Adat (APHA) Indonesia"
+                />
+                <meta
+                    head-key="Twitter Image"
+                    name="twitter:image"
+                    content="https://i.imgur.com/R4DyCBa.png"
+                />
+                <meta
+                    head-key="Twitter Card"
+                    name="twitter:card"
+                    content="summary_large_image"
+                />
+            </Head>
+            <div className="container-fluid py-4 px-lg-5">
+                <div className="row g-4">
                     {/* Sidebar */}
 
                     <div className="col-lg-3">
-                        <div className="card shadow-sm">
-                            <div className="card-header">
-                                <h5 className="mb-0">Help Center</h5>
+                        <div className="card help-sidebar shadow-sm">
+                            <div className="card-header bg-white border-0">
+                                <h5 className="fw-bold mb-0">
+                                    <i className="fas fa-book-open me-2 text-warning"></i>
+                                    Help Center
+                                </h5>
                             </div>
 
                             <div className="card-body">
-                                <input
-                                    type="text"
-                                    className="form-control mb-3"
-                                    placeholder="Cari tutorial..."
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                />
+                                <div className="p-3">
+                                    <input
+                                        type="text"
+                                        className="form-control  help-search"
+                                        placeholder="Cari tutorial..."
+                                        value={search}
+                                        onChange={(e) =>
+                                            setSearch(e.target.value)
+                                        }
+                                    />
+                                </div>
 
-                                {Object.entries(groupedGuides).map(
-                                    ([category, items]) => (
-                                        <div key={category}>
-                                            <button
-                                                className={`btn w-100 text-start d-flex justify-content-between align-items-center mb-2 ${
-                                                    openCategory === category
-                                                        ? "btn-apha"
-                                                        : "btn-light"
-                                                }`}
-                                                onClick={() =>
-                                                    setOpenCategory(
-                                                        openCategory ===
-                                                            category
-                                                            ? ""
-                                                            : category,
-                                                    )
-                                                }
-                                            >
-                                                <span>
-                                                    <i
-                                                        className={`${categoryIcons[category]} me-2 ${
-                                                            openCategory ===
-                                                            category
-                                                                ? "def-item"
-                                                                : "apha-item"
-                                                        }`}
-                                                    ></i>
-
-                                                    {category}
-                                                </span>
-
-                                                <i
-                                                    className={`fa-solid ${
+                                <div className="help-sidebar-body">
+                                    {Object.entries(groupedGuides).map(
+                                        ([category, items]) => (
+                                            <div key={category}>
+                                                <button
+                                                    className={`btn w-100 text-start d-flex justify-content-between align-items-center mb-2 ${
                                                         openCategory ===
                                                         category
-                                                            ? "fa-chevron-down"
-                                                            : "fa-chevron-right"
+                                                            ? "btn-apha"
+                                                            : "btn-light"
                                                     }`}
-                                                ></i>
-                                            </button>
-
-                                            {openCategory === category &&
-                                                items.map((guide) => (
-                                                    <Link
-                                                        key={guide.id}
-                                                        href={route(
-                                                            "fronthelp.show",
-                                                            guide.slug,
-                                                        )}
-                                                        preserveScroll
-                                                        className={`guide-item ${
-                                                            selectedGuide?.id ===
-                                                            guide.id
-                                                                ? "active-guide"
-                                                                : ""
-                                                        }`}
-                                                    >
+                                                    onClick={() =>
+                                                        setOpenCategory(
+                                                            openCategory ===
+                                                                category
+                                                                ? ""
+                                                                : category,
+                                                        )
+                                                    }
+                                                >
+                                                    <span>
                                                         <i
-                                                            className={`${guide.icon} me-2 `}
+                                                            className={`${categoryIcons[category]} me-2 ${
+                                                                openCategory ===
+                                                                category
+                                                                    ? "def-item"
+                                                                    : "apha-item"
+                                                            }`}
                                                         ></i>
 
-                                                        {guide.title}
-                                                    </Link>
-                                                ))}
-                                        </div>
-                                    ),
-                                )}
+                                                        {category}
+                                                    </span>
+
+                                                    <i
+                                                        className={`fa-solid ${
+                                                            openCategory ===
+                                                            category
+                                                                ? "fa-chevron-down"
+                                                                : "fa-chevron-right"
+                                                        }`}
+                                                    ></i>
+                                                </button>
+
+                                                {openCategory === category &&
+                                                    items.map((guide) => (
+                                                        <Link
+                                                            key={guide.id}
+                                                            href={route(
+                                                                "fronthelp.show",
+                                                                guide.slug,
+                                                            )}
+                                                            preserveScroll
+                                                            className={`help-link ${selectedGuide?.id === guide.id ? "active" : ""}`}
+                                                        >
+                                                            <i
+                                                                className={`${guide.icon} me-2 `}
+                                                            ></i>
+
+                                                            {guide.title}
+                                                        </Link>
+                                                    ))}
+                                            </div>
+                                        ),
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -189,8 +295,8 @@ export default function List({
 
                     <div className="col-lg-9">
                         {selectedGuide && (
-                            <div className="card shadow-sm">
-                                <div className="card-body">
+                            <div className="card help-content shadow-sm">
+                                <div className="card-body p-4">
                                     {selectedGuide.thumbnail ? (
                                         <img
                                             src={selectedGuide.thumbnail}
@@ -212,7 +318,7 @@ export default function List({
                                         </div>
                                     )}
 
-                                    <div className="ratio ratio-16x9 mb-4">
+                                    <div className="ratio ratio-16x9 help-video">
                                         <iframe
                                             src={selectedGuide.youtube_url.replace(
                                                 "watch?v=",
@@ -225,102 +331,127 @@ export default function List({
                                     <i
                                         className={`${selectedGuide.icon} fa-5x`}
                                     ></i>
-                                    <h3>{selectedGuide.title}</h3>
+                                    <h1 className="help-title">
+                                        {selectedGuide.title}
+                                    </h1>
 
                                     <hr />
+                                    <div className="help-meta">
+                                        <span>
+                                            <i className="fas fa-folder-open me-2"></i>
 
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: selectedGuide.description,
-                                        }}
-                                    />
+                                            {selectedGuide.category}
+                                        </span>
+                                        <span>
+                                            <i className="fas fa-eye me-2"></i>
 
-                                    <div className="row mt-5">
-                                        <div className="col-6">
-                                            {previousGuide && (
-                                                <Link
-                                                    href={route(
-                                                        "fronthelp.show",
-                                                        previousGuide.slug,
-                                                    )}
-                                                    className="text-decoration-none"
-                                                >
-                                                    <div className="card h-100">
-                                                        <div className="card-body">
-                                                            <small className="text-muted">
-                                                                ← Tutorial
-                                                                Sebelumnya
-                                                            </small>
+                                            {selectedGuide.view}
+                                        </span>
+                                        <span>
+                                            <i className="fas fa-calendar me-2"></i>
 
-                                                            <h6 className="mb-0 mt-2">
-                                                                {
-                                                                    previousGuide.title
-                                                                }
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            )}
+                                            {selectedGuide.updated_at}
+                                        </span>
+                                        <div className="content">
+                                            <div
+                                                className="help-description"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: selectedGuide.description,
+                                                }}
+                                            />
                                         </div>
 
-                                        <div className="col-6">
-                                            {nextGuide && (
-                                                <Link
-                                                    href={route(
-                                                        "fronthelp.show",
-                                                        nextGuide.slug,
-                                                    )}
-                                                    className="text-decoration-none"
-                                                >
-                                                    <div className="card h-100 text-end">
-                                                        <div className="card-body">
-                                                            <small className="text-muted">
-                                                                Tutorial
-                                                                Berikutnya →
-                                                            </small>
+                                        <div className="row mt-5">
+                                            <div className="col-6">
+                                                {previousGuide && (
+                                                    <Link
+                                                        href={route(
+                                                            "fronthelp.show",
+                                                            previousGuide.slug,
+                                                        )}
+                                                        className="text-decoration-none"
+                                                    >
+                                                        <div className="card help-nav-card h-100 shadow-sm">
+                                                            <div className="card-body">
+                                                                <small className="text-muted">
+                                                                    ← Tutorial
+                                                                    Sebelumnya
+                                                                </small>
 
-                                                            <h6 className="mb-0 mt-2">
-                                                                {
-                                                                    nextGuide.title
-                                                                }
-                                                            </h6>
+                                                                <h6 className="mb-0 mt-2">
+                                                                    {
+                                                                        previousGuide.title
+                                                                    }
+                                                                </h6>
+                                                            </div>
                                                         </div>
+                                                    </Link>
+                                                )}
+                                            </div>
+
+                                            <div className="col-6">
+                                                {nextGuide && (
+                                                    <Link
+                                                        href={route(
+                                                            "fronthelp.show",
+                                                            nextGuide.slug,
+                                                        )}
+                                                        className="text-decoration-none"
+                                                    >
+                                                        <div className="card h-100 text-end">
+                                                            <div className="card-body">
+                                                                <small className="text-muted">
+                                                                    Tutorial
+                                                                    Berikutnya →
+                                                                </small>
+
+                                                                <h6 className="mb-0 mt-2">
+                                                                    {
+                                                                        nextGuide.title
+                                                                    }
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                )}
+                                            </div>
+                                            {!nextGuide &&
+                                                nextCategoryGuide && (
+                                                    <div className="mt-3 text-align-center">
+                                                        <Link
+                                                            href={route(
+                                                                "fronthelp.show",
+                                                                nextCategoryGuide.slug,
+                                                            )}
+                                                            className="btn btn-apha"
+                                                        >
+                                                            Lanjut ke kategori
+                                                            {` ${nextCategoryGuide.category}`}{" "}
+                                                            →
+                                                        </Link>
                                                     </div>
-                                                </Link>
+                                                )}
+                                            {!nextGuide && (
+                                                <div className="alert alert-success mt-4">
+                                                    <h6 className="mb-2">
+                                                        Selamat!
+                                                    </h6>
+
+                                                    <p className="mb-0">
+                                                        Anda telah menyelesaikan
+                                                        semua tutorial pada
+                                                        kategori
+                                                        <strong>
+                                                            {" "}
+                                                            {
+                                                                selectedGuide.category
+                                                            }
+                                                        </strong>
+                                                        .
+                                                    </p>
+                                                </div>
                                             )}
                                         </div>
-                                        {!nextGuide && nextCategoryGuide && (
-                                            <div className="mt-3 text-align-center">
-                                                <Link
-                                                    href={route(
-                                                        "fronthelp.show",
-                                                        nextCategoryGuide.slug,
-                                                    )}
-                                                    className="btn btn-apha"
-                                                >
-                                                    Lanjut ke kategori
-                                                    {` ${nextCategoryGuide.category}`}{" "}
-                                                    →
-                                                </Link>
-                                            </div>
-                                        )}
-                                        {!nextGuide && (
-                                            <div className="alert alert-success mt-4">
-                                                <h6 className="mb-2">
-                                                    Selamat!
-                                                </h6>
-
-                                                <p className="mb-0">
-                                                    Anda telah menyelesaikan
-                                                    semua tutorial pada kategori
-                                                    <strong>
-                                                        {" "}
-                                                        {selectedGuide.category}
-                                                    </strong>
-                                                    .
-                                                </p>
-                                            </div>
-                                        )}
                                     </div>
                                 </div>
                             </div>

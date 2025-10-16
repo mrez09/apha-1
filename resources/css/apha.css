@@ -15,6 +15,11 @@
 }
 
 /*APHA id*/
+:root {
+    --apha: #c96a16;
+    --apha-light: #fff4e8;
+    --apha-border: #f0d4b5;
+}
 
 .btn-apha {
     background: #fbaa69;
@@ -162,48 +167,36 @@
 .auth-icon {
     width: 90px;
     height: 90px;
-
     background: #f59e0b;
-
     margin: auto;
-
     border-radius: 50%;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     color: white;
     font-size: 36px;
-
     box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
 }
 
 .auth-btn {
     height: 55px;
-
     font-weight: 600;
-
     border-radius: 12px;
-
     transition: 0.25s;
 }
 
 .auth-btn:hover {
     transform: translateY(-2px);
-
     box-shadow: 0 10px 25px rgba(245, 158, 11, 0.45);
 }
 
 .form-control {
     height: 52px;
-
     border-radius: 12px;
 }
 
 .form-control:focus {
     border-color: #f59e0b;
-
     box-shadow: 0 0 0 0.2rem rgba(245, 158, 11, 0.25);
 }
 
@@ -1741,14 +1734,10 @@ figure.card .position {
         left: 0;
         width: 280px;
         height: calc(100vh - 56px);
-
         overflow-y: auto;
         overflow-x: hidden;
-
         z-index: 1040;
-
         background: #fff;
-
         padding-bottom: 80px;
     }
 
@@ -1756,23 +1745,4 @@ figure.card .position {
         position: relative !important;
         height: auto;
     }
-}
-
-/* Help Center */
-.cursor-pointer {
-    cursor: pointer;
-}
-
-.list-group-item.active {
-    background: #0d6efd;
-    border-color: #0d6efd;
-    color: #fff;
-}
-
-.active-guide {
-    background: #fbaa69;
-
-    color: white;
-
-    border-radius: 10px;
 }
