@@ -22,7 +22,7 @@ export default function InvoiceShow({
         script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
         script.setAttribute(
             "data-client-key",
-            import.meta.env.VITE_MIDTRANS_CLIENT_KEY
+            import.meta.env.VITE_MIDTRANS_CLIENT_KEY,
         );
         script.async = true;
 
@@ -141,7 +141,7 @@ export default function InvoiceShow({
                                     color: "#ff5722",
                                 }}
                             >
-                                Informasi Invoice
+                                Informasi Invoices
                             </div>
                         </div>
                         <div className="invoice-left shadow-sm">
@@ -170,7 +170,7 @@ export default function InvoiceShow({
                                     <h4 className="mb-0">INVOICE</h4>
                                     <div
                                         className={`badge bg-${statusBadge(
-                                            invoice.status
+                                            invoice.status,
                                         )}`}
                                     >
                                         {invoice.status ?? "-"}
@@ -181,7 +181,7 @@ export default function InvoiceShow({
                                     <div className="text-muted">
                                         {invoice.created_at
                                             ? new Date(
-                                                  invoice.created_at
+                                                  invoice.created_at,
                                               ).toLocaleString()
                                             : "-"}
                                     </div>
@@ -230,7 +230,7 @@ export default function InvoiceShow({
                                         <strong>Tanggal</strong>{" "}
                                         {invoice.created_at
                                             ? new Date(
-                                                  invoice.created_at
+                                                  invoice.created_at,
                                               ).toLocaleString()
                                             : "-"}
                                     </div>
@@ -285,7 +285,7 @@ export default function InvoiceShow({
                                                             it.subtotal ??
                                                                 it.price *
                                                                     (it.quantity ??
-                                                                        1)
+                                                                        1),
                                                         )}
                                                     </td>
                                                 </tr>
@@ -331,7 +331,7 @@ export default function InvoiceShow({
                                                     {formatRupiah(
                                                         invoice.subtotal ??
                                                             invoice.total_amount ??
-                                                            0
+                                                            0,
                                                     )}
                                                 </td>
                                             </tr>
@@ -352,7 +352,7 @@ export default function InvoiceShow({
                                                 <td className="text-end">
                                                     <strong>
                                                         {formatRupiah(
-                                                            grand_total ?? 0
+                                                            grand_total ?? 0,
                                                         )}
                                                     </strong>
                                                 </td>
@@ -469,7 +469,7 @@ export default function InvoiceShow({
                             <a
                                 href={route(
                                     "anggota.dashboard.invoice.download",
-                                    invoice.id
+                                    invoice.id,
                                 )}
                                 className="btn btn-outline-dark w-100 mt-3"
                                 target="_blank"

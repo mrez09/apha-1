@@ -557,15 +557,17 @@ export default function Guest({ children }, props) {
                                                 <i className="fab fa-instagram"></i>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a
-                                                href="https://id.linkedin.com/company/apha-indonesia"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <i className="fab fa-linkedin-in"></i>
-                                            </a>
-                                        </li>
+                                        {
+                                            //   <li>
+                                            // <a
+                                            //   href="https://id.linkedin.com/company/apha-indonesia"
+                                            //     target="_blank"
+                                            //     rel="noopener noreferrer"
+                                            // >
+                                            //</li>     <i className="fab fa-linkedin-in"></i>
+                                            //</ul> </a>
+                                            //</li>
+                                        }
                                     </ul>
                                 </div>
                                 <p>

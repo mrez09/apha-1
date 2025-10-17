@@ -57,7 +57,7 @@ export default function List({
                         </thead>
                         <tbody>
                             {sertifikat.map((member, index) => (
-                                <tr key={member.id}>
+                                <tr key={member.sertifikat_id}>
                                     <td>{++index}</td>
                                     <td>{member.no}</td>
                                     <td>{member.nama}</td>

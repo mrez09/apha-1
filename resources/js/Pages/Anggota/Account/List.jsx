@@ -18,7 +18,7 @@ export default function Profile(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -34,7 +34,7 @@ export default function Profile(props) {
             {
                 _method: "PUT",
                 ...data,
-            }
+            },
         );
     };
 
@@ -85,17 +85,20 @@ export default function Profile(props) {
                     <div className="col-sm-12">
                         <div className="card">
                             <div className="container">
-                                <div class="container px-4 py-5" id="icon-grid">
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-                                        <div class="col d-flex align-items-start">
-                                            <i class="fa-solid fa-envelope bi text-muted flex-shrink-0 me-3 fa-2xl"></i>
+                                <div
+                                    className="container px-4 py-5"
+                                    id="icon-grid"
+                                >
+                                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+                                        <div className="col d-flex align-items-start">
+                                            <i className="fa-solid fa-envelope bi text-muted flex-shrink-0 me-3 fa-2xl"></i>
                                             <div className="item-config">
                                                 <Link
                                                     href={route(
-                                                        "anggota.dashboard.account.email"
+                                                        "anggota.dashboard.account.email",
                                                     )}
                                                 >
-                                                    <h4 class="fw-bold mb-0">
+                                                    <h4 className="fw-bold mb-0">
                                                         Email Address
                                                     </h4>
                                                     <p>
@@ -106,15 +109,15 @@ export default function Profile(props) {
                                             </div>
                                         </div>
 
-                                        <div class="col d-flex align-items-start">
-                                            <i class="fa-solid fa-key bi text-muted flex-shrink-0 me-3 fa-2xl"></i>
+                                        <div className="col d-flex align-items-start">
+                                            <i className="fa-solid fa-key bi text-muted flex-shrink-0 me-3 fa-2xl"></i>
                                             <div className="item-config">
                                                 <Link
                                                     href={route(
-                                                        "anggota.dashboard.account.password"
+                                                        "anggota.dashboard.account.password",
                                                     )}
                                                 >
-                                                    <h4 class="fw-bold mb-0">
+                                                    <h4 className="fw-bold mb-0">
                                                         Ganti Password
                                                     </h4>
                                                     <p>Konfigurasi Password</p>

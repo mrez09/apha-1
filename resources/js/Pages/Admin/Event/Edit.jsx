@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -112,7 +112,7 @@ export default function Edit(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -192,25 +192,25 @@ export default function Edit(props) {
                                     editor={ClassicEditor}
                                     name="subjudul"
                                     data={props.acara.subjudul}
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
+                                    //onReady={(editor) => {
+                                    // You can store the "editor" and use when it is needed.
+                                    //    console.log(
+                                    //        "Editor is ready to use!",
+                                    //        editor,
+                                    //    );
+                                    //}}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("subjudul", data);
 
-                                        console.log({ event, editor, data });
+                                        //    console.log({ event, editor, data });
                                     }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
+                                    //onBlur={(event, editor) => {
+                                    //    console.log("Blur.", editor);
+                                    //}}
+                                    //onFocus={(event, editor) => {
+                                    //    console.log("Focus.", editor);
+                                    //}}
                                 />
                                 <div className="">
                                     <InputError
@@ -242,17 +242,18 @@ export default function Edit(props) {
 
                             <div className="col-sm-6">
                                 <label className="form-label">File</label>
-                                <img
-                                    src={`/storage/${props.acara.img}`}
-                                    className="thumb-adm"
-                                    alt=""
-                                />
+
                                 <input
                                     type="file"
                                     name="img"
                                     placeholder="Masukan File"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     onChange={onHandleChange}
+                                />
+                                <img
+                                    src={`/storage/${props.acara.img}`}
+                                    className="thumb-adm"
+                                    alt=""
                                 />
                                 <div className="">
                                     <InputError
@@ -278,7 +279,7 @@ export default function Edit(props) {
                                         onChange={(date) => {
                                             setStartDate(date);
                                             setData("eventdate_at", date);
-                                            console.log({ date });
+                                            //console.log({ date });
                                         }}
 
                                         //onChange={(e) =>
@@ -315,7 +316,7 @@ export default function Edit(props) {
                                         onChange={(date) => {
                                             setEndDate(date);
                                             setData("enddate_at", date);
-                                            console.log({ date });
+                                            //console.log({ date });
                                         }}
 
                                         //onChange={(e) =>
@@ -347,40 +348,13 @@ export default function Edit(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="is_featured"
                                     name="is_featured"
+                                    value={data.is_featured}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.acara.is_featured == 0) {
-                                            return (
-                                                <option value="0" selected>
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="0">
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.acara.is_featured == 1) {
-                                            return (
-                                                <option value="1" selected>
-                                                    Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="1">Aktif</option>
-                                            );
-                                        }
-                                    })()}
+                                    <option value="0">Tidak Aktif</option>
+                                    <option value="1">Aktif</option>
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -398,45 +372,13 @@ export default function Edit(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="status"
                                     name="status"
+                                    value={data.status}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.acara.status == "Draft") {
-                                            return (
-                                                <option value="Draft" selected>
-                                                    Draft
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="Draft">
-                                                    Draft
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.acara.status == "Publish") {
-                                            return (
-                                                <option
-                                                    value="Publish"
-                                                    selected
-                                                >
-                                                    Publish
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="Publish">
-                                                    Publish
-                                                </option>
-                                            );
-                                        }
-                                    })()}
+                                    <option value="DRAFT">Draft</option>
+                                    <option value="PUBLISH">Publish</option>
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -445,38 +387,6 @@ export default function Edit(props) {
                                     />
                                 </div>
                             </div>
-
-                            {
-                                //featured
-                                /*<div className="col-sm-12">
-                                <label className="form-label">Feature</label>
-                                <div className="form-check">
-                                    <input
-                                        name="is_featured"
-                                        type="checkbox"
-                                        onChange={(e) =>
-                                            setData(
-                                                "is_featured",
-                                                e.target.checked
-                                            )
-                                        }
-                                        className="form-check-input"
-                                        checked={props.news.is_featured}
-                                    />
-                                    <label className="form-check-label">
-                                        Berita Ditampilkan sebagai
-                                        fitur/rekomendasi
-                                    </label>
-                                    <div className="invalid-feedback">
-                                        <InputError
-                                            message={errors.is_featured}
-                                            className="mt-2"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            */
-                            }
 
                             <div className="col-sm-12">
                                 <label className="form-label">Isi</label>
@@ -495,25 +405,25 @@ export default function Edit(props) {
                                     editor={ClassicEditor}
                                     name="description"
                                     data={props.acara.description}
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
+                                    //onReady={(editor) => {
+                                    // You can store the "editor" and use when it is needed.
+                                    //    console.log(
+                                    //        "Editor is ready to use!",
+                                    //        editor,
+                                    //    );
+                                    //}}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("description", data);
 
-                                        console.log({ event, editor, data });
+                                        //console.log({ event, editor, data });
                                     }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
+                                    //onBlur={(event, editor) => {
+                                    //    console.log("Blur.", editor);
+                                    //}}
+                                    //onFocus={(event, editor) => {
+                                    //    console.log("Focus.", editor);
+                                    //}}
                                 />
                                 <div className="">
                                     <InputError

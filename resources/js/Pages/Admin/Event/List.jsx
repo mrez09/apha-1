@@ -64,7 +64,7 @@ export default function List({ auth, errors, flashMessage, props, acara }) {
                         </thead>
                         <tbody>
                             {acara.map((acara, index) => (
-                                <tr key={acara.link_id}>
+                                <tr key={acara.id}>
                                     <td>{++index}</td>
                                     <td>
                                         <img
@@ -90,11 +90,11 @@ export default function List({ auth, errors, flashMessage, props, acara }) {
                                     <td>{acara.judul}</td>
                                     <td>
                                         {moment(acara.eventdate_at).format(
-                                            "dddd D MMMM YYYY "
+                                            "dddd D MMMM YYYY ",
                                         )}{" "}
                                         -{" "}
                                         {moment(acara.enddate_at).format(
-                                            "dddd D MMMM YYYY "
+                                            "dddd D MMMM YYYY ",
                                         )}
                                     </td>
                                     <td>{acara.status}</td>
@@ -104,7 +104,7 @@ export default function List({ auth, errors, flashMessage, props, acara }) {
                                         <Link
                                             href={route(
                                                 "admin.dashboard.event.edit",
-                                                acara.id
+                                                acara.id,
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -116,8 +116,8 @@ export default function List({ auth, errors, flashMessage, props, acara }) {
                                                 destroy(
                                                     route(
                                                         "admin.dashboard.event.destroy",
-                                                        acara.id
-                                                    )
+                                                        acara.id,
+                                                    ),
                                                 );
                                             }}
                                         >

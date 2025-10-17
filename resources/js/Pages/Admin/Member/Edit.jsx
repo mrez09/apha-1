@@ -9,6 +9,7 @@ import { Link, useForm, router } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
@@ -286,42 +287,13 @@ export default function List(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="jk"
                                     name="jk"
+                                    value={data.jk}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.member.jk == "lk") {
-                                            return (
-                                                <option value="lk" selected>
-                                                    Laki-Laki
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="lk">
-                                                    Laki-Laki
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.member.jk == "pr") {
-                                            return (
-                                                <option value="pr" selected>
-                                                    Perempuan
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="pr">
-                                                    Perempuan
-                                                </option>
-                                            );
-                                        }
-                                    })()}
+                                    <option value="lk">Laki-Laki</option>
+                                    <option value="pr">Perempuan</option>
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -373,7 +345,7 @@ export default function List(props) {
                                         onChange={(date) => {
                                             setStartDate(date);
                                             setData("start_date", date);
-                                            console.log({ date });
+                                            //console.log({ date });
                                         }}
                                     />
                                 </div>
@@ -642,25 +614,25 @@ export default function List(props) {
                                     data={props.member.dec}
                                     //data={props.member.decription}
 
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor,
-                                        );
-                                    }}
+                                    //onReady={(editor) => {
+                                    // You can store the "editor" and use when it is needed.
+                                    //    console.log(
+                                    //        "Editor is ready to use!",
+                                    //        editor,
+                                    //    );
+                                    //}}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("dec", data);
 
-                                        console.log({ event, editor, data });
+                                        //console.log({ event, editor, data });
                                     }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
+                                    //onBlur={(event, editor) => {
+                                    //    console.log("Blur.", editor);
+                                    //}}
+                                    //onFocus={(event, editor) => {
+                                    //    console.log("Focus.", editor);
+                                    //}}
                                 />
                                 <div className="">
                                     <InputError

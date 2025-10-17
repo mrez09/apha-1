@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -111,7 +111,7 @@ export default function Edit(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -180,32 +180,20 @@ export default function Edit(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="category"
                                     name="category"
+                                    value={data.category}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
 
-                                    {props.newscategory.map((newscategory) => {
-                                        if (
-                                            props.categoryget.namakategori ==
-                                            newscategory.namakategori
-                                        ) {
-                                            return (
-                                                <option
-                                                    value={newscategory.id}
-                                                    selected
-                                                >
-                                                    {newscategory.namakategori}
-                                                </option>
-                                            );
-                                        }
-
-                                        return (
-                                            <option value={newscategory.id}>
-                                                {newscategory.namakategori}
-                                            </option>
-                                        );
-                                    })}
+                                    {props.newscategory.map((newscategory) => (
+                                        <option
+                                            key={newscategory.id}
+                                            value={newscategory.id}
+                                        >
+                                            {newscategory.namakategori}
+                                        </option>
+                                    ))}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -237,16 +225,17 @@ export default function Edit(props) {
 
                             <div className="col-sm-6">
                                 <label className="form-label">File</label>
-                                <img
-                                    src={`/storage/${props.news.img}`}
-                                    alt=""
-                                />
+
                                 <input
                                     type="file"
                                     name="img"
                                     placeholder="Masukan File"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     onChange={onHandleChange}
+                                />
+                                <img
+                                    src={`/storage/${props.news.img}`}
+                                    alt=""
                                 />
                                 <div className="invalid-feedback">
                                     <InputError
@@ -272,7 +261,7 @@ export default function Edit(props) {
                                         onChange={(date) => {
                                             setStartDate(date);
                                             setData("publish_at", date);
-                                            console.log({ date });
+                                            //console.log({ date });
                                         }}
 
                                         //onChange={(e) =>
@@ -298,40 +287,13 @@ export default function Edit(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="is_featured"
                                     name="is_featured"
+                                    value={data.is_featured}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.news.is_featured == 0) {
-                                            return (
-                                                <option value="0" selected>
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="0">
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.news.is_featured == 1) {
-                                            return (
-                                                <option value="1" selected>
-                                                    Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="1">Aktif</option>
-                                            );
-                                        }
-                                    })()}
+                                    <option value="0">Tidak Aktif</option>
+                                    <option value="1">Aktif</option>
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -349,40 +311,13 @@ export default function Edit(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="ticker"
                                     name="ticker"
+                                    value={data.ticker}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.news.ticker == 0) {
-                                            return (
-                                                <option value="0" selected>
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="0">
-                                                    Tidak Aktif
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.news.ticker == 1) {
-                                            return (
-                                                <option value="1" selected>
-                                                    Aktif
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="1">Aktif</option>
-                                            );
-                                        }
-                                    })()}
+                                    <option value="0">Tidak Aktif</option>
+                                    <option value="1">Aktif</option>
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -400,45 +335,13 @@ export default function Edit(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="status"
                                     name="status"
+                                    value={data.status}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-
-                                    {(() => {
-                                        if (props.news.status == "Draft") {
-                                            return (
-                                                <option value="Draft" selected>
-                                                    Draft
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="Draft">
-                                                    Draft
-                                                </option>
-                                            );
-                                        }
-                                    })()}
-
-                                    {(() => {
-                                        if (props.news.status == "Publish") {
-                                            return (
-                                                <option
-                                                    value="Publish"
-                                                    selected
-                                                >
-                                                    Publish
-                                                </option>
-                                            );
-                                        } else {
-                                            return (
-                                                <option value="Publish">
-                                                    Publish
-                                                </option>
-                                            );
-                                        }
-                                    })()}
+                                    <option value="Draft">Draft</option>
+                                    <option value="Publish">Publish</option>
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -497,25 +400,26 @@ export default function Edit(props) {
                                     editor={ClassicEditor}
                                     name="konten"
                                     data={props.news.konten}
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("konten", data);
 
-                                        console.log({ event, editor, data });
+                                        //console.log({ event, editor, data });
                                     }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
+                                    //onReady={(editor) => {
+                                    // You can store the "editor" and use when it is needed.
+                                    //  console.log(
+                                    // "Editor is ready to use!",
+                                    //    editor,
+                                    //);
+                                    //}}
+
+                                    //onBlur={(event, editor) => {
+                                    //console.log("Blur.", editor);
+                                    //}}
+                                    //onFocus={(event, editor) => {
+                                    //console.log("Focus.", editor);
+                                    //}}
                                 />
                                 <div className="">
                                     <InputError

@@ -35,7 +35,7 @@ class ProfileController extends Controller
             'status'          => $status,
             'user_id'          => $user_id,
             'anggota'          => $anggota,
-            'ckeditor'              => 'yes',
+            //'ckeditor'              => 'yes',
         ]);
     }
 
@@ -51,7 +51,7 @@ class ProfileController extends Controller
     [
         'anggota'                 => $news,
 
-        'ckeditor'              => 'yes',
+        //'ckeditor'              => 'yes',
     ]);
 }
 

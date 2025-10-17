@@ -23,7 +23,7 @@ export default function Dashboard(props) {
 
             {/* Greeting */}
             <div className="mb-4">
-                <h2 className="fw-bold">Selamat Datang 👋</h2>
+                <h2 className="fw-bold">Selamat Datang bro👋</h2>
                 <h5 className="text-muted">{props.auth.user.name}</h5>
             </div>
 

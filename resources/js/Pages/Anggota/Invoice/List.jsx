@@ -78,7 +78,7 @@ export default function List({
                         </thead>
                         <tbody>
                             {invoices.map((invoice, index) => (
-                                <tr key={invoice.link_id}>
+                                <tr key={invoice.id}>
                                     <td>{++index}</td>
                                     <td>{invoice.invoice_number}</td>
                                     <td>{invoice.total_amount}</td>

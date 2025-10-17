@@ -1,11 +1,8 @@
 import { useState } from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import { usePage } from "@inertiajs/react";
 import { useEffect } from "react";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -121,24 +118,6 @@ export default function Authenticated({ auth, header, children, props }) {
                                     </a>
                                 </li>
 
-                                <li className="nav-item">
-                                    <a
-                                        className={`nav-link px-3 sidebar-link ${
-                                            route().current(
-                                                "anggota.dashboard.paymentproof.index",
-                                            )
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        href={route(
-                                            "anggota.dashboard.paymentproof.index",
-                                        )}
-                                    >
-                                        <i class="fas ic fa-credit-card"></i>
-                                        Bukti Manual
-                                    </a>
-                                </li>
-
                                 {/*end Photo*/}
                             </ul>
 
@@ -227,6 +206,23 @@ export default function Authenticated({ auth, header, children, props }) {
                                     <div className="collapse" id="berita">
                                         <ul className="navbar-nav ps-3">
                                             <li>
+                                                <NavLink
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "anggota.dashboard.produk.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                    href={route(
+                                                        "anggota.dashboard.produk.index",
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-credit-card"></i>
+                                                    Bayar Iuran
+                                                </NavLink>
+                                            </li>
+                                            <li>
                                                 <a
                                                     className={`nav-link px-3 sidebar-link ${
                                                         route().current(
@@ -243,22 +239,23 @@ export default function Authenticated({ auth, header, children, props }) {
                                                     Invoices
                                                 </a>
                                             </li>
-                                            <li>
-                                                <NavLink
+
+                                            <li className="nav-item">
+                                                <a
                                                     className={`nav-link px-3 sidebar-link ${
                                                         route().current(
-                                                            "anggota.dashboard.produk.index",
+                                                            "anggota.dashboard.paymentproof.index",
                                                         )
                                                             ? "active"
                                                             : ""
                                                     }`}
                                                     href={route(
-                                                        "anggota.dashboard.produk.index",
+                                                        "anggota.dashboard.paymentproof.index",
                                                     )}
                                                 >
                                                     <i className="fas ic fa-credit-card"></i>
-                                                    Bayar Iuran
-                                                </NavLink>
+                                                    Bukti Manual
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>

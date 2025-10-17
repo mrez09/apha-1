@@ -2,14 +2,14 @@ import AuthenticatedLayout from "@/Layouts/AnggotaLayout";
 import { Head } from "@inertiajs/react";
 import FlashMessage from "@/Components/FlashMessage";
 
-import React, { useState } from "react";
+import React from "react";
 import InputError from "@/Components/InputError";
-import { Link, useForm, router } from "@inertiajs/react";
+import { useForm, router } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 export default function Profile(props) {
     /*Props Profile ID*/
-    const { data, setData, processing, errors } = useForm({
+    const { data, setData, errors } = useForm({
         ...props.anggota,
     });
 
@@ -18,7 +18,7 @@ export default function Profile(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -34,7 +34,7 @@ export default function Profile(props) {
             {
                 _method: "PUT",
                 ...data,
-            }
+            },
         );
     };
 
@@ -53,16 +53,6 @@ export default function Profile(props) {
                 <h1 className="h2">
                     <i className="fas ic fa-person"></i>Edit Profile{" "}
                     <p>{props.anggota.no_kta}</p>
-                    <p>
-                        {
-                            //props.anggota.anggota_id
-                        }
-                    </p>
-                    <p>
-                        {
-                            //props.anggota.user_id
-                        }
-                    </p>
                 </h1>
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
@@ -85,203 +75,6 @@ export default function Profile(props) {
                     <div className="col-sm-12">
                         <div className="card">
                             <div className="container">
-                                {/*File Awal
-                                <div className="row g-5 mt-2">
-                                    <div className="col-md-6 img-center">
-                                        <img
-                                            src={`/storage/${props.anggota.img}`}
-                                            className="rounded img-fluid img-thumb book-thumbnail img-thumbnail mb-5"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div className="col-md-6 mt-5   ">
-                                        <article className="blog-post ">
-                                            <table className="tb-progota">
-                                                <tbody>
-                                                    <tr>
-                                                        <td className="tb-iprofile">
-                                                            No. Kta
-                                                        </td>
-                                                        <td className="tb-profile">
-                                                            :{" "}
-                                                            {(() => {
-                                                                if (
-                                                                    props
-                                                                        .anggota
-                                                                        .no_kta ==
-                                                                        null ||
-                                                                    props
-                                                                        .anggota
-                                                                        .no_kta ==
-                                                                        ""
-                                                                ) {
-                                                                    return (
-                                                                        <span>
-                                                                            Belum
-                                                                            Terbit
-                                                                        </span>
-                                                                    );
-                                                                } else {
-                                                                    return (
-                                                                        <span>
-                                                                            {
-                                                                                props
-                                                                                    .anggota
-                                                                                    .no_kta
-                                                                            }
-                                                                        </span>
-                                                                    );
-                                                                }
-                                                            })()}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Nama</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {props.anggota.name}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>NIDN/NIDK</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {props.anggota.kode}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jenis Kelamin</td>
-                                                        {(() => {
-                                                            if (
-                                                                props.anggota
-                                                                    .jk == "lk"
-                                                            ) {
-                                                                return (
-                                                                    <td>
-                                                                        : Laki
-                                                                        Laki
-                                                                    </td>
-                                                                );
-                                                            } else if (
-                                                                props.anggota
-                                                                    .jk == "pr"
-                                                            ) {
-                                                                return (
-                                                                    <td>
-                                                                        Perempuan
-                                                                    </td>
-                                                                );
-                                                            }
-                                                        })()}
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {
-                                                                props.anggota
-                                                                    .alamat
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No Telpon</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {
-                                                                props.anggota
-                                                                    .phone
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Email</td>
-                                                        <td>
-                                                            :{" "}
-                                                            {
-                                                                props.anggota
-                                                                    .email
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <h4>Institusi</h4>
-                                            <table className="tb-progota">
-                                                <tr>
-                                                    <td className="tb-iprofile">
-                                                        Universitas
-                                                    </td>
-                                                    <td className="tb-profile">
-                                                        :{" "}
-                                                        {
-                                                            props.anggota
-                                                                .universitas
-                                                        }
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Fakultas</td>
-                                                    <td>
-                                                        :{" "}
-                                                        {props.anggota.fakultas}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Alamat Fakultas</td>
-                                                    <td>
-                                                        :{" "}
-                                                        {props.anggota.alamatf}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mata Kuliah</td>
-                                                    <td>
-                                                        : {props.anggota.mk}
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Link Google Scholar</td>
-                                                    <td>
-                                                        :{" "}
-                                                        {props.anggota.scholar}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Id Scopus</td>
-                                                    <td>
-                                                        : {props.anggota.scopus}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Link Google Sinta</td>
-                                                    <td>
-                                                        : {props.anggota.sinta}
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <hr />
-                                        </article>
-                                        <h5 className="card-title">
-                                            Status Keanggotaan Anda
-                                        </h5>
-                                        <a href="#" className="btn btn-primary">
-                                            {(() => {
-                                                if (props.anggota.status == 0) {
-                                                    return <h6>Belum Aktif</h6>;
-                                                } else {
-                                                    return <h6>Aktif</h6>;
-                                                }
-                                            })()}
-                                        </a>
-                                    </div>
-
-                                    
-                                </div>
-
-                                */}
-
                                 <form onSubmit={submit}>
                                     <div className="row g-3">
                                         <div className="col-sm-12">
@@ -364,7 +157,7 @@ export default function Profile(props) {
                                                                     "anggota.dashboard.namecard.show",
                                                                     props
                                                                         .anggota
-                                                                        .slug_kta
+                                                                        .slug_kta,
                                                                 )}
                                                                 target="_blank"
                                                                 rel="noreferrer"
@@ -395,7 +188,7 @@ export default function Profile(props) {
                                                                     "anggota.dashboard.nokta.show",
                                                                     props
                                                                         .anggota
-                                                                        .slug_kta
+                                                                        .slug_kta,
                                                                 )}
                                                                 target="_blank"
                                                                 rel="noreferrer"
@@ -497,70 +290,24 @@ export default function Profile(props) {
                                         {
                                             //featured baru
                                         }
-                                        <div className="col-md-4">
-                                            <label className="form-label">
-                                                Jenis Kelamin
-                                            </label>
-                                            <select
-                                                className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                                id="jk"
-                                                name="jk"
-                                                onChange={onHandleChange}
-                                                required
-                                            >
-                                                <option value="">
-                                                    Choose...
-                                                </option>
-
-                                                {(() => {
-                                                    if (
-                                                        props.anggota.jk == "lk"
-                                                    ) {
-                                                        return (
-                                                            <option
-                                                                value="lk"
-                                                                selected
-                                                            >
-                                                                Laki-Laki
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option value="lk">
-                                                                Laki-Laki
-                                                            </option>
-                                                        );
-                                                    }
-                                                })()}
-
-                                                {(() => {
-                                                    if (
-                                                        props.anggota.jk == "pr"
-                                                    ) {
-                                                        return (
-                                                            <option
-                                                                value="pr"
-                                                                selected
-                                                            >
-                                                                Perempuan
-                                                            </option>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <option value="pr">
-                                                                Perempuan
-                                                            </option>
-                                                        );
-                                                    }
-                                                })()}
-                                            </select>
-                                            <div>
-                                                <InputError
-                                                    message={errors.jk}
-                                                    className="mt-2"
-                                                />
-                                            </div>
-                                        </div>
+                                        <select
+                                            className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                            id="jk"
+                                            name="jk"
+                                            defaultValue={
+                                                props.anggota.jk ?? ""
+                                            }
+                                            onChange={onHandleChange}
+                                            required
+                                        >
+                                            <option value="">Choose...</option>
+                                            <option value="lk">
+                                                Laki-Laki
+                                            </option>
+                                            <option value="pr">
+                                                Perempuan
+                                            </option>
+                                        </select>
 
                                         <div className="col-md-12">
                                             <label className="form-label">
@@ -666,13 +413,13 @@ export default function Profile(props) {
                                                     // You can store the "editor" and use when it is needed.
                                                     console.log(
                                                         "Editor is ready to use!",
-                                                        editor
+                                                        editor,
                                                     );
                                                 }}
                                                 onChange={(
                                                     event,
                                                     editor,
-                                                    e
+                                                    e,
                                                 ) => {
                                                     const data =
                                                         editor.getData();
@@ -687,13 +434,13 @@ export default function Profile(props) {
                                                 onBlur={(event, editor) => {
                                                     console.log(
                                                         "Blur.",
-                                                        editor
+                                                        editor,
                                                     );
                                                 }}
                                                 onFocus={(event, editor) => {
                                                     console.log(
                                                         "Focus.",
-                                                        editor
+                                                        editor,
                                                     );
                                                 }}
                                             />

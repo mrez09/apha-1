@@ -33,8 +33,10 @@
         //
         ?>
  
-        <!-- JS Scripts -->
-        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+        <!-- JS Scripts 
+         <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>-->
+        
+        
         
         
         <?php 
@@ -234,29 +236,7 @@
         @inertia
     </body>
 
-    @if(isset($page['props']['ckeditor']))
-        <!-- Scripts -->
-        
-        <script>
-        
-            
-        ClassicEditor
-        .create( document.querySelector( '.editor' ), {
-            licenseKey: '',
-        
-        } )
-        .then( editor => {
-            window.editor = editor;
-        
-        } )
-        .catch( error => {
-            //console.error( 'Oops, something went wrong!' );
-			//console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
-			//console.warn( 'Build id: 3gq7ippbkys6-828crnxk2ph5' );
-			//console.error( error );
-		} );
-	</script>
-    @endif
+    
 
     
     
