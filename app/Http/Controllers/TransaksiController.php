@@ -460,6 +460,14 @@ class TransaksiController extends Controller
         // Pajak jika pakai tax
         $tax = $invoice->tax ?? 0;
 
+        // bug Logo
+        $image = public_path('storage/logo/Invoice-Apha.png');
+
+        $type = pathinfo($image, PATHINFO_EXTENSION);
+        $data = file_get_contents($image);
+
+        $logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         // Kirim ke view PDF
         $data = [
             'invoice' => $invoice,
@@ -469,10 +477,14 @@ class TransaksiController extends Controller
             'memberPhone' => $memberPhone,
             'memberAddress' => $memberAddress,
             'tax' => $tax,
+            'logo' => $logo,
         ];
 
         $pdf = Pdf::loadView('pdf.invoiceproduk', $data)
                 ->setPaper('A4', 'portrait');
+        //dd(public_path('storage/logo/Logo-Apha.png'));
+        //dd(file_exists(public_path('storage/logo/Logo-Apha.png')));
+        //dd(file_exists(public_path('storage/logo/Invoice-Apha.png')));
 
         return $pdf->download('Invoice-'.$invoice->invoice_number.'.pdf');
     }

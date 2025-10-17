@@ -6,7 +6,7 @@ import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function List(props) {
     let table = new DataTable("#myTable", {
@@ -35,7 +35,7 @@ export default function List(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -249,25 +249,25 @@ export default function List(props) {
                                     editor={ClassicEditor}
                                     name="konten"
                                     data=""
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
+                                    //onReady={(editor) => {
+                                    // You can store the "editor" and use when it is needed.
+                                    //    console.log(
+                                    //        "Editor is ready to use!",
+                                    //        editor,
+                                    //    );
+                                    //}}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("konten", data);
 
-                                        console.log({ event, editor, data });
+                                        //    console.log({ event, editor, data });
                                     }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
+                                    //onBlur={(event, editor) => {
+                                    //    console.log("Blur.", editor);
+                                    //}}
+                                    //onFocus={(event, editor) => {
+                                    //    console.log("Focus.", editor);
+                                    //}}
                                 />
                                 <div className="">
                                     <InputError
@@ -293,25 +293,25 @@ export default function List(props) {
                                     editor={ClassicEditor}
                                     name="sinopsis"
                                     data=""
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
+                                    //onReady={(editor) => {
+                                    // You can store the "editor" and use when it is needed.
+                                    //    console.log(
+                                    //        "Editor is ready to use!",
+                                    //        editor,
+                                    //    );
+                                    //}}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("sinopsis", data);
 
-                                        console.log({ event, editor, data });
+                                        //console.log({ event, editor, data });
                                     }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
+                                    //onBlur={(event, editor) => {
+                                    //    console.log("Blur.", editor);
+                                    //}}
+                                    //onFocus={(event, editor) => {
+                                    //    console.log("Focus.", editor);
+                                    //}}
                                 />
                                 <div className="">
                                     <InputError

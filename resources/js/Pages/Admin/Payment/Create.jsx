@@ -7,7 +7,7 @@ import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
@@ -40,7 +40,7 @@ export default function Create(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -163,7 +163,7 @@ export default function Create(props) {
                                         onChange={(date) => {
                                             setStartDate(date);
                                             setData("tanggal_bayar", date);
-                                            console.log({ date });
+                                            //console.log({ date });
                                         }}
 
                                         //onChange={(e) =>
@@ -256,25 +256,25 @@ export default function Create(props) {
                                     name="konten"
                                     className="editor"
                                     data=""
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
+                                    //onReady={(editor) => {
+                                    // You can store the "editor" and use when it is needed.
+                                    //    console.log(
+                                    //        "Editor is ready to use!",
+                                    //        editor,
+                                    //    );
+                                    //}}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("konten", data);
 
-                                        console.log({ event, editor, data });
+                                        //  console.log({ event, editor, data });
                                     }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
+                                    //onBlur={(event, editor) => {
+                                    //    console.log("Blur.", editor);
+                                    //}}
+                                    //onFocus={(event, editor) => {
+                                    //    console.log("Focus.", editor);
+                                    //}}
                                 />
                                 <div className="">
                                     <InputError

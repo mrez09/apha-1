@@ -10,6 +10,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -42,7 +43,7 @@ export default function List(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -58,7 +59,7 @@ export default function List(props) {
             {
                 _method: "PUT",
                 ...data,
-            }
+            },
         );
     };
     return (
@@ -112,16 +113,17 @@ export default function List(props) {
 
                             <div className="col-sm-6">
                                 <label className="form-label">File</label>
-                                <img
-                                    src={`/storage/${props.commitee.img}`}
-                                    alt=""
-                                />
+
                                 <input
                                     type="file"
                                     name="img"
                                     placeholder="Masukan File"
                                     className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     onChange={onHandleChange}
+                                />
+                                <img
+                                    src={`/storage/${props.commitee.img}`}
+                                    alt=""
                                 />
                                 <div className="invalid-feedback">
                                     <InputError
@@ -137,40 +139,17 @@ export default function List(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="periode"
                                     name="periode"
+                                    value={data.periode}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
 
-                                    {props.periode.map((periode) => {
-                                        if (
-                                            props.pengurusget.namaperiode ==
-                                            periode.namaperiode
-                                        ) {
-                                            return (
-                                                <option
-                                                    value={periode.id}
-                                                    selected
-                                                >
-                                                    {periode.namaperiode}
-                                                </option>
-                                            );
-                                        }
-
-                                        return (
-                                            <option value={periode.id}>
-                                                {periode.namaperiode}
-                                            </option>
-                                        );
-                                    })}
-
-                                    {/*
-                                    {props.periode.map((periode) => (
-                                        <option value={periode.id} selected>
-                                            {periode.namaperiode}
+                                    {props.periode.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.namaperiode}
                                         </option>
                                     ))}
-                                        * */}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -186,31 +165,17 @@ export default function List(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="divisi"
                                     name="divisi"
+                                    value={data.divisi}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {props.divisiall.map((periode) => {
-                                        if (
-                                            props.pengurusget.namadivisi ==
-                                            periode.namadivisi
-                                        ) {
-                                            return (
-                                                <option
-                                                    value={periode.id}
-                                                    selected
-                                                >
-                                                    {periode.namadivisi}
-                                                </option>
-                                            );
-                                        }
 
-                                        return (
-                                            <option value={periode.id}>
-                                                {periode.namadivisi}
-                                            </option>
-                                        );
-                                    })}
+                                    {props.divisiall.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.namadivisi}
+                                        </option>
+                                    ))}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -226,32 +191,17 @@ export default function List(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="subdivisi"
                                     name="subdivisi"
+                                    value={data.subdivisi}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
 
-                                    {props.subdivisiall.map((periode) => {
-                                        if (
-                                            props.pengurusget.namasubdivisi ==
-                                            periode.namasubdivisi
-                                        ) {
-                                            return (
-                                                <option
-                                                    value={periode.id}
-                                                    selected
-                                                >
-                                                    {periode.namasubdivisi}
-                                                </option>
-                                            );
-                                        }
-
-                                        return (
-                                            <option value={periode.id}>
-                                                {periode.namasubdivisi}
-                                            </option>
-                                        );
-                                    })}
+                                    {props.subdivisiall.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.namasubdivisi}
+                                        </option>
+                                    ))}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -267,32 +217,17 @@ export default function List(props) {
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="jabatan"
                                     name="jabatan"
+                                    value={data.jabatan}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
 
-                                    {props.jabatanall.map((periode) => {
-                                        if (
-                                            props.pengurusget.namajabatan ==
-                                            periode.namajabatan
-                                        ) {
-                                            return (
-                                                <option
-                                                    value={periode.id}
-                                                    selected
-                                                >
-                                                    {periode.namajabatan}
-                                                </option>
-                                            );
-                                        }
-
-                                        return (
-                                            <option value={periode.id}>
-                                                {periode.namajabatan}
-                                            </option>
-                                        );
-                                    })}
+                                    {props.jabatanall.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.namajabatan}
+                                        </option>
+                                    ))}
                                 </select>
                                 <div className="invalid-feedback">
                                     <InputError
@@ -352,25 +287,25 @@ export default function List(props) {
                                     editor={ClassicEditor}
                                     name="description"
                                     data={props.commitee.description}
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
+                                    //onReady={(editor) => {
+                                    // You can store the "editor" and use when it is needed.
+                                    //    console.log(
+                                    //        "Editor is ready to use!",
+                                    //        editor,
+                                    //    );
+                                    //}}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("description", data);
 
-                                        console.log({ event, editor, data });
+                                        //console.log({ event, editor, data });
                                     }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
+                                    //onBlur={(event, editor) => {
+                                    //    console.log("Blur.", editor);
+                                    //}}
+                                    //onFocus={(event, editor) => {
+                                    //    console.log("Focus.", editor);
+                                    //}}
                                 />
                                 <div className="">
                                     <InputError

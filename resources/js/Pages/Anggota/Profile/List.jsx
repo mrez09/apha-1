@@ -6,6 +6,7 @@ import React from "react";
 import InputError from "@/Components/InputError";
 import { useForm, router } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function Profile(props) {
     /*Props Profile ID*/
@@ -409,13 +410,13 @@ export default function Profile(props) {
                                                 editor={ClassicEditor}
                                                 name="dec"
                                                 data={props.anggota.dec}
-                                                onReady={(editor) => {
-                                                    // You can store the "editor" and use when it is needed.
-                                                    console.log(
-                                                        "Editor is ready to use!",
-                                                        editor,
-                                                    );
-                                                }}
+                                                //onReady={(editor) => {
+                                                // You can store the "editor" and use when it is needed.
+                                                //    console.log(
+                                                //        "Editor is ready to use!",
+                                                //        editor,
+                                                //    );
+                                                //}}
                                                 onChange={(
                                                     event,
                                                     editor,
@@ -425,24 +426,24 @@ export default function Profile(props) {
                                                         editor.getData();
                                                     setData("dec", data);
 
-                                                    console.log({
-                                                        event,
-                                                        editor,
-                                                        data,
-                                                    });
+                                                    //console.log({
+                                                    //    event,
+                                                    //    editor,
+                                                    //    data,
+                                                    //});
                                                 }}
-                                                onBlur={(event, editor) => {
-                                                    console.log(
-                                                        "Blur.",
-                                                        editor,
-                                                    );
-                                                }}
-                                                onFocus={(event, editor) => {
-                                                    console.log(
-                                                        "Focus.",
-                                                        editor,
-                                                    );
-                                                }}
+                                                //onBlur={(event, editor) => {
+                                                //    console.log(
+                                                //        "Blur.",
+                                                //        editor,
+                                                //    );
+                                                //}}
+                                                //onFocus={(event, editor) => {
+                                                //    console.log(
+                                                //        "Focus.",
+                                                //        editor,
+                                                //    );
+                                                //}}
                                             />
                                             <div className="">
                                                 <InputError

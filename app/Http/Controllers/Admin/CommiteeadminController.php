@@ -50,10 +50,10 @@ class CommiteeadminController extends Controller
         $subdivisiall           = Subdivisi::all();
         $jabatanall           = Jabatan::all();
         $periode           = Periode::all();
-        $jdsj           = Divisi::join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->join('jabatans', 'jabatans.id_subdivisi',"=",'subdivisis.id')->join('penguruses', 'penguruses.jabatan',"=",'jabatans.id')->join('periodes', 'periodes.id',"=",'penguruses.periode')->get();
+        //$jdsj           = Divisi::join('subdivisis','subdivisis.id_divisi',"=",'divisis.id')->join('jabatans', 'jabatans.id_subdivisi',"=",'subdivisis.id')->join('penguruses', 'penguruses.jabatan',"=",'jabatans.id')->join('periodes', 'periodes.id',"=",'penguruses.periode')->get();
         return Inertia::render('Admin/Pengurus/Create',
         [
-            'jdsj'          => $jdsj,
+            //'jdsj'          => $jdsj,
             'divisiall'          => $divisiall,
             'subdivisiall'          => $subdivisiall,
             'jabatanall'          => $jabatanall,

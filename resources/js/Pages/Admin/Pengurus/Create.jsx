@@ -12,6 +12,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import Select from "react-select";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function List({
     props,
@@ -28,8 +29,8 @@ export default function List({
         if (selectedDd1 !== undefined) {
             setSelectedDd2(
                 dropDownData1.find(
-                    (data) => data.constituency === e.target.value
-                ).polling_booth
+                    (data) => data.constituency === e.target.value,
+                ).polling_booth,
             ); //finding and saving the data for drop dop 2 related to the data of drop down 1
         }
     }
@@ -43,7 +44,7 @@ export default function List({
         serverSide: false,
     });
 
-    const { setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         namasubdivisi: "",
         id_divisi: "",
         publish_at: "",
@@ -55,7 +56,7 @@ export default function List({
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -140,7 +141,10 @@ export default function List({
                                 >
                                     <option value="">Choose...</option>
                                     {periode.map((periode) => (
-                                        <option value={periode.id}>
+                                        <option
+                                            key={periode.id}
+                                            value={periode.id}
+                                        >
                                             {periode.namaperiode}
                                         </option>
                                     ))}
@@ -159,13 +163,15 @@ export default function List({
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="divisi"
                                     name="divisi"
+                                    value={data.divisi}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {divisiall.map((periode) => (
-                                        <option value={periode.id}>
-                                            {periode.namadivisi}
+
+                                    {divisiall.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.namadivisi}
                                         </option>
                                     ))}
                                 </select>
@@ -183,13 +189,15 @@ export default function List({
                                     className="form-control form-select block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                     id="subdivisi"
                                     name="subdivisi"
+                                    value={data.subdivisi}
                                     onChange={onHandleChange}
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    {subdivisiall.map((periode) => (
-                                        <option value={periode.id}>
-                                            {periode.namasubdivisi}
+
+                                    {subdivisiall.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.namasubdivisi}
                                         </option>
                                     ))}
                                 </select>
@@ -212,7 +220,10 @@ export default function List({
                                 >
                                     <option value="">Choose...</option>
                                     {jabatanall.map((periode) => (
-                                        <option value={periode.id}>
+                                        <option
+                                            key={periode.id}
+                                            value={periode.id}
+                                        >
                                             {periode.namajabatan}
                                         </option>
                                     ))}
@@ -241,25 +252,25 @@ export default function List({
                                     editor={ClassicEditor}
                                     name="description"
                                     data=""
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
+                                    //onReady={(editor) => {
+                                    // You can store the "editor" and use when it is needed.
+                                    //    console.log(
+                                    //        "Editor is ready to use!",
+                                    //        editor,
+                                    //    );
+                                    //}}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("description", data);
 
-                                        console.log({ event, editor, data });
+                                        //    console.log({ event, editor, data });
                                     }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
+                                    //onBlur={(event, editor) => {
+                                    //    console.log("Blur.", editor);
+                                    //}}
+                                    //onFocus={(event, editor) => {
+                                    //    console.log("Focus.", editor);
+                                    //}}
                                 />
                                 <div className="">
                                     <InputError
