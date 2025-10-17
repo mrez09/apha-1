@@ -96,10 +96,8 @@ export default function Home({
                                 <img
                                     src={`/storage/${banner.img}`}
                                     className="bd-placeholder-img"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    aria-hidden="true"
-                                    preserveAspectRatio="xMidYMid slice"
-                                    focusable="false"
+                                    loading="eager"
+                                    alt={banner.name}
                                 />
 
                                 <div className="container">
@@ -130,10 +128,8 @@ export default function Home({
                                 <img
                                     src={`/storage/${banner.img}`}
                                     className="bd-placeholder-img"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    aria-hidden="true"
-                                    preserveAspectRatio="xMidYMid slice"
-                                    focusable="false"
+                                    loading="lazy"
+                                    alt={banner.name}
                                 />
 
                                 <div className="container">

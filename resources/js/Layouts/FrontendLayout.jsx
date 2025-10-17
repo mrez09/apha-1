@@ -580,13 +580,13 @@ export default function Guest({ children }, props) {
                                 </p>
                                 <hr />
                                 <div className="mt-3">
-                                    <Link
-                                        href=""
+                                    <NavLink
+                                        href={route("fronthelp.index")}
                                         className="btn btn-outline-light btn-sm"
                                     >
                                         <i className="fas fa-circle-question me-2"></i>
                                         Help Center
-                                    </Link>
+                                    </NavLink>
                                 </div>
                             </div>
                         </div>

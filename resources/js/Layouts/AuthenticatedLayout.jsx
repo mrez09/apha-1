@@ -416,7 +416,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                         </ul>
                                     </div>
                                 </li>
-                                {/*end news*/}
+                                {/*end Book*/}
 
                                 {/*Berita*/}
                                 <li className="nav-link px-3 sidebar-link">
@@ -635,23 +635,46 @@ export default function Authenticated({ auth, header, children, props }) {
                                         Contact
                                     </a>
                                 </li>
-                                <li className="nav-item">
-                                    <a
-                                        className={`nav-link px-3 sidebar-link ${
-                                            route().current(
-                                                "admin.dashboard.guide.index",
-                                            )
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        href={route(
-                                            "admin.dashboard.guide.index",
-                                        )}
-                                    >
-                                        <i className="fas ic fa-address-book"></i>
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a data-bs-toggle="collapse" href="#guide">
+                                        <i className="fa-solid ic fa-book"></i>
                                         Guide
                                     </a>
+                                    <div className="collapse" id="guide">
+                                        <ul className="navbar-nav ps-3">
+                                            <a
+                                                className={`nav-link px-3 sidebar-link ${
+                                                    route().current(
+                                                        "admin.dashboard.guide.index",
+                                                    )
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                href={route(
+                                                    "admin.dashboard.guide.index",
+                                                )}
+                                            >
+                                                <i className="fas ic fa-address-book"></i>
+                                                Guide
+                                            </a>
+                                            <li className="nav-item">
+                                                <NavLink
+                                                    className="nav-link px-3 sidebar-link"
+                                                    href={route(
+                                                        "fronthelp.index",
+                                                    )}
+                                                    active={route().current(
+                                                        "fronthelp.index",
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-guide"></i>
+                                                    Help Center
+                                                </NavLink>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
+
                                 <li className="nav-link px-3 sidebar-link">
                                     <a
                                         data-bs-toggle="collapse"

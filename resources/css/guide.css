@@ -128,3 +128,22 @@
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
+.help-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.help-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #fff4e8;
+    color: #a85a12;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+}

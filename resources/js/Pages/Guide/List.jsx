@@ -1,7 +1,9 @@
 import React, { useMemo, useState, useEffect } from "react";
 import FrontendLayout from "@/Layouts/FrontendLayout";
 import { Link, Head } from "@inertiajs/react";
-import "~/css/guide.css";
+import "../../../css/guide.css";
+import { usePage } from "@inertiajs/react";
+import moment from "moment";
 
 export default function List({
     guides,
@@ -11,6 +13,14 @@ export default function List({
     nextCategoryGuide,
 }) {
     const [search, setSearch] = useState("");
+
+    const { auth } = usePage().props;
+
+    //const isAdmin = auth?.user?.roles?.includes("admin");
+
+    const isAdmin = auth?.user?.roles?.some((role) =>
+        ["admin", "manager"].includes(role.name),
+    );
 
     useEffect(() => {
         if (selectedGuide) {
@@ -92,6 +102,13 @@ export default function List({
         Galeri: "fa-solid fa-images",
         Committee: "fa-solid fa-users",
         FAQ: "fa-solid fa-circle-question",
+    };
+
+    const getReadingTime = (html) => {
+        if (!html) return 1;
+        const text = html.replace(/<[^>]+>/g, "");
+        const words = text.trim().split(/\s+/).length;
+        return Math.max(1, Math.ceil(words / 200));
     };
 
     return (
@@ -318,40 +335,62 @@ export default function List({
                                         </div>
                                     )}
 
-                                    <div className="ratio ratio-16x9 help-video">
-                                        <iframe
-                                            src={selectedGuide.youtube_url.replace(
-                                                "watch?v=",
-                                                "embed/",
-                                            )}
-                                            allowFullScreen
-                                        />
-                                    </div>
-
-                                    <i
-                                        className={`${selectedGuide.icon} fa-5x`}
-                                    ></i>
                                     <h1 className="help-title">
+                                        <i
+                                            className={`${selectedGuide.icon} fa-1x me-1`}
+                                        ></i>
                                         {selectedGuide.title}
                                     </h1>
 
                                     <hr />
                                     <div className="help-meta">
-                                        <span>
-                                            <i className="fas fa-folder-open me-2"></i>
+                                        <span className="me-2">
+                                            <i className="fas fa-folder-open me-1"></i>
 
                                             {selectedGuide.category}
                                         </span>
-                                        <span>
-                                            <i className="fas fa-eye me-2"></i>
-
-                                            {selectedGuide.view}
+                                        <span className="me-2">
+                                            <i className="fas fa-clock me-1"></i>
+                                            {getReadingTime(
+                                                selectedGuide.description,
+                                            )}{" "}
+                                            menit membaca
                                         </span>
-                                        <span>
-                                            <i className="fas fa-calendar me-2"></i>
+                                        {selectedGuide.youtube_url ? (
+                                            <span className="me-2">
+                                                <i className="fab fa-youtube  me-1"></i>
+                                                Video tersedia
+                                            </span>
+                                        ) : (
+                                            <span className="badge ">
+                                                <i className="fas fa-file-alt me-1"></i>
+                                                Panduan Teks
+                                            </span>
+                                        )}
+                                        {isAdmin && (
+                                            <span className="badge ">
+                                                <i className="fas fa-eye me-1"></i>
+                                                {selectedGuide.view} Views
+                                            </span>
+                                        )}
+                                        {isAdmin && (
+                                            <span>
+                                                <i className="fas fa-calendar me-1"></i>
 
-                                            {selectedGuide.updated_at}
-                                        </span>
+                                                {moment(
+                                                    selectedGuide.updated_at,
+                                                ).format("dddd D MMMM YYYY")}
+                                            </span>
+                                        )}
+                                        <div className="ratio ratio-16x9 help-video">
+                                            <iframe
+                                                src={selectedGuide.youtube_url.replace(
+                                                    "watch?v=",
+                                                    "embed/",
+                                                )}
+                                                allowFullScreen
+                                            />
+                                        </div>
                                         <div className="content">
                                             <div
                                                 className="help-description"
@@ -360,98 +399,93 @@ export default function List({
                                                 }}
                                             />
                                         </div>
+                                    </div>
+                                    <div className="row mt-5">
+                                        <div className="col-6">
+                                            {previousGuide && (
+                                                <Link
+                                                    href={route(
+                                                        "fronthelp.show",
+                                                        previousGuide.slug,
+                                                    )}
+                                                    className="text-decoration-none"
+                                                >
+                                                    <div className="card help-nav-card h-100 shadow-sm">
+                                                        <div className="card-body">
+                                                            <small className="text-muted">
+                                                                ← Tutorial
+                                                                Sebelumnya
+                                                            </small>
 
-                                        <div className="row mt-5">
-                                            <div className="col-6">
-                                                {previousGuide && (
-                                                    <Link
-                                                        href={route(
-                                                            "fronthelp.show",
-                                                            previousGuide.slug,
-                                                        )}
-                                                        className="text-decoration-none"
-                                                    >
-                                                        <div className="card help-nav-card h-100 shadow-sm">
-                                                            <div className="card-body">
-                                                                <small className="text-muted">
-                                                                    ← Tutorial
-                                                                    Sebelumnya
-                                                                </small>
-
-                                                                <h6 className="mb-0 mt-2">
-                                                                    {
-                                                                        previousGuide.title
-                                                                    }
-                                                                </h6>
-                                                            </div>
+                                                            <h6 className="mb-0 mt-2">
+                                                                {
+                                                                    previousGuide.title
+                                                                }
+                                                            </h6>
                                                         </div>
-                                                    </Link>
-                                                )}
-                                            </div>
-
-                                            <div className="col-6">
-                                                {nextGuide && (
-                                                    <Link
-                                                        href={route(
-                                                            "fronthelp.show",
-                                                            nextGuide.slug,
-                                                        )}
-                                                        className="text-decoration-none"
-                                                    >
-                                                        <div className="card h-100 text-end">
-                                                            <div className="card-body">
-                                                                <small className="text-muted">
-                                                                    Tutorial
-                                                                    Berikutnya →
-                                                                </small>
-
-                                                                <h6 className="mb-0 mt-2">
-                                                                    {
-                                                                        nextGuide.title
-                                                                    }
-                                                                </h6>
-                                                            </div>
-                                                        </div>
-                                                    </Link>
-                                                )}
-                                            </div>
-                                            {!nextGuide &&
-                                                nextCategoryGuide && (
-                                                    <div className="mt-3 text-align-center">
-                                                        <Link
-                                                            href={route(
-                                                                "fronthelp.show",
-                                                                nextCategoryGuide.slug,
-                                                            )}
-                                                            className="btn btn-apha"
-                                                        >
-                                                            Lanjut ke kategori
-                                                            {` ${nextCategoryGuide.category}`}{" "}
-                                                            →
-                                                        </Link>
                                                     </div>
-                                                )}
-                                            {!nextGuide && (
-                                                <div className="alert alert-success mt-4">
-                                                    <h6 className="mb-2">
-                                                        Selamat!
-                                                    </h6>
-
-                                                    <p className="mb-0">
-                                                        Anda telah menyelesaikan
-                                                        semua tutorial pada
-                                                        kategori
-                                                        <strong>
-                                                            {" "}
-                                                            {
-                                                                selectedGuide.category
-                                                            }
-                                                        </strong>
-                                                        .
-                                                    </p>
-                                                </div>
+                                                </Link>
                                             )}
                                         </div>
+
+                                        <div className="col-6">
+                                            {nextGuide && (
+                                                <Link
+                                                    href={route(
+                                                        "fronthelp.show",
+                                                        nextGuide.slug,
+                                                    )}
+                                                    className="text-decoration-none"
+                                                >
+                                                    <div className="card h-100 text-end">
+                                                        <div className="card-body">
+                                                            <small className="text-muted">
+                                                                Tutorial
+                                                                Berikutnya →
+                                                            </small>
+
+                                                            <h6 className="mb-0 mt-2">
+                                                                {
+                                                                    nextGuide.title
+                                                                }
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            )}
+                                        </div>
+                                        {!nextGuide && nextCategoryGuide && (
+                                            <div className="mt-3 text-align-center">
+                                                <Link
+                                                    href={route(
+                                                        "fronthelp.show",
+                                                        nextCategoryGuide.slug,
+                                                    )}
+                                                    className="btn btn-apha"
+                                                >
+                                                    Lanjut ke kategori
+                                                    {` ${nextCategoryGuide.category}`}{" "}
+                                                    →
+                                                </Link>
+                                            </div>
+                                        )}
+                                        {!nextGuide && (
+                                            <div className="alert alert-success mt-4">
+                                                <h6 className="mb-2">
+                                                    Selamat!
+                                                </h6>
+
+                                                <p className="mb-0">
+                                                    Anda telah menyelesaikan
+                                                    semua tutorial pada kategori
+                                                    <strong>
+                                                        {" "}
+                                                        {selectedGuide.category}
+                                                    </strong>
+                                                    .
+                                                </p>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
