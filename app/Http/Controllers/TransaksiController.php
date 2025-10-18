@@ -462,11 +462,19 @@ class TransaksiController extends Controller
 
         // bug Logo
         $image = public_path('storage/logo/Invoice-Apha.png');
-
         $type = pathinfo($image, PATHINFO_EXTENSION);
-        $data = file_get_contents($image);
+        $imageData = file_get_contents($image);
+        $logo = 'data:image/' . $type . ';base64,' . base64_encode($imageData);
 
-        $logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        // Misahin Method
+        $method = $payment->payment_type ?? '-';
+
+        $channel = '-';
+
+        if (str_contains($method, '-')) {
+            [$method, $channel] = explode('-', $method);
+        }
+
 
         // Kirim ke view PDF
         $data = [
@@ -478,6 +486,8 @@ class TransaksiController extends Controller
             'memberAddress' => $memberAddress,
             'tax' => $tax,
             'logo' => $logo,
+            'paymentMethod' => strtoupper($method),
+            'paymentChannel' => ucfirst($channel),
         ];
 
         $pdf = Pdf::loadView('pdf.invoiceproduk', $data)
