@@ -96,29 +96,6 @@ export default function InvoiceShow({
         >
             <div className="page-wrapper container py-4">
                 {/* ========== STYLE Mr_eZ ========== */}
-                <style>{`
-        
-                .invoice-left {
-                    background: #fff;
-                    border-radius: 12px;
-                    padding: 25px;
-                    border: 1px solid #eee;
-                }
-                .invoice-right {
-                    background: #fff;
-                    border-radius: 12px;
-                    padding: 20px;
-                    border: 1px solid #eee;
-                    position: sticky;
-                    top: 90px;
-                }
-                .tab-payment .nav-link.active {
-                    font-weight: bold;
-                    color: #ee4d2d !important;
-                    border-bottom: 2px solid #ee4d2d !important;
-                    background: transparent !important;
-                }
-            `}</style>
 
                 <Head title={`Invoice ${invoice.invoice_number}`} />
 
@@ -160,8 +137,9 @@ export default function InvoiceShow({
                                     <div>
                                         <h5 className="mb-0">APHA Indonesia</h5>
                                         <small className="text-muted">
-                                            Jl. Contoh No.1, Jakarta •
-                                            info@apha.or.id
+                                            Jl. Haji Nawi Raya No. 10B Rt. 001
+                                            RW. 001 Cilandak Gandaria Selatan
+                                            CILANDAK 12420 • info@apha.or.id
                                         </small>
                                     </div>
                                 </div>
@@ -212,18 +190,19 @@ export default function InvoiceShow({
                                             invoice.user?.phone ??
                                             "-"}
                                     </div>
-
-                                    {member?.alamat && (
-                                        <div className="mt-2">
-                                            {member.alamat}
-                                        </div>
-                                    )}
+                                    <div>
+                                        {member?.alamat && (
+                                            <div className="mt-2">
+                                                {member.alamat}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className="col-md-6 text-md-end">
                                     <h6>Invoice info</h6>
                                     <div>
-                                        <strong>Invoice #</strong>{" "}
+                                        <strong>Invoice #</strong>
                                         {invoice.invoice_number}
                                     </div>
                                     <div>
@@ -423,8 +402,12 @@ export default function InvoiceShow({
                                         Silakan transfer ke rekening berikut:
                                     </p>
                                     <ul>
-                                        <li>BCA - 123456789 a.n Organisasi</li>
-                                        <li>BNI - 987654321 a.n Organisasi</li>
+                                        <span>Bank Mandiri</span>
+                                        <h3>126-00-0742744-5</h3>
+                                        <p>
+                                            a.n Asosiasi Pengajar Hukum Adat
+                                            Indonesia (APHA)
+                                        </p>
                                     </ul>
 
                                     {invoice.status === "paid" ? (
@@ -435,12 +418,19 @@ export default function InvoiceShow({
                                             Sudah Dibayar
                                         </button>
                                     ) : (
-                                        <button
+                                        <Link
                                             className="btn btn-danger w-100"
-                                            onClick={payNow}
+                                            //onClick={payNow}
+                                            type="button"
+                                            href={route(
+                                                "anggota.dashboard.paymentproof.create",
+                                                {
+                                                    invoice: invoice.id,
+                                                },
+                                            )}
                                         >
                                             Upload Bukti Transfer
-                                        </button>
+                                        </Link>
                                     )}
                                 </div>
 

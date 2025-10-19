@@ -66,12 +66,12 @@ class TransaksiController extends Controller
         // 💾 Simpan ke tabel invoices
         $invoice = Invoice::create([
             'user_id' => $user->id,
-            'name' => $product->name,
             'type' => $product->type,
             'invoice_number' => $invoiceNumber,
             'product_id' => $product->id,
             'total_amount' => $product->price,
             'status' => 'pending',
+            'description' => 'Pembayaran ' . ucfirst($product->name),
         ]);
 
         // ⛓️ Tambah ke invoice_items
@@ -116,7 +116,15 @@ class TransaksiController extends Controller
 
     public function show($id)
     {
-        $invoice = Invoice::with(['user', 'items'])->findOrFail($id);
+        //$invoice = Invoice::with(['user', 'items'])->findOrFail($id);
+        $invoice = Invoice::with([
+            'items',
+            'user',
+            'user.member',
+        ])
+        ->where('id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
 
         $member = Member::where('id_user', $invoice->user_id)->first();
 
@@ -499,5 +507,63 @@ class TransaksiController extends Controller
         return $pdf->download('Invoice-'.$invoice->invoice_number.'.pdf');
     }
 
+    public function download_proof($id)
+    {
+        $payment = PaymentProof::with([
+            'invoice.items',
+            'invoice.user.member',
+            'user'
+        ])->findOrFail($id);
+
+        $invoice = $payment->invoice;
+        abort_if(!$invoice, 404, 'Invoice tidak ditemukan.');
+        $member = $invoice->user->member ?? null;
+        $items = $invoice->items ?? collect();
+        $memberPhone = $member->phone ?? '-';
+        $memberAddress = $member->address ?? '-';
+
+        $tax = $invoice->tax ?? 0;
+        $image = public_path('storage/logo/Invoice-Apha.png');
+        $type = pathinfo($image, PATHINFO_EXTENSION);
+        $imageData = file_get_contents($image);
+        $logo = 'data:image/'.$type.';base64,'.base64_encode($imageData);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Payment Method
+        |--------------------------------------------------------------------------
+        */
+
+        $method = $invoice->payment_type ?? '-';
+        $channel = '-';
+
+        if (!empty($method) && str_contains($method, '-')) {
+            [$method, $channel] = explode('-', $method);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Data PDF
+        |--------------------------------------------------------------------------
+        */
+
+        $data = [
+            'invoice' => $invoice,
+            'payment' => $payment,
+            'member' => $member,
+            'items' => $items,
+            'memberPhone' => $memberPhone,
+            'memberAddress' => $memberAddress,
+            'tax' => $tax,
+            'logo' => $logo,
+            'paymentMethod' => strtoupper($method),
+            'paymentChannel' => ucfirst($channel),
+        ];
+
+        $pdf = Pdf::loadView('pdf.invoiceproof', $data)
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->download('Invoice-'.$invoice->invoice_number.'.pdf');
+    }
     
 }

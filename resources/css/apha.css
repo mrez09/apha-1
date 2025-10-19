@@ -1753,3 +1753,25 @@ figure.card .position {
         height: auto;
     }
 }
+
+/*Invoice tambahan*/
+.invoice-left {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid #eee;
+}
+.invoice-right {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #eee;
+    position: sticky;
+    top: 90px;
+}
+.tab-payment .nav-link.active {
+    font-weight: bold;
+    color: #ee4d2d !important;
+    border-bottom: 2px solid #ee4d2d !important;
+    background: transparent !important;
+}

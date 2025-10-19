@@ -28,14 +28,18 @@ class Invoice extends Model
         'due_date',  
     ];
 
-    public function items() {
-        return $this->hasMany(InvoiceItem::class);
+    //public function items() {
+       // return $this->hasMany(InvoiceItem::class);
+    //}
+    public function items()
+    {
+        return $this->hasMany(InvoiceItem::class, 'invoice_id', 'id');
     }
 
     public function product()
-{
-    return $this->belongsTo(Product::class);
-}
+    {
+        return $this->belongsTo(Product::class);
+    }
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -45,5 +49,9 @@ class Invoice extends Model
         return $this->hasOne(Payment::class);
     }
 
+    public function paymentProof()
+    {
+        return $this->hasOne(PaymentProof::class);
+    }
     
 }

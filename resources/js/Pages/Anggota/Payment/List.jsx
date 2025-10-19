@@ -1,19 +1,11 @@
 import AnggotaLayout from "@/Layouts/AnggotaLayout";
-import FlashMessage from "@/Components/FlashMessage";
 import DataTable from "datatables.net-dt";
 import { Head, useForm } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 import moment from "moment";
 
-export default function List({
-    auth,
-    errors,
-    flashMessage,
-    props,
-    news,
-    order,
-}) {
+export default function List({ auth, errors, payment, order }) {
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
         // options
@@ -41,22 +33,9 @@ export default function List({
                 */}
 
                 <div className="btn-toolbar mb-2 mb-md-0">
-                    <div className="btn-group me-2">
-                        {/* sementara
-                        <Link
-                            type="button"
-                            href={route("anggota.dashboard.payment.create")}
-                            className="btn btn-sm btn-outline-secondary"
-                        >
-                            Tambah.
-                        </Link>
-                        */}
-                    </div>
+                    <div className="btn-group me-2"></div>
                 </div>
             </div>
-            {flashMessage?.message && (
-                <FlashMessage message={flashMessage.message} />
-            )}
 
             {/*End Dashboard Title*/}
 
@@ -75,40 +54,40 @@ export default function List({
                             </tr>
                         </thead>
                         <tbody>
-                            {news.map((news, index) => (
-                                <tr key={news.link_id}>
+                            {payment.map((payment, index) => (
+                                <tr key={payment.link_id}>
                                     <td>{++index}</td>
-                                    <td>{news.no_invoice}</td>
-                                    <td>{news.judul}</td>
-                                    <td>{news.name}</td>
+                                    <td>{payment.no_invoice}</td>
+                                    <td>{payment.judul}</td>
+                                    <td>{payment.name}</td>
                                     <td>
                                         {(() => {
-                                            if (news.status == "Belum") {
+                                            if (payment.status == "Belum") {
                                                 return (
                                                     <span className="text-warning fw-bold">
-                                                        {news.status}
+                                                        {payment.status}
                                                     </span>
                                                 );
                                             } else {
                                                 return (
                                                     <span className="text-info fw-bold">
-                                                        {news.status}
+                                                        {payment.status}
                                                     </span>
                                                 );
                                             }
                                         })()}
                                     </td>
                                     <td>
-                                        {moment(news.tanggal_bayar).format(
-                                            "dddd D MMMM YYYY"
+                                        {moment(payment.tanggal_bayar).format(
+                                            "dddd D MMMM YYYY",
                                         )}
                                     </td>
 
                                     <td>
                                         <a
                                             href={route(
-                                                "anggota.dashboard.payment.show",
-                                                news.no_invoice
+                                                "anggota.dashboard.paymentproof.show",
+                                                payment.no_invoice,
                                             )}
                                             target="_blank"
                                             rel="noreferrer"

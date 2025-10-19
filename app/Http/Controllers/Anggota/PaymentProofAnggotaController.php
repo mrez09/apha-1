@@ -11,10 +11,13 @@ use App\Models\News;
 use App\Models\Newscategory;
 use App\Models\PaymentProof; 
 use App\Models\Konfigurasi; 
+use App\Models\Invoice;
+use App\Models\Member;
 use Inertia\Inertia;
 use App\Http\Requests\Member\Payment\Store;
 use App\Http\Requests\Member\Payment\Update;
 use Storage;
+
 
 class PaymentProofAnggotaController extends Controller
 {
@@ -23,13 +26,12 @@ class PaymentProofAnggotaController extends Controller
 
         $user_id            = Auth::user()->id;
         $order = PaymentProof::max('id');
-        //$anggota           = Payment::select('users.id as user_id','members.id as anggota_id','id_com as com_id' , 'nama', 'no_kta', 'jk', 'kode', 'users.email', 'img', 'universitas', 'fakultas', 'alamatf', 'mk', 'alamat', 'phone', 'scholar', 'scopus', 'sinta', 'status', 'dec', 'join_at')->join('users','members.id_user',"=",'users.id')->where('members.id_user', '=', $user_id)->first();
-
+        
         $news           = PaymentProof::all();
-        $newsjoin       = PaymentProof::select('payment_proofs.id as link_id','judul', 'subjudul', 'no_invoice', 'status', 'img', 'tanggal_bayar', 'name')->join('users','users.id',"=",'payment_proofs.id_user')->where('payment_proofs.id_user', '=', $user_id)->get();
+        $paymentjoin       = PaymentProof::select('payment_proofs.id as link_id','judul',  'no_invoice', 'status', 'proof_file', 'tanggal_bayar', 'name')->join('users','users.id',"=",'payment_proofs.id_user')->where('payment_proofs.id_user', '=', $user_id)->get();
         return Inertia::render('Anggota/Payment/List',
         [
-            'news'          => $newsjoin,
+            'payment'          => $paymentjoin,
             'order'          => $order
         ]);
       //return  [
@@ -38,39 +40,38 @@ class PaymentProofAnggotaController extends Controller
 
     }
 
-    public function create(){
-        //$newscategory           = Newscategory::all();
-        $tanggal_print = date('Y-m-d');
-        return Inertia::render('Anggota/Payment/Create',
-        
-        [
-            //'newscategory'          => $newscategory,
-            'tanggal_print'         => 'tanggal_print',
-            'ckeditor'              => 'yes',
+    public function create(Request $request)
+    {
+        $invoice = Invoice::with('items')
+            ->findOrFail($request->invoice);
+
+        return Inertia::render('Anggota/Payment/Create', [
+            'invoice' => $invoice,
         ]);
     }
 
     public function store(Store $request){
-        //return Inertia::render('Admin/News/Create');
-        
         //validated
         $data = $request->validated();
+        $invoice = Invoice::findOrFail($request->invoice_id);
+
+        $data['judul'] = $invoice->description;
+        $data['jumlah'] = $invoice->total_amount;
         //max id
         $data['order'] = PaymentProof::max('id');
-        $data['img'] = Storage::disk("public")->put('payment', $request->file('img'));
+        $data['proof_file'] = Storage::disk("public")->put('payment', $request->file('proof_file'));
         //$data['path'] = "/storage/".$data['img'];
         $data['status'] = 'UNPAID';
         $data['tanggal_bayar'] = date('Y-m-d');
         $data['konten'] = '';
-        //$data['message'] = $data['message'];
-        
+        $data['message'] = $data['message'];
         $data['no_invoice'] = date('ymd').$data['order'];
-        
-        $data['slug_judul'] = Str::slug($data ['no_invoice']);
+        $data['invoice_slug'] = date('ymd').$data['order'];
         $data['id_user'] = Auth::id();
         $news = PaymentProof::create($data);
-
-        return redirect(route('anggota.dashboard.payment.index'))->with(
+        //dd($invoice);
+    
+        return redirect(route('anggota.dashboard.paymentproof.index'))->with(
             [
                 'message'   => "Bukti Pembayaran Berhasil diBerikan | Harap tunggu validasi Status",
                 'type'      => "success"
@@ -93,51 +94,38 @@ class PaymentProofAnggotaController extends Controller
       ]);
   }
 
-    public function show(PaymentProof $payment){
-        //url saat ini
-        $cururl           = URL::current();
-        $konfigurasis     = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
-        $paymentjoin      = PaymentProof::select('payments.id as link_id','judul', 'subjudul', 'no_invoice',  'payments.status', 'payments.img', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payments.id_user')->where('payments.no_invoice', '=', $payment->no_invoice)->first();
-        //$tanggal_print    = date('d-m-Y');
-        $tanggal_print    = date('l d M Y ');
-        
-       
-        //Parse Data
-       //$repkonten1    = Str::replace('<p>', '', $buku->sinopsis);
-       //$repkonten2    = Str::replace('</p>', '', $repkonten1);
-       //$des    = Str::words( $repkonten2, 25);
+    public function show(PaymentProof $paymentproof)
+    {
+        $paymentproof->load([
+            'invoice.items',
+            'invoice.user',
+            'user',
+        ]);
 
-       //$reptag1    = Str::replace('<p>', '', $konfigurasis->metatag);
-       //$metatag    = Str::replace('</p>', '', $reptag1);
+        $member = Member::where('id_user', $paymentproof->id_user)->first();
 
-       //$cururl     = URL::current();
-       return Inertia::render('Anggota/Payment/Show', [
-           'payment'        => $paymentjoin,
-           'tanggal_print'  => $tanggal_print,
-           'pay'            => $payment,
-           //'event' => [
-             //  'application-name'          => $konfigurasis->namawebsite,
-               //'title'                     => $buku->name,
-        //       'description'               => $des,
-          //     'keywords'                  => $metatag,
-            //   'image'                     => 'https://apha.or.id/storage/'.$buku->thumbnail,
-           //    'image_type'                => 'image/jpeg',
-      //         'image_width'               => '250',
-        //       'image_height'              => '550',
-          //     'image_alt'                 => $buku->name,
-            //   'og:type'                   => 'book',
-     //          'publish_time'              => $buku->publish_at,
-       //        'article_tag'               => 'Hukum Adat, APHA, Asosisasi Pengajar Hukum Adat',
-       //        'url'                       => $cururl,
-       //        'fb:app_id'                 => $konfigurasis->fbid,
-       //        'theme-color'               => '#ff6300',
-         //      'mobile-web-app-capable'    => 'yes',
-    //           'apple-mobile-web-app-title'=> $buku->name,
-      //         'card'                      => 'summary_large_image',
-        //   ]
-           ]
-       );
-       //return Inertia::render('Admin/News/Create');
-       //return $request->all();
-   }
+        $invoice = $paymentproof->invoice;
+        $taxRate = 0.11;
+        $taxAmount = $invoice
+            ? $invoice->total_amount * $taxRate
+            : 0;
+        $grandTotal = $invoice
+            ? $invoice->total_amount + $taxAmount
+            : 0;
+
+       //     dd([
+       // 'payment_id' => $paymentproof->id,
+       // 'invoice_id' => $paymentproof->invoice_id,
+       // 'invoice' => $paymentproof->invoice,
+    //]);
+            
+        //dd($paymentproof->invoice);
+        return Inertia::render('Anggota/Payment/Show', [
+            'payment' => $paymentproof,
+            'member' => $member,
+            'invoice' => $invoice,
+            'tax' => $taxAmount,
+            'grandTotal' => $grandTotal,
+        ]);
+    }
 }

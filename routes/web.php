@@ -315,8 +315,9 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     //Periode
     Route::resource('paymentproof', PaymentProofadminController::class);
     Route::get('paymentproof/{payment}/edit', [PaymentProofadminController::class, 'edit'])->name('payment.edit');
-    Route::get('paymentproof/{payment:no_invoice}', [PaymentProofadminController::class, 'show'])->name('payment.show');
+    Route::get('paymentproof/{payment}', [PaymentProofadminController::class, 'show'])->name('payment.show');
     Route::put('paymentproof/{payment}/restore', [PaymentProofadminController::class, 'restore'])->name('payment.restore');
+
 
     
     //KTA
@@ -388,9 +389,12 @@ Route::middleware(['auth', 'role:user|admin'])->prefix('anggota')->name('anggota
 
     //Payment
     Route::resource('paymentproof', PaymentProofAnggotaController::class);
-    Route::get('paymentproof/{payment:no_invoice}/edit', [PaymentProofAnggotaController::class, 'edit'])->name('payment.edit');
-    Route::get('paymentproof/{payment:no_invoice}', [PaymentProofAnggotaController::class, 'show'])->name('payment.show');
+    Route::get('paymentproof/{paymentproof:no_invoice}/edit', [PaymentProofAnggotaController::class, 'edit'])->name('payment.edit');
+    //Route::get('paymentproof/{payment}', [PaymentProofAnggotaController::class, 'show'])->name('paymentproof.show');
+    Route::get('paymentproof/{paymentproof:no_invoice}',[PaymentProofAnggotaController::class, 'show'])->name('paymentproof.show');
     Route::put('member/{member}/restore', [PaymentProofAnggotaController::class, 'restore'])->name('payment.restore');
+    //Route::get('paymentproof/create/{invoice}',[PaymentProofAnggotaController::class, 'create'])->name('paymentproof.create');
+    Route::get('invoice/{invoice}/upload-proof',[PaymentProofAnggotaController::class,'create'])->name('paymentproof.create');
 
     //Invoice old
     //Route::resource('invoice', InvoiceController::class);
@@ -411,6 +415,8 @@ Route::middleware(['auth', 'role:user|admin'])->prefix('anggota')->name('anggota
     Route::get('/invoice/{id}', [TransaksiController::class, 'show'])->name('invoice.show');
     Route::get('/invoice/{id}/download', [TransaksiController::class, 'download'])
     ->name('invoice.download');
+    //Invoice Manual
+    Route::get('/paymentproof/{id}/download', [TransaksiController::class, 'download_proof'])->name('paymentproof.download');
     
 
     //Invoice pay sample

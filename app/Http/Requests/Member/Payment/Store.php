@@ -27,13 +27,16 @@ class Store extends FormRequest
         return [
             //
             'no_invoice'     => 'nullable',
-            'judul'     => 'required',
-            'subjudul'  => 'nullable',
-            'img'       => 'required',
+            //'judul'     => 'required',
+            //'subjudul'  => 'nullable',
+            'total_amount'       => 'nullable',
+            'invoice_id'       => 'nullable',
+            'proof_file'       => 'required',
             //'status'  => 'required',
+            'transfer_date'  => 'nullable',
             'konten'  => 'nullable',
             'message'  => 'nullable',
-            'is_featured'  => 'nullable',
+            //'is_featured'  => 'nullable',
             //'tanggal_bayar'       => 'nullable',
         ];
     }
