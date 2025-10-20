@@ -8,34 +8,23 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Member;
+use App\Models\Invoice;
 
-//ini email pengingat tahunan
+//ini email otomatis setelah bayar Invoice
 
-class ReminderPembayaran extends Mailable
+class PaymentSuccessMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $member;
+
+    public Invoice $invoice;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Member $member)
+    public function __construct(Invoice $invoice)
     {
-        //
-        $this->member = $member;
+        $this->invoice = $invoice;
     }
-
-    public function build()
-    {
-        return $this->subject('Pengingat Pembayaran Keanggotaan')
-            ->view('emails.reminder_pembayaran')
-            ->with([
-                'user' => $this->member,
-                'url' => "www.facebook.com",
-            ]);
-    }
-    
 
     /**
      * Get the message envelope.
@@ -43,7 +32,7 @@ class ReminderPembayaran extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reminder Pembayaran',
+            subject: 'Pembayaran Berhasil - '.$this->invoice->invoice_number,
         );
     }
 
@@ -53,7 +42,7 @@ class ReminderPembayaran extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.reminder_pembayaran',
+            view: 'emails.payment-success',
         );
     }
 
@@ -66,4 +55,6 @@ class ReminderPembayaran extends Mailable
     {
         return [];
     }
+
+    
 }

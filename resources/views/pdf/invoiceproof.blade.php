@@ -234,10 +234,10 @@
                 </td>
                 <td align="right">
                     <div class="title">INVOICE</div>
-                    <div class="invoice-number">#{{ $invoice->invoice_number }}</div>
+                    <div class="invoice-number">#{{ $payment->no_invoice }}</div>
                     <div class="info-badge">
                         <span class="badge {{ strtolower($invoice->status) }}">
-                            {{ strtoupper($invoice->status) }}
+                            {{ strtoupper($payment->status) }}
                         </span>
                     </div>
                     <div style="font-size: 11px; color: #666;">
@@ -261,7 +261,7 @@
             <td align="right">
                 Invoice: <strong>{{ $invoice->invoice_number }}</strong><br>
                 Order ID: {{ $invoice->order_id }}<br>
-                Due date: {{ $invoice->due_date ?? '-' }}
+                Paid: {{ \Carbon\Carbon::parse($payment->tanggal_bayar)->translatedFormat('d F Y') }}
             </td>
         </tr>
     </table>
@@ -304,7 +304,7 @@
         </tr>
         <tr class="total-row">
             <td align="right">Status:</td>
-            <td align="right">{{ strtoupper($invoice->status) }}</td>
+            <td align="right">{{ strtoupper($payment->status) }}</td>
         </tr>
     </table>
 
@@ -324,11 +324,11 @@
                     </div>
                     <div class="info-item">
                         <span class="info-label">Status</span>
-                        <span>: {{ strtoupper($payment->transaction_status) }}</span>
+                        <span>: {{ strtoupper($payment->status) }}</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Date</span>
-                        : {{ \Carbon\Carbon::parse($payment->transaction_time)->translatedFormat('d F Y H:i') ?? '-' }}
+                        : {{ \Carbon\Carbon::parse($payment->tanggal_bayar)->translatedFormat('d F Y') }}
                     </div>
                 </div>
             </td>

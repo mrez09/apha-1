@@ -11,6 +11,8 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Member;
 use App\Models\User;
 
+//email ini untuk verifikasi
+
 class VerificationSuccess extends Mailable
 {
     use Queueable, SerializesModels;

@@ -6,11 +6,14 @@ use App\Models\Product;
 use App\Models\Invoice;
 use App\Models\Payment;
 use App\Models\Member;
+use App\Models\PaymentProof;
 use Midtrans\Snap;
 use Midtrans\Config;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PaymentSuccessMail;
 
 class TransaksiController extends Controller
 {
@@ -283,10 +286,11 @@ class TransaksiController extends Controller
                     'transaction_time' => $notif->transaction_time ?? now(),
                     'fraud_status' => $notif->fraud_status ?? null,
                     'payment_token' => $invoice->snap_token,
-                    'receipt_url' => $notif->receipt_url ?? null,
+                    'receipt_url' => $detail->receipt_url ?? null,
                 ]
             );
 
+            
             // 🔥 UPDATE STATUS MEMBER HANYA UNTUK IURAN + BERHASIL BAYAR
             if ($transaction === 'settlement' && $invoice->type === 'iuran') {
 
@@ -405,9 +409,27 @@ class TransaksiController extends Controller
                     'transaction_time'   => $notif->transaction_time ?? now(),
                     'fraud_status'       => $fraudStatus,
                     'payment_token'      => $invoice->snap_token,  // ambil dari invoice
-                    'receipt_url'        => $data->receipt_url ?? null,
+                    'receipt_url' => $detail->receipt_url ?? null,
                 ]
             );
+
+            // Kirim email setelah pembayaran berhasil
+            if (
+                ($transaction === 'settlement' || $transaction === 'capture')
+                && !$invoice->payment_email_sent_at
+            ) {
+
+                $invoice->load('user');
+
+                Mail::to($invoice->user->email)
+                    ->send(new PaymentSuccessMail($invoice));
+
+
+                $invoice->update([
+                    'payment_email_sent_at' => now()
+                ]);
+            }
+
 
             // ===============================
             //   UPDATE STATUS MEMBER (IURAN)
@@ -443,7 +465,10 @@ class TransaksiController extends Controller
             'user',
             'user.member',
             'payment'
-        ])->findOrFail($id);
+        ])
+        ->where('id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
 
         // Data Member
         $member = $invoice->user->member ?? null;
@@ -513,7 +538,10 @@ class TransaksiController extends Controller
             'invoice.items',
             'invoice.user.member',
             'user'
-        ])->findOrFail($id);
+        ])
+        ->where('id', $id)
+        ->where('id_user', auth()->id())
+        ->firstOrFail();
 
         $invoice = $payment->invoice;
         abort_if(!$invoice, 404, 'Invoice tidak ditemukan.');
@@ -563,7 +591,7 @@ class TransaksiController extends Controller
         $pdf = Pdf::loadView('pdf.invoiceproof', $data)
             ->setPaper('A4', 'portrait');
 
-        return $pdf->download('Invoice-'.$invoice->invoice_number.'.pdf');
+        return $pdf->download('Invoice-'.$payment->no_invoice.'.pdf');
     }
     
 }

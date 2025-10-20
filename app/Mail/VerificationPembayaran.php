@@ -11,6 +11,8 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Member;
 use App\Models\User;
 
+//Email ini untuk Verifikasi Pembayaran
+
 class VerificationPembayaran extends Mailable
 {
     use Queueable, SerializesModels;
@@ -69,7 +71,7 @@ class VerificationPembayaran extends Mailable
     }
     public function build()
     {
-        return $this->subject('Email Kamu Berhasil Diverifikasi ')
+        return $this->subject('Pembayaran Kamu Berhasil Diverifikasi ')
                 ->view('emails.verification-pembayaran')
                 ->with([
                 'member' => $this->member,

@@ -22,7 +22,7 @@ class PaymentProofadminController extends Controller
     //
     public function index(){
         $news           = PaymentProof::all();
-        $newsjoin       = PaymentProof::select('payment_proofs.id as link_id','judul', 'no_invoice', 'status', 'img', 'tanggal_bayar', 'name')->join('users','users.id',"=",'payment_proofs.id_user')->get();
+        $newsjoin       = PaymentProof::select('payment_proofs.id as link_id','judul', 'no_invoice', 'status', 'proof_file', 'tanggal_bayar', 'name')->join('users','users.id',"=",'payment_proofs.id_user')->get();
         return Inertia::render('Admin/Payment/List',
         [
             'news'          => $newsjoin

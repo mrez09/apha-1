@@ -151,7 +151,11 @@ export default function InvoiceShow({
                                             invoice.status,
                                         )}`}
                                     >
-                                        {invoice.status ?? "-"}
+                                        {(
+                                            payment?.transaction_status ??
+                                            invoice?.status ??
+                                            "-"
+                                        ).toUpperCase()}
                                     </div>
                                     <div className="mt-2">
                                         #{invoice.invoice_number}
@@ -319,11 +323,10 @@ export default function InvoiceShow({
                                                     <strong>Tax</strong>
                                                 </td>
                                                 <td className="text-end">
-                                                    {tax
-                                                        ? formatRupiah(tax)
-                                                        : "-"}
+                                                    Rp 0
                                                 </td>
                                             </tr>
+
                                             <tr>
                                                 <td className="text-end">
                                                     <strong>Total</strong>
@@ -331,7 +334,8 @@ export default function InvoiceShow({
                                                 <td className="text-end">
                                                     <strong>
                                                         {formatRupiah(
-                                                            grand_total ?? 0,
+                                                            invoice.total_amount ??
+                                                                0,
                                                         )}
                                                     </strong>
                                                 </td>
@@ -353,8 +357,11 @@ export default function InvoiceShow({
                                                     </strong>
                                                 </td>
                                                 <td className="text-end">
-                                                    {payment?.transaction_status ??
-                                                        invoice.status}
+                                                    {(
+                                                        payment?.transaction_status ??
+                                                        invoice?.status ??
+                                                        "-"
+                                                    ).toUpperCase()}
                                                 </td>
                                             </tr>
                                         </tbody>

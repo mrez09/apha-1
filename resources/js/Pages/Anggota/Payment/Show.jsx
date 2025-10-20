@@ -119,7 +119,11 @@ export default function Show({
                                             payment.status,
                                         )}`}
                                     >
-                                        {payment.status ?? "-"}
+                                        {(
+                                            payment?.transaction_status ??
+                                            payment?.status ??
+                                            "-"
+                                        ).toUpperCase()}
                                     </div>
                                     <div className="mt-2">
                                         #{payment.no_invoice}
@@ -296,11 +300,10 @@ export default function Show({
                                                     <strong>Tax</strong>
                                                 </td>
                                                 <td className="text-end">
-                                                    {tax
-                                                        ? formatRupiah(tax)
-                                                        : "-"}
+                                                    Rp 0
                                                 </td>
                                             </tr>
+
                                             <tr>
                                                 <td className="text-end">
                                                     <strong>Total</strong>
@@ -308,7 +311,8 @@ export default function Show({
                                                 <td className="text-end">
                                                     <strong>
                                                         {formatRupiah(
-                                                            grandTotal ?? 0,
+                                                            invoice.total_amount ??
+                                                                0,
                                                         )}
                                                     </strong>
                                                 </td>
@@ -330,8 +334,11 @@ export default function Show({
                                                     </strong>
                                                 </td>
                                                 <td className="text-end">
-                                                    {payment?.transaction_status ??
-                                                        payment.status}
+                                                    {(
+                                                        payment?.transaction_status ??
+                                                        payment?.status ??
+                                                        "-"
+                                                    ).toUpperCase()}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -404,8 +411,8 @@ export default function Show({
 
                             <a
                                 href={route(
-                                    "anggota.dashboard.invoice.download",
-                                    invoice.id,
+                                    "anggota.dashboard.paymentproof.download",
+                                    payment.id,
                                 )}
                                 className="btn btn-outline-dark w-100 mt-3"
                                 target="_blank"

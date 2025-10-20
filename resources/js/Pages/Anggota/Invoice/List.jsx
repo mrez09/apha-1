@@ -69,7 +69,6 @@ export default function List({
                                 <th>No</th>
                                 <th>No Invoice</th>
                                 <th>Total Pembayaran</th>
-                                <th>Product</th>
                                 <th>Metode Pembayaran</th>
                                 <th>Status</th>
                                 <th>Tanggal Pembayaran</th>
@@ -82,23 +81,41 @@ export default function List({
                                     <td>{++index}</td>
                                     <td>{invoice.invoice_number}</td>
                                     <td>{invoice.total_amount}</td>
-                                    <td>{invoice.product_id}</td>
+
                                     <td>
-                                        {invoice.method}-{invoice.gateway}-
-                                        {invoice.payment_type}
+                                        {[
+                                            invoice.method,
+                                            invoice.gateway,
+                                            invoice.payment_type,
+                                        ]
+                                            .filter(Boolean)
+                                            .map((item, index) => (
+                                                <span
+                                                    key={index}
+                                                    className="badge bg-primary text-uppercase me-1"
+                                                >
+                                                    {item}
+                                                </span>
+                                            ))}
                                     </td>
                                     <td>
                                         {(() => {
                                             if (invoice.status == "Belum") {
                                                 return (
                                                     <span className="text-warning fw-bold">
-                                                        {invoice.status}
+                                                        {(
+                                                            invoice?.status ??
+                                                            "-"
+                                                        ).toUpperCase()}
                                                     </span>
                                                 );
                                             } else {
                                                 return (
                                                     <span className="text-info fw-bold">
-                                                        {invoice.status}
+                                                        {(
+                                                            invoice?.status ??
+                                                            "-"
+                                                        ).toUpperCase()}
                                                     </span>
                                                 );
                                             }

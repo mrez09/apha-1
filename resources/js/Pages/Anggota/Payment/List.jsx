@@ -71,7 +71,10 @@ export default function List({ auth, errors, payment, order }) {
                                             } else {
                                                 return (
                                                     <span className="text-info fw-bold">
-                                                        {payment.status}
+                                                        {(
+                                                            payment?.status ??
+                                                            "-"
+                                                        ).toUpperCase()}
                                                     </span>
                                                 );
                                             }
