@@ -328,9 +328,16 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::put('kta/{member}/restore', [KTAController::class, 'restore'])->name('nokta.restore');
 
     //Invoices
-    Route::get('/invoices', [AdminInvoiceController::class, 'index'])->name('admin.invoices.index');
-    Route::post('/invoices', [AdminInvoiceController::class, 'store'])->name('admin.invoices.store');
-    Route::get('/invoices/{id}', [AdminInvoiceController::class, 'show'])->name('admin.invoices.show');
+    Route::get('/invoices', [AdminInvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('invoices/{id}/edit', [KTAController::class, 'edit'])->name('invoices.edit');
+    Route::get('/invoices/create', [AdminInvoiceController::class, 'create'])->name('invoices.create');
+    Route::post('/invocies/store', [AdminInvoiceController::class, 'store'])->name('invoices.store');
+    //Route::post('/invoices', [AdminInvoiceController::class, 'store'])->name('admin.invoices.store');
+    Route::get('/invoices/{id}', [AdminInvoiceController::class, 'show'])->name('invoices.show');
+    //new
+    //Route::resource('invoice', InvoiceAdminController::class);
+    Route::post('invoices/{id}/generate-payment',[AdminInvoiceController::class,'generatePayment'])->name('invoices.generatePayment');
+    Route::put('invoice/{invoice}/restore',[AdminInvoiceController::class, 'restore'])->name('invoice.restore');
 
     //Guide
     Route::get('/guide', [GuideController::class, 'index'])->name('guide.index');

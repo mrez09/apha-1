@@ -19,4 +19,9 @@ class Product extends Model
         'start_date' => 'date',
         'end_date' => 'date',
     ];
+
+    public function invoiceItems()
+    {
+        return $this->hasMany(InvoiceItem::class);
+    }
 }

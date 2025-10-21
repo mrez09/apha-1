@@ -255,6 +255,23 @@ export default function Authenticated({ auth, header, children, props }) {
                                             <li>
                                                 <a
                                                     href={route(
+                                                        "admin.dashboard.invoices.index",
+                                                    )}
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.invoices.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    <i className="fas ic fa-credit-card"></i>
+                                                    Invoices
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href={route(
                                                         "admin.dashboard.paymentproof.index",
                                                     )}
                                                     className={`nav-link px-3 sidebar-link ${
@@ -266,13 +283,13 @@ export default function Authenticated({ auth, header, children, props }) {
                                                     }`}
                                                 >
                                                     <i className="fas ic fa-credit-card"></i>
-                                                    Payment
+                                                    Bukti Pembayaran
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
-                                {/*end news*/}
+                                {/*end Anggota*/}
 
                                 {/*Pengurus*/}
                                 <li className="nav-link px-3 sidebar-link">

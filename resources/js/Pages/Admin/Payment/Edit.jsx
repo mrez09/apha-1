@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 //import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 //import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
@@ -111,21 +111,24 @@ export default function Edit(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
     const submit = (e) => {
         e.preventDefault();
 
-        if (data.img == props.payment.img) {
+        if (data.img == props.payment.proof_file) {
             delete data.img;
         }
 
-        router.post(route("admin.dashboard.payment.update", props.payment.id), {
-            _method: "PUT",
-            ...data,
-        });
+        router.post(
+            route("admin.dashboard.paymentproof.update", props.payment.id),
+            {
+                _method: "PUT",
+                ...data,
+            },
+        );
     };
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
@@ -140,7 +143,7 @@ export default function Edit(props) {
                     <div className="btn-group me-2">
                         <a
                             type="button"
-                            href={route("admin.dashboard.payment.index")}
+                            href={route("admin.dashboard.paymentproof.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Kembali
@@ -188,25 +191,6 @@ export default function Edit(props) {
                                 <div className="">
                                     <InputError
                                         message={errors.judul}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-sm-12">
-                                <label className="form-label">Sub Judul</label>
-                                <input
-                                    type="text"
-                                    name="subjudul"
-                                    defaultValue={props.payment.subjudul}
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="subjudul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.subjudul}
                                         className="mt-2"
                                     />
                                 </div>
@@ -429,7 +413,7 @@ export default function Edit(props) {
                                         // You can store the "editor" and use when it is needed.
                                         console.log(
                                             "Editor is ready to use!",
-                                            editor
+                                            editor,
                                         );
                                     }}
                                     onChange={(event, editor, e) => {

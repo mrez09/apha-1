@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\URL;
 use App\Models\News;
 use App\Models\Newscategory;
 use App\Models\Konfigurasi;
-use App\Models\PaymentProof; 
+use App\Models\PaymentProof;
+use App\Models\Payment; 
 use Inertia\Inertia;
 use App\Http\Requests\Admin\Payment\Store;
 use App\Http\Requests\Admin\Payment\Update;
@@ -45,9 +46,9 @@ class PaymentProofadminController extends Controller
     public function store(Store $request){
         //return Inertia::render('Admin/News/Create');
         $data = $request->validated();
-        $data['img'] = Storage::disk("public")->put('payment', $request->file('img'));
+        $data['proof_file'] = Storage::disk("public")->put('payment', $request->file('proof_file'));
         //$data['path'] = "/storage/".$data['img'];
-        $data['slug_judul'] = Str::slug($data ['judul']);
+        //$data['slug_judul'] = Str::slug($data ['judul']);
         $data['id_user'] = Auth::id();
         $news = PaymentProof::create($data);
 
@@ -64,7 +65,7 @@ class PaymentProofadminController extends Controller
         //url saat ini
         $cururl           = URL::current();
         $konfigurasis     = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
-        $paymentjoin      = PaymentProof::select('payment_proofs.id as link_id','judul', 'subjudul', 'no_invoice',  'payment_proofs.status', 'payment_proofs.img', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payment_proofs.id_user')->where('payment_proofs.no_invoice', '=', $payment->no_invoice)->first();
+        $paymentjoin      = PaymentProof::select('payment_proofs.id as link_id','judul',  'no_invoice',  'payment_proofs.status', 'payment_proofs.proof_file', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payment_proofs.id_user')->where('payment_proofs.no_invoice', '=', $payment->no_invoice)->first();
         //$tanggal_print    = date('d-m-Y');
         $tanggal_print    = date('l d M Y ');
         

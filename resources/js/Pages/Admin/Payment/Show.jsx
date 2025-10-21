@@ -86,7 +86,7 @@ export default function List({ featuredBuku, payment, props, tanggal_print }) {
                                     <td>Invoice Date : </td>
                                     <td>
                                         {moment(payment.tanggal_bayar).format(
-                                            "dddd D MMMM YYYY"
+                                            "dddd D MMMM YYYY",
                                         )}
                                     </td>
                                     <td></td>
@@ -148,7 +148,7 @@ export default function List({ featuredBuku, payment, props, tanggal_print }) {
                                         <td>
                                             <a
                                                 className="link_invoice btn btn-outline-primary btn-kecil"
-                                                href={`/storage/${payment.img}`}
+                                                href={`/storage/${payment.proof_file}`}
                                                 target="_blank"
                                             >
                                                 {payment.judul}
@@ -172,7 +172,7 @@ export default function List({ featuredBuku, payment, props, tanggal_print }) {
                                         <PDFFile
                                             no_invoice={payment.no_invoice}
                                             judul={payment.judul}
-                                            subjudul={payment.subjudul}
+                                            //subjudul={payment.subjudul}
                                             slug_judul={payment.slug_judul}
                                             img={payment.img}
                                             status={payment.status}

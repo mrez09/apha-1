@@ -26,7 +26,7 @@ export default function Create(props) {
         id_user: "",
         no_invoice: "",
         judul: "",
-        subjudul: "",
+        //subjudul: "",
         slug_judul: "",
         img: "",
         status: "",
@@ -105,24 +105,6 @@ export default function Create(props) {
                                 <div className="">
                                     <InputError
                                         message={errors.judul}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-sm-12">
-                                <label className="form-label">Sub Judul</label>
-                                <input
-                                    type="text"
-                                    name="subjudul"
-                                    placeholder="Masukan Sub Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="subjudul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="">
-                                    <InputError
-                                        message={errors.subjudul}
                                         className="mt-2"
                                     />
                                 </div>

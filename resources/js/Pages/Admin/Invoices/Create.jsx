@@ -1,107 +1,88 @@
-import React, { useState } from "react";
-import { router } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 
-export default function Create({ members }) {
-    const [memberId, setMemberId] = useState("");
-    const [items, setItems] = useState([{ name: "", price: "", quantity: 1 }]);
-    const [description, setDescription] = useState("");
-
-    const addItem = () => {
-        setItems([...items, { name: "", price: "", quantity: 1 }]);
-    };
-
-    const handleChange = (index, field, value) => {
-        const updated = [...items];
-        updated[index][field] = value;
-        setItems(updated);
-    };
+export default function Create({ users, products }) {
+    const { data, setData, post, processing } = useForm({
+        user_id: "",
+        product_id: "",
+        gateway: "midtrans",
+        due_date: "",
+    });
 
     const submit = (e) => {
         e.preventDefault();
-        router.post(route("invoices.store"), {
-            member_id: memberId,
-            items,
-            description,
-        });
+
+        post(route("admin.dashboard.invoices.store"));
     };
 
     return (
-        <div className="container mt-4">
-            <h4>Buat Invoice Baru</h4>
+        <div className="container">
+            <h3>Buat Invoice</h3>
+
             <form onSubmit={submit}>
                 <div className="mb-3">
-                    <label>Nama Anggota</label>
+                    <label>Member</label>
+
                     <select
-                        className="form-select"
-                        value={memberId}
-                        onChange={(e) => setMemberId(e.target.value)}
+                        className="form-control"
+                        value={data.user_id}
+                        onChange={(e) => setData("user_id", e.target.value)}
                     >
-                        <option value="">-- Pilih Anggota --</option>
-                        {members.map((m) => (
-                            <option key={m.id} value={m.id}>
-                                {m.nama}
+                        <option value="">Pilih Member</option>
+
+                        {users.map((user) => (
+                            <option key={user.id} value={user.id}>
+                                {user.name}
                             </option>
                         ))}
                     </select>
                 </div>
 
                 <div className="mb-3">
-                    <label>Deskripsi</label>
-                    <textarea
+                    <label>Produk</label>
+
+                    <select
                         className="form-control"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        value={data.product_id}
+                        onChange={(e) => setData("product_id", e.target.value)}
+                    >
+                        <option value="">Pilih Produk</option>
+
+                        {products.map((product) => (
+                            <option key={product.id} value={product.id}>
+                                {product.name}
+                                {" - "}
+                                Rp {product.price}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="mb-3">
+                    <label>Metode Pembayaran</label>
+
+                    <select
+                        className="form-control"
+                        value={data.gateway}
+                        onChange={(e) => setData("gateway", e.target.value)}
+                    >
+                        <option value="midtrans">Midtrans</option>
+
+                        <option value="manual">Transfer Bank</option>
+                    </select>
+                </div>
+
+                <div className="mb-3">
+                    <label>Jatuh Tempo</label>
+
+                    <input
+                        type="date"
+                        className="form-control"
+                        value={data.due_date}
+                        onChange={(e) => setData("due_date", e.target.value)}
                     />
                 </div>
 
-                <h5>Daftar Item</h5>
-                {items.map((item, i) => (
-                    <div key={i} className="row mb-2">
-                        <div className="col">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Nama Item"
-                                value={item.name}
-                                onChange={(e) =>
-                                    handleChange(i, "name", e.target.value)
-                                }
-                            />
-                        </div>
-                        <div className="col">
-                            <input
-                                type="number"
-                                className="form-control"
-                                placeholder="Harga"
-                                value={item.price}
-                                onChange={(e) =>
-                                    handleChange(i, "price", e.target.value)
-                                }
-                            />
-                        </div>
-                        <div className="col">
-                            <input
-                                type="number"
-                                className="form-control"
-                                placeholder="Qty"
-                                value={item.quantity}
-                                onChange={(e) =>
-                                    handleChange(i, "quantity", e.target.value)
-                                }
-                            />
-                        </div>
-                    </div>
-                ))}
-
-                <button
-                    type="button"
-                    className="btn btn-sm btn-outline-primary me-2"
-                    onClick={addItem}
-                >
-                    + Tambah Item
-                </button>
-
-                <button type="submit" className="btn btn-success">
+                <button className="btn btn-primary" disabled={processing}>
                     Simpan Invoice
                 </button>
             </form>

@@ -45,8 +45,15 @@ class Invoice extends Model
         return $this->belongsTo(User::class);
     }
 
+    //Invoice satu
     public function payment() {
         return $this->hasOne(Payment::class);
+    }
+
+    //Invoice Gerate
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 
     public function paymentProof()

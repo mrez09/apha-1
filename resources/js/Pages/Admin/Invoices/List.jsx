@@ -5,15 +5,7 @@ import { Head, useForm } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 
-export default function List({
-    auth,
-    errors,
-    flashMessage,
-    props,
-    guides,
-    previousGuide,
-    nextGuide,
-}) {
+export default function List({ invoices, auth, errors, flashMessage, props }) {
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
         // options
@@ -32,16 +24,16 @@ export default function List({
                 </h2>
             }
         >
-            <Head title="Guide" />
+            <Head title="Invoice" />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">List Guides</h1>
+                <h1 className="h2">List Invoices</h1>
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
                         <Link
                             type="button"
-                            href={route("admin.dashboard.guide.create")}
+                            href={route("admin.dashboard.invoices.create")}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Tambah
@@ -53,16 +45,14 @@ export default function List({
                 <FlashMessage message={flashMessage.message} />
             )}
 
-            {/*End Dashboard Title*/}
-
             <div className="container">
                 <div className="row">
                     <table id="myTable" className="table table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Judul</th>
-                                <th>Kategori</th>
+                                <th>Nama</th>
+                                <th>Invoice Number</th>
                                 <th>Role</th>
                                 <th>Status</th>
                                 <th>Urutan</th>
@@ -70,43 +60,71 @@ export default function List({
                             </tr>
                         </thead>
                         <tbody>
-                            {guides.map((guide) => (
-                                <tr key={guide.id}>
-                                    <td>{guide.id}</td>
-                                    <td>{guide.title}</td>
+                            {invoices.map((invoice, index) => (
+                                <tr key={invoice.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{invoice.user?.name ?? "-"}</td>
                                     <td>
                                         <span className="badge bg-info">
-                                            {guide.category}
+                                            {invoice.invoice_number}
                                         </span>
                                     </td>
+                                    <td>{invoice.total_amount}</td>
                                     <td>
-                                        {guide.roles?.map((role) => (
-                                            <span
-                                                key={role.id}
-                                                className="badge bg-primary me-1"
-                                            >
-                                                {role.name}
-                                            </span>
-                                        ))}
+                                        {(() => {
+                                            if (invoice.status == "Belum") {
+                                                return (
+                                                    <span className="text-warning fw-bold">
+                                                        {(
+                                                            invoice?.status ??
+                                                            "-"
+                                                        ).toUpperCase()}
+                                                    </span>
+                                                );
+                                            } else {
+                                                return (
+                                                    <span className="text-info fw-bold">
+                                                        {(
+                                                            invoice?.status ??
+                                                            "-"
+                                                        ).toUpperCase()}
+                                                    </span>
+                                                );
+                                            }
+                                        })()}
                                     </td>
                                     <td>
-                                        {guide.status == 1 ? (
-                                            <span className="badge bg-success">
-                                                Aktif
-                                            </span>
-                                        ) : (
-                                            <span className="badge bg-danger">
-                                                Tidak Aktif
-                                            </span>
-                                        )}
+                                        {[
+                                            invoice.method,
+                                            invoice.gateway,
+                                            invoice.payment_type,
+                                        ]
+                                            .filter(Boolean)
+                                            .map((item, index) => (
+                                                <span
+                                                    key={index}
+                                                    className="badge bg-primary text-uppercase me-1"
+                                                >
+                                                    {item}
+                                                </span>
+                                            ))}
                                     </td>
-                                    <td>{guide.sort_order}</td>
 
                                     <td>
                                         <Link
                                             href={route(
+                                                "admin.dashboard.invoices.show",
+                                                invoice.id,
+                                            )}
+                                            className="btn btn-sm btn-info"
+                                        >
+                                            Detail
+                                        </Link>
+
+                                        <Link
+                                            href={route(
                                                 "admin.dashboard.guide.edit",
-                                                guide.id,
+                                                invoice.id,
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -117,8 +135,8 @@ export default function List({
                                             onClick={() => {
                                                 destroy(
                                                     route(
-                                                        "admin.dashboard.guide.destroy",
-                                                        guide.id,
+                                                        "admin.dashboard.invoices.destroy",
+                                                        invoice.id,
                                                     ),
                                                     {
                                                         onSuccess: () => {

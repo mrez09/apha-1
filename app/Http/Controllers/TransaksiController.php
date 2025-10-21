@@ -460,15 +460,22 @@ class TransaksiController extends Controller
     public function download($id)
     {
         // Ambil invoice lengkap + relasi
-        $invoice = Invoice::with([
-            'items',
-            'user',
-            'user.member',
-            'payment'
+        $query = Invoice::with([
+        'items',
+        'user',
+        'user.member',
+        'payment'
         ])
-        ->where('id', $id)
-        ->where('user_id', auth()->id())
-        ->firstOrFail();
+        ->where('id', $id);
+
+
+        // Kalau bukan admin, hanya boleh invoice sendiri
+        if (!auth()->user()->hasRole('admin')) {
+            $query->where('user_id', auth()->id());
+        }
+
+
+        $invoice = $query->firstOrFail();
 
         // Data Member
         $member = $invoice->user->member ?? null;
