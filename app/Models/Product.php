@@ -24,4 +24,9 @@ class Product extends Model
     {
         return $this->hasMany(InvoiceItem::class);
     }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

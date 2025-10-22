@@ -160,7 +160,7 @@ export default function InvoiceShow({
                                         )}`}
                                     >
                                         {(
-                                            payment?.transaction_status ??
+                                            invoice?.transaction_status ??
                                             invoice?.status ??
                                             "-"
                                         ).toUpperCase()}
@@ -621,112 +621,6 @@ export default function InvoiceShow({
                                     Kirim Email
                                 </button>
                             </div>
-                        </div>
-                    </div>
-
-                    {/* ============================
-                        KOLOM KANAN
-                    ============================= */}
-                    <div className="col-lg-4">
-                        <div className="invoice-right shadow-sm">
-                            {/* Tabs */}
-                            <ul className="nav nav-tabs tab-payment mb-3">
-                                <li className="nav-item">
-                                    <button
-                                        className="nav-link active"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#manual"
-                                    >
-                                        Manual Transfer
-                                    </button>
-                                </li>
-
-                                <li className="nav-item">
-                                    <button
-                                        className="nav-link"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#midtrans"
-                                    >
-                                        Midtrans
-                                    </button>
-                                </li>
-                            </ul>
-
-                            <div className="tab-content">
-                                {/* Manual Transfer */}
-                                <div
-                                    className="tab-pane fade show active"
-                                    id="manual"
-                                >
-                                    <p className="mb-2">
-                                        Silakan transfer ke rekening berikut:
-                                    </p>
-                                    <ul>
-                                        <span>Bank Mandiri</span>
-                                        <h3>126-00-0742744-5</h3>
-                                        <p>
-                                            a.n Asosiasi Pengajar Hukum Adat
-                                            Indonesia (APHA)
-                                        </p>
-                                    </ul>
-
-                                    {invoice.status === "paid" ? (
-                                        <button
-                                            className="btn btn-success w-100"
-                                            disabled
-                                        >
-                                            Sudah Dibayar
-                                        </button>
-                                    ) : (
-                                        <Link
-                                            className="btn btn-danger w-100"
-                                            //onClick={payNow}
-                                            type="button"
-                                            //</div>href={route(
-                                            //    "anggota.dashboard.paymentproof.create",
-                                            //    {
-                                            //        invoice: invoice.id,
-                                            //    },
-                                            //)}
-                                        >
-                                            Upload Bukti Transfer
-                                        </Link>
-                                    )}
-                                </div>
-
-                                {/* Midtrans */}
-                                <div className="tab-pane fade" id="midtrans">
-                                    <p>Pembayaran otomatis via Midtrans.</p>
-
-                                    {invoice.status === "paid" ? (
-                                        <button
-                                            className="btn btn-success w-100"
-                                            disabled
-                                        >
-                                            Sudah Dibayar
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="btn btn-danger w-100"
-                                            onClick={payNow}
-                                        >
-                                            Bayar Sekarang
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-
-                            <a
-                                //sementara
-                                href={route(
-                                    "anggota.dashboard.invoice.download",
-                                    invoice.id,
-                                )}
-                                className="btn btn-outline-dark w-100 mt-3"
-                                target="_blank"
-                            >
-                                Download Invoice
-                            </a>
                         </div>
                     </div>
                 </div>

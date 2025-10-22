@@ -42,8 +42,11 @@ export default function InvoiceShow({
             return;
         }
 
+        //Anti Spam Token..
         if (!snapToken) {
-            alert("Snap Token belum tersedia!");
+            alert(
+                "Snap Token belum tersedia! Transaksi sebelumnya Failed, Harap buat invoice Baru atau Hubungi Admin untuk Token Baru!",
+            );
             return;
         }
 

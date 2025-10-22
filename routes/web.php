@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\MemberadminController;
 use App\Http\Controllers\Admin\SertifikatadminController;
 use App\Http\Controllers\Admin\PaymentProofadminController;
 use App\Http\Controllers\Admin\UploadController;
+use App\Http\Controllers\Admin\ProductController;
 //use App\Http\Controllers\Admin\InvoiceController as InvoiceAdminController;
 use App\Http\Controllers\Admin\InvoiceController as AdminInvoiceController;
 use App\Http\Controllers\Admin\GuideController;
@@ -327,11 +328,20 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     //Route::get('buku/{buku:slug}', [BukuController::class, 'show'])->name('buku.show');
     Route::put('kta/{member}/restore', [KTAController::class, 'restore'])->name('nokta.restore');
 
+    //Product Iuran
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
+    Route::delete('products/{product}/destroy', [ProductController::class, 'destroy'])->name('products.destroy');
+
     //Invoices
     Route::get('/invoices', [AdminInvoiceController::class, 'index'])->name('invoices.index');
-    Route::get('invoices/{id}/edit', [KTAController::class, 'edit'])->name('invoices.edit');
+    Route::get('invoices/{id}/edit', [AdminInvoiceController::class, 'edit'])->name('invoices.edit');
+    Route::put('/invoices/{id}', [AdminInvoiceController::class, 'update'])->name('invoices.update');
     Route::get('/invoices/create', [AdminInvoiceController::class, 'create'])->name('invoices.create');
-    Route::post('/invocies/store', [AdminInvoiceController::class, 'store'])->name('invoices.store');
+    Route::post('/invoices/store', [AdminInvoiceController::class, 'store'])->name('invoices.store');
     //Route::post('/invoices', [AdminInvoiceController::class, 'store'])->name('admin.invoices.store');
     Route::get('/invoices/{id}', [AdminInvoiceController::class, 'show'])->name('invoices.show');
     //new

@@ -33,6 +33,7 @@ class InvoiceController extends Controller
             ]
         );
     }
+
     public function create()
     {
         $users = User::whereHas('member')
@@ -56,56 +57,103 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'product_id' => 'required|exists:products,id',
+            'notes' => 'nullable|string',
+        ]);
+        $product = Product::findOrFail(
+            $request->product_id
+        );
 
-            'user_id'=>'required',
-            'product_id'=>'required',
-            'gateway'=>'required',
+        //ngecek iuran tahun ini bro.
+        if ($product->type === 'iuran') {
+
+            $alreadyExists = Invoice::where(
+                'user_id',
+                $request->user_id
+            )
+            ->where('product_id', $product->id)
+            ->whereYear(
+                'created_at',
+                now()->year
+            )
+            ->exists();
+
+
+            if ($alreadyExists) {
+
+                return back()
+                    ->with([
+                        'message'=>'Anggota ini sudah memiliki invoice iuran tahun ini.',
+                        'type'=>'error'
+                    ]);
+
+            }
+
+        }
+
+
+        // Ambil product
+        $product = Product::findOrFail(
+            $request->product_id
+        );
+
+
+        // Buat nomor invoice
+        $invoiceNumber = 'INV-' 
+            . now()->format('Ymd')
+            . '-'
+            . strtoupper(Str::random(5));
+
+
+        // Buat Invoice
+        $invoice = Invoice::create([
+
+            'user_id' => $request->user_id,
+
+            'product_id' => $product->id,
+
+            'invoice_number' => $invoiceNumber,
+
+            'type' => $product->type,
+
+            'total_amount' => $product->price,
+
+            'status' => 'pending',
+
+            'notes' => $request->notes,
 
         ]);
 
-        $invoiceNumber = 'INV-' . date('Ymd') . '-' . Str::random(5);
 
-        DB::transaction(function() use($request){
-            $product = Product::findOrFail(
-                $request->product_id
-            );
 
-            $invoice = Invoice::create([
-                'user_id'=>$request->user_id,
-                'invoice_number'=> $invoiceNumber,
-                'type'=>$product->type,
-                'product_id'=>$product->id,
-                'description'=>$product->description,
-                'total_amount'=>$product->price,
-                'gateway'=>$request->gateway,
-                'method'=>
-                    $request->gateway == 'midtrans'
-                    ? 'digital'
-                    : 'manual',
-                'status'=>'pending',
-                'due_date'=>$request->due_date,
+        // Buat invoice item
+        InvoiceItem::create([
+
+            'invoice_id' => $invoice->id,
+
+            'item_name' => $product->name,
+
+            'quantity' => 1,
+
+            'price' => $product->price,
+
+            'subtotal' => $product->price,
+
+        ]);
+
+
+
+        return redirect()
+            ->route(
+                'admin.dashboard.invoices.show',
+                $invoice->id
+            )
+            ->with([
+                'message'=>'Invoice berhasil dibuat',
+                'type'=>'success'
             ]);
-
-            InvoiceItem::create([
-                'invoice_id'=>$invoice->id,
-                'item_name'=>$product->name,
-                'price'=>$product->price,
-                'quantity'=>1,
-                'subtotal'=>$product->price,
-            ]);
-
-
-        });
-
-        return redirect()->route(
-            'admin.dashboard.invoices.index'
-        )->with(
-            'message',
-            'Invoice berhasil dibuat'
-        );
-
     }
 
     public function generatePaymentold($id)
@@ -208,7 +256,7 @@ class InvoiceController extends Controller
         ]);
     }
     
-    public function edit(Invoice $invoice)
+    public function editold(Invoice $invoice)
     {
         if ($invoice->status === 'paid') {
             return back()->with(
@@ -225,7 +273,30 @@ class InvoiceController extends Controller
         );
     }
 
-    public function update(
+    public function edit($id)
+    {
+        $invoice = Invoice::with([
+            'user',
+            'product'
+        ])
+        ->findOrFail($id);
+
+
+        $products = Product::where('is_active', 1)
+            ->orderBy('name')
+            ->get();
+
+
+        return Inertia::render(
+            'Admin/Invoices/Edit',
+            [
+                'invoice' => $invoice,
+                'products' => $products,
+            ]
+        );
+    }
+
+    public function updateold(
     UpdateInvoiceRequest $request,
     Invoice $invoice
     ) {
@@ -239,6 +310,44 @@ class InvoiceController extends Controller
             'message',
             'Invoice berhasil diperbarui.'
         );
+    }
+
+    public function update(Request $request, $id)
+    {
+        $invoice = Invoice::findOrFail($id);
+
+
+        $request->validate([
+            'product_id'=>'required|exists:products,id',
+            'notes'=>'nullable',
+            'due_date'=>'nullable|date',
+        ]);
+
+
+        $product = Product::findOrFail(
+            $request->product_id
+        );
+
+
+        $invoice->update([
+
+            'product_id'=>$product->id,
+
+            'type'=>$product->type,
+
+            'total_amount'=>$product->price,
+
+            'notes'=>$request->notes,
+
+            'due_date'=>$request->due_date,
+
+        ]);
+
+
+        return back()->with([
+            'message'=>'Invoice berhasil diperbarui',
+            'type'=>'success'
+        ]);
     }
 
     public function destroy(Invoice $invoice)
