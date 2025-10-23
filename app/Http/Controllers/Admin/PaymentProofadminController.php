@@ -7,15 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
-use App\Models\News;
-use App\Models\Newscategory;
 use App\Models\Konfigurasi;
 use App\Models\PaymentProof;
-use App\Models\Payment; 
+use App\Models\Payment;
+use App\Models\Member;
+use App\Models\Invoice; 
 use Inertia\Inertia;
 use App\Http\Requests\Admin\Payment\Store;
 use App\Http\Requests\Admin\Payment\Update;
 use Storage;
+use Illuminate\Support\Facades\DB;
 
 
 class PaymentProofadminController extends Controller
@@ -24,7 +25,7 @@ class PaymentProofadminController extends Controller
     public function index(){
         $news           = PaymentProof::all();
         $newsjoin       = PaymentProof::select('payment_proofs.id as link_id','judul', 'no_invoice', 'status', 'proof_file', 'tanggal_bayar', 'name')->join('users','users.id',"=",'payment_proofs.id_user')->get();
-        return Inertia::render('Admin/Payment/List',
+        return Inertia::render('Admin/Paymentproof/List',
         [
             'news'          => $newsjoin
         ]);
@@ -36,7 +37,7 @@ class PaymentProofadminController extends Controller
 
     public function create(){
         $newscategory           = Newscategory::all();
-        return Inertia::render('Admin/Payment/Create',
+        return Inertia::render('Admin/Paymentproof/Create',
         [
             'newscategory'          => $newscategory,
             'ckeditor'              => 'yes',
@@ -61,52 +62,41 @@ class PaymentProofadminController extends Controller
         //return $request->all();
     }
 
-    public function show(PaymentProof $payment){
-        //url saat ini
-        $cururl           = URL::current();
-        $konfigurasis     = Konfigurasi::where('konfigurasis.id', '=', 1)->first();
-        $paymentjoin      = PaymentProof::select('payment_proofs.id as link_id','judul',  'no_invoice',  'payment_proofs.status', 'payment_proofs.proof_file', 'tanggal_bayar', 'nama', 'alamat', 'konten')->join('members','members.id_user',"=",'payment_proofs.id_user')->where('payment_proofs.no_invoice', '=', $payment->no_invoice)->first();
-        //$tanggal_print    = date('d-m-Y');
-        $tanggal_print    = date('l d M Y ');
-        
-       
-        //Parse Data
-       //$repkonten1    = Str::replace('<p>', '', $buku->sinopsis);
-       //$repkonten2    = Str::replace('</p>', '', $repkonten1);
-       //$des    = Str::words( $repkonten2, 25);
+    public function show(PaymentProof $paymentproof)
+    {
+        $paymentproof->load([
+            'invoice.items',
+            'invoice.user',
+            'user',
+        ]);
 
-       //$reptag1    = Str::replace('<p>', '', $konfigurasis->metatag);
-       //$metatag    = Str::replace('</p>', '', $reptag1);
+        $member = Member::where('id_user', $paymentproof->id_user)->first();
 
-       //$cururl     = URL::current();
-       return Inertia::render('Admin/Payment/Show', [
-           'payment'        => $paymentjoin,
-           'tanggal_print'  => $tanggal_print,
-           //'event' => [
-             //  'application-name'          => $konfigurasis->namawebsite,
-               //'title'                     => $buku->name,
-        //       'description'               => $des,
-          //     'keywords'                  => $metatag,
-            //   'image'                     => 'https://apha.or.id/storage/'.$buku->thumbnail,
-           //    'image_type'                => 'image/jpeg',
-      //         'image_width'               => '250',
-        //       'image_height'              => '550',
-          //     'image_alt'                 => $buku->name,
-            //   'og:type'                   => 'book',
-     //          'publish_time'              => $buku->publish_at,
-       //        'article_tag'               => 'Hukum Adat, APHA, Asosisasi Pengajar Hukum Adat',
-       //        'url'                       => $cururl,
-       //        'fb:app_id'                 => $konfigurasis->fbid,
-       //        'theme-color'               => '#ff6300',
-         //      'mobile-web-app-capable'    => 'yes',
-    //           'apple-mobile-web-app-title'=> $buku->name,
-      //         'card'                      => 'summary_large_image',
-        //   ]
-           ]
-       );
-       //return Inertia::render('Admin/News/Create');
-       //return $request->all();
-   }
+        $invoice = $paymentproof->invoice;
+        $taxRate = 0.11;
+        $taxAmount = $invoice
+            ? $invoice->total_amount * $taxRate
+            : 0;
+        $grandTotal = $invoice
+            ? $invoice->total_amount + $taxAmount
+            : 0;
+
+       //     dd([
+       // 'payment_id' => $paymentproof->id,
+       // 'invoice_id' => $paymentproof->invoice_id,
+       // 'invoice' => $paymentproof->invoice,
+    //]);
+            
+        //dd($paymentproof->invoice);
+        return Inertia::render('Admin/Paymentproof/Show', [
+            'payment' => $paymentproof,
+            'member' => $member,
+            'invoice' => $invoice,
+            'tax' => $taxAmount,
+            'grandTotal' => $grandTotal,
+        ]);
+    }
+
     public function edit(Payment $payment){
         //return $news;
         //return Inertia::render('Admin/News/Create');
@@ -114,7 +104,7 @@ class PaymentProofadminController extends Controller
         //$news           = News::all();
 //        $newscategory           = Payment::all();
   //      $categoryget           = Payment::select('newscategories.id as newscategories_id','namakategori', 'newscategories.slug')->join('newscategories','newscategories.id',"=",'news.category')->where('newscategories.id', '=', $news->category)->first();
-        return Inertia::render('Admin/Payment/Edit',
+        return Inertia::render('Admin/Paymentproof/Edit',
         [
             'payment'          => $payment,
             'ckeditor'              => 'yes',
@@ -166,6 +156,75 @@ class PaymentProofadminController extends Controller
             ]
             );
         //return $news;
+    }
+
+    public function approve($id)
+    {
+        $payment = PaymentProof::findOrFail($id);
+        $invoice = Invoice::findOrFail($payment->invoice_id);
+        DB::transaction(function () use ($payment, $invoice) {
+            $payment->update([
+                'status' => 'approved',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            $oldStatus = $invoice->status;
+            $invoice->update([
+                'status' => 'paid',
+                'paid_at' => now(),
+                'method' => 'manual',
+            ]);
+            $invoice->logs()->create([
+                'user_id'      => $invoice->user_id,
+                'performed_by' => auth()->id(),
+                'action'       => 'payment_proof_approved',
+                'description'  => 'Bukti pembayaran manual disetujui',
+                'old_status'   => $oldStatus,
+                'new_status'   => 'paid',
+                'ip_address'   => request()->ip(),
+            ]);
+
+        });
+
+        return back()->with([
+            'message' => 'Pembayaran berhasil disetujui.',
+            'type' => 'success',
+        ]);
+    }
+
+    public function reject($id)
+    {
+        $payment = PaymentProof::findOrFail($id);
+        $invoice = Invoice::findOrFail($payment->invoice_id);
+        DB::transaction(function () use ($payment, $invoice) {
+            $payment->update([
+                'status' => 'rejected',
+                'rejected_by' => auth()->id(),
+                'rejected_at' => now(),
+                //'message' => 'Maaf File ini tidak disetujui.',
+            ]);
+
+            $oldStatus = $invoice->status;
+            $payment->update([
+                'status' => 'rejected',
+                'rejected_by' => auth()->id(),
+                'rejected_at' => now(),
+            ]);
+            $payment->invoice->logs()->create([
+                'user_id' => $payment->id_user,
+                'performed_by' => auth()->id(),
+                'action' => 'payment_proof_rejected',
+                'description' => 'Bukti pembayaran manual ditolak',
+                'ip_address' => request()->ip(),
+            ]);
+
+        });
+
+        return back()->with([
+            'message' => 'Pembayaran berhasil disetujui.',
+            'type' => 'success',
+        ]);
     }
 
 }

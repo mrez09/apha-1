@@ -70,6 +70,17 @@ class PaymentProofAnggotaController extends Controller
         $data['id_user'] = Auth::id();
         $news = PaymentProof::create($data);
         //dd($invoice);
+
+        if ($invoice) {
+            $invoice->logs()->create([
+                'user_id' => $invoice->user_id,
+                'performed_by' => auth()->id(),
+                'action' => 'payment_proof_uploaded',
+                'description' => 'Anggota mengupload bukti pembayaran',
+                'ip_address' => request()->ip(),
+        ]);
+
+}
     
         return redirect(route('anggota.dashboard.paymentproof.index'))->with(
             [

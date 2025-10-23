@@ -48,6 +48,7 @@ use App\Http\Controllers\Admin\ProductController;
 //use App\Http\Controllers\Admin\InvoiceController as InvoiceAdminController;
 use App\Http\Controllers\Admin\InvoiceController as AdminInvoiceController;
 use App\Http\Controllers\Admin\GuideController;
+use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Anggota\DashboardController as AnggotaDashboardContoller;
 use App\Http\Controllers\Anggota\ProfileController as AnggotaProfileController;
 use App\Http\Controllers\Anggota\MemberController;
@@ -313,11 +314,21 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::delete('/sertifikat/upload-sertifikat/{id}/delete-image', [UploadController::class, 'deleteImage']);
 
     //Sertifikat
-    //Periode
+    //PaymentProof Admin
     Route::resource('paymentproof', PaymentProofadminController::class);
-    Route::get('paymentproof/{payment}/edit', [PaymentProofadminController::class, 'edit'])->name('payment.edit');
-    Route::get('paymentproof/{payment}', [PaymentProofadminController::class, 'show'])->name('payment.show');
+    Route::get('paymentproof/{paymentproof:no_invoice}/edit', [PaymentProofadminController::class, 'edit'])->name('paymentproof.edit');
+    Route::get('paymentproof/{paymentproof:no_invoice}',[PaymentProofadminController::class, 'show'])->name('paymentproof.show');
+    
+    Route::post('paymentproof/{id}/approve',[PaymentProofadminController::class, 'approve'])->name('paymentproof.approve');
+    Route::post('paymentproof/{id}/reject',[PaymentProofadminController::class, 'reject'])->name('paymentproof.reject');
     Route::put('paymentproof/{payment}/restore', [PaymentProofadminController::class, 'restore'])->name('payment.restore');
+    
+    //Route::resource('paymentproof', PaymentProofAnggotaController::class);
+    
+    //Route::get('paymentproof/{payment}', [PaymentProofAnggotaController::class, 'show'])->name('paymentproof.show');
+    
+    Route::put('member/{member}/restore', [PaymentProofAnggotaController::class, 'restore'])->name('payment.restore');
+    //Route::get('paymentproof/create/{invoice}',[PaymentProofAnggotaController::class, 'create'])->name('paymentproof.create');
 
 
     
@@ -343,6 +354,7 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::get('/invoices/create', [AdminInvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/invoices/store', [AdminInvoiceController::class, 'store'])->name('invoices.store');
     //Route::post('/invoices', [AdminInvoiceController::class, 'store'])->name('admin.invoices.store');
+    
     Route::get('/invoices/{id}', [AdminInvoiceController::class, 'show'])->name('invoices.show');
     //new
     //Route::resource('invoice', InvoiceAdminController::class);
@@ -359,6 +371,19 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::post('/guide/upload_guide', [UploadController::class, 'uploadGuide'])->name('guide.upload');
     Route::delete('/guide/upload_guide/{id}/delete-image', [UploadController::class, 'deleteImage_guide'])->name('guide.delete-image');
     //Route::resource('guide', GuideController::class);
+
+
+    //Activity Log
+    Route::get('activity-logs', [ActivityLogController::class,'index'])->name('activity.index');
+    Route::get('activity-logs/{id}/', [ActivityLogController::class, 'show'])->name('activity.show');
+    //Route::put('/invoices/{id}', [AdminInvoiceController::class, 'update'])->name('invoices.update');
+    //Route::get('/invoices/create', [AdminInvoiceController::class, 'create'])->name('invoices.create');
+    //Route::post('/invoices/store', [AdminInvoiceController::class, 'store'])->name('invoices.store');
+    
+    //Route::prefix('activity-logs')->name('activity-logs.')->group(function(){
+    //    Route::get('/',[ActivityLogController::class,'index'])->name('index');
+    //    Route::get('/{id}',[ActivityLogController::class,'show'])->name('show');
+    //});
 });
 
 //User Control Anggota

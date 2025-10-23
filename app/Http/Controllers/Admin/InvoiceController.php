@@ -80,17 +80,13 @@ class InvoiceController extends Controller
             )
             ->exists();
 
-
             if ($alreadyExists) {
-
                 return back()
                     ->with([
                         'message'=>'Anggota ini sudah memiliki invoice iuran tahun ini.',
                         'type'=>'error'
                     ]);
-
             }
-
         }
 
 
@@ -109,41 +105,35 @@ class InvoiceController extends Controller
 
         // Buat Invoice
         $invoice = Invoice::create([
-
             'user_id' => $request->user_id,
-
             'product_id' => $product->id,
-
             'invoice_number' => $invoiceNumber,
-
             'type' => $product->type,
-
             'total_amount' => $product->price,
-
             'status' => 'pending',
-
             'notes' => $request->notes,
-
         ]);
 
+        $invoice->logs()->create([
+            // pemilik invoice
+            'user_id' => $invoice->user_id,
+            // admin yang membuat
+            'performed_by' => auth()->id(),
+            'action' => 'invoice_created',
+            'description' => 'Invoice berhasil dibuat oleh admin',
+            'new_status' => $invoice->status,
+            'ip_address' => request()->ip(),
+        ]);
 
 
         // Buat invoice item
         InvoiceItem::create([
-
             'invoice_id' => $invoice->id,
-
             'item_name' => $product->name,
-
             'quantity' => 1,
-
             'price' => $product->price,
-
             'subtotal' => $product->price,
-
         ]);
-
-
 
         return redirect()
             ->route(
@@ -230,6 +220,14 @@ class InvoiceController extends Controller
             'order_id' => $orderId,
             'payment_token' => $snapToken,
             'status' => 'pending',
+        ]);
+
+        $invoice->logs()->create([
+            'user_id' => $invoice->user_id,
+            'performed_by' => auth()->id(),
+            'action' => 'midtrans_generated',
+            'description' => 'Snap Token Midtrans berhasil dibuat',
+            'ip_address' => request()->ip(),
         ]);
 
 

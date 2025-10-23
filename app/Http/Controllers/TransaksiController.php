@@ -208,6 +208,8 @@ class TransaksiController extends Controller
             return response()->json(['message' => 'Invoice tidak ditemukan'], 404);
         }
 
+        $oldStatus = $invoice->status;
+
         // Update status berdasarkan notifikasi Midtrans
         if ($transactionStatus == 'capture') {
             if ($fraudStatus == 'challenge') {
@@ -363,35 +365,64 @@ class TransaksiController extends Controller
                 return response()->json(['message' => 'invoice not found'], 404);
             }
 
+            $oldStatus = $invoice->status;
+
             // ===============================
             //   UPDATE STATUS INVOICE
             // ===============================
             if (in_array($transaction, ['capture', 'settlement'])) {
                 $invoice->update([
-                    'gateway'            => 'midtrans',
-                    'method'            => 'digital',
-                    'status' => 'paid',
-                    'paid_at' => now(),
+                    'gateway'       => 'midtrans',
+                    'method'        => 'digital',
+                    'status'        => 'paid',
+                    'paid_at'       => now(),
                     'payment_type'  => $paymentType,
-                    'payment_token'      => $invoice->snap_token,
+                    'payment_token' => $invoice->snap_token,
+                ]);
+
+                $invoice->logs()->create([
+                    'user_id'       => $invoice->user_id,
+                    'action'        =>'midtrans_paid',
+                    'description'   =>'Pembayaran Midtrans berhasil',
+                    'old_status'    =>$oldStatus,
+                    'new_status'    =>'paid',
+                    'ip_address'    =>request()->ip(),
                 ]);
             } elseif ($transaction === 'pending') {
                 $invoice->update([
-                    'gateway'            => 'midtrans',
-                    'method'            => 'digital',
-                    'status' => 'pending',
+                    'gateway'       => 'midtrans',
+                    'method'        => 'digital',
+                    'status'        => 'pending',
                     'payment_type'  => $paymentType,
-                    'payment_token'      => $invoice->snap_token,
+                    'payment_token' => $invoice->snap_token,
+                ]);
+                $invoice->logs()->create([
+                    'user_id'       => $invoice->user_id,
+                    'action'        =>'midtrans_pending',
+                    'description'   =>'Menunggu pembayaran Midtrans',
+                    'old_status'    =>$oldStatus,
+                    'new_status'    =>'pending',
+                    'ip_address'    =>request()->ip(),
                 ]);
             } else {
                 $invoice->update([
-                    'gateway'            => 'midtrans',
-                    'method'            => 'digital',
-                    'status' => 'failed',
+                    'gateway'       => 'midtrans',
+                    'method'        => 'digital',
+                    'status'        => 'failed',
                     'payment_type'  => $paymentType,
-                    'payment_token'      => $invoice->snap_token,
+                    'payment_token' => $invoice->snap_token,
+                ]);
+
+                $invoice->logs()->create([
+                    'user_id'       => $invoice->user_id,
+                    'action'        =>'midtrans_failed',
+                    'description'   =>'Pembayaran Midtrans gagal atau expired',
+                    'old_status'    =>$oldStatus,
+                    'new_status'    =>'failed',
+                    'ip_address'    =>request()->ip(),
                 ]);
             }
+            
 
             // ===============================
             //   UPDATE / CREATE PAYMENT

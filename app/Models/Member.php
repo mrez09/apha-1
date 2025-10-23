@@ -24,6 +24,11 @@ class Member extends Model
         return $this->hasMany(Invoice::class);
     }
 
+    public function logs()
+    {
+        return $this->morphMany(ActivityLog::class, 'loggable');
+    }
+
 }
 
 

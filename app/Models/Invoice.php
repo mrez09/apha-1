@@ -60,5 +60,10 @@ class Invoice extends Model
     {
         return $this->hasOne(PaymentProof::class);
     }
+
+    public function logs()
+    {
+        return $this->morphMany(ActivityLog::class, 'loggable');
+    }
     
 }
