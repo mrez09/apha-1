@@ -114,14 +114,18 @@ class AnggotaController extends Controller
         $id_user = User::max('id') + 1;
 
 
+        //Member
         $data['id_com'] = $id_com;
         $data['id_user'] = $id_user;
         $data['slug'] = Str::slug($data['nama']);
-        $data['divisi'] = 3;
+        $data['no_kta'] = "";
+        $data['slug_kta'] = "";
+        $data['divisi'] = "";
         $data['subdivisi'] = 10;
         $data['jabatan'] = 12;
         $data['periode'] = 1;
-        $data['join_at'] = date('Y-m-d H:i:s');;
+        $data['join_at'] = date('Y-m-d H:i:s');
+        $data['kta_token'] = 'APHA-' . strtoupper(Str::random(10)); // <== token unik
 
         //Commitee
         $data2['nama'] = $data['nama'];
@@ -152,7 +156,7 @@ class AnggotaController extends Controller
         
         
         
-        return redirect(route('frontkeanggotaan.index'))->with(
+        return redirect(route('login'))->with(
             [
                 'message'   => "Data Anda Sudah Diajukan, Anda Sudah Bisa Login untuk Mengetahui Status Anda. | Terima Kasih ",
                 'type'      => "success"

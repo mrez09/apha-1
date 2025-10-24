@@ -1,32 +1,26 @@
 import FrontendLayout from "@/Layouts/FrontendLayout";
 import FlashMessage from "@/Components/FlashMessage";
-import DataTable from "datatables.net-dt";
 import { Head } from "@inertiajs/react";
 import React, { useState, useEffect } from "react";
-import NavLink from "@/Components/NavLink";
 import InputError from "@/Components/InputError";
-import Checkbox from "@/Components/Checkbox";
-import { Link, useForm } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useForm } from "@inertiajs/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
-import Select from "react-select";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
 export default function List(props) {
     //
-    const [startDate, setStartDate] = useState(new Date());
-    //const changeDate = (e) => setDate(e.target.value);
-    let table = new DataTable("#myTable", {
-        // options
-        destroy: true,
-        processing: true,
-        serverSide: false,
-    });
+    //const [startDate, setStartDate] = useState(new Date());
+    useEffect(() => {
+        return () => {
+            reset("password");
+        };
+    }, []);
 
-    const { data, setData, post, processing, errors } = useForm({
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const { data, setData, post, processing, errors, reset } = useForm({
         nama: "",
         kode: "",
         phone: "",
@@ -93,10 +87,55 @@ export default function List(props) {
                     </p>
                 </header>
                 <div className="form-wrap">
+                    {props.flash?.message && (
+                        <FlashMessage
+                            message={props.flash.message}
+                            type={props.flash.type}
+                        />
+                    )}
                     <form onSubmit={submit}>
                         <div className="row">
                             <br />
                             <h3>Data Diri</h3>
+                            {Object.keys(errors).length > 0 && (
+                                <div className="validation-alert mb-4">
+                                    <div className="d-flex align-items-start">
+                                        <div className="validation-icon me-3">
+                                            <i className="fas fa-circle-exclamation"></i>
+                                        </div>
+
+                                        <div className="flex-grow-1">
+                                            <div className="fw-bold mb-1">
+                                                Data belum lengkap
+                                            </div>
+
+                                            <p className="mb-2 text-muted small">
+                                                Mohon periksa kembali data
+                                                berikut sebelum melanjutkan.
+                                            </p>
+
+                                            <ul className="mb-0 ps-3">
+                                                {Object.values(errors)
+                                                    .slice(0, 2)
+                                                    .map((error, index) => (
+                                                        <li key={index}>
+                                                            {error}
+                                                        </li>
+                                                    ))}
+                                            </ul>
+
+                                            {Object.keys(errors).length > 2 && (
+                                                <div className="mt-2 small fw-semibold">
+                                                    dan{" "}
+                                                    {Object.keys(errors)
+                                                        .length - 2}{" "}
+                                                    error lainnya...
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}{" "}
                             <hr />
                             <span className="text-danger">
                                 Kolom dengan tanda bintang (*) wajib diisi
@@ -117,27 +156,9 @@ export default function List(props) {
                                         onChange={onHandleChange}
                                     />
 
-                                    {(() => {
-                                        if (errors.nama) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message="Nama Lengkap Wajib Diisi"
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.nama} />
                                 </div>
                             </div>
-
                             <div className="col-sm-6">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -154,27 +175,9 @@ export default function List(props) {
                                         autoComplete="kode"
                                         onChange={onHandleChange}
                                     />
-                                    {(() => {
-                                        if (errors.kode) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message="Silahkan Isi NIDN atau NIDK anda"
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.kode} />
                                 </div>
                             </div>
-
                             <div className="col-sm-6">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -191,28 +194,9 @@ export default function List(props) {
                                         autoComplete="phone"
                                         onChange={onHandleChange}
                                     />
-
-                                    {(() => {
-                                        if (errors.phone) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message="Harap Isi Nomor Telepon yang belum digunakan"
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.phone} />
                                 </div>
                             </div>
-
                             <div className="col-sm-12">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -230,27 +214,9 @@ export default function List(props) {
                                         onChange={onHandleChange}
                                     />
 
-                                    {(() => {
-                                        if (errors.alamat) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message="Alamat Anda Wajib Diisi"
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.alamat} />
                                 </div>
                             </div>
-
                             <div className="col-sm-6">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -268,27 +234,9 @@ export default function List(props) {
                                         <option value="pr">Perempuan</option>
                                     </select>
 
-                                    {(() => {
-                                        if (errors.jk) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message="Harap Pilih Jenis Kelamin Anda"
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.jk} />
                                 </div>
                             </div>
-
                             <div className="col-sm-6">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -302,31 +250,12 @@ export default function List(props) {
                                         className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                         onChange={onHandleChange}
                                     />
-                                    {(() => {
-                                        if (errors.img) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message={errors.img}
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.img} />
                                 </div>
                             </div>
-
                             <br />
                             <h3>Instansi</h3>
                             <hr />
-
                             <div className="col-sm-6">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -343,27 +272,9 @@ export default function List(props) {
                                         autoComplete="universitas"
                                         onChange={onHandleChange}
                                     />
-                                    {(() => {
-                                        if (errors.universitas) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message="Harap Masukan Universitas Tempat Anda Mengabdi"
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.universitas} />
                                 </div>
                             </div>
-
                             <div className="col-sm-6">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -380,27 +291,9 @@ export default function List(props) {
                                         autoComplete="fakultas"
                                         onChange={onHandleChange}
                                     />
-                                    {(() => {
-                                        if (errors.fakultas) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message="Harap Masukan Fakultas Tempat Anda Mengabdi"
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.fakultas} />
                                 </div>
                             </div>
-
                             <div className="col-sm-6">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -418,29 +311,9 @@ export default function List(props) {
                                         onChange={onHandleChange}
                                     />
 
-                                    {(() => {
-                                        if (errors.alamatf) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <div className="text-danger">
-                                                        <InputError
-                                                            message="Alamat Fakultas Tempat Anda Mengabdi Wajib diisi"
-                                                            className="mt-2"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.alamatf} />
                                 </div>
                             </div>
-
                             <div className="col-sm-6">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -458,26 +331,7 @@ export default function List(props) {
                                         onChange={onHandleChange}
                                     />
 
-                                    {(() => {
-                                        if (errors.mk) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <div className="text-danger">
-                                                        <InputError
-                                                            message="Mata Kuliah Wajib diisi | Jika Lebih dari satu harap gunakan tanda koma"
-                                                            className="mt-2"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
+                                    <InputError message={errors.mk} />
                                 </div>
                             </div>
                             {/*Publish*/}
@@ -495,27 +349,8 @@ export default function List(props) {
                                         autoComplete="scholar"
                                         onChange={onHandleChange}
                                     />
-                                    {(() => {
-                                        if (errors.scholar) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message={errors.scholar}
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
                                 </div>
                             </div>
-
                             <div className="col-sm-12">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -530,27 +365,8 @@ export default function List(props) {
                                         autoComplete="scopus"
                                         onChange={onHandleChange}
                                     />
-                                    {(() => {
-                                        if (errors.scopus) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message={errors.scopus}
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
                                 </div>
                             </div>
-
                             <div className="col-sm-12">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -565,32 +381,12 @@ export default function List(props) {
                                         autoComplete="sinta"
                                         onChange={onHandleChange}
                                     />
-
-                                    {(() => {
-                                        if (errors.sinta) {
-                                            return (
-                                                <div className="text-danger">
-                                                    <InputError
-                                                        message={errors.sinta}
-                                                        className="mt-2"
-                                                    />
-                                                </div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="text-danger">
-                                                    &nbsp;
-                                                </div>
-                                            );
-                                        }
-                                    })()}
                                 </div>
                             </div>
                             {/*Form Akun*/}
                             <br />
                             <h3>Informasi Akun APHA</h3>
                             <hr className="my-4"></hr>
-
                             <div className="col-sm-12">
                                 <div className="form-group">
                                     <label className="form-label">
@@ -602,7 +398,9 @@ export default function List(props) {
                                         type="email"
                                         name="email"
                                         placeholder="Masukan email"
-                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                        className={`block form-control text-sm py-3 px-4 rounded-lg w-full border outline-none ${
+                                            errors.email ? "is-invalid" : ""
+                                        }`}
                                         autoComplete="email"
                                         onChange={onHandleChange}
                                     />
@@ -615,33 +413,49 @@ export default function List(props) {
                                     </div>
                                 </div>
                             </div>
-
                             <div className="col-sm-6">
-                                <div className="form-group">
+                                <div className="form-group password-wrapper">
                                     <label className="form-label">
                                         Password
                                         <span className="text-danger">*</span>
                                     </label>
 
                                     <input
-                                        type="password"
+                                        type={
+                                            showPassword ? "text" : "password"
+                                        }
                                         name="password"
                                         placeholder="Masukan Alamat Password"
                                         className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                        autoComplete="password"
+                                        value={data.password}
+                                        autoComplete="current-password"
                                         onChange={onHandleChange}
                                     />
-                                    <div className="text-danger">
-                                        <InputError
-                                            message={errors.password}
-                                            className="mt-2"
-                                        />
-                                    </div>
+                                    <button
+                                        type="button"
+                                        className="password-daftar"
+                                        onClick={() =>
+                                            setShowPassword(!showPassword)
+                                        }
+                                    >
+                                        <i
+                                            className={`fas ${
+                                                showPassword
+                                                    ? "fa-eye-slash"
+                                                    : "fa-eye"
+                                            }`}
+                                        ></i>
+                                    </button>
+                                </div>
+                                <div className="text-danger">
+                                    <InputError
+                                        message={errors.password}
+                                        className="mt-2"
+                                    />
                                 </div>
                             </div>
-
                             <div className="col-sm-6">
-                                <div className="form-group">
+                                <div className="form-group password-wrapper">
                                     <label className="label">
                                         Ulangi Password
                                         <span className="text-danger">*</span>
@@ -649,32 +463,50 @@ export default function List(props) {
 
                                     <input
                                         id="password_confirmation"
-                                        type="password"
+                                        type={
+                                            showConfirmPassword
+                                                ? "text"
+                                                : "password"
+                                        }
                                         name="password_confirmation"
-                                        value={data.password_confirmation}
+                                        //value={data.password_confirmation}
                                         placeholder="Repeat Password"
-                                        className="block form-control text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                                        className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                                         autoComplete="new-password"
                                         onChange={onHandleChange}
                                     />
-
-                                    <div className="text-danger">
-                                        <InputError
-                                            message={
-                                                errors.password_confirmation
-                                            }
-                                            className="mt-2"
-                                        />
-                                    </div>
+                                    <button
+                                        type="button"
+                                        className="password-daftar "
+                                        onClick={() =>
+                                            setShowConfirmPassword(
+                                                !showConfirmPassword,
+                                            )
+                                        }
+                                    >
+                                        <i
+                                            className={`fas ${
+                                                showConfirmPassword
+                                                    ? "fa-eye-slash"
+                                                    : "fa-eye"
+                                            }`}
+                                        ></i>
+                                    </button>
+                                </div>
+                                <div className="text-danger">
+                                    <InputError
+                                        message={errors.password}
+                                        className="mt-2"
+                                    />
                                 </div>
                             </div>
                             {/*end Of FOrm */}
                         </div>
 
                         <div className="row">
-                            <div className="col-md-4">
+                            <div className="col-md-4 mt-2">
                                 <button
-                                    className="btn btn-primary btn-lg"
+                                    className="btn btn-apha btn-lg"
                                     type="submit"
                                     //processing={processing}
                                 >

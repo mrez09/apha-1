@@ -43,15 +43,13 @@ export default function List({
 
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        {/* sementara
                         <Link
                             type="button"
-                            href={route("anggota.dashboard.payment.create")}
+                            href={route("anggota.dashboard.produk.index")}
                             className="btn btn-sm btn-outline-secondary"
                         >
-                            Tambah.
+                            Lihat Iuran
                         </Link>
-                        */}
                     </div>
                 </div>
             </div>

@@ -3,8 +3,20 @@ import { Link } from "@inertiajs/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavLink from "@/Components/NavLink";
+import { usePage } from "@inertiajs/react";
 
-export default function Guest({ children }, props) {
+export default function FrontendLayout({ children }, props) {
+    const { auth, member } = usePage().props;
+
+    const isAdmin = auth?.user?.roles?.some((role) => role.name === "admin");
+
+    const isManager = auth?.user?.roles?.some(
+        (role) => role.name === "manager",
+    );
+
+    const canAccessAdmin = isAdmin || isManager;
+
+    //console.log("ini auth", auth);
     return (
         <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             {/* 🔔 Komponen wajib untuk menampilkan toast */}
@@ -14,7 +26,6 @@ export default function Guest({ children }, props) {
                     <Link className="navbar-brand" href={route("frontindex")}>
                         <img
                             src={`/storage/logo/Logo-Apha.gif`}
-                            //src="https://penerbit.lshi.or.id/assets/image/logo/Logo-Apha.png"
                             className="img-fluid img-logo"
                         />
                     </Link>
@@ -232,55 +243,6 @@ export default function Guest({ children }, props) {
                                 </ul>
                             </li>
 
-                            {/*Hideon*/}
-
-                            {/*<li className="nav-item dropdown">
-                                <a
-                                    className="nav-link dropdown-toggle"
-                                    href="#"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    Kegiatan
-                                </a>
-
-                                <ul className="dropdown-menu">
-                                    <li>
-                                        <a
-                                            className="dropdown-item"
-                                            href="/rakornas"
-                                        >
-                                            Rakornas
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="dropdown-item"
-                                            href="/munas"
-                                        >
-                                            Munas
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="dropdown-item"
-                                            href="/musda"
-                                        >
-                                            Musda
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="dropdown-item"
-                                            href="/pusat"
-                                        >
-                                            Pusat
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>*/}
-
                             <li className="nav-item ">
                                 <NavLink
                                     className="nav-link front-nav-link "
@@ -364,6 +326,144 @@ export default function Guest({ children }, props) {
                                 </NavLink>
                             </li>
                         </ul>
+
+                        <ul className="navbar-nav ms-auto align-items-center">
+                            {!auth?.user ? (
+                                <>
+                                    <Link
+                                        href={route("login")}
+                                        className="btn btn-sm px-4 btn-apha-login"
+                                    >
+                                        Login
+                                    </Link>
+                                </>
+                            ) : (
+                                <li className="nav-item dropdown">
+                                    <a
+                                        href="#"
+                                        className="btn btn-apha-user dropdown-toggle"
+                                        role="button"
+                                        data-bs-toggle="dropdown"
+                                    >
+                                        <span className="avatar-circle">
+                                            {auth.user.name.charAt(0)}
+                                        </span>
+
+                                        {auth.user.name}
+                                    </a>
+
+                                    <ul className="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <NavLink
+                                                className="dropdown-item front-dropdown-item"
+                                                href={
+                                                    canAccessAdmin
+                                                        ? route("dashboard")
+                                                        : route(
+                                                              "anggota.dashboard.index",
+                                                          )
+                                                }
+                                            >
+                                                Dashboard
+                                            </NavLink>
+                                        </li>
+
+                                        <li>
+                                            {member?.kta_token ? (
+                                                <NavLink
+                                                    className="dropdown-item front-dropdown-item"
+                                                    href={route(
+                                                        "frontverify.kta",
+                                                        member.kta_token,
+                                                    )}
+                                                    active={route().current(
+                                                        "frontverify.kta",
+                                                        member.kta_token,
+                                                    )}
+                                                >
+                                                    Cek Aktivasi
+                                                </NavLink>
+                                            ) : (
+                                                <span className="dropdown-item text-muted">
+                                                    Cek Aktivasi
+                                                </span>
+                                            )}
+                                        </li>
+
+                                        <li>
+                                            {member?.committee?.slug ? (
+                                                <NavLink
+                                                    className="dropdown-item front-dropdown-item"
+                                                    href={route(
+                                                        "frontpengurus.commitee.show",
+                                                        member.committee.slug,
+                                                    )}
+                                                    active={route().current(
+                                                        "frontpengurus.commitee.show",
+                                                        member.committee.slug,
+                                                    )}
+                                                >
+                                                    Biodata
+                                                </NavLink>
+                                            ) : (
+                                                <span className="dropdown-item text-muted">
+                                                    Biodata
+                                                </span>
+                                            )}
+                                        </li>
+
+                                        <li>
+                                            <NavLink
+                                                className="dropdown-item front-dropdown-item"
+                                                href={
+                                                    canAccessAdmin
+                                                        ? route(
+                                                              "admin.dashboard.invoices.index",
+                                                          )
+                                                        : route(
+                                                              "anggota.dashboard.member.invoices.index",
+                                                          )
+                                                }
+                                            >
+                                                Invoice
+                                            </NavLink>
+                                        </li>
+
+                                        <li>
+                                            <NavLink
+                                                className="dropdown-item front-dropdown-item"
+                                                href={
+                                                    canAccessAdmin
+                                                        ? route(
+                                                              "admin.dashboard.sertifikat.index",
+                                                          )
+                                                        : route(
+                                                              "anggota.dashboard.sertifikat.index",
+                                                          )
+                                                }
+                                            >
+                                                Certificate
+                                            </NavLink>
+                                        </li>
+
+                                        <li>
+                                            <hr className="dropdown-divider" />
+                                        </li>
+
+                                        <li>
+                                            <Link
+                                                href={route("logout")}
+                                                method="post"
+                                                as="button"
+                                                className="dropdown-item text-danger front-dropdown-item"
+                                            >
+                                                Logout
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </li>
+                            )}
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -371,6 +471,19 @@ export default function Guest({ children }, props) {
             <div className="w-full hal sm:max-w-md mt-4 px-6 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 {children}
             </div>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
 
             <footer>
                 <div className="container">

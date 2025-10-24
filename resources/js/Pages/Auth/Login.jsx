@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import Checkbox from "@/Components/Checkbox";
-import Input from "@/Components/TextInput";
-import InputError from "@/Components/InputError";
+import FlashMessage from "@/Components/FlashMessage";
 import { Head, Link, useForm } from "@inertiajs/react";
 import AuthLayout from "@/Layouts/AuthLayout";
+import { usePage } from "@inertiajs/react";
 
 export default function Login({ status, canResetPassword }) {
+    const { props } = usePage();
+
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -36,6 +37,8 @@ export default function Login({ status, canResetPassword }) {
         post(route("login"));
     };
 
+    console.log(props);
+
     return (
         <AuthLayout
             title="Login"
@@ -44,6 +47,12 @@ export default function Login({ status, canResetPassword }) {
             icon="fa-lock"
         >
             <Head title="Log in" />
+            {props.flash?.message && (
+                <FlashMessage
+                    message={props.flash.message}
+                    type={props.flash.type}
+                />
+            )}
             {status && (
                 <div className="mb-4 font-medium text-sm text-green-600">
                     {status}
@@ -149,6 +158,21 @@ export default function Login({ status, canResetPassword }) {
                         </>
                     )}
                 </button>
+
+                <div className="text-center mt-4">
+                    <span className="text-muted">
+                        Belum memiliki akun anggota?
+                    </span>
+
+                    <br />
+
+                    <Link
+                        href={route("frontkeanggotaan.index")}
+                        className="btn btn-apha mt-2"
+                    >
+                        Daftar Anggota
+                    </Link>
+                </div>
             </form>
         </AuthLayout>
     );

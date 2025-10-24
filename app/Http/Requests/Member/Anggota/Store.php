@@ -26,10 +26,9 @@ class Store extends FormRequest
             'nama'          => 'required',
             'kode'          => 'required',
             'phone'         => 'required',
-            'alamat'        => 'nullable',
+            'alamat'        => 'required',
             'img'           => 'required|image',
             'jk'            => 'required',
-
             'universitas'   => 'required',
             'fakultas'      => 'required',
             'alamatf'       => 'required',

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,28 +31,31 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        try {
+            $request->authenticate();
+
+        } catch (ValidationException $e) {
+
+            throw ValidationException::withMessages([
+                'email' => 'Email atau password yang Anda masukkan salah.',
+            ]);
+
+        }
 
         $request->session()->regenerate();
 
-        if(Auth::user()->hasRole('user')){
+
+        if (Auth::user()->hasRole('user')) {
             return redirect(route('anggota.dashboard.index'));
         }
 
-        if(Auth::user()->hasRole('admin')){
-            //return redirect(route('admin.dashboard.index'));
+
+        if (Auth::user()->hasRole('admin')) {
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 
-        
-
-        /*
-        $request->authenticate();
-
-        $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);
-        */
     }
 
     /**
@@ -60,11 +64,13 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
-        return redirect('/');
+        
+        return redirect('/login')
+            ->with([
+                'message' => 'Anda telah berhasil logout.',
+                'type' => 'success'
+            ]);
+        }
     }
-}

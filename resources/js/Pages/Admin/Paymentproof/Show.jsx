@@ -463,24 +463,41 @@ export default function Show({
                             </div>
 
                             <div className="card-body small">
-                                {payment.payment_proof ? (
+                                {payment.proof_file ? (
                                     <>
-                                        <img
-                                            src={
-                                                payment.payment_proof.proof_file
-                                            }
-                                            className="img-fluid rounded mb-2"
-                                        />
+                                        {payment.proof_file
+                                            .toLowerCase()
+                                            .endsWith(".pdf") ? (
+                                            <a
+                                                href={`/storage/${payment.proof_file}`}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="btn btn-danger btn-sm mb-2"
+                                            >
+                                                <i className="fas fa-file-pdf me-1"></i>
+                                                Lihat PDF
+                                            </a>
+                                        ) : (
+                                            <img
+                                                src={`/storage/${payment.proof_file}`}
+                                                className="img-fluid rounded mb-2"
+                                                alt="Bukti Pembayaran"
+                                            />
+                                        )}
 
-                                        <div>
-                                            Status :
-                                            {payment.payment_proof.status}
-                                        </div>
+                                        <a
+                                            href={`/storage/${payment.proof_file}`}
+                                            download
+                                            className="btn btn-success btn-sm"
+                                        >
+                                            <i className="fas fa-download me-1"></i>
+                                            Download Bukti
+                                        </a>
                                     </>
                                 ) : (
-                                    <div className="text-muted">
-                                        Belum ada bukti pembayaran.
-                                    </div>
+                                    <span className="text-muted">
+                                        Tidak ada bukti pembayaran
+                                    </span>
                                 )}
                             </div>
                         </div>

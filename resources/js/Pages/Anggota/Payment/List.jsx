@@ -28,12 +28,17 @@ export default function List({ auth, errors, payment, order }) {
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">List Proofs</h1>
-                {/*
-                    <h1>{order}</h1>
-                */}
 
                 <div className="btn-toolbar mb-2 mb-md-0">
-                    <div className="btn-group me-2"></div>
+                    <div className="btn-group me-2">
+                        <Link
+                            type="button"
+                            href={route("anggota.dashboard.produk.index")}
+                            className="btn btn-sm btn-outline-secondary"
+                        >
+                            Lihat Iuran
+                        </Link>
+                    </div>
                 </div>
             </div>
 

@@ -14,6 +14,69 @@
     font-size: 3rem;
 }
 
+/*error input*/
+.apha-input-error {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(220, 53, 69, 0.08);
+    border-left: 4px solid #f08f4a;
+    border-radius: 8px;
+    color: #b02a37;
+    font-size: 0.875rem;
+    font-weight: 500;
+    animation: aphaErrorFade 0.25s ease-in-out;
+}
+
+.apha-input-error i {
+    font-size: 14px;
+}
+
+@keyframes aphaErrorFade {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Password Input Toggle */
+.password-wrapper {
+    position: relative;
+}
+
+.password-daftar {
+    position: absolute;
+    right: 12px;
+    margin-top: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+
+    color: #6c757d;
+    cursor: pointer;
+
+    padding: 5px 8px;
+
+    z-index: 5;
+}
+
+.password-daftar:hover {
+    color: #f08f4a;
+}
+
+.password-daftar:focus {
+    outline: none;
+}
+
 /*APHA id*/
 :root {
     --apha: #c96a16;
@@ -22,13 +85,13 @@
 }
 
 .btn-apha {
-    background: #fbaa69;
+    background: #d96b20;
     color: #fff;
     border-color: #fbaa69;
 }
 
 .btn-apha:hover {
-    background: #f7944d;
+    background: #fbaa69;
     border-color: #f7944d;
     color: #fff;
 }
@@ -218,6 +281,53 @@
 
 /*Front End*/
 /*HOMES*/
+
+.btn-apha-login {
+    background-color: #f08f4a;
+    border-color: #f08f4a;
+    color: white;
+    margin-right: 50px;
+    border-radius: 15px;
+    padding: 6px 18px;
+}
+
+.btn-apha-login:hover {
+    background-color: #fbaa69;
+    border-color: #fbaa69;
+    color: white;
+}
+
+.btn-apha-user {
+    background-color: #f08f4a;
+    border: 1px solid #f08f4a;
+    color: white !important;
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-weight: 500;
+    margin-right: 50px;
+}
+
+.btn-apha-user:hover,
+.btn-apha-user:focus,
+.btn-apha-user:active,
+.show > .btn-apha-user {
+    background-color: #fbaa69 !important;
+    border-color: #fbaa69 !important;
+    color: white !important;
+}
+
+.avatar-circle {
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #f08f4a;
+    border-radius: 50%;
+    margin-right: 8px;
+    font-weight: bold;
+}
 
 .not-allowed {
     cursor: not-allowed;
@@ -1177,6 +1287,39 @@ h1 {
 
 /*Form Pendaftaran Anggota*/
 
+.validation-alert {
+    background: #fff7f2;
+    border: 1px solid #f8c9aa;
+    border-left: 5px solid #f08f4a;
+    border-radius: 12px;
+    padding: 18px 20px;
+    color: #5a3a28;
+}
+
+.validation-alert .validation-icon {
+    width: 38px;
+    height: 38px;
+    background: #f08f4a;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.validation-alert ul {
+    color: #6c4a35;
+}
+
+.validation-alert li {
+    margin-bottom: 4px;
+}
+
+.validation-alert li:last-child {
+    margin-bottom: 0;
+}
+
 h1 {
     font-weight: 700;
     font-size: 45px;
@@ -1665,6 +1808,55 @@ figure.card .position {
         background: #111;
         border-radius: 10px;
         padding: 10px;
+    }
+
+    .navbar-collapse {
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+
+    .navbar-nav.ms-auto {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    .navbar-nav.ms-auto .nav-item {
+        width: 100%;
+    }
+
+    .navbar-collapse {
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        padding-bottom: 20px;
+
+        /* smooth scrolling */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Custom scrollbar Chrome */
+    .navbar-collapse::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .navbar-collapse::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .navbar-collapse::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+    }
+
+    .navbar-nav {
+        padding-top: 10px;
+    }
+
+    .btn-apha-user {
+        display: block;
+        width: 100%;
+        text-align: left;
+        margin-top: 10px;
     }
 
     /* Menu */

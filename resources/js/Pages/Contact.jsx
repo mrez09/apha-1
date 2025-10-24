@@ -1,14 +1,20 @@
 import { Link, Head, useForm } from "@inertiajs/react";
 import FlashMessage from "@/Components/FlashMessage";
 import FrontendLayout from "@/Layouts/FrontendLayout";
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState, useRef, useEffect } from "react";
 import InputError from "@/Components/InputError";
+import { usePage } from "@inertiajs/react";
+
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-export default function Contact(props) {
+export default function Contact() {
+    const { props } = usePage();
     const myRef = useRef(null);
     const { setData, post, processing, errors } = useForm({
         firstname: "",
@@ -23,15 +29,30 @@ export default function Contact(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
+
     const submit = (e) => {
         e.preventDefault();
         console.log("Test Input");
         e.target.reset();
 
-        post(route("frontcontact.store"));
+        //Toast
+        post(route("frontcontact.store"), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success(
+                    "✅ Pesan berhasil dikirim. Mohon menunggu balasan dari kami.",
+                );
+
+                reset();
+            },
+
+            onError: () => {
+                toast.error("❌ Terjadi kesalahan. Silakan coba lagi.");
+            },
+        });
         myRef.current.scrollIntoView();
     };
 
@@ -155,11 +176,11 @@ export default function Contact(props) {
                     </li>
                 </ol>
             </nav>
-            <div className="container">
-                {props.flashMessage?.message && (
-                    <FlashMessage message={props.flashMessage.message} />
-                )}
-            </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                theme="colored"
+            />
 
             <div className="container">
                 <iframe
@@ -175,6 +196,15 @@ export default function Contact(props) {
                         <div className="col-md-8">
                             <div className="form h-100">
                                 <h3>GET IN TOUCH</h3>
+
+                                <div className="container">
+                                    {props.flash?.message && (
+                                        <FlashMessage
+                                            message={props.flash.message}
+                                            type={props.flash.type}
+                                        />
+                                    )}
+                                </div>
 
                                 <form className="mb-5" onSubmit={submit}>
                                     <div className="row">

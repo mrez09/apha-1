@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Commitee;
 
 class Member extends Model
 {
@@ -27,6 +28,15 @@ class Member extends Model
     public function logs()
     {
         return $this->morphMany(ActivityLog::class, 'loggable');
+    }
+
+    public function committee()
+    {
+        return $this->belongsTo(
+            Commitee::class,
+            'id_com',
+            'id'
+        );
     }
 
 }

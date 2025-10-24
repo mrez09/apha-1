@@ -385,7 +385,9 @@ export default function Show({
                                         </p>
                                     </ul>
 
-                                    {payment.status === "paid" ? (
+                                    {["paid", "approved"].includes(
+                                        payment.status,
+                                    ) ? (
                                         <button
                                             className="btn btn-success w-100"
                                             disabled
@@ -395,9 +397,7 @@ export default function Show({
                                     ) : (
                                         <Link
                                             className="btn btn-info w-100"
-                                            //onClick={payNow}
                                             target="_blank"
-                                            type="button"
                                             href={route(
                                                 "anggota.dashboard.invoice.show",
                                                 payment.invoice.id,

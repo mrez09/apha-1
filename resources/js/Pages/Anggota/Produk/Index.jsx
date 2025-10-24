@@ -24,16 +24,6 @@ export default function Index({ products, auth, errors, flashMessage, props }) {
                 <h1 className="h2">
                     List Data Iuran Asosiasi Pengajar Hukum Adat (APHA)
                 </h1>
-                <div className="btn-toolbar mb-2 mb-md-0">
-                    <div className="btn-group me-2">
-                        <Link
-                            href={route("anggota.dashboard.member.create")}
-                            className="btn btn-sm btn-outline-secondary"
-                        >
-                            Tambah
-                        </Link>
-                    </div>
-                </div>
             </div>
 
             {flashMessage?.message && (
@@ -89,11 +79,11 @@ export default function Index({ products, auth, errors, flashMessage, props }) {
                                             <div className="small text-secondary mb-2">
                                                 <i className="bi bi-calendar-event"></i>{" "}
                                                 {moment(
-                                                    product.start_date
+                                                    product.start_date,
                                                 ).format("D MMMM YYYY")}{" "}
                                                 -{" "}
                                                 {moment(
-                                                    product.end_date
+                                                    product.end_date,
                                                 ).format("D MMMM YYYY")}
                                             </div>
 
@@ -101,7 +91,7 @@ export default function Index({ products, auth, errors, flashMessage, props }) {
                                             <h6 className="mt-2 mb-3 text-success fw-bold">
                                                 Rp{" "}
                                                 {product.price.toLocaleString(
-                                                    "id-ID"
+                                                    "id-ID",
                                                 )}
                                             </h6>
 
@@ -113,8 +103,8 @@ export default function Index({ products, auth, errors, flashMessage, props }) {
                                                             router.post(
                                                                 route(
                                                                     "anggota.dashboard.produk.bayar",
-                                                                    product.id
-                                                                )
+                                                                    product.id,
+                                                                ),
                                                             )
                                                         }
                                                         className="btn btn-success w-100"

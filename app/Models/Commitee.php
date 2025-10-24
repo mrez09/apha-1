@@ -15,18 +15,31 @@ class Commitee extends Model
     {
         return $this->belongsTo(Jabatan::class, 'jabatan', 'id');
     }
+    
     public function divisiRelasi()
     {
         return $this->belongsTo(Divisi::class, 'divisi', 'id');
     }
+    
     public function subdivisiRelasi()
     {
         return $this->belongsTo(Subdivisi::class, 'subdivisi', 'id');
     }
+    
     public function memberRelasi()
-{
-    return $this->hasMany(Member::class, 'id_com');
-}
+    {
+        return $this->hasMany(Member::class, 'id_com');
+    }
+
+    public function committee()
+    {
+        return $this->belongsTo(
+            Committee::class,
+            'id_com'
+        );
+    }
+
+    
 }
 
 

@@ -1,7 +1,8 @@
-export default function InputError({ message, className = '', ...props }) {
+export default function InputError({ message, className = "" }) {
     return message ? (
-        <p {...props} className={'text-sm text-red-600 ' + className}>
+        <div className={`apha-input-error ${className}`}>
+            <i className="fas fa-circle-exclamation me-1"></i>
             {message}
-        </p>
+        </div>
     ) : null;
 }

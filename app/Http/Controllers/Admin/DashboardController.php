@@ -17,6 +17,8 @@ use App\Models\Commitee;
 use App\Models\Galeri;
 use App\Models\Konfigurasi;
 use App\Models\Prosiding;
+use App\Models\Invoice;
+use App\Models\PaymentProof;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Member\Anggota\Store;
@@ -41,32 +43,53 @@ class DashboardController extends Controller
         //Bulanan
 
         $postPerMonth = DB::table('news')
-    ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as bulan, COUNT(*) as jumlah')
-    ->groupBy('bulan')
-    ->orderBy('bulan')
-    ->get();
+        ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as bulan, COUNT(*) as jumlah')
+        ->groupBy('bulan')
+        ->orderBy('bulan')
+        ->get();
 
-    $eventPerMonth = DB::table('events')
-    ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as bulan, COUNT(*) as jumlah')
-    ->groupBy('bulan')
-    ->orderBy('bulan')
-    ->get();
+        $eventPerMonth = DB::table('events')
+        ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as bulan, COUNT(*) as jumlah')
+        ->groupBy('bulan')
+        ->orderBy('bulan')
+        ->get();
 
-        /*
-        'anggotaAktif'     => Anggota::where('status', 'aktif')->count(),
-        'anggotaNonAktif'  => Anggota::where('status', '!=', 'aktif')->count(),
-        'totalBanner'      => Banner::count(),
-        'totalBuku'        => Buku::count(),
-        'totalProsiding'   => Prosiding::count(),
-        'totalCommite'     => Commite::count(),
-        'totalContact'     => Contact::count(),
-        'totalDokumen'     => Dokumen::count(),
-        'totalEvent'       => Event::count(),
-        'totalGaleri'      => Galeri::count(),
-        'totalKonfigurasi' => Konfigurasi::count(),
-        'totalNews'        => News::count(),
-        'totalSertifikat'  => Sertifikat::count(),
-        */
+        //Invoice
+        $paymentSummary = [
+            'total' => Invoice::count(),
+
+            'paid' => Invoice::where(
+                'status',
+                'paid'
+            )->count(),
+
+            'pending' => Invoice::where(
+                'status',
+                'pending'
+            )->count(),
+
+            'expired' => Invoice::where(
+                'status',
+                'expired'
+            )->count(),
+
+            'failed' => Invoice::where(
+                'status',
+                'failed'
+            )->count(),
+
+            'midtrans' => Invoice::where(
+                'gateway',
+                'midtrans'
+            )->count(),
+
+            'manual' => PaymentProof::where(
+                'status',
+                'approved'
+            )->count(),
+        ];
+
+        
         return Inertia::render('Dashboard',
         [
             'jumlahPost' => $jumlahPost,
@@ -79,6 +102,7 @@ class DashboardController extends Controller
             'totalProsiding' => $totalProsiding,
             'postPerMonth' => $postPerMonth,
             'eventPerMonth' => $eventPerMonth,
+            'paymentSummary' => $paymentSummary
         ]);
     }
 }

@@ -37,6 +37,7 @@ export default function Dashboard(props) {
         totalProsiding,
         postPerMonth,
         eventPerMonth,
+        paymentSummary,
     } = usePage().props;
 
     const cards = [
@@ -209,6 +210,51 @@ export default function Dashboard(props) {
                                 style={{ height: "300px" }}
                             >
                                 <Doughnut data={donutData} options={options} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/** Dashboard Invoice */}
+            <div className="container mt-4">
+                <div className="row g-3">
+                    <div className="col-md-3">
+                        <div className="card shadow-sm">
+                            <div className="card-body">
+                                <h6>Total Invoice</h6>
+                                <h3>{paymentSummary.total}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-3">
+                        <div className="card shadow-sm">
+                            <div className="card-body">
+                                <h6>Paid</h6>
+                                <h3 className="text-success">
+                                    {paymentSummary.paid}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-3">
+                        <div className="card shadow-sm">
+                            <div className="card-body">
+                                <h6>Pending</h6>
+                                <h3>{paymentSummary.pending}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-3">
+                        <div className="card shadow-sm">
+                            <div className="card-body">
+                                <h6>Expired</h6>
+                                <h3 className="text-danger">
+                                    {paymentSummary.expired}
+                                </h3>
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 use Session;
+//model
+use App\Models\Member;
+use App\Models\Commitee;
+
 
 class HandleInertiaRequests extends Middleware
 {
@@ -33,10 +37,41 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user(),
+                'user' => fn () => $request->user()
+                    ? $request->user()->load('roles')
+                    : null,
             ],
 
-            // ✅ Tambahkan ini
+            /*//Member 2 join
+            'member' => fn () => $request->user()
+            ? Member::select(
+                'id',
+                'id_user',
+                'slug_kta',
+                'kta_token',
+                'status'
+            )
+            ->where('id_user', $request->user()->id)
+            ->first()
+            : null,*/
+
+            //Member 3 join
+            'member' => fn () => $request->user()?->member()
+            ->select(
+                'id',
+                'id_user',
+                'id_com',
+                'slug_kta',
+                'kta_token',
+                'status'
+            )
+            ->with([
+                'committee:id,slug'
+            ])
+            ->first(),
+            
+ 
+            //Pesan
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
                 'type'    => fn () => $request->session()->get('type'),

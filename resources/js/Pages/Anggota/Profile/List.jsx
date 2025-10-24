@@ -71,7 +71,10 @@ export default function Profile(props) {
             <div className="container">
                 <div className="row">
                     {props.flashMessage?.message && (
-                        <FlashMessage message={props.flashMessage.message} />
+                        <FlashMessage
+                            message={props.flashMessage.message}
+                            type={props.flashMessage.type}
+                        />
                     )}
                     <div className="col-sm-12">
                         <div className="card">
@@ -141,70 +144,49 @@ export default function Profile(props) {
                                         <div className="col-sm-12">
                                             <label className="form-label">
                                                 No Kartu Tanda Anggota (KTA)
-                                                {(() => {
-                                                    if (
-                                                        props.anggota.no_kta ==
-                                                        ""
-                                                    ) {
-                                                        return (
-                                                            <p className="btn btn-success btn-kecil disabled">
-                                                                Belum Terbit
-                                                            </p>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <a
-                                                                href={route(
-                                                                    "anggota.dashboard.namecard.show",
-                                                                    props
-                                                                        .anggota
-                                                                        .slug_kta,
-                                                                )}
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                className="btn btn-success btn-kecil"
-                                                            >
-                                                                Lihat Name Card
-                                                            </a>
-                                                        );
-                                                    }
-                                                })()}
+                                                {props.anggota.no_kta ? (
+                                                    <a
+                                                        href={route(
+                                                            "anggota.dashboard.namecard.show",
+                                                            props.anggota
+                                                                .slug_kta,
+                                                        )}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="btn btn-success btn-kecil"
+                                                    >
+                                                        Lihat Name Card
+                                                    </a>
+                                                ) : (
+                                                    <p className="btn btn-success btn-kecil disabled">
+                                                        Belum Terbit
+                                                    </p>
+                                                )}
                                             </label>
 
                                             <label className="form-label">
-                                                {(() => {
-                                                    if (
-                                                        props.anggota
-                                                            .slug_kta == ""
-                                                    ) {
-                                                        return (
-                                                            <p className="btn btn-success btn-kecil disabled">
-                                                                Belum Terbit
-                                                            </p>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <a
-                                                                href={route(
-                                                                    "anggota.dashboard.nokta.show",
-                                                                    props
-                                                                        .anggota
-                                                                        .slug_kta,
-                                                                )}
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                className="btn btn-success btn-kecil"
-                                                            >
-                                                                Lihat KTA
-                                                            </a>
-                                                        );
-                                                    }
-                                                })()}
+                                                {props.anggota.no_kta ? (
+                                                    <a
+                                                        href={route(
+                                                            "anggota.dashboard.nokta.show",
+                                                            props.anggota
+                                                                .slug_kta,
+                                                        )}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="btn btn-success btn-kecil"
+                                                    >
+                                                        Lihat KTA
+                                                    </a>
+                                                ) : (
+                                                    <p className="btn btn-success btn-kecil disabled">
+                                                        Belum Terbit
+                                                    </p>
+                                                )}
                                             </label>
 
                                             <input
                                                 type="text"
-                                                name="no_kta"
                                                 disabled
                                                 defaultValue={
                                                     props.anggota.no_kta

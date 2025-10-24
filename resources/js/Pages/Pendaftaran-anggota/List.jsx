@@ -153,7 +153,7 @@ export default function List({ featuredBuku, buku, props, url, flashMessage }) {
                     <hr />
                     <p>Sudah Menjadi Anggota</p>
                     <a
-                        className="btn btn-success  btn-sm"
+                        className="btn btn-apha  btn-sm"
                         aria-current="page"
                         href="/login"
                     >

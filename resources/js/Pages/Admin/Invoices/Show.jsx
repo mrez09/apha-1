@@ -104,12 +104,11 @@ export default function InvoiceShow({
         >
             <div className="page-wrapper container py-4">
                 {/* ========== STYLE Mr_eZ ========== */}
-
                 <Head title={`Invoice ${invoice.invoice_number}`} />
 
                 <h2>View Invoice</h2>
-                <p> Portal Home Client Area My Invoices</p>
 
+                <p> Portal Home Client Area My Invoices</p>
                 <div className="row g-4 mt-2">
                     {/* ============================
              KOLOM KIRI — DETAIL INVOICE
@@ -530,25 +529,64 @@ export default function InvoiceShow({
                         {/* Payment Proof */}
                         <div className="card shadow-sm border-0 mb-3">
                             <div className="card-header fw-bold bg-light">
-                                Payment Proof
+                                Payment
                             </div>
 
                             <div className="card-body small">
-                                {invoice.payment_proof ? (
+                                {invoice.payment_proof?.proof_file ? (
                                     <>
-                                        <img
-                                            src={invoice.payment_proof.image}
-                                            className="img-fluid rounded mb-2"
-                                        />
+                                        <a
+                                            href={`/storage/${invoice.payment_proof.proof_file}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="btn btn-info btn-sm"
+                                        >
+                                            <i className="fas fa-eye me-1"></i>
+                                            Lihat Bukti
+                                        </a>
 
-                                        <div>
-                                            Status :
-                                            {invoice.payment_proof.status}
-                                        </div>
+                                        <a
+                                            href={`/storage/${invoice.payment_proof.proof_file}`}
+                                            download
+                                            className="btn btn-success btn-sm "
+                                        >
+                                            <i className="fas fa-download me-1"></i>
+                                            Download
+                                        </a>
                                     </>
                                 ) : (
                                     <div className="text-muted">
                                         Belum ada bukti pembayaran.
+                                    </div>
+                                )}
+                                <h5>Status</h5>
+                                {invoice.payment_proof?.status ? (
+                                    <>
+                                        <p>
+                                            Status :
+                                            {invoice.payment_proof.status ===
+                                                "pending" && (
+                                                <span className="badge bg-warning text-dark ms-2">
+                                                    Menunggu Verifikasi
+                                                </span>
+                                            )}
+                                            {invoice.payment_proof.status ===
+                                                "approved" && (
+                                                <span className="badge bg-success ms-2">
+                                                    Disetujui
+                                                </span>
+                                            )}
+                                            {invoice.payment_proof.status ===
+                                                "rejected" && (
+                                                <span className="badge bg-danger ms-2">
+                                                    Ditolak
+                                                </span>
+                                            )}
+                                        </p>
+                                    </>
+                                ) : (
+                                    <div className="text-muted">
+                                        Menggunakan Midtrans.
                                     </div>
                                 )}
                             </div>
@@ -602,6 +640,18 @@ export default function InvoiceShow({
                                 >
                                     Edit Invoice
                                 </Link>
+
+                                {invoice.payment_proof && (
+                                    <Link
+                                        href={route(
+                                            "admin.dashboard.paymentproof.show",
+                                            invoice.payment_proof.no_invoice,
+                                        )}
+                                        className="btn btn-warning"
+                                    >
+                                        Lihat Payment Proof
+                                    </Link>
+                                )}
 
                                 <a
                                     //href={route(

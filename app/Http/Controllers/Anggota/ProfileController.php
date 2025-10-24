@@ -72,6 +72,13 @@ class ProfileController extends Controller
             $data['img_kta'] = $member->img_kta;
         }
 
+        if (empty($data['no_kta'])) {
+            unset($data['no_kta']);
+            unset($data['slug_kta']);
+        } else {
+            $data['slug_kta'] = Str::slug($data['no_kta']);
+        }
+
 
 
 
