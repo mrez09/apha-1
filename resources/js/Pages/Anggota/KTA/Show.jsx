@@ -170,13 +170,15 @@ export default function List({
                                 <div className="col-lg-5 text-center">
                                     {member.img_kta ? (
                                         <img
-                                            src={`/storage/${member.img_kta}`}
+                                            //src={`/storage/${member.img_kta}`}
+                                            src={member.img_url}
                                             alt="Foto KTA"
                                             className="img-fluid rounded shadow-sm mb-3"
                                         />
                                     ) : (
                                         <img
-                                            src={`/storage/${member.img}`}
+                                            //src={`/storage/${member.img}`}
+                                            src={member.img_url}
                                             alt="Foto Anggota"
                                             className="img-fluid rounded shadow-sm mb-3"
                                         />

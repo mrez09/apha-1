@@ -169,7 +169,8 @@ export default function List(props, flashMessage) {
                     )}
                     <div className="col-md-4 text-center">
                         <img
-                            src={`/storage/${props.member.img}`}
+                            //src={`/storage/${props.member.img}`}
+                            src={props.member.img_url}
                             alt={props.member.nama}
                             className="img-fluid img-thumbnail rounded mb-3"
                             style={{ maxHeight: "300px", objectFit: "cover" }}

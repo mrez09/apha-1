@@ -158,6 +158,18 @@ export default function Create(props) {
                                     }
                                 >
                                     <option value="">Pilih Kategori</option>
+                                    <option value="Introduction">
+                                        Introduction
+                                    </option>
+                                    <option value="Account">Account</option>
+                                    <option value="Membership">
+                                        Membership
+                                    </option>
+                                    <option value="Payment">Payment</option>
+                                    <option value="Certificate">
+                                        Certificate
+                                    </option>
+
                                     <option value="Dashboard">Dashboard</option>
                                     <option value="Member">Member</option>
                                     <option value="Sertifikat">
@@ -172,6 +184,7 @@ export default function Create(props) {
                                     <option value="Buku">Buku</option>
                                     <option value="Galeri">Galeri</option>
                                     <option value="Committee">Committee</option>
+                                    <option value="FAQ">FAQ</option>
                                 </select>
                                 {errors.category && (
                                     <div className="text-danger">

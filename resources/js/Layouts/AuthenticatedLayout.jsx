@@ -254,6 +254,56 @@ export default function Authenticated({ auth, header, children, props }) {
                                             </li>
                                             <li>
                                                 <a
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.commitee.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                    href={route(
+                                                        "admin.dashboard.commitee.index",
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-people-group"></i>
+                                                    Pengurus
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/*end Anggota*/}
+
+                                {/**Payment */}
+                                <li className="nav-link px-3 sidebar-link">
+                                    <a
+                                        data-bs-toggle="collapse"
+                                        href="#payments"
+                                    >
+                                        <i className="fas ic fa-credit-card"></i>
+                                        Pembayaran
+                                    </a>
+                                    <div className="collapse" id="payments">
+                                        <ul className="navbar-nav ps-3">
+                                            <li>
+                                                <a
+                                                    href={route(
+                                                        "admin.dashboard.products.index",
+                                                    )}
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.products.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    <i className="fas ic fa-cart-arrow-down"></i>
+                                                    Product
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
                                                     href={route(
                                                         "admin.dashboard.invoices.index",
                                                     )}
@@ -286,10 +336,20 @@ export default function Authenticated({ auth, header, children, props }) {
                                                     Bukti Pembayaran
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a
+                                                    href={route(
+                                                        "admin.dashboard.errorpage.maintenance",
+                                                    )}
+                                                    className={`nav-link px-3 sidebar-link`}
+                                                >
+                                                    <i className="fas ic fa-credit-card"></i>
+                                                    Pembelian Buku
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
-                                {/*end Anggota*/}
 
                                 {/*Pengurus*/}
                                 <li className="nav-link px-3 sidebar-link">
@@ -298,7 +358,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                         href="#pengurus"
                                     >
                                         <i className="fas ic fa-people-group"></i>
-                                        Pengurus
+                                        Kategori Pengurus
                                     </a>
                                     <div className="collapse" id="pengurus">
                                         <ul className="navbar-nav ps-3">
@@ -368,23 +428,6 @@ export default function Authenticated({ auth, header, children, props }) {
                                                 >
                                                     <i className="fas ic  fa-calendar-plus"></i>
                                                     Periode
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    className={`nav-link px-3 sidebar-link ${
-                                                        route().current(
-                                                            "admin.dashboard.commitee.index",
-                                                        )
-                                                            ? "active"
-                                                            : ""
-                                                    }`}
-                                                    href={route(
-                                                        "admin.dashboard.commitee.index",
-                                                    )}
-                                                >
-                                                    <i className="fas ic  fa-calendar-plus"></i>
-                                                    Pengurus
                                                 </a>
                                             </li>
                                         </ul>

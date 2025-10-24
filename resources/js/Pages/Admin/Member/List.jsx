@@ -98,7 +98,8 @@ export default function List({ auth, errors, flashMessage, props, member }) {
 
                                     <td className="text-center">
                                         <img
-                                            src={`/storage/${member.img}`}
+                                            //src={`/storage/${member.img}`}
+                                            src={member.img_url}
                                             alt={member.nama}
                                             className="rounded-circle border shadow-sm"
                                             style={{

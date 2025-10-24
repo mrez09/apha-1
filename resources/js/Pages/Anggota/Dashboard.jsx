@@ -35,7 +35,7 @@ export default function Dashboard(props) {
                                 {/* Foto Profil */}
                                 <div className="col-md-4 text-center">
                                     <img
-                                        src={`/storage/${props.anggota.img}`}
+                                        src={props.anggota.img_url}
                                         className="rounded-circle img-fluid border shadow-sm mb-3"
                                         alt="Foto Anggota"
                                         style={{ maxWidth: "250px" }}

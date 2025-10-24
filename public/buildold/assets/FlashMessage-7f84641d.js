@@ -1,1 +1,0 @@
-import{j as a,a as e}from"./app-18987d10.js";function r({className:l,message:s=""}){return a("div",{className:"alert alert-success alert-dismissible fade show",role:"alert",children:[s,e("button",{type:"button",className:"btn-close","data-bs-dismiss":"alert","aria-label":"Close"})]})}export{r as F};

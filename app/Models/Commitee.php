@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Commitee extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['nama', 'slug', 'nip', 'nik', 'img', 'divisi', 'subdivisi', 'jabatan', 'email', 'phone', 'description', 'pendidikan', 'periode', 'is_featured', 'join_at'];
+    protected $appends = [
+        'img_url',
+    ];
 
     public function jabatanRelasi()
     {
@@ -37,6 +41,19 @@ class Commitee extends Model
             Committee::class,
             'id_com'
         );
+    }
+
+    public function getImgUrlAttribute()
+    {
+        if ($this->img && Storage::disk('public')->exists($this->img)) {
+            return asset('storage/' . $this->img);
+        }
+
+        if ($this->gender == 2) {
+            return asset('storage/default/female.png');
+        }
+
+        return asset('storage/default/male.png');
     }
 
     

@@ -61,47 +61,31 @@ export default function List({ featuredBuku, commitee, cururl, props }) {
                                         "inset 0 0 12px rgba(0,0,0,0.05), 0 0 10px rgba(0,123,255,0.05)",
                                 }}
                             >
-                                {(() => {
-                                    let imgSrc = "";
-
-                                    if (commitee.img) {
-                                        imgSrc = `/storage/${commitee.img}`;
-                                    } else if (commitee.gender == 2) {
-                                        imgSrc =
-                                            "https://i.imgur.com/Ap5NojU.png";
-                                    } else {
-                                        imgSrc =
-                                            "https://i.imgur.com/T0CKh3Z.png";
-                                    }
-
-                                    return (
-                                        <img
-                                            src={imgSrc}
-                                            alt={commitee.nama}
-                                            className="img-fluid"
-                                            style={{
-                                                width: "100%",
-                                                height: "400px",
-                                                objectFit: "cover",
-                                                borderRadius: "14px",
-                                                transition:
-                                                    "transform 0.4s ease, box-shadow 0.4s ease",
-                                            }}
-                                            onMouseOver={(e) => {
-                                                e.currentTarget.style.transform =
-                                                    "scale(1.03)";
-                                                e.currentTarget.style.boxShadow =
-                                                    "0 10px 20px rgba(0, 123, 255, 0.15)";
-                                            }}
-                                            onMouseOut={(e) => {
-                                                e.currentTarget.style.transform =
-                                                    "scale(1)";
-                                                e.currentTarget.style.boxShadow =
-                                                    "none";
-                                            }}
-                                        />
-                                    );
-                                })()}
+                                <img
+                                    src={commitee.img_url}
+                                    alt={commitee.nama}
+                                    className="img-fluid"
+                                    style={{
+                                        width: "100%",
+                                        height: "400px",
+                                        objectFit: "cover",
+                                        borderRadius: "14px",
+                                        transition:
+                                            "transform 0.4s ease, box-shadow 0.4s ease",
+                                    }}
+                                    onMouseOver={(e) => {
+                                        e.currentTarget.style.transform =
+                                            "scale(1.03)";
+                                        e.currentTarget.style.boxShadow =
+                                            "0 10px 20px rgba(0, 123, 255, 0.15)";
+                                    }}
+                                    onMouseOut={(e) => {
+                                        e.currentTarget.style.transform =
+                                            "scale(1)";
+                                        e.currentTarget.style.boxShadow =
+                                            "none";
+                                    }}
+                                />
                             </div>
 
                             {/* Nama dan Jabatan */}
@@ -124,7 +108,7 @@ export default function List({ featuredBuku, commitee, cururl, props }) {
                                         href={
                                             commitee.link_scopus
                                                 ? commitee.link_scopus.startsWith(
-                                                      "http"
+                                                      "http",
                                                   )
                                                     ? commitee.link_scopus
                                                     : `https://www.scopus.com/authid/detail.uri?authorId=${commitee.link_scopus}`
@@ -143,7 +127,7 @@ export default function List({ featuredBuku, commitee, cururl, props }) {
                                         href={
                                             commitee.link_scholar
                                                 ? commitee.link_scholar.startsWith(
-                                                      "http"
+                                                      "http",
                                                   )
                                                     ? commitee.link_scholar
                                                     : `https://scholar.google.co.id/citations?user=${commitee.link_scholar}`
@@ -164,7 +148,7 @@ export default function List({ featuredBuku, commitee, cururl, props }) {
                                         href={
                                             commitee.link_sinta
                                                 ? commitee.link_sinta.startsWith(
-                                                      "http"
+                                                      "http",
                                                   )
                                                     ? commitee.link_sinta
                                                     : `https://sinta.kemdikbud.go.id/authors/profile/${commitee.link_sinta}`
