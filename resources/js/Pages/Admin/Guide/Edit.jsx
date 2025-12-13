@@ -7,7 +7,7 @@ import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
 //import { CKEditor } from "@ckeditor/ckeditor5-react";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
@@ -17,7 +17,6 @@ import { toast } from "react-toastify";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 //Tabs
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 const editorConfiguration = {
@@ -114,6 +113,7 @@ export default function Edit(props) {
         youtube_url: guide.youtube_url ?? "",
         thumbnail: guide.thumbnail ?? "",
         description: guide.description ?? "",
+        visibility: guide.visibility ?? "",
         sort_order: guide.sort_order ?? 0,
         status: guide.status ?? 1,
 
@@ -149,6 +149,7 @@ export default function Edit(props) {
                     headers: { "Content-Type": "multipart/form-data" },
                 },
             );
+            console.log(res.data);
 
             if (res.data.success) {
                 setPreview(res.data.thumbnail);
@@ -319,7 +320,7 @@ export default function Edit(props) {
                                 </div>
                             </div>
 
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <label className="form-label">
                                     Status Guide
                                 </label>
@@ -376,6 +377,20 @@ export default function Edit(props) {
                                     <option value="Galeri">Galeri</option>
                                     <option value="Committee">Committee</option>
                                     <option value="FAQ">FAQ</option>
+                                </select>
+                            </div>
+
+                            <div className="col-md-4">
+                                <label className="form-label">Visibility</label>
+                                <select
+                                    name="visibility"
+                                    value={data.visibility}
+                                    onChange={onHandleChange}
+                                    className="form-select"
+                                >
+                                    <option value="">Pilih Kategori</option>
+                                    <option value="private">Private</option>
+                                    <option value="public">Public</option>
                                 </select>
                             </div>
 
@@ -450,8 +465,8 @@ export default function Edit(props) {
                                 <CKEditor
                                     className="description"
                                     editor={ClassicEditor}
-                                    name="konten"
-                                    data={props.guide.description}
+                                    name="description"
+                                    data={data.description}
                                     onReady={(editor) => {
                                         // You can store the "editor" and use when it is needed.
                                         console.log(
@@ -462,14 +477,6 @@ export default function Edit(props) {
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
                                         setData("description", data);
-
-                                        console.log({ event, editor, data });
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
                                     }}
                                 />
                                 <div className="">

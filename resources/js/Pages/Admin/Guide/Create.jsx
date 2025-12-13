@@ -4,7 +4,7 @@ import InputError from "@/Components/InputError";
 import { useForm } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import React, { useState } from "react";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -16,6 +16,7 @@ export default function Create(props) {
         title: "",
         slug: "",
         category: "",
+        visibility: "",
         youtube_url: "",
         thumbnail: "",
         description: "",
@@ -43,7 +44,8 @@ export default function Create(props) {
 
         try {
             const res = await axios.post(
-                "/dashboard/guide/upload_guide",
+                //"/dashboard/guide/upload_guide",
+                route("admin.dashboard.guide.upload"),
                 formData,
                 {
                     headers: {
@@ -125,11 +127,7 @@ export default function Create(props) {
                                     }
                                 />
 
-                                {errors.title && (
-                                    <div className="text-danger">
-                                        {errors.title}
-                                    </div>
-                                )}
+                                <InputError message={errors.roles} />
                             </div>
                             <div className="col-md-4">
                                 <label className="form-label">Icon</label>
@@ -186,11 +184,7 @@ export default function Create(props) {
                                     <option value="Committee">Committee</option>
                                     <option value="FAQ">FAQ</option>
                                 </select>
-                                {errors.category && (
-                                    <div className="text-danger">
-                                        {errors.category}
-                                    </div>
-                                )}
+                                <InputError message={errors.roles} />
                             </div>
 
                             <div className="mb-3 col-md-4">
@@ -232,11 +226,6 @@ export default function Create(props) {
                                         </label>
                                     </div>
                                 ))}
-                                {errors.roles && (
-                                    <div className="text-danger">
-                                        {errors.roles}
-                                    </div>
-                                )}
 
                                 <InputError message={errors.roles} />
                             </div>
@@ -255,11 +244,7 @@ export default function Create(props) {
                                         setData("youtube_url", e.target.value)
                                     }
                                 />
-                                {errors.youtube_url && (
-                                    <div className="text-danger">
-                                        {errors.youtube_url}
-                                    </div>
-                                )}
+                                <InputError message={errors.youtube_url} />
                             </div>
 
                             <div className="col-sm-4">
@@ -276,12 +261,7 @@ export default function Create(props) {
                                     onChange={handleUpload}
                                 />
 
-                                <div className="">
-                                    <InputError
-                                        message={errors.thumbnail}
-                                        className="mt-2"
-                                    />
-                                </div>
+                                <InputError message={errors.thumbnail} />
                                 <div>
                                     {imageUrl && (
                                         <img
@@ -314,11 +294,7 @@ export default function Create(props) {
                                         message={errors.sort_order}
                                         className="mt-2"
                                     />
-                                    {errors.sort_order && (
-                                        <div className="text-danger">
-                                            {errors.sord_order}
-                                        </div>
-                                    )}
+                                    <InputError message={errors.sort_order} />
                                 </div>
                             </div>
                             <div className="col-md-4">
@@ -333,6 +309,7 @@ export default function Create(props) {
                                     <option value="private">Private</option>
                                     <option value="public">Public</option>
                                 </select>
+                                <InputError message={errors.visibility} />
                             </div>
 
                             <div className="mb-3">
@@ -348,11 +325,7 @@ export default function Create(props) {
                                     <option value={1}>Aktif</option>
                                     <option value={0}>Nonaktif</option>
                                 </select>
-                                {errors.status && (
-                                    <div className="text-danger">
-                                        {errors.status}
-                                    </div>
-                                )}
+                                <InputError message={errors.status} />
                             </div>
 
                             <div className="col-sm-12">

@@ -36,10 +36,10 @@ class PaymentProofadminController extends Controller
     }
 
     public function create(){
-        $newscategory           = Newscategory::all();
+        //$newscategory           = Newscategory::all();
         return Inertia::render('Admin/Paymentproof/Create',
         [
-            'newscategory'          => $newscategory,
+            //'newscategory'          => $newscategory,
             'ckeditor'              => 'yes',
         ]);
     }

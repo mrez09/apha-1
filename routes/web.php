@@ -660,7 +660,7 @@ Route::prefix('/')->name('front')->group(function (){
 
     //Guide
     Route::get('/help', [HelpCenterController::class, 'index'])->name('help.index');
-    Route::get('/help-center', [HelpCenterController::class, 'index'])->name('help.index');
+    //Route::get('/help-center', [HelpCenterController::class, 'index'])->name('help.index');
     Route::get('/help/{slug}', [HelpCenterController::class, 'show'])->name('help.show');
     
     //response json

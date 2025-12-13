@@ -28,7 +28,7 @@ class Store extends FormRequest
             'category'     => 'required|string|max:100',
             'icon' => 'nullable|string|max:100',
             'visibility' => 'required|in:public,private',
-            'youtube_url'  => 'required|url',
+            'youtube_url'  => 'nullable|url',
             'thumbnail'    => 'nullable|string|max:255',
             'description'  => 'nullable|string',
             'sort_order'   => 'nullable|integer',

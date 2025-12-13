@@ -16,6 +16,7 @@ class Guides extends Model
         'description',
         'youtube_url',
         'thumbnail',
+        'visibility',
         'category',
         'sort_order',
         'status',

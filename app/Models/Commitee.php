@@ -56,6 +56,23 @@ class Commitee extends Model
         return asset('storage/default/male.png');
     }
 
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'jabatan', 'id');
+    }
+    
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class, 'divisi', 'id');
+    }
+    
+    public function subdivisi()
+    {
+        return $this->belongsTo(Subdivisi::class, 'subdivisi', 'id');
+    }
+
+    
+
     
 }
 

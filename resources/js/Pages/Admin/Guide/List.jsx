@@ -15,13 +15,7 @@ export default function List({
     nextGuide,
 }) {
     const { delete: destroy } = useForm();
-    let table = new DataTable("#myTable", {
-        // options
-        destroy: true,
-        processing: true,
-        serverSide: false,
-    });
-
+    
     return (
         <AuthenticatedLayout
             auth={auth}

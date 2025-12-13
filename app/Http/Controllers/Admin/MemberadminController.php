@@ -25,16 +25,54 @@ use App\Mail\VerificationPembayaran;
 class MemberadminController extends Controller
 {
     //
-    public function index(){
-        $member          = Member::all();
-        return Inertia::render('Admin/Member/List',
-    [
-        'member'          => $member
-    ]);
-      //return  [
-        //    'news'          => $news,
-        //];  
+    public function index(Request $request)
+    {
+        //query laravel pagination
+        $member = Member::query()
+            ->when($request->search, function ($query, $search) {
+                $query->where('nama', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('no_kta', 'like', "%{$search}%")
+                    ->orWhere('universitas', 'like', "%{$search}%");
+            })
+            ->when($request->status, function ($query, $status) {
+                $query->where('status', $status);
+            })
+            ->when($request->sort, function ($query) use ($request) {
 
+                $direction = $request->direction ?? 'asc';
+
+                $allowedSort = [
+                    'id',
+                    'nama',
+                    'no_kta',
+                    'email',
+                    'status',
+                    'img',
+                    'universitas',
+                    'created_at'
+                ];
+
+                if (in_array($request->sort, $allowedSort)) {
+                    $query->orderBy(
+                        $request->sort,
+                        $direction
+                    );
+                }
+
+            })
+            ->paginate(10)
+            ->withQueryString();
+
+        return Inertia::render('Admin/Member/List', [
+            'member' => $member,
+            'filters' => [
+                'search' => $request->search,
+                'status' => $request->status,
+                'sort' => $request->sort,
+                'direction' => $request->direction,
+            ]
+        ]);
     }
 
     public function create(){

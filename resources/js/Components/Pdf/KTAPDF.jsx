@@ -125,12 +125,16 @@ export default function KTAPDF({
         },
         textup: {
             position: "absolute",
+            top: 20,
             left: "0px",
             right: "0px",
             marginHorizontal: "auto",
             textAlign: "center",
             justifyContent: "center",
+            zIndex: 2,
+            color: "#fff",
         },
+
         title: {
             fontSize: 24,
             textAlign: "center",
@@ -196,13 +200,6 @@ export default function KTAPDF({
             //position: "relative",
             //zIndex: 2,
             //top: 0,
-        },
-
-        textup: {
-            position: "absolute",
-            top: 20,
-            zIndex: 2,
-            color: "#fff",
         },
 
         header: {

@@ -235,22 +235,19 @@ export default function Authenticated({ auth, header, children, props }) {
                                     </a>
                                     <div className="collapse" id="anggota">
                                         <ul className="navbar-nav ps-3">
-                                            <li>
-                                                <a
+                                            <li className="nav-item">
+                                                <NavLink
+                                                    className="nav-link px-3 sidebar-link"
                                                     href={route(
                                                         "admin.dashboard.member.index",
                                                     )}
-                                                    className={`nav-link px-3 sidebar-link ${
-                                                        route().current(
-                                                            "admin.dashboard.member.index",
-                                                        )
-                                                            ? "active"
-                                                            : ""
-                                                    }`}
+                                                    active={route().current(
+                                                        "admin.dashboard.member.index",
+                                                    )}
                                                 >
                                                     <i className="fas ic fa-person-shelter"></i>
                                                     List Anggota
-                                                </a>
+                                                </NavLink>
                                             </li>
                                             <li>
                                                 <a
@@ -702,21 +699,23 @@ export default function Authenticated({ auth, header, children, props }) {
                                     </a>
                                     <div className="collapse" id="guide">
                                         <ul className="navbar-nav ps-3">
-                                            <a
-                                                className={`nav-link px-3 sidebar-link ${
-                                                    route().current(
+                                            <li className="nav-item">
+                                                <a
+                                                    className={`nav-link px-3 sidebar-link ${
+                                                        route().current(
+                                                            "admin.dashboard.guide.index",
+                                                        )
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                    href={route(
                                                         "admin.dashboard.guide.index",
-                                                    )
-                                                        ? "active"
-                                                        : ""
-                                                }`}
-                                                href={route(
-                                                    "admin.dashboard.guide.index",
-                                                )}
-                                            >
-                                                <i className="fas ic fa-address-book"></i>
-                                                Guide
-                                            </a>
+                                                    )}
+                                                >
+                                                    <i className="fas ic fa-address-book"></i>
+                                                    Guide
+                                                </a>
+                                            </li>
                                             <li className="nav-item">
                                                 <NavLink
                                                     className="nav-link px-3 sidebar-link"
@@ -727,12 +726,30 @@ export default function Authenticated({ auth, header, children, props }) {
                                                         "fronthelp.index",
                                                     )}
                                                 >
-                                                    <i className="fas ic fa-guide"></i>
+                                                    <i className="fas ic fa-address-book"></i>
                                                     Help Center
                                                 </NavLink>
                                             </li>
                                         </ul>
                                     </div>
+                                </li>
+
+                                <li className="nav-item">
+                                    <NavLink
+                                        className={`nav-link px-3 sidebar-link ${
+                                            route().current(
+                                                "admin.dashboard.activity.index",
+                                            )
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        href={route(
+                                            "admin.dashboard.activity.index",
+                                        )}
+                                    >
+                                        <i className="fas ic fa-history"></i>
+                                        Activity Logs
+                                    </NavLink>
                                 </li>
 
                                 <li className="nav-link px-3 sidebar-link">

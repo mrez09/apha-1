@@ -13,6 +13,9 @@ export default function List({
     pengurus,
     konfigurasi,
 }) {
+    //console.log("Member props:", pengurus);
+    //console.log("Jumlah data:", pengurus.data.length);
+    //console.log("Data:", pengurus.data);
     const { delete: destroy } = useForm();
     let table = new DataTable("#myTable", {
         // options
@@ -42,7 +45,7 @@ export default function List({
                             type="button"
                             href={route(
                                 "admin.dashboard.konfigurasi.pengurus.edit",
-                                konfigurasi.slug
+                                konfigurasi.slug,
                             )}
                             className="btn btn-sm btn-outline-secondary"
                         >
@@ -102,7 +105,7 @@ export default function List({
                                         <Link
                                             href={route(
                                                 "admin.dashboard.commitee.edit",
-                                                pengurus.commitees_id
+                                                pengurus.commitees_id,
                                             )}
                                         >
                                             <button className="btn btn-warning my-2">
@@ -114,8 +117,8 @@ export default function List({
                                                 destroy(
                                                     route(
                                                         "admin.dashboard.commitee.destroy",
-                                                        pengurus.commitees_id
-                                                    )
+                                                        pengurus.commitees_id,
+                                                    ),
                                                 );
                                             }}
                                         >

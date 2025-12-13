@@ -72,6 +72,7 @@ class UploadController extends Controller
                 'file' => $file,
                 'fileName' => $fileName,
             ]);
+            //return response()->json($upload);
 
             return response()->json([
                 'success' => true,
