@@ -2044,3 +2044,37 @@ figure.card .position {
     align-items: center;
     z-index: 5;
 }
+
+/* Release Note */
+.release-note-content {
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.release-note-content h1,
+.release-note-content h2,
+.release-note-content h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.release-note-content ul,
+.release-note-content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.release-note-content li {
+    margin-bottom: 0.35rem;
+}
+
+.release-note-content p {
+    margin-bottom: 0.75rem;
+}
+
+.release-note-content blockquote {
+    border-left: 4px solid #f08f4a;
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: #666;
+}

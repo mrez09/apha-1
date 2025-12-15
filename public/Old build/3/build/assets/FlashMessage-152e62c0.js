@@ -1,0 +1,1 @@
+import{j as e,a as t}from"./app-c8844e2f.js";function o({className:r,message:s="",type:a="success"}){return e("div",{className:`alert ${a==="error"?"alert-danger":"alert-success"} alert-dismissible fade show`,role:"alert",children:[s,t("button",{type:"button",className:"btn-close","data-bs-dismiss":"alert"})]})}export{o as F};

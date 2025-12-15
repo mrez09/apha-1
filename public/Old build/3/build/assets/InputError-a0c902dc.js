@@ -1,0 +1,1 @@
+import{j as s,a as i}from"./app-c8844e2f.js";function c({message:a,className:r=""}){return a?s("div",{className:`apha-input-error ${r}`,children:[i("i",{className:"fas fa-circle-exclamation me-1"}),a]}):null}export{c as I};

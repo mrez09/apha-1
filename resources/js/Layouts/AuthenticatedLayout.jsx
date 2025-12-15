@@ -1,11 +1,7 @@
-import { useState } from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
+import { useState, useEffect } from "react";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
-import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import FlashMessage from "@/Components/FlashMessage";
 import { Head, useForm, router } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "@inertiajs/react";
 import TableToolbar from "@/Components/Table/TableToolbar";
 
@@ -13,19 +13,30 @@ export default function List({
     member,
     filters,
 }) {
+    console.log("List Function");
     console.log("Member props:", member);
-    console.log("Jumlah data:", member.data.length);
+    console.log("Jumlah data:", member?.data?.length ?? 0);
     console.log("Data:", member.data);
+
+    console.count("LIST RENDER");
     const { delete: destroy } = useForm();
 
-    const [search, setSearch] = useState(filters?.search || "");
+    //const [search, setSearch] = useState(filters?.search || "");
+    const isFirstRender = useRef(true);
     const [status, setStatus] = useState(filters?.status || "");
     const [loading, setLoading] = useState(false);
 
-    const [searchValue, setSearchValue] = useState(search);
+    //const [searchValue, setSearchValue] = useState(search);
+    const [searchValue, setSearchValue] = useState(filters?.search || "");
 
     //search
     useEffect(() => {
+        console.log("List Mounted");
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
         const timeout = setTimeout(() => {
             router.get(
                 route("admin.dashboard.member.index"),
@@ -45,10 +56,12 @@ export default function List({
     //loading
     useEffect(() => {
         const start = router.on("start", () => {
+            console.log("START REQUEST");
             setLoading(true);
         });
 
         const finish = router.on("finish", () => {
+            console.log("FINISH REQUEST");
             setLoading(false);
         });
 
@@ -105,6 +118,7 @@ export default function List({
             ? "fas fa-sort-up"
             : "fas fa-sort-down";
     };
+    //console.count("RETURN");
 
     return (
         <AuthenticatedLayout
@@ -117,6 +131,9 @@ export default function List({
             }
         >
             <Head title="Dashboard" />
+            {
+                //console.count("LIST RENDER bro")
+            }
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">
@@ -336,7 +353,7 @@ export default function List({
                                         </td>
                                     </tr>
                                 ))}
-                                {member.data.length === 0 && (
+                                {(member?.data?.length ?? 0) === 0 && (
                                     <tr>
                                         <td colSpan="8" className="text-center">
                                             Data tidak ditemukan

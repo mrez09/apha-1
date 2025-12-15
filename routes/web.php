@@ -49,6 +49,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\InvoiceController as AdminInvoiceController;
 use App\Http\Controllers\Admin\GuideController;
 use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\ReleaseNoteController;
 use App\Http\Controllers\Anggota\DashboardController as AnggotaDashboardContoller;
 use App\Http\Controllers\Anggota\ProfileController as AnggotaProfileController;
 use App\Http\Controllers\Anggota\MemberController;
@@ -379,6 +380,20 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     //Route::put('/invoices/{id}', [AdminInvoiceController::class, 'update'])->name('invoices.update');
     //Route::get('/invoices/create', [AdminInvoiceController::class, 'create'])->name('invoices.create');
     //Route::post('/invoices/store', [AdminInvoiceController::class, 'store'])->name('invoices.store');
+
+    //Changlog
+    Route::get('/changelog', [ReleaseNoteController::class, 'index'])->name('changelog.index');
+    Route::get('/changelog/create', [ReleaseNoteController::class, 'create'])->name('changelog.create');
+    Route::post('/changelog/store', [ReleaseNoteController::class, 'store'])->name('changelog.store');
+    Route::get('/changelog/{id}/edit', [ReleaseNoteController::class, 'edit'])->name('changelog.edit');
+    Route::put('/changelog/{id}', [ReleaseNoteController::class, 'update'])->name('changelog.update');
+    Route::get('/changelog/trash', [ReleaseNoteController::class, 'trash'])->name('changelog.trash');
+    Route::get('/changelog/{slug}', [ReleaseNoteController::class, 'show'])->name('changelog.show');
+    Route::delete('/changelog/{id}', [ReleaseNoteController::class, 'destroy'])->name('changelog.destroy');
+    //Changelog FD
+    
+    Route::put('/changelog/{id}/restore', [ReleaseNoteController::class, 'restore'])->name('changelog.restore');
+    Route::delete('/changelog/{id}/force-delete', [ReleaseNoteController::class, 'forceDelete'])->name('changelog.force-delete');
     
     //Route::prefix('activity-logs')->name('activity-logs.')->group(function(){
     //    Route::get('/',[ActivityLogController::class,'index'])->name('index');
@@ -464,6 +479,8 @@ Route::middleware(['auth', 'role:user|admin'])->prefix('anggota')->name('anggota
     //Invoice pay sample
     Route::get('/invoices', [MemberInvoiceController::class, 'index'])->name('member.invoices.index');
     Route::post('/invoices/pay/{id}', [MemberInvoiceController::class, 'pay'])->name('member.invoices.pay');
+
+    
 
     //KTA Sample
     //Route::resource('profile', AnggotaProfileController::class);
@@ -662,6 +679,8 @@ Route::prefix('/')->name('front')->group(function (){
     Route::get('/help', [HelpCenterController::class, 'index'])->name('help.index');
     //Route::get('/help-center', [HelpCenterController::class, 'index'])->name('help.index');
     Route::get('/help/{slug}', [HelpCenterController::class, 'show'])->name('help.show');
+
+    
     
     //response json
 

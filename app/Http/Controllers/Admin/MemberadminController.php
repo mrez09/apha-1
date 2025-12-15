@@ -28,6 +28,8 @@ class MemberadminController extends Controller
     public function index(Request $request)
     {
         //query laravel pagination
+        //logger('Member controller jalan');
+        
         $member = Member::query()
             ->when($request->search, function ($query, $search) {
                 $query->where('nama', 'like', "%{$search}%")
