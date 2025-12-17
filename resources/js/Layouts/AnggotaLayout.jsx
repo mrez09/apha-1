@@ -261,6 +261,53 @@ export default function Authenticated({ auth, header, children, props }) {
                                     </div>
                                 </li>
 
+                                {/*end Photo*/}
+                            </ul>
+
+                            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Tools</span>
+                                <a
+                                    className="link-secondary"
+                                    href="#"
+                                    aria-label="Add a new report"
+                                >
+                                    <span data-feather="plus-circle"></span>
+                                </a>
+                            </h6>
+                            <ul className="nav flex-column mb-2">
+                                {/*Guide*/}
+
+                                <li className="nav-item">
+                                    <NavLink
+                                        className={`nav-link px-3 sidebar-link ${
+                                            route().current(
+                                                "admin.dashboard.changelog.index",
+                                            )
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        href={route(
+                                            "anggota.dashboard.changelog.index",
+                                        )}
+                                    >
+                                        <i className="fas ic fa-sticky-note"></i>
+                                        Realese Note
+                                    </NavLink>
+                                </li>
+
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link px-3 sidebar-link"
+                                        href={route("fronthelp.index")}
+                                        active={route().current(
+                                            "fronthelp.index",
+                                        )}
+                                    >
+                                        <i className="fas ic fa-address-book"></i>
+                                        Guide
+                                    </NavLink>
+                                </li>
+
                                 <hr className="d-md-none my-3" />
 
                                 <li className="nav-item d-md-none">
@@ -274,9 +321,8 @@ export default function Authenticated({ auth, header, children, props }) {
                                         Logout
                                     </ResponsiveNavLink>
                                 </li>
-
-                                {/*end Photo*/}
                             </ul>
+                            {/* End of tools */}
                         </div>
                     </nav>
 

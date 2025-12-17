@@ -60,6 +60,7 @@ use App\Http\Controllers\Anggota\PaymentProofAnggotaController;
 use App\Http\Controllers\Anggota\InvoiceController as InvoiceAnggotaController;
 use App\Http\Controllers\Anggota\KTAController;
 use App\Http\Controllers\Anggota\InvoiceController as MemberInvoiceController;
+use App\Http\Controllers\Anggota\ChangelogController;
 use App\Http\Controllers\PaymentController as PaymentGatewayController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\TransaksiController;
@@ -197,23 +198,27 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     Route::resource('news', NewsadminController::class);
     Route::get('news/{id}/edit', [NewsadminController::class, 'edit'])->name('news.edit');
     Route::put('news/{news}/restore', [NewsadminController::class, 'restore'])->name('news.restore');
+    
     //Book
     Route::resource('buku', BookadminController::class);
     Route::get('buku/{id}/edit', [BookadminController::class, 'edit'])->name('buku.edit');
     Route::put('book/{buku}/restore', [BookadminController::class, 'restore'])->name('Book.restore');
-    //Route::get('news', [NewsadminController::class, 'edit'])->name('news.edit');
+    
     //Galeri and banner
     Route::resource('galeri', GaleriadminController::class);
     Route::get('galeri/{id}/edit', [GaleriadminController::class, 'edit'])->name('galeri.edit');
+    
     //Banner
     Route::resource('banner', BanneradminController::class);
     Route::get('mainbanner/', [BanneradminController::class, 'mainbanner'])->name('mainbanner.index');
     Route::get('banner/{id}/edit', [BanneradminController::class, 'edit'])->name('banner.edit');
     Route::get('banner/{id}/edit2', [BanneradminController::class, 'edit2'])->name('banner.edit2');
+    
     //Prosiding
     Route::resource('prosiding', ProsidingadminController::class);
     Route::get('prosiding/{id}/edit', [ProsidingadminController::class, 'edit'])->name('prosiding.edit');
     Route::put('prosiding/{buku}/restore', [ProsidingadminController::class, 'restore'])->name('prosiding.restore');
+    
     //Video
     Route::resource('video', VideoadminController::class);
     Route::get('video/{id}/edit', [VideoadminController::class, 'edit'])->name('video.edit');
@@ -221,28 +226,34 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     //Route::resource('main-banner', MainbanneradminController::class);
     //Route::get('main-banner/{id}/edit', [MainbanneradminController::class, 'edit'])->name('mainbanner.edit');
     //Route::put('main-banner/{galeri}/restore', [MainbanneradminController::class, 'restore'])->name('banner.restore');
+    
     //Divisi
     Route::resource('divisi', DivisiadminController::class);
     Route::get('divisi/{id}/edit', [DivisiadminController::class, 'edit'])->name('divisi.edit');
     Route::put('divisi/{divisi}/restore', [DivisiadminController::class, 'restore'])->name('divisi.restore');
-    //Divisi
+    
+    //subDivisi
     Route::resource('subdivisi', SubdivisiadminController::class);
     Route::get('subdivisi/{id}/edit', [SubdivisiadminController::class, 'edit'])->name('subdivisi.edit');
     Route::put('subdivisi/{subdivisi}/restore', [SubdivisiadminController::class, 'restore'])->name('divisi.restore');
-    //Divisi
+    
+    //Jabatan
     Route::resource('jabatan', JabatanadminController::class);
     Route::get('jabatan/{id}/edit', [JabatanadminController::class, 'edit'])->name('jabatan.edit');
     Route::put('jabatan/{jabatan}/restore', [JabatanadminController::class, 'restore'])->name('jabatan.restore');
-    //Divisi
+    
+    //Pengurus
     Route::resource('penguru', PengurusadminController::class);
     Route::get('penguru/{penguru}/edit', [PengurusadminController::class, 'edit'])->name('pengurus.edit');
     Route::put('pengurus/{jabatan}/restore', [PengurusadminController::class, 'restore'])->name('pengurus.restore');
+    
     //Contact
     Route::resource('contact', ContactadminController::class);
     Route::get('contact/{id}/edit', [ContactadminController::class, 'edit'])->name('contact.edit');
     Route::get('contact/{id}/detail', [ContactadminController::class, 'edit'])->name('contact.detail');
     Route::put('contact/{contact}/restore', [ContactadminController::class, 'restore'])->name('contact.restore');
     Route::get('detail/{contact:id}', [ContactadminController::class, 'show'])->name('contact.detail');
+    
     //Divisi
     Route::resource('newscategory', NewscategoryadminController::class);
     Route::get('newscategory/{id}/edit', [NewscategoryadminController::class, 'edit'])->name('newscategory.edit');
@@ -480,6 +491,9 @@ Route::middleware(['auth', 'role:user|admin'])->prefix('anggota')->name('anggota
     Route::get('/invoices', [MemberInvoiceController::class, 'index'])->name('member.invoices.index');
     Route::post('/invoices/pay/{id}', [MemberInvoiceController::class, 'pay'])->name('member.invoices.pay');
 
+    //ChangeLog or Realese Note
+    Route::get('/changelog', [ChangelogController::class, 'index'])->name('changelog.index');
+    Route::get('/changelog/{id}', [ChangelogController::class, 'show'])->name('changelog.show');
     
 
     //KTA Sample

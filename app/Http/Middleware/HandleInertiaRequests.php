@@ -9,6 +9,7 @@ use Session;
 //model
 use App\Models\Member;
 use App\Models\Commitee;
+use App\Models\ReleaseNote;
 
 
 class HandleInertiaRequests extends Middleware
@@ -82,6 +83,16 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+
+            'latestReleaseNotes' => fn () => ReleaseNote::where('status', 1)
+                ->latest()
+                ->take(5)
+                ->get([
+                    'id',
+                    'version',
+                    'title',
+                    'created_at',
+            ]),
         ]);
     }
 }

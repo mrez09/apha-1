@@ -4,8 +4,11 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { usePage } from "@inertiajs/react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NotificationBell from "@/Components/Auth/NotificationBell";
 
 export default function Authenticated({ auth, header, children, props }) {
+    const { latestReleaseNotes } = usePage().props;
+    console.log("Release Notes:", latestReleaseNotes);
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -49,6 +52,11 @@ export default function Authenticated({ auth, header, children, props }) {
                     placeholder="Search"
                     aria-label="Search"
                 />
+                <div className="d-flex align-items-center">
+                    <NotificationBell />
+
+                    {/* menu user lainnya */}
+                </div>
                 <div className="navbar-nav d-none d-md-flex">
                     <div className="nav-item text-nowrap">
                         <ResponsiveNavLink
@@ -745,6 +753,24 @@ export default function Authenticated({ auth, header, children, props }) {
                                     >
                                         <i className="fas ic fa-history"></i>
                                         Activity Logs
+                                    </NavLink>
+                                </li>
+
+                                <li className="nav-item">
+                                    <NavLink
+                                        className={`nav-link px-3 sidebar-link ${
+                                            route().current(
+                                                "admin.dashboard.changelog.index",
+                                            )
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        href={route(
+                                            "admin.dashboard.changelog.index",
+                                        )}
+                                    >
+                                        <i className="fas ic fa-sticky-note"></i>
+                                        Realese Note
                                     </NavLink>
                                 </li>
 
