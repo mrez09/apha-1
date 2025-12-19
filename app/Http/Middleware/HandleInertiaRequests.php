@@ -93,6 +93,19 @@ class HandleInertiaRequests extends Middleware
                     'title',
                     'created_at',
             ]),
+
+            'unreadNotificationCount' => fn () => $request->user()
+                ? $request->user()->unreadNotifications()->count()
+                : 0,
+
+            'unreadNotifications' => fn () => $request->user()
+                ? $request->user()
+                    ->unreadNotifications()
+                    ->latest()
+                    ->take(10)
+                    ->get()
+                : collect(),
+                
         ]);
     }
 }

@@ -12,6 +12,11 @@ export default function Authenticated({ auth, header, children, props }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
+    const { unreadNotifications, unreadNotificationCount } = usePage().props;
+
+    console.log("Unread Notifications:", unreadNotifications);
+    console.log("Unread Count:", unreadNotificationCount);
+
     const { flash } = usePage().props;
 
     useEffect(() => {
@@ -770,7 +775,7 @@ export default function Authenticated({ auth, header, children, props }) {
                                         )}
                                     >
                                         <i className="fas ic fa-sticky-note"></i>
-                                        Realese Note
+                                        Release Note
                                     </NavLink>
                                 </li>
 

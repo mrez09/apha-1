@@ -109,6 +109,7 @@ export default function Create({ auth, releaseNote, errors, nextVersion }) {
                                 <CKEditor
                                     editor={ClassicEditor}
                                     name="description"
+                                    value={data.description}
                                     data=""
                                     onReady={(editor) => {
                                         // You can store the "editor" and use when it is needed.
@@ -119,7 +120,7 @@ export default function Create({ auth, releaseNote, errors, nextVersion }) {
                                     }}
                                     onChange={(event, editor, e) => {
                                         const data = editor.getData();
-                                        setData("description", data);
+                                        setData("data.description", data);
                                     }}
                                 />
                                 <div className="">

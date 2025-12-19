@@ -405,6 +405,25 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
     
     Route::put('/changelog/{id}/restore', [ReleaseNoteController::class, 'restore'])->name('changelog.restore');
     Route::delete('/changelog/{id}/force-delete', [ReleaseNoteController::class, 'forceDelete'])->name('changelog.force-delete');
+
+    //Changelog Read
+    Route::post('/notifications/{id}/read', function ($id) {
+        $notification = auth()->user()
+            ->notifications()
+            ->where('id', $id)
+            ->firstOrFail();
+
+        $notification->markAsRead();
+
+        return back();
+    })->name('notifications.read');
+    Route::post('/notifications/read-all', function () {
+        auth()->user()
+            ->unreadNotifications
+            ->markAsRead();
+
+        return back();
+    })->name('notifications.readAll');
     
     //Route::prefix('activity-logs')->name('activity-logs.')->group(function(){
     //    Route::get('/',[ActivityLogController::class,'index'])->name('index');
@@ -494,6 +513,7 @@ Route::middleware(['auth', 'role:user|admin'])->prefix('anggota')->name('anggota
     //ChangeLog or Realese Note
     Route::get('/changelog', [ChangelogController::class, 'index'])->name('changelog.index');
     Route::get('/changelog/{id}', [ChangelogController::class, 'show'])->name('changelog.show');
+    
     
 
     //KTA Sample

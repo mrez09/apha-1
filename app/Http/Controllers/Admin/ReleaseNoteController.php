@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\ReleaseNotePublished;
 use Illuminate\Http\Request;
 use App\Models\ReleaseNote;
+use App\Models\User;
 use Inertia\Inertia;
 
 class ReleaseNoteController extends Controller
@@ -115,6 +117,7 @@ class ReleaseNoteController extends Controller
     public function update(Request $request, $id)
     {
         $releaseNote = ReleaseNote::findOrFail($id);
+        $oldStatus = $releaseNote->status;
 
         $request->validate([
             'version' => 'required|max:20|unique:release_notes,version,' . $releaseNote->id,
@@ -129,6 +132,34 @@ class ReleaseNoteController extends Controller
             'description' => $request->description,
             'status' => $request->status,
         ]);
+        
+
+        if ($oldStatus != 1 && $releaseNote->status == 1) {
+
+            $users = User::where('id', '!=', auth()->id())->get();
+
+            \Log::debug('RELEASE NOTE PUBLISH', [
+                'release_note_id' => $releaseNote->id,
+                'old_status' => $oldStatus,
+                'new_status' => $releaseNote->status,
+                'current_user' => auth()->id(),
+                'recipient_count' => $users->count(),
+                'recipient_ids' => $users->pluck('id')->toArray(),
+            ]);
+
+            $users->each(function ($user) use ($releaseNote) {
+
+                \Log::debug('SENDING RELEASE NOTE NOTIFICATION', [
+                    'user_id' => $user->id,
+                    'release_note_id' => $releaseNote->id,
+                ]);
+
+                $user->notify(
+                    new ReleaseNotePublished($releaseNote)
+                );
+            });
+        }
+        
 
         return redirect()
             ->route('admin.dashboard.changelog.index')
