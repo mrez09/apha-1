@@ -5,7 +5,6 @@ import FlashMessage from "@/Components/FlashMessage";
 import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import { Link, useForm, router } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 export default function Profile(props) {
     /*Props Profile ID*/

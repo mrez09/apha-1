@@ -6,8 +6,6 @@ import NavLink from "@/Components/NavLink";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm } from "@inertiajs/react";
-//import { CKEditor } from "@ckeditor/ckeditor5-react";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";

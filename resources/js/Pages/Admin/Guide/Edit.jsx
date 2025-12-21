@@ -6,15 +6,12 @@ import React, { useEffect, useState } from "react";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
-//import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import Select from "react-select";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 //Tabs
 import "react-tabs/style/react-tabs.css";
@@ -462,23 +459,6 @@ export default function Edit(props) {
                                 <label className="form-label">
                                     Description
                                 </label>
-                                <CKEditor
-                                    className="description"
-                                    editor={ClassicEditor}
-                                    name="description"
-                                    data={data.description}
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor,
-                                        );
-                                    }}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("description", data);
-                                    }}
-                                />
                                 <div className="">
                                     <InputError
                                         message={errors.description}

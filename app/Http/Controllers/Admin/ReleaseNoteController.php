@@ -135,29 +135,21 @@ class ReleaseNoteController extends Controller
         
 
         if ($oldStatus != 1 && $releaseNote->status == 1) {
+            User::where('id', '!=', auth()->id())
+                ->get()
+                ->each(function ($user) use ($releaseNote) {
 
-            $users = User::where('id', '!=', auth()->id())->get();
+                    $alreadyNotified = $user->notifications()
+                        ->where('type', ReleaseNotePublished::class)
+                        ->where('data->release_note_id', $releaseNote->id)
+                        ->exists();
 
-            \Log::debug('RELEASE NOTE PUBLISH', [
-                'release_note_id' => $releaseNote->id,
-                'old_status' => $oldStatus,
-                'new_status' => $releaseNote->status,
-                'current_user' => auth()->id(),
-                'recipient_count' => $users->count(),
-                'recipient_ids' => $users->pluck('id')->toArray(),
-            ]);
-
-            $users->each(function ($user) use ($releaseNote) {
-
-                \Log::debug('SENDING RELEASE NOTE NOTIFICATION', [
-                    'user_id' => $user->id,
-                    'release_note_id' => $releaseNote->id,
-                ]);
-
-                $user->notify(
-                    new ReleaseNotePublished($releaseNote)
-                );
-            });
+                    if (!$alreadyNotified) {
+                        $user->notify(
+                            new ReleaseNotePublished($releaseNote)
+                        );
+                    }
+                });
         }
         
 

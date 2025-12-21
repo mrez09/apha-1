@@ -6,89 +6,10 @@ import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import FlashMessage from "@/Components/FlashMessage";
-
-//import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-//import sourceEditing from "@ckeditor/ckeditor5-build-classic";
-//import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import ClassicEditor from "../../../../../../../texteditor/src/ckeditor";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import Markdown from "@ckeditor/ckeditor5-markdown-gfm/src/markdown";
-
-const editorConfiguration = {
-    codeBlock: {
-        languages: [
-            { language: "css", label: "CSS" },
-            { language: "html", label: "HTML" },
-        ],
-    },
-    //plugins: [Alignment],
-    //alignment: {
-    //  options: ["left", "right"],
-    //},
-    toolbar: [
-        "sourceEditing",
-        "undo",
-        "redo",
-        "heading",
-        "style",
-        "|",
-        "fontFamily",
-        "fontSize",
-        "fontColor",
-        "fontBackgroundColor",
-        "bold",
-        "italic",
-        "underline",
-        "link",
-        "alignment",
-        "|",
-        "bulletedList",
-        "numberedList",
-        "outdent",
-        "indent",
-        "todoList",
-        "pageBreak",
-        "|",
-        "imageUpload",
-        "imageInsert",
-        "mediaEmbed",
-        "-",
-        "code",
-        "htmlEmbed",
-        "codeBlock",
-        "|",
-        "insertTable",
-        "blockQuote",
-        "specialCharacters",
-        "superscript",
-        "subscript",
-        "strikethrough",
-        "horizontalLine",
-        "|",
-        "removeFormat",
-        "findAndReplace",
-        "selectAll",
-    ],
-    image: {
-        toolbar: [
-            "imageTextAlternative",
-            "toggleImageCaption",
-            "imageStyle:inline",
-            "imageStyle:block",
-            "imageStyle:side",
-            "linkImage",
-        ],
-    },
-};
 
 export default function List(props) {
     const [startDate, setStartDate] = useState(new Date());
@@ -110,7 +31,7 @@ export default function List(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -130,7 +51,7 @@ export default function List(props) {
             {
                 _method: "PUT",
                 ...data,
-            }
+            },
         );
     };
     return (
@@ -375,41 +296,6 @@ export default function List(props) {
 
                             <div className="col-sm-12">
                                 <label className="form-label">Meta Tag</label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback"></div>*/}
-                                <CKEditor
-                                    className="metatag"
-                                    //config={editorConfiguration}
-                                    editor={ClassicEditor}
-                                    name="metatag"
-                                    data={props.konfigurasi.metatag}
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("metatag", data);
-
-                                        console.log({ event, editor, data });
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
-                                />
                                 <div className="">
                                     <InputError
                                         message={errors.konten}

@@ -5,8 +5,6 @@ import FlashMessage from "@/Components/FlashMessage";
 import React from "react";
 import InputError from "@/Components/InputError";
 import { useForm, router } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function Profile(props) {
     /*Props Profile ID*/
@@ -377,56 +375,6 @@ export default function Profile(props) {
                                                 Description (Akan ditampilkan
                                                 pada halaman Pengurus)
                                             </label>
-                                            {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback"></div>*/}
-                                            <CKEditor
-                                                className="konten"
-                                                //config={editorConfiguration}
-                                                editor={ClassicEditor}
-                                                name="dec"
-                                                data={props.anggota.dec}
-                                                //onReady={(editor) => {
-                                                // You can store the "editor" and use when it is needed.
-                                                //    console.log(
-                                                //        "Editor is ready to use!",
-                                                //        editor,
-                                                //    );
-                                                //}}
-                                                onChange={(
-                                                    event,
-                                                    editor,
-                                                    e,
-                                                ) => {
-                                                    const data =
-                                                        editor.getData();
-                                                    setData("dec", data);
-
-                                                    //console.log({
-                                                    //    event,
-                                                    //    editor,
-                                                    //    data,
-                                                    //});
-                                                }}
-                                                //onBlur={(event, editor) => {
-                                                //    console.log(
-                                                //        "Blur.",
-                                                //        editor,
-                                                //    );
-                                                //}}
-                                                //onFocus={(event, editor) => {
-                                                //    console.log(
-                                                //        "Focus.",
-                                                //        editor,
-                                                //    );
-                                                //}}
-                                            />
                                             <div className="">
                                                 <InputError
                                                     message={errors.konten}

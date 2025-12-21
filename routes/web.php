@@ -50,6 +50,8 @@ use App\Http\Controllers\Admin\InvoiceController as AdminInvoiceController;
 use App\Http\Controllers\Admin\GuideController;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\ReleaseNoteController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\CKEditorController;
 use App\Http\Controllers\Anggota\DashboardController as AnggotaDashboardContoller;
 use App\Http\Controllers\Anggota\ProfileController as AnggotaProfileController;
 use App\Http\Controllers\Anggota\MemberController;
@@ -191,10 +193,10 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard')->name('admin.dashboard.')->group(function (){
     
     // ini dashboardkan    
-    //Route::get('/', [DashboardController::class, 'index'])->name('index');
-    //Route::get('news', [NewsadminController::class, 'index'])->name('news.index');
+    Route::post('ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
+    Route::post('ckeditor/upload-from-url', [CKEditorController::class,'uploadFromUrl'])->name('ckeditor.upload-from-url');
+
     //News
-    //Route::resource('/', DashboardController::class);
     Route::resource('news', NewsadminController::class);
     Route::get('news/{id}/edit', [NewsadminController::class, 'edit'])->name('news.edit');
     Route::put('news/{news}/restore', [NewsadminController::class, 'restore'])->name('news.restore');
@@ -424,6 +426,9 @@ Route::middleware(['auth', 'role:admin', 'redirect.if.user'])->prefix('dashboard
 
         return back();
     })->name('notifications.readAll');
+
+    //Notification
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     
     //Route::prefix('activity-logs')->name('activity-logs.')->group(function(){
     //    Route::get('/',[ActivityLogController::class,'index'])->name('index');

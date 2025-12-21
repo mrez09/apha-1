@@ -6,22 +6,9 @@ import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-//import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-//import sourceEditing from "@ckeditor/ckeditor5-build-classic";
-//import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import ClassicEditor from "../../../../../../../texteditor/src/ckeditor";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import Markdown from "@ckeditor/ckeditor5-markdown-gfm/src/markdown";
 
 export default function List(props) {
     const [startDate, setStartDate] = useState(new Date());
@@ -272,41 +259,6 @@ export default function List(props) {
 
                             <div className="col-sm-12">
                                 <label className="form-label">Deskripsi</label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                />
-                                <div className="invalid-feedback"></div>*/}
-                                <CKEditor
-                                    className="konten"
-                                    //config={editorConfiguration}
-                                    editor={ClassicEditor}
-                                    name="description"
-                                    data={props.commitee.description}
-                                    //onReady={(editor) => {
-                                    // You can store the "editor" and use when it is needed.
-                                    //    console.log(
-                                    //        "Editor is ready to use!",
-                                    //        editor,
-                                    //    );
-                                    //}}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("description", data);
-
-                                        //console.log({ event, editor, data });
-                                    }}
-                                    //onBlur={(event, editor) => {
-                                    //    console.log("Blur.", editor);
-                                    //}}
-                                    //onFocus={(event, editor) => {
-                                    //    console.log("Focus.", editor);
-                                    //}}
-                                />
                                 <div className="">
                                     <InputError
                                         message={errors.konten}

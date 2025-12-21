@@ -5,7 +5,6 @@ import NavLink from "@/Components/NavLink";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import FlashMessage from "@/Components/FlashMessage";
 import moment from "moment";
 import "moment/locale/id";

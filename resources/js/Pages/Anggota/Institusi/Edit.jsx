@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import Checkbox from "@/Components/Checkbox";
 import { Link, useForm, router } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
@@ -95,7 +94,7 @@ export default function Edit(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -386,32 +385,6 @@ export default function Edit(props) {
                             <div className="col-sm-12">
                                 <label className="form-label">Isi</label>
 
-                                <CKEditor
-                                    className="konten"
-                                    //config={editorConfiguration}
-                                    editor={ClassicEditor}
-                                    name="konten"
-                                    data={props.news.konten}
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor
-                                        );
-                                    }}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("konten", data);
-
-                                        console.log({ event, editor, data });
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
-                                />
                                 <div className="">
                                     <InputError
                                         message={errors.konten}

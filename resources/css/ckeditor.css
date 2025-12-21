@@ -1,0 +1,25 @@
+.ckeditor-word-count {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    margin-top: 8px;
+    padding: 8px 12px;
+
+    font-size: 12px;
+    color: #6c757d;
+
+    border-top: 1px solid #dee2e6;
+    background: #f8f9fa;
+}
+
+.ckeditor-word-count .ck-word-count__words,
+.ckeditor-word-count .ck-word-count__characters {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.ck-word-count__words {
+    padding-right: 5px;
+}

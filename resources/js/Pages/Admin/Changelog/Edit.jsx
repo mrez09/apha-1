@@ -2,9 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import { useForm } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import React, { useState } from "react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { toast } from "react-toastify";
 
 export default function Create({ auth, releaseNote, errors, nextVersion }) {
@@ -106,23 +104,6 @@ export default function Create({ auth, releaseNote, errors, nextVersion }) {
                                     Deskripsi Guide
                                 </label>
 
-                                <CKEditor
-                                    editor={ClassicEditor}
-                                    name="description"
-                                    value={data.description}
-                                    data=""
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor,
-                                        );
-                                    }}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("data.description", data);
-                                    }}
-                                />
                                 <div className="">
                                     <InputError
                                         message={errors.description}

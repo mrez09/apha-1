@@ -5,7 +5,6 @@ import FlashMessage from "@/Components/FlashMessage";
 import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import { Link, useForm, router } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 export default function Profile(props) {
     /*Props Profile ID*/
@@ -18,7 +17,7 @@ export default function Profile(props) {
             event.target.name,
             event.target.type === "file"
                 ? event.target.files[0]
-                : event.target.value
+                : event.target.value,
         );
     };
 
@@ -38,7 +37,7 @@ export default function Profile(props) {
             {
                 _method: "PUT",
                 ...data,
-            }
+            },
         );
     };
 
@@ -366,7 +365,7 @@ export default function Profile(props) {
                                                                     "anggota.dashboard.namecard.show",
                                                                     props
                                                                         .anggota
-                                                                        .slug_kta
+                                                                        .slug_kta,
                                                                 )}
                                                                 target="_blank"
                                                                 rel="noreferrer"
@@ -395,7 +394,7 @@ export default function Profile(props) {
                                                                     "anggota.dashboard.nokta.show",
                                                                     props
                                                                         .anggota
-                                                                        .slug_kta
+                                                                        .slug_kta,
                                                                 )}
                                                                 target="_blank"
                                                                 rel="noreferrer"
@@ -675,47 +674,6 @@ export default function Profile(props) {
                                     onChange={onHandleChange}
                                 />
                                 <div className="invalid-feedback"></div>*/}
-                                            <CKEditor
-                                                className="konten"
-                                                //config={editorConfiguration}
-                                                editor={ClassicEditor}
-                                                name="dec"
-                                                data={props.anggota.dec}
-                                                onReady={(editor) => {
-                                                    // You can store the "editor" and use when it is needed.
-                                                    console.log(
-                                                        "Editor is ready to use!",
-                                                        editor
-                                                    );
-                                                }}
-                                                onChange={(
-                                                    event,
-                                                    editor,
-                                                    e
-                                                ) => {
-                                                    const data =
-                                                        editor.getData();
-                                                    setData("dec", data);
-
-                                                    console.log({
-                                                        event,
-                                                        editor,
-                                                        data,
-                                                    });
-                                                }}
-                                                onBlur={(event, editor) => {
-                                                    console.log(
-                                                        "Blur.",
-                                                        editor
-                                                    );
-                                                }}
-                                                onFocus={(event, editor) => {
-                                                    console.log(
-                                                        "Focus.",
-                                                        editor
-                                                    );
-                                                }}
-                                            />
                                             <div className="">
                                                 <InputError
                                                     message={errors.konten}

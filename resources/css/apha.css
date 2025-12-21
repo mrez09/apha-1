@@ -282,6 +282,11 @@
 /*Front End*/
 /*HOMES*/
 
+.article-content img {
+    max-width: 100%;
+    height: auto;
+}
+
 .btn-apha-login {
     background-color: #f08f4a;
     border-color: #f08f4a;

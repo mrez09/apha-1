@@ -2,9 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import { useForm } from "@inertiajs/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import React, { useState } from "react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -332,38 +330,6 @@ export default function Create(props) {
                                 <label className="form-label">
                                     Deskripsi Guide
                                 </label>
-                                {/*<input
-                                    type="text"
-                                    name="konten"
-                                    placeholder="Masukan Judul"
-                                    className="form-control block text-sm py-3 px-4 rounded-lg w-full border outline-none"
-                                    autoComplete="judul"
-                                    onChange={onHandleChange}
-                                    />*/}
-                                <CKEditor
-                                    editor={ClassicEditor}
-                                    name="description"
-                                    data=""
-                                    onReady={(editor) => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log(
-                                            "Editor is ready to use!",
-                                            editor,
-                                        );
-                                    }}
-                                    onChange={(event, editor, e) => {
-                                        const data = editor.getData();
-                                        setData("description", data);
-
-                                        console.log({ event, editor, data });
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log("Blur.", editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log("Focus.", editor);
-                                    }}
-                                />
                                 <div className="">
                                     <InputError
                                         message={errors.description}

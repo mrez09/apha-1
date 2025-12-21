@@ -10,15 +10,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
-//import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-//import sourceEditing from "@ckeditor/ckeditor5-build-classic";
-//import { SourceEditing } from "@ckeditor/ckeditor5-source-editing";
-//import sourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import ClassicEditor from "../../../../../../../texteditor/src/ckeditor";
-//import Alignment from "@ckeditor/ckeditor5-build-classic";
-//import Markdown from "@ckeditor/ckeditor5-markdown-gfm/src/markdown";
 
 const editorConfiguration = {
     codeBlock: {
